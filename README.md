@@ -33,8 +33,8 @@ Speed.inMetersPerSecond (Speed.milesPerHour 60)
 More importantly, it provides a type-safe way of passing quantities between
 functions. This allows different bodies of code to use whatever units they want,
 without having to worry about unit mismatches. For example, one module might
-implement a function that computes braking distance for a car given its current
-speed and braking deceleration:
+implement a function that computes the braking distance for a car given its
+current speed and braking deceleration:
 
 ```elm
 computeBrakingDistance : Speed -> Acceleration -> Length
