@@ -121,9 +121,9 @@ speed =
         )
 ```
 
-I recommend using SI units (meters, seconds, kilograms etc.) everywhere, but
-everything will still work if you use other units as long as you're consistent.
-For example, the following will work properly:
+I recommend using SI units (meters, seconds, kilograms etc.) wherever possible,
+but everything will still work if you use other units as long as you're
+consistent. For example, the following will work properly:
 
 ```elm
 speed =
