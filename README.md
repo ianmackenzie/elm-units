@@ -113,6 +113,7 @@ duration =
 but you do have to have to be careful not to write nonsense code like
 
 ```elm
+-- BAD!
 speed =
     Speed.metersPerSecond
         (Length.inInches length
