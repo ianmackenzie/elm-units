@@ -3,7 +3,7 @@
 This package provides a simple, lightweight way to represent quantities such as
 length, duration (elapsed time), and speed:
 
-```
+```elm
 height : Length
 height =
     Length.feet 6
@@ -57,7 +57,6 @@ Internally, `computeBrakingDistance` works in SI units (meters, seconds etc.),
 but calling code can work with whatever units it wants:
 
 ```elm
-
 -- Braking distance for a Nissan Maxima, using data from
 -- http://www.batesville.k12.in.us/physics/PhyNet/Mechanics/Kinematics/BrakingDistData.html
 
@@ -103,7 +102,7 @@ speed =
 Note that this will work properly even if `length` and `duration` are defined
 using different units such as
 
-```
+```elm
 length =
     Length.feet 10
 
@@ -113,7 +112,7 @@ duration =
 
 but you do have to have to be careful not to write nonsense code like
 
-```
+```elm
 speed =
     Speed.metersPerSecond
         (Length.inInches length
@@ -125,7 +124,7 @@ I recommend using SI units (meters, seconds, kilograms etc.) everywhere, but
 everything will still work if you use other units as long as you're consistent.
 For example, the following will work properly:
 
-```
+```elm
 speed =
     Speed.milesPerHour
         (Length.inMiles length
