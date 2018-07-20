@@ -88,7 +88,7 @@ or even different packages.
 Short answer: you can't, at least not directly.
 
 To keep things simple, this package has no functions to (for example) construct
-a `Speed` by dividing a `Length` by a `Direction` (or by multiplying an
+a `Speed` by dividing a `Length` by a `Duration` (or by multiplying an
 `Acceleration` by a `Duration`). Instead, you will have to write code like
 
 ```elm
