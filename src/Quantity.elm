@@ -10,10 +10,14 @@ module Quantity
         , TemperatureUnits
         , TimeUnits
         , WorldSpace
+        , accelerationTimesTime
         , convert
+        , distanceOverTime
         , per
         , perDegreeCelsius
         , perDegreeFahrenheit
+        , speedOverTime
+        , speedTimesTime
         )
 
 
@@ -98,3 +102,23 @@ convert conversion (Quantity value) =
                     32 + 1.8 * degreesCelsius
             in
             Quantity (scale * degreesFahrenheit)
+
+
+distanceOverTime : Quantity (LengthUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
+distanceOverTime (Quantity length) (Quantity duration) =
+    Quantity (length / duration)
+
+
+speedTimesTime : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (LengthUnits space)
+speedTimesTime (Quantity speed) (Quantity duration) =
+    Quantity (speed * duration)
+
+
+accelerationTimesTime : Quantity (AccelerationUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
+accelerationTimesTime (Quantity acceleration) (Quantity duration) =
+    Quantity (acceleration * duration)
+
+
+speedOverTime : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (AccelerationUnits space)
+speedOverTime (Quantity speed) (Quantity duration) =
+    Quantity (speed / duration)
