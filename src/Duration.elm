@@ -12,14 +12,16 @@ module Duration
         , seconds
         )
 
+import Quantity exposing (Quantity(..), TimeUnits)
 import Time
 
 
 {-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
 time (which would generally be represented by a `Posix` value).
 -}
-type Duration
-    = Duration Float -- stored as seconds
+type alias Duration =
+    -- Stored as seconds
+    Quantity TimeUnits
 
 
 {-| Find the elapsed time from a start time to an end time. For example,
@@ -44,7 +46,7 @@ from startTime endTime =
 -}
 seconds : Float -> Duration
 seconds numSeconds =
-    Duration numSeconds
+    Quantity numSeconds
 
 
 {-| Convert a `Duration` to a value in seconds.
@@ -54,7 +56,7 @@ seconds numSeconds =
 
 -}
 inSeconds : Duration -> Float
-inSeconds (Duration numSeconds) =
+inSeconds (Quantity numSeconds) =
     numSeconds
 
 

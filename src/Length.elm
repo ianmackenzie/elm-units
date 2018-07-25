@@ -19,86 +19,90 @@ module Length
         , yards
         )
 
-
-type Length
-    = Length Float -- stored as meters
+import Quantity exposing (LengthUnits, Quantity(..), ScreenSpace, WorldSpace)
 
 
-meters : Float -> Length
+type alias Length space =
+    -- Meters for WorldSpace
+    -- Pixels for ScreenSpace
+    Quantity (LengthUnits space)
+
+
+meters : Float -> Length WorldSpace
 meters numMeters =
-    Length numMeters
+    Quantity numMeters
 
 
-inMeters : Length -> Float
-inMeters (Length numMeters) =
+inMeters : Length WorldSpace -> Float
+inMeters (Quantity numMeters) =
     numMeters
 
 
-millimeters : Float -> Length
+millimeters : Float -> Length WorldSpace
 millimeters numMillimeters =
     meters (0.001 * numMillimeters)
 
 
-inMillimeters : Length -> Float
+inMillimeters : Length WorldSpace -> Float
 inMillimeters length =
     1000 * inMeters length
 
 
-inches : Float -> Length
+inches : Float -> Length WorldSpace
 inches numInches =
     meters (0.0254 * numInches)
 
 
-inInches : Length -> Float
+inInches : Length WorldSpace -> Float
 inInches length =
     inMeters length / 0.0254
 
 
-centimeters : Float -> Length
+centimeters : Float -> Length WorldSpace
 centimeters numCentimeters =
     meters (0.01 * numCentimeters)
 
 
-inCentimeters : Length -> Float
+inCentimeters : Length WorldSpace -> Float
 inCentimeters length =
     100 * inMeters length
 
 
-feet : Float -> Length
+feet : Float -> Length WorldSpace
 feet numFeet =
     meters (0.3048 * numFeet)
 
 
-inFeet : Length -> Float
+inFeet : Length WorldSpace -> Float
 inFeet length =
     inMeters length / 0.3048
 
 
-yards : Float -> Length
+yards : Float -> Length WorldSpace
 yards numYards =
     meters (0.9144 * numYards)
 
 
-inYards : Length -> Float
+inYards : Length WorldSpace -> Float
 inYards length =
     inMeters length / 0.9144
 
 
-kilometers : Float -> Length
+kilometers : Float -> Length WorldSpace
 kilometers numKilometers =
     meters (1000 * numKilometers)
 
 
-inKilometers : Length -> Float
+inKilometers : Length WorldSpace -> Float
 inKilometers length =
     0.001 * inMeters length
 
 
-miles : Float -> Length
+miles : Float -> Length WorldSpace
 miles numMiles =
     meters (1609.344 * numMiles)
 
 
-inMiles : Length -> Float
+inMiles : Length WorldSpace -> Float
 inMiles length =
     inMeters length / 1609.344

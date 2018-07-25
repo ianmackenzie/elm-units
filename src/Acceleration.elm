@@ -1,31 +1,36 @@
 module Acceleration
     exposing
-        ( feetPerSecondSquared
+        ( Acceleration
+        , feetPerSecondSquared
         , inFeetPerSecondSquared
         , inMetersPerSecondSquared
         , metersPerSecondSquared
         )
 
-
-type Acceleration
-    = Acceleration Float -- stored as meters per second squared
+import Quantity exposing (AccelerationUnits, Quantity(..), ScreenSpace, WorldSpace)
 
 
-metersPerSecondSquared : Float -> Acceleration
+type alias Acceleration space =
+    -- Meters per second squared for WorldSpace
+    -- Pixels per second squared for ScreenSpace
+    Quantity (AccelerationUnits space)
+
+
+metersPerSecondSquared : Float -> Acceleration WorldSpace
 metersPerSecondSquared numMetersPerSecondSquared =
-    Acceleration numMetersPerSecondSquared
+    Quantity numMetersPerSecondSquared
 
 
-inMetersPerSecondSquared : Acceleration -> Float
-inMetersPerSecondSquared (Acceleration numMetersPerSecondSquared) =
+inMetersPerSecondSquared : Acceleration WorldSpace -> Float
+inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
     numMetersPerSecondSquared
 
 
-feetPerSecondSquared : Float -> Acceleration
+feetPerSecondSquared : Float -> Acceleration WorldSpace
 feetPerSecondSquared numFeetPerSecondSquared =
     metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
 
 
-inFeetPerSecondSquared : Acceleration -> Float
+inFeetPerSecondSquared : Acceleration WorldSpace -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
