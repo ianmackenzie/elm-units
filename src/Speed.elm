@@ -6,9 +6,13 @@ module Speed
         , inKilometersPerHour
         , inMetersPerSecond
         , inMilesPerHour
+        , inPixelsPerMillisecond
+        , inPixelsPerSecond
         , kilometersPerHour
         , metersPerSecond
         , milesPerHour
+        , pixelsPerMillisecond
+        , pixelsPerSecond
         )
 
 import Quantity exposing (Quantity(..), ScreenSpace, SpeedUnits, WorldSpace)
@@ -58,3 +62,23 @@ milesPerHour numMilesPerHour =
 inMilesPerHour : Speed WorldSpace -> Float
 inMilesPerHour speed =
     (3600 / 1609.344) * inMetersPerSecond speed
+
+
+pixelsPerSecond : Float -> Speed ScreenSpace
+pixelsPerSecond numPixelsPerSecond =
+    Quantity numPixelsPerSecond
+
+
+inPixelsPerSecond : Speed ScreenSpace -> Float
+inPixelsPerSecond (Quantity numPixelsPerSecond) =
+    numPixelsPerSecond
+
+
+pixelsPerMillisecond : Float -> Speed ScreenSpace
+pixelsPerMillisecond numPixelsPerMillisecond =
+    pixelsPerSecond (1000 * numPixelsPerMillisecond)
+
+
+inPixelsPerMillisecond : Speed ScreenSpace -> Float
+inPixelsPerMillisecond speed =
+    0.001 * inPixelsPerSecond speed

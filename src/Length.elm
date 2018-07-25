@@ -10,12 +10,14 @@ module Length
         , inMeters
         , inMiles
         , inMillimeters
+        , inPixels
         , inYards
         , inches
         , kilometers
         , meters
         , miles
         , millimeters
+        , pixels
         , yards
         )
 
@@ -106,3 +108,13 @@ miles numMiles =
 inMiles : Length WorldSpace -> Float
 inMiles length =
     inMeters length / 1609.344
+
+
+pixels : Float -> Length ScreenSpace
+pixels numPixels =
+    Quantity numPixels
+
+
+inPixels : Length ScreenSpace -> Float
+inPixels (Quantity numPixels) =
+    numPixels
