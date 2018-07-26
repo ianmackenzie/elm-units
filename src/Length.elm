@@ -30,6 +30,10 @@ type alias Length space =
     Quantity (LengthUnits space)
 
 
+type alias Pixels =
+    Length ScreenSpace
+
+
 meters : Float -> Length WorldSpace
 meters numMeters =
     Quantity numMeters
@@ -110,11 +114,11 @@ inMiles length =
     inMeters length / 1609.344
 
 
-pixels : Float -> Length ScreenSpace
+pixels : Float -> Pixels
 pixels numPixels =
     Quantity numPixels
 
 
-inPixels : Length ScreenSpace -> Float
+inPixels : Pixels -> Float
 inPixels (Quantity numPixels) =
     numPixels
