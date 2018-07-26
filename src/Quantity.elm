@@ -63,13 +63,18 @@ type Quantity units
     = Quantity Float
 
 
+value : Quantity units -> Float
+value (Quantity x) =
+    x
+
+
 
 -- 'Infix' operators
 
 
 negate : Quantity units -> Quantity units
-negate (Quantity value) =
-    Quantity -value
+negate (Quantity x) =
+    Quantity -x
 
 
 plus : Quantity units -> Quantity units -> Quantity units
