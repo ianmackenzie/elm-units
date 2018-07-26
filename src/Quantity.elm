@@ -9,10 +9,10 @@ module Quantity
         , TemperatureUnits
         , TimeUnits
         , WorldSpace
-        , accelerationTimesTime
-        , distanceOverTime
-        , speedOverTime
-        , speedTimesTime
+        , acceleration
+        , distance
+        , speed
+        , speedup
         )
 
 
@@ -52,21 +52,21 @@ type Quantity units
     = Quantity Float
 
 
-distanceOverTime : Quantity (LengthUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
-distanceOverTime (Quantity length) (Quantity duration) =
-    Quantity (length / duration)
+speed : Quantity (LengthUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
+speed (Quantity d) (Quantity t) =
+    Quantity (d / t)
 
 
-speedTimesTime : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (LengthUnits space)
-speedTimesTime (Quantity speed) (Quantity duration) =
-    Quantity (speed * duration)
+distance : Quantity TimeUnits -> Quantity (SpeedUnits space) -> Quantity (LengthUnits space)
+distance (Quantity t) (Quantity v) =
+    Quantity (v * t)
 
 
-accelerationTimesTime : Quantity (AccelerationUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
-accelerationTimesTime (Quantity acceleration) (Quantity duration) =
-    Quantity (acceleration * duration)
+speedup : Quantity TimeUnits -> Quantity (AccelerationUnits space) -> Quantity (SpeedUnits space)
+speedup (Quantity t) (Quantity a) =
+    Quantity (a * t)
 
 
-speedOverTime : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (AccelerationUnits space)
-speedOverTime (Quantity speed) (Quantity duration) =
-    Quantity (speed / duration)
+acceleration : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (AccelerationUnits space)
+acceleration (Quantity v) (Quantity t) =
+    Quantity (v / t)
