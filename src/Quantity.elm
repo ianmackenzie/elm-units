@@ -9,10 +9,21 @@ module Quantity
         , TemperatureUnits
         , TimeUnits
         , WorldSpace
+        , abs
         , acceleration
+        , clamp
         , distance
+        , greaterThan
+        , lessThan
+        , max
+        , min
+        , minus
+        , negate
+        , plus
+        , ratio
         , speed
         , speedup
+        , times
         )
 
 
@@ -50,6 +61,73 @@ type TemperatureUnits
 
 type Quantity units
     = Quantity Float
+
+
+
+-- 'Infix' operators
+
+
+negate : Quantity units -> Quantity units
+negate (Quantity value) =
+    Quantity -value
+
+
+plus : Quantity units -> Quantity units -> Quantity units
+plus (Quantity y) (Quantity x) =
+    Quantity (x + y)
+
+
+minus : Quantity units -> Quantity units -> Quantity units
+minus (Quantity y) (Quantity x) =
+    Quantity (x - y)
+
+
+times : Float -> Quantity units -> Quantity units
+times scale (Quantity x) =
+    Quantity (scale * x)
+
+
+lessThan : Quantity units -> Quantity units -> Bool
+lessThan (Quantity y) (Quantity x) =
+    x < y
+
+
+greaterThan : Quantity units -> Quantity units -> Bool
+greaterThan (Quantity y) (Quantity x) =
+    x > y
+
+
+
+-- Other arithmetic functions
+
+
+max : Quantity units -> Quantity units -> Quantity units
+max (Quantity x) (Quantity y) =
+    Quantity (Basics.max x y)
+
+
+min : Quantity units -> Quantity units -> Quantity units
+min (Quantity x) (Quantity y) =
+    Quantity (Basics.min x y)
+
+
+abs : Quantity units -> Quantity units
+abs (Quantity x) =
+    Quantity (Basics.abs x)
+
+
+clamp : Quantity units -> Quantity units -> Quantity units -> Quantity units
+clamp (Quantity lower) (Quantity upper) (Quantity x) =
+    Quantity (Basics.clamp lower upper x)
+
+
+ratio : Quantity units -> Quantity units -> Float
+ratio (Quantity x) (Quantity y) =
+    x / y
+
+
+
+-- Basic constructors/conversions
 
 
 speed : Quantity (LengthUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
