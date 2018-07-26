@@ -16,13 +16,17 @@ module Quantity
         , greaterThan
         , lessThan
         , max
+        , maximum
         , min
+        , minimum
         , minus
         , negate
         , plus
         , ratio
+        , sort
         , speed
         , speedup
+        , sum
         , times
         )
 
@@ -129,6 +133,40 @@ clamp (Quantity lower) (Quantity upper) (Quantity x) =
 ratio : Quantity units -> Quantity units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
+
+
+
+-- List functions
+
+
+sum : List (Quantity units) -> Quantity units
+sum quantities =
+    List.foldl plus (Quantity 0) quantities
+
+
+minimum : List (Quantity units) -> Maybe (Quantity units)
+minimum quantities =
+    case quantities of
+        [] ->
+            Nothing
+
+        first :: rest ->
+            Just (List.foldl min first rest)
+
+
+maximum : List (Quantity units) -> Maybe (Quantity units)
+maximum quantities =
+    case quantities of
+        [] ->
+            Nothing
+
+        first :: rest ->
+            Just (List.foldl max first rest)
+
+
+sort : List (Quantity units) -> List (Quantity units)
+sort quantities =
+    List.sortBy value quantities
 
 
 
