@@ -12,6 +12,7 @@ module Quantity
         , abs
         , acceleration
         , clamp
+        , compare
         , distance
         , greaterThan
         , lessThan
@@ -108,6 +109,11 @@ greaterThan (Quantity y) (Quantity x) =
 
 
 -- Other arithmetic functions
+
+
+compare : Quantity units -> Quantity units -> Order
+compare (Quantity x) (Quantity y) =
+    Basics.compare x y
 
 
 max : Quantity units -> Quantity units -> Quantity units
