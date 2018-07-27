@@ -46,6 +46,8 @@ module Quantity
         , times
         )
 
+-- Unit types
+
 
 type Squared units
     = Squared Never
@@ -81,6 +83,10 @@ type AccelerationUnits space
 
 type TemperatureUnits
     = TemperatureUnits Never
+
+
+
+-- Quantity types
 
 
 type Quantity units
@@ -160,7 +166,7 @@ greaterThan (Quantity y) (Quantity x) =
 
 
 
--- Other arithmetic functions
+-- Comparison
 
 
 compare : Quantity units -> Quantity units -> Order
@@ -176,6 +182,10 @@ max (Quantity x) (Quantity y) =
 min : Quantity units -> Quantity units -> Quantity units
 min (Quantity x) (Quantity y) =
     Quantity (Basics.min x y)
+
+
+
+-- Arithmetic
 
 
 abs : Quantity units -> Quantity units
