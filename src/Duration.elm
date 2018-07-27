@@ -26,7 +26,7 @@ type alias Duration =
 {-| Find the elapsed time from a start time to an end time. For example,
 assuming that `nineAM` and `fivePM` are two `Time.Posix` values on the same day:
 
-    Duration.from nineAM fivePM == Duration.hours 8
+    Duration.from nineAM fivePM == hours 8
 
 -}
 from : Time.Posix -> Time.Posix -> Duration
@@ -40,7 +40,7 @@ from startTime endTime =
 
 {-| Construct a `Duration` from a given number of seconds.
 
-    Duration.seconds 60 == Duration.minutes 1
+    seconds 60 == minutes 1
 
 -}
 seconds : Float -> Duration
@@ -50,7 +50,7 @@ seconds numSeconds =
 
 {-| Convert a `Duration` to a value in seconds.
 
-    Duration.inSeconds (Duration.milliseconds 10)
+    milliseconds 10 |> inSeconds
     --> 0.01
 
 -}
@@ -61,7 +61,7 @@ inSeconds (Quantity numSeconds) =
 
 {-| Construct a `Duration` from a given number of milliseconds.
 
-    Duration.milliseconds 5000 == Duration.seconds 5
+    milliseconds 5000 == seconds 5
 
 -}
 milliseconds : Float -> Duration
@@ -71,7 +71,7 @@ milliseconds numMilliseconds =
 
 {-| Convert a `Duration` to a value in milliseconds.
 
-    Duration.inMilliseconds (Duration.seconds 0.5)
+    seconds 0.5 |> inMilliseconds
     --> 500
 
 -}
@@ -82,7 +82,7 @@ inMilliseconds duration =
 
 {-| Construct a `Duration` from a given number of minutes.
 
-    Duration.minutes 3 == Duration.seconds 180
+    minutes 3 == seconds 180
 
 -}
 minutes : Float -> Duration
@@ -92,7 +92,7 @@ minutes numMinutes =
 
 {-| Convert a `Duration` to a value in minutes.
 
-    Duration.inMinutes (Duration.seconds 90)
+    seconds 90 |> inMinutes
     --> 1.5
 
 -}
@@ -103,7 +103,7 @@ inMinutes duration =
 
 {-| Construct a `Duration` from a given number of hours.
 
-    Duration.hours 1 == Duration.seconds 3600
+    hours 1 == seconds 3600
 
 -}
 hours : Float -> Duration
@@ -113,7 +113,7 @@ hours numHours =
 
 {-| Convert a `Duration` to a value in hours.
 
-    Duration.inHours (Duration.minutes 120)
+    minutes 120 |> inHours
     --> 2
 
 -}
