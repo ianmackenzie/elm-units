@@ -1,22 +1,28 @@
 module Length
     exposing
         ( Length
+        , astronomicalUnits
         , centimeters
         , feet
+        , inAstronomicalUnits
         , inCentimeters
         , inFeet
         , inInches
         , inKilometers
+        , inLightYears
         , inMeters
         , inMiles
         , inMillimeters
+        , inParsecs
         , inPixels
         , inYards
         , inches
         , kilometers
+        , lightYears
         , meters
         , miles
         , millimeters
+        , parsecs
         , pixels
         , yards
         )
@@ -110,6 +116,36 @@ miles numMiles =
 inMiles : Length WorldSpace -> Float
 inMiles length =
     inMeters length / 1609.344
+
+
+astronomicalUnits : Float -> Length WorldSpace
+astronomicalUnits numAstronomicalUnits =
+    meters (149597870700 * numAstronomicalUnits)
+
+
+inAstronomicalUnits : Length WorldSpace -> Float
+inAstronomicalUnits length =
+    inMeters length / 149597870700
+
+
+parsecs : Float -> Length WorldSpace
+parsecs numParsecs =
+    astronomicalUnits (numParsecs * 648000 / pi)
+
+
+inParsecs : Length WorldSpace -> Float
+inParsecs length =
+    inAstronomicalUnits length * pi / 648000
+
+
+lightYears : Float -> Length WorldSpace
+lightYears numLightYears =
+    meters (9460730472580800 * numLightYears)
+
+
+inLightYears : Length WorldSpace -> Float
+inLightYears length =
+    inMeters length / 9460730472580800
 
 
 pixels : Float -> Pixels
