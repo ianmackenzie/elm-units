@@ -33,9 +33,15 @@ module Quantity
         , sort
         , speed
         , speedup
+        , sqrt
+        , squared
         , sum
         , times
         )
+
+
+type Squared units
+    = Squared Never
 
 
 type TimeUnits
@@ -173,6 +179,16 @@ abs (Quantity x) =
 clamp : Quantity units -> Quantity units -> Quantity units -> Quantity units
 clamp (Quantity lower) (Quantity upper) (Quantity x) =
     Quantity (Basics.clamp lower upper x)
+
+
+squared : Quantity units -> Quantity (Squared units)
+squared (Quantity x) =
+    Quantity (x * x)
+
+
+sqrt : Quantity (Squared units) -> Quantity units
+sqrt (Quantity x) =
+    Quantity (Basics.sqrt x)
 
 
 ratio : Quantity units -> Quantity units -> Float
