@@ -33,35 +33,35 @@ module Quantity
 
 
 type TimeUnits
-    = TimeUnits
+    = TimeUnits Never
 
 
 type AngleUnits
-    = AngleUnits
+    = AngleUnits Never
 
 
 type WorldSpace
-    = WorldSpace
+    = WorldSpace Never
 
 
 type ScreenSpace
-    = ScreenSpace
+    = ScreenSpace Never
 
 
 type LengthUnits space
-    = LengthUnits
+    = LengthUnits Never
 
 
 type SpeedUnits space
-    = SpeedUnits
+    = SpeedUnits Never
 
 
 type AccelerationUnits space
-    = AccelerationUnits
+    = AccelerationUnits Never
 
 
 type TemperatureUnits
-    = TemperatureUnits
+    = TemperatureUnits Never
 
 
 type Quantity units
