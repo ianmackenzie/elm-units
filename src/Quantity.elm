@@ -4,6 +4,8 @@ module Quantity
         , AccelerationUnits
         , Angle
         , AngleUnits
+        , Area
+        , AreaUnits
         , Duration
         , Length
         , LengthUnits
@@ -81,6 +83,10 @@ type AccelerationUnits space
     = AccelerationUnits Never
 
 
+type alias AreaUnits space =
+    Squared (LengthUnits space)
+
+
 type TemperatureUnits
     = TemperatureUnits Never
 
@@ -119,6 +125,12 @@ type alias Acceleration space =
     -- Meters per second squared for WorldSpace
     -- Pixels per second squared for ScreenSpace
     Quantity (AccelerationUnits space)
+
+
+type alias Area space =
+    -- Square meters for WorldSpace
+    -- Square pixels for ScreenSpace
+    Quantity (AreaUnits space)
 
 
 type alias Temperature =
