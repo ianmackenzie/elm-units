@@ -17,8 +17,13 @@ module Quantity
         , WorldSpace
         , abs
         , acceleration
+        , acos
+        , asin
+        , atan
+        , atan2
         , clamp
         , compare
+        , cos
         , distance
         , greaterThan
         , lessThan
@@ -30,12 +35,14 @@ module Quantity
         , negate
         , plus
         , ratio
+        , sin
         , sort
         , speed
         , speedup
         , sqrt
         , squared
         , sum
+        , tan
         , times
         )
 
@@ -194,6 +201,45 @@ sqrt (Quantity x) =
 ratio : Quantity units -> Quantity units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
+
+
+
+-- Trigonometry
+
+
+sin : Angle -> Float
+sin (Quantity angle) =
+    Basics.sin angle
+
+
+cos : Angle -> Float
+cos (Quantity angle) =
+    Basics.cos angle
+
+
+tan : Angle -> Float
+tan (Quantity angle) =
+    Basics.tan angle
+
+
+asin : Float -> Angle
+asin x =
+    Quantity (Basics.asin x)
+
+
+acos : Float -> Angle
+acos x =
+    Quantity (Basics.acos x)
+
+
+atan : Float -> Angle
+atan x =
+    Quantity (Basics.atan x)
+
+
+atan2 : Quantity units -> Quantity units -> Angle
+atan2 (Quantity y) (Quantity x) =
+    Quantity (Basics.atan2 y x)
 
 
 
