@@ -37,6 +37,7 @@ module Quantity
         , negate
         , plus
         , ratio
+        , scaleBy
         , sin
         , sort
         , speed
@@ -162,8 +163,13 @@ minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
-times : Float -> Quantity units -> Quantity units
-times scale (Quantity x) =
+times : Quantity units -> Quantity units -> Quantity (Squared units)
+times (Quantity y) (Quantity x) =
+    Quantity (x * y)
+
+
+scaleBy : Float -> Quantity units -> Quantity units
+scaleBy scale (Quantity x) =
     Quantity (scale * x)
 
 
