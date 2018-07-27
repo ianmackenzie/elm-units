@@ -7,13 +7,11 @@ module Acceleration
         , metersPerSecondSquared
         )
 
-import Quantity exposing (AccelerationUnits, Quantity(..), ScreenSpace, WorldSpace)
+import Quantity exposing (Quantity(..), ScreenSpace, WorldSpace)
 
 
 type alias Acceleration space =
-    -- Meters per second squared for WorldSpace
-    -- Pixels per second squared for ScreenSpace
-    Quantity (AccelerationUnits space)
+    Quantity.Acceleration space
 
 
 metersPerSecondSquared : Float -> Acceleration WorldSpace

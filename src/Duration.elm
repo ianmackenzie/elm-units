@@ -12,7 +12,7 @@ module Duration
         , seconds
         )
 
-import Quantity exposing (Quantity(..), TimeUnits)
+import Quantity exposing (Quantity(..))
 import Time
 
 
@@ -20,8 +20,7 @@ import Time
 time (which would generally be represented by a `Posix` value).
 -}
 type alias Duration =
-    -- Stored as seconds
-    Quantity TimeUnits
+    Quantity.Duration
 
 
 {-| Find the elapsed time from a start time to an end time. For example,

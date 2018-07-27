@@ -10,12 +10,11 @@ module Angle
         )
 
 import Basics exposing ((*), (/), pi)
-import Quantity exposing (AngleUnits, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 type alias Angle =
-    -- Stored as radians
-    Quantity AngleUnits
+    Quantity.Angle
 
 
 radians : Float -> Angle

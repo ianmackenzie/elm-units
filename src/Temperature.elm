@@ -9,12 +9,11 @@ module Temperature
         , kelvins
         )
 
-import Quantity exposing (Quantity(..), TemperatureUnits)
+import Quantity exposing (Quantity(..))
 
 
 type alias Temperature =
-    -- Stored as kelvins
-    Quantity TemperatureUnits
+    Quantity.Temperature
 
 
 kelvins : Float -> Temperature

@@ -15,13 +15,11 @@ module Speed
         , pixelsPerSecond
         )
 
-import Quantity exposing (Quantity(..), ScreenSpace, SpeedUnits, WorldSpace)
+import Quantity exposing (Quantity(..), ScreenSpace, WorldSpace)
 
 
 type alias Speed space =
-    -- Meters per second for WorldSpace
-    -- Pixels per second for ScreenSpace
-    Quantity (SpeedUnits space)
+    Quantity.Speed space
 
 
 metersPerSecond : Float -> Speed WorldSpace

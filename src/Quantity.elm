@@ -1,11 +1,17 @@
 module Quantity
     exposing
-        ( AccelerationUnits
+        ( Acceleration
+        , AccelerationUnits
+        , Angle
         , AngleUnits
+        , Duration
+        , Length
         , LengthUnits
         , Quantity(..)
         , ScreenSpace
+        , Speed
         , SpeedUnits
+        , Temperature
         , TemperatureUnits
         , TimeUnits
         , WorldSpace
@@ -66,6 +72,39 @@ type TemperatureUnits
 
 type Quantity units
     = Quantity Float
+
+
+type alias Duration =
+    -- Seconds
+    Quantity TimeUnits
+
+
+type alias Angle =
+    -- Radians
+    Quantity AngleUnits
+
+
+type alias Length space =
+    -- Meters for WorldSpace
+    -- Pixels for ScreenSpace
+    Quantity (LengthUnits space)
+
+
+type alias Speed space =
+    -- Meters per second for WorldSpace
+    -- Pixels per second for ScreenSpace
+    Quantity (SpeedUnits space)
+
+
+type alias Acceleration space =
+    -- Meters per second squared for WorldSpace
+    -- Pixels per second squared for ScreenSpace
+    Quantity (AccelerationUnits space)
+
+
+type alias Temperature =
+    -- Kelvins
+    Quantity TemperatureUnits
 
 
 value : Quantity units -> Float
@@ -179,21 +218,21 @@ sort quantities =
 -- Basic constructors/conversions
 
 
-speed : Quantity (LengthUnits space) -> Quantity TimeUnits -> Quantity (SpeedUnits space)
+speed : Length space -> Duration -> Speed space
 speed (Quantity d) (Quantity t) =
     Quantity (d / t)
 
 
-distance : Quantity TimeUnits -> Quantity (SpeedUnits space) -> Quantity (LengthUnits space)
+distance : Duration -> Speed space -> Length space
 distance (Quantity t) (Quantity v) =
     Quantity (v * t)
 
 
-speedup : Quantity TimeUnits -> Quantity (AccelerationUnits space) -> Quantity (SpeedUnits space)
+speedup : Duration -> Acceleration space -> Speed space
 speedup (Quantity t) (Quantity a) =
     Quantity (a * t)
 
 
-acceleration : Quantity (SpeedUnits space) -> Quantity TimeUnits -> Quantity (AccelerationUnits space)
+acceleration : Speed space -> Duration -> Acceleration space
 acceleration (Quantity v) (Quantity t) =
     Quantity (v / t)

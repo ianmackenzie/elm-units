@@ -21,13 +21,11 @@ module Length
         , yards
         )
 
-import Quantity exposing (LengthUnits, Quantity(..), ScreenSpace, WorldSpace)
+import Quantity exposing (Quantity(..), ScreenSpace, WorldSpace)
 
 
 type alias Length space =
-    -- Meters for WorldSpace
-    -- Pixels for ScreenSpace
-    Quantity (LengthUnits space)
+    Quantity.Length space
 
 
 type alias Pixels =
