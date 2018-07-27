@@ -1,15 +1,21 @@
 module Duration
     exposing
         ( Duration
+        , days
         , from
         , hours
+        , inDays
         , inHours
         , inMilliseconds
         , inMinutes
         , inSeconds
+        , inWeeks
+        , inYears
         , milliseconds
         , minutes
         , seconds
+        , weeks
+        , years
         )
 
 import Quantity exposing (Quantity(..))
@@ -120,3 +126,75 @@ hours numHours =
 inHours : Duration -> Float
 inHours duration =
     inSeconds duration / 3600
+
+
+{-| Construct a `Duration` from a given number of days. A day is defined as
+exactly 24 hours or 86400 seconds. Therefore, it is only equal to the length of
+a given calendar day if that calendar day does not include either a leap second
+or any added/removed daylight savings hours.
+
+    days 1 == hours 24
+
+-}
+days : Float -> Duration
+days numDays =
+    seconds (86400 * numDays)
+
+
+{-| Convert a `Duration` to a value in days.
+
+    hours 72 |> inDays
+    --> 3
+
+-}
+inDays : Duration -> Float
+inDays duration =
+    inSeconds duration / 86400
+
+
+{-| Construct a `Duration` from a given number of weeks.
+
+    weeks 1 == days 7
+
+-}
+weeks : Float -> Duration
+weeks numWeeks =
+    seconds (604800 * numWeeks)
+
+
+{-| Convert a `Duration` to a value in weeks.
+
+    days 28 |> inWeeks
+    --> 4
+
+-}
+inWeeks : Duration -> Float
+inWeeks duration =
+    inSeconds duration / 604800
+
+
+{-| Construct a `Duration` from a given number of [Julian years](https://en.wikipedia.org/wiki/Julian_year_(astronomy)).
+A Julian year is defined as exactly 365.25 days, the average length of a year in
+the historical Julian calendar. This is 10 minutes and 48 seconds longer than
+a Gregorian year (365.2425 days), which is the average length of a year in the
+modern Gregorian calendar, but the Julian year is a bit easier to remember and
+reason about and has the virtue of being the 'year' value used in the definition
+of a light year.
+
+    years 1 == days 365.25
+
+-}
+years : Float -> Duration
+years numYears =
+    seconds (31557600 * numYears)
+
+
+{-| Convert a `Duration` to a value in Julian years.
+
+    hours 10000 |> inYears
+    --> 1.1407711613050422
+
+-}
+inYears : Duration -> Float
+inYears duration =
+    inSeconds duration / 31557600
