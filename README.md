@@ -108,7 +108,7 @@ seconds 10 |> Qty.at (kilometersPerHour 100) |> inMeters
 kilometers 20 |> Qty.at_ (milesPerHour 60) |> inMinutes
 --> 12.427423844746679
 
-How fast is "a mile a minute", in kilometers per hour?
+-- How fast is "a mile a minute", in kilometers per hour?
 miles 1 |> perMinute |> inKilometersPerHour
 --> 96.56064
 
