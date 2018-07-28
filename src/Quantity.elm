@@ -18,7 +18,7 @@ module Quantity
         , TimeUnits
         , WorldSpace
         , abs
-        , accelerationTimesTime
+        , acceleration
         , acos
         , asin
         , atan
@@ -26,8 +26,7 @@ module Quantity
         , clamp
         , compare
         , cos
-        , distanceOverSpeed
-        , distanceOverTime
+        , distance
         , greaterThan
         , lessThan
         , max
@@ -41,9 +40,8 @@ module Quantity
         , scaleBy
         , sin
         , sort
-        , speedOverAcceleration
-        , speedOverTime
-        , speedTimesTime
+        , speed
+        , speedup
         , sqrt
         , squared
         , sum
@@ -310,31 +308,21 @@ sort quantities =
 -- Basic constructors/conversions
 
 
-distanceOverTime : Length space -> Duration -> Speed space
-distanceOverTime (Quantity d) (Quantity t) =
+speed : Length space -> Duration -> Speed space
+speed (Quantity d) (Quantity t) =
     Quantity (d / t)
 
 
-speedTimesTime : Speed space -> Duration -> Length space
-speedTimesTime (Quantity v) (Quantity t) =
+distance : Duration -> Speed space -> Length space
+distance (Quantity t) (Quantity v) =
     Quantity (v * t)
 
 
-distanceOverSpeed : Length space -> Speed space -> Duration
-distanceOverSpeed (Quantity d) (Quantity v) =
-    Quantity (d / v)
-
-
-accelerationTimesTime : Acceleration space -> Duration -> Speed space
-accelerationTimesTime (Quantity a) (Quantity t) =
+speedup : Duration -> Acceleration space -> Speed space
+speedup (Quantity t) (Quantity a) =
     Quantity (a * t)
 
 
-speedOverTime : Speed space -> Duration -> Acceleration space
-speedOverTime (Quantity v) (Quantity t) =
+acceleration : Speed space -> Duration -> Acceleration space
+acceleration (Quantity v) (Quantity t) =
     Quantity (v / t)
-
-
-speedOverAcceleration : Speed space -> Acceleration space -> Duration
-speedOverAcceleration (Quantity v) (Quantity a) =
-    Quantity (v / a)
