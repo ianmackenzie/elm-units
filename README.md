@@ -116,6 +116,9 @@ miles 1 |> perMinute |> inKilometersPerHour
 speedOfLight =
     lightYears 1 |> perYear
 
+speedOfLight |> inMetersPerSecond
+--> 299792458
+
 -- One astronomical unit is the (average) distance from the Sun to the Earth
 -- How long does it take light to reach the Earth from the Sun?
 astronomicalUnits 1 |> Qty.at_ speedOfLight |> inMinutes
