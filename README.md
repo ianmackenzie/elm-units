@@ -97,7 +97,7 @@ Qty.sum [ radians pi, degrees 45 ] |> inTurns
 --> 0.625
 
 -- Area of a triangle with base of 2 feet and height of 8 inches
-Qty.product (feet 2) (inches 8) |> Qty.scaleBy 0.5 |> inSquareInches
+Qty.scaleBy 0.5 (Qty.product (feet 2) (inches 8)) |> inSquareInches
 --> 96
 
 -- How long do we travel in 10 seconds at 100 km/h?
