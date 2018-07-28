@@ -14,7 +14,6 @@ module Length
         , inMiles
         , inMillimeters
         , inParsecs
-        , inPixels
         , inYards
         , inches
         , kilometers
@@ -23,136 +22,187 @@ module Length
         , miles
         , millimeters
         , parsecs
-        , pixels
+        , perAstronomicalUnit
+        , perCentimeter
+        , perFoot
+        , perInch
+        , perKilometer
+        , perLightYear
+        , perMeter
+        , perMile
+        , perMillimeter
+        , perParsec
+        , perYard
         , yards
         )
 
-import Quantity exposing (Quantity(..), ScreenSpace, WorldSpace)
+import Quantity exposing (Meters, Quantity(..), Rate)
 
 
-type alias Length space =
-    Quantity.Length space
+type alias Length =
+    Quantity.Length
 
 
-type alias Pixels =
-    Length ScreenSpace
-
-
-meters : Float -> Length WorldSpace
+meters : Float -> Length
 meters numMeters =
     Quantity numMeters
 
 
-inMeters : Length WorldSpace -> Float
+inMeters : Length -> Float
 inMeters (Quantity numMeters) =
     numMeters
 
 
-millimeters : Float -> Length WorldSpace
+millimeters : Float -> Length
 millimeters numMillimeters =
     meters (0.001 * numMillimeters)
 
 
-inMillimeters : Length WorldSpace -> Float
+inMillimeters : Length -> Float
 inMillimeters length =
     1000 * inMeters length
 
 
-inches : Float -> Length WorldSpace
+inches : Float -> Length
 inches numInches =
     meters (0.0254 * numInches)
 
 
-inInches : Length WorldSpace -> Float
+inInches : Length -> Float
 inInches length =
     inMeters length / 0.0254
 
 
-centimeters : Float -> Length WorldSpace
+centimeters : Float -> Length
 centimeters numCentimeters =
     meters (0.01 * numCentimeters)
 
 
-inCentimeters : Length WorldSpace -> Float
+inCentimeters : Length -> Float
 inCentimeters length =
     100 * inMeters length
 
 
-feet : Float -> Length WorldSpace
+feet : Float -> Length
 feet numFeet =
     meters (0.3048 * numFeet)
 
 
-inFeet : Length WorldSpace -> Float
+inFeet : Length -> Float
 inFeet length =
     inMeters length / 0.3048
 
 
-yards : Float -> Length WorldSpace
+yards : Float -> Length
 yards numYards =
     meters (0.9144 * numYards)
 
 
-inYards : Length WorldSpace -> Float
+inYards : Length -> Float
 inYards length =
     inMeters length / 0.9144
 
 
-kilometers : Float -> Length WorldSpace
+kilometers : Float -> Length
 kilometers numKilometers =
     meters (1000 * numKilometers)
 
 
-inKilometers : Length WorldSpace -> Float
+inKilometers : Length -> Float
 inKilometers length =
     0.001 * inMeters length
 
 
-miles : Float -> Length WorldSpace
+miles : Float -> Length
 miles numMiles =
     meters (1609.344 * numMiles)
 
 
-inMiles : Length WorldSpace -> Float
+inMiles : Length -> Float
 inMiles length =
     inMeters length / 1609.344
 
 
-astronomicalUnits : Float -> Length WorldSpace
+astronomicalUnits : Float -> Length
 astronomicalUnits numAstronomicalUnits =
     meters (149597870700 * numAstronomicalUnits)
 
 
-inAstronomicalUnits : Length WorldSpace -> Float
+inAstronomicalUnits : Length -> Float
 inAstronomicalUnits length =
     inMeters length / 149597870700
 
 
-parsecs : Float -> Length WorldSpace
+parsecs : Float -> Length
 parsecs numParsecs =
     astronomicalUnits (numParsecs * 648000 / pi)
 
 
-inParsecs : Length WorldSpace -> Float
+inParsecs : Length -> Float
 inParsecs length =
     inAstronomicalUnits length * pi / 648000
 
 
-lightYears : Float -> Length WorldSpace
+lightYears : Float -> Length
 lightYears numLightYears =
     meters (9460730472580800 * numLightYears)
 
 
-inLightYears : Length WorldSpace -> Float
+inLightYears : Length -> Float
 inLightYears length =
     inMeters length / 9460730472580800
 
 
-pixels : Float -> Pixels
-pixels numPixels =
-    Quantity numPixels
+perMillimeter : Quantity units -> Quantity (Rate units Meters)
+perMillimeter quantity =
+    Quantity.per (millimeters 1) quantity
 
 
-inPixels : Pixels -> Float
-inPixels (Quantity numPixels) =
-    numPixels
+perCentimeter : Quantity units -> Quantity (Rate units Meters)
+perCentimeter quantity =
+    Quantity.per (centimeters 1) quantity
+
+
+perMeter : Quantity units -> Quantity (Rate units Meters)
+perMeter quantity =
+    Quantity.per (meters 1) quantity
+
+
+perKilometer : Quantity units -> Quantity (Rate units Meters)
+perKilometer quantity =
+    Quantity.per (kilometers 1) quantity
+
+
+perInch : Quantity units -> Quantity (Rate units Meters)
+perInch quantity =
+    Quantity.per (inches 1) quantity
+
+
+perFoot : Quantity units -> Quantity (Rate units Meters)
+perFoot quantity =
+    Quantity.per (feet 1) quantity
+
+
+perYard : Quantity units -> Quantity (Rate units Meters)
+perYard quantity =
+    Quantity.per (yards 1) quantity
+
+
+perMile : Quantity units -> Quantity (Rate units Meters)
+perMile quantity =
+    Quantity.per (miles 1) quantity
+
+
+perAstronomicalUnit : Quantity units -> Quantity (Rate units Meters)
+perAstronomicalUnit quantity =
+    Quantity.per (astronomicalUnits 1) quantity
+
+
+perParsec : Quantity units -> Quantity (Rate units Meters)
+perParsec quantity =
+    Quantity.per (parsecs 1) quantity
+
+
+perLightYear : Quantity units -> Quantity (Rate units Meters)
+perLightYear quantity =
+    Quantity.per (lightYears 1) quantity

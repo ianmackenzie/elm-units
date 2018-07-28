@@ -7,28 +7,28 @@ module Acceleration
         , metersPerSecondSquared
         )
 
-import Quantity exposing (Quantity(..), ScreenSpace, WorldSpace)
+import Quantity exposing (Quantity(..))
 
 
-type alias Acceleration space =
-    Quantity.Acceleration space
+type alias Acceleration =
+    Quantity.Acceleration
 
 
-metersPerSecondSquared : Float -> Acceleration WorldSpace
+metersPerSecondSquared : Float -> Acceleration
 metersPerSecondSquared numMetersPerSecondSquared =
     Quantity numMetersPerSecondSquared
 
 
-inMetersPerSecondSquared : Acceleration WorldSpace -> Float
+inMetersPerSecondSquared : Acceleration -> Float
 inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
     numMetersPerSecondSquared
 
 
-feetPerSecondSquared : Float -> Acceleration WorldSpace
+feetPerSecondSquared : Float -> Acceleration
 feetPerSecondSquared numFeetPerSecondSquared =
     metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
 
 
-inFeetPerSecondSquared : Acceleration WorldSpace -> Float
+inFeetPerSecondSquared : Acceleration -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048

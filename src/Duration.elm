@@ -13,12 +13,19 @@ module Duration
         , inYears
         , milliseconds
         , minutes
+        , perDay
+        , perHour
+        , perMillisecond
+        , perMinute
+        , perSecond
+        , perWeek
+        , perYear
         , seconds
         , weeks
         , years
         )
 
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Rate, Seconds)
 import Time
 
 
@@ -198,3 +205,38 @@ years numYears =
 inYears : Duration -> Float
 inYears duration =
     inSeconds duration / 31557600
+
+
+perMillisecond : Quantity units -> Quantity (Rate units Seconds)
+perMillisecond quantity =
+    Quantity.per (milliseconds 1) quantity
+
+
+perSecond : Quantity units -> Quantity (Rate units Seconds)
+perSecond quantity =
+    Quantity.per (seconds 1) quantity
+
+
+perMinute : Quantity units -> Quantity (Rate units Seconds)
+perMinute quantity =
+    Quantity.per (minutes 1) quantity
+
+
+perHour : Quantity units -> Quantity (Rate units Seconds)
+perHour quantity =
+    Quantity.per (hours 1) quantity
+
+
+perDay : Quantity units -> Quantity (Rate units Seconds)
+perDay quantity =
+    Quantity.per (days 1) quantity
+
+
+perWeek : Quantity units -> Quantity (Rate units Seconds)
+perWeek quantity =
+    Quantity.per (weeks 1) quantity
+
+
+perYear : Quantity units -> Quantity (Rate units Seconds)
+perYear quantity =
+    Quantity.per (years 1) quantity
