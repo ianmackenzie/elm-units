@@ -35,6 +35,7 @@ module Quantity
         , negate
         , per
         , plus
+        , product
         , ratio
         , scaleBy
         , sin
@@ -43,7 +44,6 @@ module Quantity
         , squared
         , sum
         , tan
-        , times
         )
 
 -- Unit types
@@ -137,11 +137,6 @@ minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
-times : Quantity units -> Quantity units -> Quantity (Squared units)
-times (Quantity y) (Quantity x) =
-    Quantity (x * y)
-
-
 scaleBy : Float -> Quantity units -> Quantity units
 scaleBy scale (Quantity x) =
     Quantity (scale * x)
@@ -198,6 +193,11 @@ squared (Quantity x) =
 sqrt : Quantity (Squared units) -> Quantity units
 sqrt (Quantity x) =
     Quantity (Basics.sqrt x)
+
+
+product : Quantity units -> Quantity units -> Quantity (Squared units)
+product (Quantity x) (Quantity y) =
+    Quantity (x * y)
 
 
 ratio : Quantity units -> Quantity units -> Float
