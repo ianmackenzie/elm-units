@@ -17,7 +17,8 @@ module Quantity
         , abs
         , acos
         , asin
-        , atRateOf
+        , at
+        , at_
         , atan
         , atan2
         , clamp
@@ -72,7 +73,7 @@ type Squared units
     = Squared Never
 
 
-type Rate units perUnits
+type Rate dependent independent
     = Rate Never
 
 
@@ -281,16 +282,21 @@ sort quantities =
 -- Working with time
 
 
-per : Quantity perUnits -> Quantity units -> Quantity (Rate units perUnits)
-per (Quantity perValue) (Quantity delta) =
-    Quantity (delta / perValue)
+per : Quantity independent -> Quantity dependent -> Quantity (Rate dependent independent)
+per (Quantity independentValue) (Quantity dependentValue) =
+    Quantity (dependentValue / independentValue)
 
 
-for : Quantity perUnits -> Quantity (Rate units perUnits) -> Quantity units
-for (Quantity forValue) (Quantity rate) =
-    Quantity (rate * forValue)
+for : Quantity independent -> Quantity (Rate dependent independent) -> Quantity dependent
+for (Quantity independentValue) (Quantity rate) =
+    Quantity (rate * independentValue)
 
 
-atRateOf : Quantity (Rate units perUnits) -> Quantity units -> Quantity perUnits
-atRateOf (Quantity rate) (Quantity delta) =
-    Quantity (delta / rate)
+at : Quantity (Rate dependent independent) -> Quantity independent -> Quantity dependent
+at (Quantity rate) (Quantity independentValue) =
+    Quantity (rate * independentValue)
+
+
+at_ : Quantity (Rate dependent independent) -> Quantity dependent -> Quantity independent
+at_ (Quantity rate) (Quantity dependentValue) =
+    Quantity (dependentValue / rate)
