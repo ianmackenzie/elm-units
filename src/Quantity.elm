@@ -279,7 +279,7 @@ sort quantities =
 
 
 
--- Working with time
+-- Working with rates
 
 
 per : Quantity independent -> Quantity dependent -> Quantity (Rate dependent independent)
