@@ -137,11 +137,6 @@ minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
-scaleBy : Float -> Quantity units -> Quantity units
-scaleBy scale (Quantity x) =
-    Quantity (scale * x)
-
-
 lessThan : Quantity units -> Quantity units -> Bool
 lessThan (Quantity y) (Quantity x) =
     x < y
@@ -173,6 +168,11 @@ min (Quantity x) (Quantity y) =
 
 
 -- Arithmetic
+
+
+scaleBy : Float -> Quantity units -> Quantity units
+scaleBy scale (Quantity x) =
+    Quantity (scale * x)
 
 
 abs : Quantity units -> Quantity units
