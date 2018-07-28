@@ -1,12 +1,12 @@
 # elm-units
 
-This package provides a convenient, flexible, bulletproof and zero-overhead way
-to pass around and work with quantities like "five pixels", "three minutes",
-"ten meters" or "60 miles per hour". At its simplest, you can use the provided
-types to make your own code more type-safe. For example, if you've ever
-accidentally taken the value returned from an animation frame subscription and
-treated it as seconds instead of milliseconds (I certainly have!), then you
-could wrap the subscription to return `Duration` values instead of raw `Float`s:
+This package provides a convenient, flexible, safe and zero-overhead way to pass
+around and work with quantities like "five pixels", "three minutes", "ten
+meters" or "60 miles per hour". At its simplest, you can use the provided types
+to make your own code more type-safe. For example, if you've ever accidentally
+taken the value returned from an animation frame subscription and treated it as
+seconds instead of milliseconds (I certainly have!), then you could wrap the
+subscription to return `Duration` values instead of raw `Float`s:
 
 ```elm
 import Browser.Events
