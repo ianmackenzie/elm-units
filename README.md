@@ -1,134 +1,105 @@
 # elm-units
 
-This package provides a simple, lightweight way to represent quantities such as
-length, duration (elapsed time), and speed:
+This package provides a convenient, flexible, bulletproof and zero-overhead way
+to pass around and work with quantities like "five pixels", "three minutes",
+"ten meters" or "60 miles per hour". At its simplest, you can use the provided
+types to make your own code more type-safe. For example, if you've ever
+accidentally taken the value returned from an animation frame subscription and
+treated it as seconds instead of milliseconds (I certainly have!), then you
+could wrap the subscription to return `Duration` values instead of raw `Float`s:
 
 ```elm
-height : Length
-height =
-    Length.feet 6
+import Browser.Events
+import Duration exposing (Duration, milliseconds, inSeconds)
 
-movieLength : Duration
-movieLength =
-    Duration.minutes 120
+type Msg
+    = Tick Duration
 
-speedLimit : Speed
-speedLimit =
-    Speed.kilometersPerHour 100
+subscriptions model =
+    -- Convert the Float value to a Duration using the
+    -- 'milliseconds' function, then store in a Tick message
+    Browser.Events.onAnimationFrameDelta (milliseconds >> Tick)
 ```
 
-It provides a convenient way to convert values between different units:
+Later on when you handle the `Tick` message, you can extract the duration value
+in whatever units you want, with any necessary conversion being done for you
+automatically. Perhaps you want to keep track of how many frames per second your
+application is running at:
 
 ```elm
-Length.inMeters (Length.feet 1)
---> 0.3048
+update message model =
+    case message of
+        Tick duration ->
+            -- Extract the duration as a number of seconds
+            ( { model | fps = 1 / inSeconds duration }
+            , Cmd.none
+            )
+```
 
-Duration.inSeconds (Duration.hours 3)
+You can also use the provided functions for convenient unit conversions:
+
+```elm
+import Length exposing (feet, inMeters)
+import Duration exposing (hours, inSeconds)
+import Speed exposing (milesPerHour, inMetersPerSecond)
+
+feet 10 |> inMeters
+--> 3.048
+
+hours 3 |> inSeconds
 --> 10800
 
-Speed.inMetersPerSecond (Speed.milesPerHour 60)
+milesPerHour 60 |> inMetersPerSecond
 --> 26.8224
 ```
 
-More importantly, it provides a type-safe way of passing quantities between
-functions. This allows different bodies of code to use whatever units they want,
-without having to worry about unit mismatches. For example, one module might
-implement a function that computes the braking distance for a car given its
-current speed and braking deceleration:
+You can also easily write your own type-safe functions that automatically work
+with any desired units:
 
 ```elm
-computeBrakingDistance : Speed -> Acceleration -> Length
-computeBrakingDistance currentSpeed brakingDeceleration =
-    -- Using v_1^2 = v_0^2 + 2ad, solve for d where v_1=0
-    let
-        v0 =
-            Speed.inMetersPerSecond currentSpeed
+import Length exposing (Length, kilometers, astronomicalUnits, lightYears, inMeters)
+import Duration exposing (Duration, seconds, years, inSeconds, inMinutes)
+import Speed exposing (Speed, milesPerHour, metersPerSecond, inMetersPerSecond)
 
-        a =
-            abs (Acceleration.inMetersPerSecondSquared brakingDeceleration)
+timeToTravel : Length -> Speed -> Duration
+timeToTravel distance speed =
+    seconds (inMeters distance / inMetersPerSecond speed)
 
-        d =
-            v0 ^ 2 / (2 * a)
-    in
-    Length.meters d
+-- How long will it take to travel 20 km if we're driving at 60 mph?
+timeToTravel (kilometers 20) (milesPerHour 60) |> inMinutes
+--> 12.427423844746679
+
+-- Reverse engineer the speed of light from defined lengths/durations
+speedOfLight =
+    metersPerSecond (inMeters (lightYears 1) / inSeconds (years 1))
+
+-- One astronomical unit is the (average) distance from the Sun to the Earth
+-- How long does it take light to reach the Earth from the Sun?
+timeToTravel (astronomicalUnits 1) speedOfLight |> inMinutes
+--> 8.316746397269274
 ```
 
-Internally, `computeBrakingDistance` works in SI units (meters, seconds etc.),
-but calling code can work with whatever units it wants:
-
-```elm
--- Braking distance for a Nissan Maxima, using data from
--- http://www.batesville.k12.in.us/physics/PhyNet/Mechanics/Kinematics/BrakingDistData.html
-
-brakingDistance : Length
-brakingDistance =
-    computeBrakingDistance
-        (Speed.milesPerHour 60)
-        (Acceleration.feetPerSecondSquared 27.3)
-
-Length.inMeters brakingDistance
---> 43.23
-
-Length.inFeet brakingDistance
---> 141.83
-```
-
-Note that since `currentSpeed` and `brakingDeceleration` must be turned into
-plain `Float` values `v0` and `a` for computation, the _internals_ of
-`computeBrakingDistance` must be careful to use units consistently (the compiler
-cannot verify that `v0 ^ 2 / (2 * a)` actually evaluates to a length in meters,
-for example). However, as long as you can verify the correctness of individual
-functions (with code reviews, unit tests etc.), using this package can guarantee
-that there are no units mismatches _between_ functions. This allows you to
-safely pass values between different functions which may be in different modules
-or even different packages.
+Note how the implementation of `timeToTravel` chose to work in standard SI units
+(meters, seconds) but the caller can supply values in any appropriate units, and
+extract the result in any appropriate units, with all necessary conversions
+happening automatically.
 
 ## Doing math with units
 
-Short answer: you can't, at least not directly.
-
-To keep things simple, this package has no functions to (for example) construct
-a `Speed` by dividing a `Length` by a `Duration` (or by multiplying an
-`Acceleration` by a `Duration`). Instead, you will have to write code like
-
-```elm
-speed =
-    Speed.metersPerSecond
-        (Length.inMeters length
-            / Duration.inSeconds duration
-        )
-```
-
-Note that this will work properly even if `length` and `duration` are defined
-using different units such as
+In the above `timeToTravel` example, the _implementation_ of the function had to
+be careful to be consistent with units. For example, the following
+implementation would be wrong since the `Float` value passed to `minutes` is in
+fact a number of seconds, so the result would be off by a factor of 60:
 
 ```elm
-length =
-    Length.feet 10
-
-duration =
-    Duration.milliseconds 2500
+timeToTravel : Length -> Speed -> Duration
+timeToTravel distance speed =
+    minutes (inMeters distance / inMetersPerSecond speed)
 ```
 
-but you do have to have to be careful not to write nonsense code like
+(As long as the implementation is correct, though, there's no way to _call_ the
+function improperly. The danger is only inside the function, where you are
+temporarily dealing with raw `Float` values.)
 
-```elm
--- BAD!
-speed =
-    Speed.metersPerSecond
-        (Length.inInches length
-            / Duration.inHours duration
-        )
-```
-
-I recommend using SI units (meters, seconds, kilograms etc.) wherever possible,
-but everything will still work if you use other units as long as you're
-consistent. For example, the following will work properly:
-
-```elm
-speed =
-    Speed.milesPerHour
-        (Length.inMiles length
-            / Duration.inHours duration
-        )
-```
+In many cases, it's possible to work directly with length, speed, duration etc.
+values _without_ converting to `Float` values first.

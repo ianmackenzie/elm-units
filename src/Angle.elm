@@ -5,12 +5,15 @@ module Angle
         , inDegrees
         , inRadians
         , inTurns
+        , perDegree
+        , perRadian
+        , perTurn
         , radians
         , turns
         )
 
 import Basics exposing ((*), (/), pi)
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Radians, Rate)
 
 
 type alias Angle =
@@ -45,3 +48,18 @@ turns numTurns =
 inTurns : Angle -> Float
 inTurns angle =
     inRadians angle / (2 * pi)
+
+
+perDegree : Quantity units -> Quantity (Rate units Radians)
+perDegree quantity =
+    Quantity.per (degrees 1) quantity
+
+
+perRadian : Quantity units -> Quantity (Rate units Radians)
+perRadian quantity =
+    Quantity.per (radians 1) quantity
+
+
+perTurn : Quantity units -> Quantity (Rate units Radians)
+perTurn quantity =
+    Quantity.per (turns 1) quantity

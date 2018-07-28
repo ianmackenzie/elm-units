@@ -1,32 +1,29 @@
 module Quantity
     exposing
         ( Acceleration
-        , AccelerationUnits
         , Angle
-        , AngleUnits
         , Area
-        , AreaUnits
         , Duration
+        , Kelvins
         , Length
-        , LengthUnits
+        , Meters
         , Quantity(..)
-        , ScreenSpace
+        , Radians
+        , Rate
+        , Seconds
         , Speed
-        , SpeedUnits
+        , Squared
         , Temperature
-        , TemperatureUnits
-        , TimeUnits
-        , WorldSpace
         , abs
-        , acceleration
         , acos
         , asin
+        , atRateOf
         , atan
         , atan2
         , clamp
         , compare
         , cos
-        , distance
+        , for
         , greaterThan
         , lessThan
         , max
@@ -35,13 +32,12 @@ module Quantity
         , minimum
         , minus
         , negate
+        , per
         , plus
         , ratio
         , scaleBy
         , sin
         , sort
-        , speed
-        , speedup
         , sqrt
         , squared
         , sum
@@ -52,44 +48,32 @@ module Quantity
 -- Unit types
 
 
+type Radians
+    = Radians Never
+
+
+type Meters
+    = Meters Never
+
+
+type Seconds
+    = Seconds Never
+
+
+type Kelvins
+    = Kelvins Never
+
+
+type Pixels
+    = Pixels Never
+
+
 type Squared units
     = Squared Never
 
 
-type TimeUnits
-    = TimeUnits Never
-
-
-type AngleUnits
-    = AngleUnits Never
-
-
-type WorldSpace
-    = WorldSpace Never
-
-
-type ScreenSpace
-    = ScreenSpace Never
-
-
-type LengthUnits space
-    = LengthUnits Never
-
-
-type SpeedUnits space
-    = SpeedUnits Never
-
-
-type AccelerationUnits space
-    = AccelerationUnits Never
-
-
-type alias AreaUnits space =
-    Squared (LengthUnits space)
-
-
-type TemperatureUnits
-    = TemperatureUnits Never
+type Rate units perUnits
+    = Rate Never
 
 
 
@@ -101,42 +85,31 @@ type Quantity units
 
 
 type alias Duration =
-    -- Seconds
-    Quantity TimeUnits
+    Quantity Seconds
 
 
 type alias Angle =
-    -- Radians
-    Quantity AngleUnits
+    Quantity Radians
 
 
-type alias Length space =
-    -- Meters for WorldSpace
-    -- Pixels for ScreenSpace
-    Quantity (LengthUnits space)
+type alias Length =
+    Quantity Meters
 
 
-type alias Speed space =
-    -- Meters per second for WorldSpace
-    -- Pixels per second for ScreenSpace
-    Quantity (SpeedUnits space)
+type alias Speed =
+    Quantity (Rate Meters Seconds)
 
 
-type alias Acceleration space =
-    -- Meters per second squared for WorldSpace
-    -- Pixels per second squared for ScreenSpace
-    Quantity (AccelerationUnits space)
+type alias Acceleration =
+    Quantity (Rate Speed Seconds)
 
 
-type alias Area space =
-    -- Square meters for WorldSpace
-    -- Square pixels for ScreenSpace
-    Quantity (AreaUnits space)
+type alias Area =
+    Quantity (Squared Meters)
 
 
 type alias Temperature =
-    -- Kelvins
-    Quantity TemperatureUnits
+    Quantity Kelvins
 
 
 value : Quantity units -> Float
@@ -305,24 +278,19 @@ sort quantities =
 
 
 
--- Basic constructors/conversions
+-- Working with time
 
 
-speed : Length space -> Duration -> Speed space
-speed (Quantity d) (Quantity t) =
-    Quantity (d / t)
+per : Quantity perUnits -> Quantity units -> Quantity (Rate units perUnits)
+per (Quantity perValue) (Quantity delta) =
+    Quantity (delta / perValue)
 
 
-distance : Duration -> Speed space -> Length space
-distance (Quantity t) (Quantity v) =
-    Quantity (v * t)
+for : Quantity perUnits -> Quantity (Rate units perUnits) -> Quantity units
+for (Quantity forValue) (Quantity rate) =
+    Quantity (rate * forValue)
 
 
-speedup : Duration -> Acceleration space -> Speed space
-speedup (Quantity t) (Quantity a) =
-    Quantity (a * t)
-
-
-acceleration : Speed space -> Duration -> Acceleration space
-acceleration (Quantity v) (Quantity t) =
-    Quantity (v / t)
+atRateOf : Quantity (Rate units perUnits) -> Quantity units -> Quantity perUnits
+atRateOf (Quantity rate) (Quantity delta) =
+    Quantity (delta / rate)

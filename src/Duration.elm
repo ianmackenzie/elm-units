@@ -1,18 +1,31 @@
 module Duration
     exposing
         ( Duration
+        , days
         , from
         , hours
+        , inDays
         , inHours
         , inMilliseconds
         , inMinutes
         , inSeconds
+        , inWeeks
+        , inYears
         , milliseconds
         , minutes
+        , perDay
+        , perHour
+        , perMillisecond
+        , perMinute
+        , perSecond
+        , perWeek
+        , perYear
         , seconds
+        , weeks
+        , years
         )
 
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Rate, Seconds)
 import Time
 
 
@@ -26,7 +39,7 @@ type alias Duration =
 {-| Find the elapsed time from a start time to an end time. For example,
 assuming that `nineAM` and `fivePM` are two `Time.Posix` values on the same day:
 
-    Duration.from nineAM fivePM == Duration.hours 8
+    Duration.from nineAM fivePM == hours 8
 
 -}
 from : Time.Posix -> Time.Posix -> Duration
@@ -40,7 +53,7 @@ from startTime endTime =
 
 {-| Construct a `Duration` from a given number of seconds.
 
-    Duration.seconds 60 == Duration.minutes 1
+    seconds 60 == minutes 1
 
 -}
 seconds : Float -> Duration
@@ -50,7 +63,7 @@ seconds numSeconds =
 
 {-| Convert a `Duration` to a value in seconds.
 
-    Duration.inSeconds (Duration.milliseconds 10)
+    milliseconds 10 |> inSeconds
     --> 0.01
 
 -}
@@ -61,7 +74,7 @@ inSeconds (Quantity numSeconds) =
 
 {-| Construct a `Duration` from a given number of milliseconds.
 
-    Duration.milliseconds 5000 == Duration.seconds 5
+    milliseconds 5000 == seconds 5
 
 -}
 milliseconds : Float -> Duration
@@ -71,7 +84,7 @@ milliseconds numMilliseconds =
 
 {-| Convert a `Duration` to a value in milliseconds.
 
-    Duration.inMilliseconds (Duration.seconds 0.5)
+    seconds 0.5 |> inMilliseconds
     --> 500
 
 -}
@@ -82,7 +95,7 @@ inMilliseconds duration =
 
 {-| Construct a `Duration` from a given number of minutes.
 
-    Duration.minutes 3 == Duration.seconds 180
+    minutes 3 == seconds 180
 
 -}
 minutes : Float -> Duration
@@ -92,7 +105,7 @@ minutes numMinutes =
 
 {-| Convert a `Duration` to a value in minutes.
 
-    Duration.inMinutes (Duration.seconds 90)
+    seconds 90 |> inMinutes
     --> 1.5
 
 -}
@@ -103,7 +116,7 @@ inMinutes duration =
 
 {-| Construct a `Duration` from a given number of hours.
 
-    Duration.hours 1 == Duration.seconds 3600
+    hours 1 == seconds 3600
 
 -}
 hours : Float -> Duration
@@ -113,10 +126,117 @@ hours numHours =
 
 {-| Convert a `Duration` to a value in hours.
 
-    Duration.inHours (Duration.minutes 120)
+    minutes 120 |> inHours
     --> 2
 
 -}
 inHours : Duration -> Float
 inHours duration =
     inSeconds duration / 3600
+
+
+{-| Construct a `Duration` from a given number of days. A day is defined as
+exactly 24 hours or 86400 seconds. Therefore, it is only equal to the length of
+a given calendar day if that calendar day does not include either a leap second
+or any added/removed daylight savings hours.
+
+    days 1 == hours 24
+
+-}
+days : Float -> Duration
+days numDays =
+    seconds (86400 * numDays)
+
+
+{-| Convert a `Duration` to a value in days.
+
+    hours 72 |> inDays
+    --> 3
+
+-}
+inDays : Duration -> Float
+inDays duration =
+    inSeconds duration / 86400
+
+
+{-| Construct a `Duration` from a given number of weeks.
+
+    weeks 1 == days 7
+
+-}
+weeks : Float -> Duration
+weeks numWeeks =
+    seconds (604800 * numWeeks)
+
+
+{-| Convert a `Duration` to a value in weeks.
+
+    days 28 |> inWeeks
+    --> 4
+
+-}
+inWeeks : Duration -> Float
+inWeeks duration =
+    inSeconds duration / 604800
+
+
+{-| Construct a `Duration` from a given number of [Julian years](https://en.wikipedia.org/wiki/Julian_year_(astronomy)).
+A Julian year is defined as exactly 365.25 days, the average length of a year in
+the historical Julian calendar. This is 10 minutes and 48 seconds longer than
+a Gregorian year (365.2425 days), which is the average length of a year in the
+modern Gregorian calendar, but the Julian year is a bit easier to remember and
+reason about and has the virtue of being the 'year' value used in the definition
+of a light year.
+
+    years 1 == days 365.25
+
+-}
+years : Float -> Duration
+years numYears =
+    seconds (31557600 * numYears)
+
+
+{-| Convert a `Duration` to a value in Julian years.
+
+    hours 10000 |> inYears
+    --> 1.1407711613050422
+
+-}
+inYears : Duration -> Float
+inYears duration =
+    inSeconds duration / 31557600
+
+
+perMillisecond : Quantity units -> Quantity (Rate units Seconds)
+perMillisecond quantity =
+    Quantity.per (milliseconds 1) quantity
+
+
+perSecond : Quantity units -> Quantity (Rate units Seconds)
+perSecond quantity =
+    Quantity.per (seconds 1) quantity
+
+
+perMinute : Quantity units -> Quantity (Rate units Seconds)
+perMinute quantity =
+    Quantity.per (minutes 1) quantity
+
+
+perHour : Quantity units -> Quantity (Rate units Seconds)
+perHour quantity =
+    Quantity.per (hours 1) quantity
+
+
+perDay : Quantity units -> Quantity (Rate units Seconds)
+perDay quantity =
+    Quantity.per (days 1) quantity
+
+
+perWeek : Quantity units -> Quantity (Rate units Seconds)
+perWeek quantity =
+    Quantity.per (weeks 1) quantity
+
+
+perYear : Quantity units -> Quantity (Rate units Seconds)
+perYear quantity =
+    Quantity.per (years 1) quantity
