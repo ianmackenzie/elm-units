@@ -26,6 +26,7 @@ module Quantity
         , sqrt
         , squared
         , sum
+        , zero
         )
 
 
@@ -44,6 +45,11 @@ type Rate dependent independent
 value : Quantity units -> Float
 value (Quantity x) =
     x
+
+
+zero : Quantity units
+zero =
+    Quantity 0
 
 
 
