@@ -1,29 +1,13 @@
 module Quantity
     exposing
-        ( Acceleration
-        , Angle
-        , Area
-        , Duration
-        , Kelvins
-        , Length
-        , Meters
-        , Quantity(..)
-        , Radians
+        ( Quantity(..)
         , Rate
-        , Seconds
-        , Speed
         , Squared
-        , Temperature
         , abs
-        , acos
-        , asin
         , at
         , at_
-        , atan
-        , atan2
         , clamp
         , compare
-        , cos
         , for
         , greaterThan
         , lessThan
@@ -38,35 +22,15 @@ module Quantity
         , product
         , ratio
         , scaleBy
-        , sin
         , sort
         , sqrt
         , squared
         , sum
-        , tan
         )
 
--- Unit types
 
-
-type Radians
-    = Radians Never
-
-
-type Meters
-    = Meters Never
-
-
-type Seconds
-    = Seconds Never
-
-
-type Kelvins
-    = Kelvins Never
-
-
-type Pixels
-    = Pixels Never
+type Quantity units
+    = Quantity Float
 
 
 type Squared units
@@ -75,42 +39,6 @@ type Squared units
 
 type Rate dependent independent
     = Rate Never
-
-
-
--- Quantity types
-
-
-type Quantity units
-    = Quantity Float
-
-
-type alias Duration =
-    Quantity Seconds
-
-
-type alias Angle =
-    Quantity Radians
-
-
-type alias Length =
-    Quantity Meters
-
-
-type alias Speed =
-    Quantity (Rate Meters Seconds)
-
-
-type alias Acceleration =
-    Quantity (Rate Speed Seconds)
-
-
-type alias Area =
-    Quantity (Squared Meters)
-
-
-type alias Temperature =
-    Quantity Kelvins
 
 
 value : Quantity units -> Float
@@ -203,45 +131,6 @@ product (Quantity x) (Quantity y) =
 ratio : Quantity units -> Quantity units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
-
-
-
--- Trigonometry
-
-
-sin : Angle -> Float
-sin (Quantity angle) =
-    Basics.sin angle
-
-
-cos : Angle -> Float
-cos (Quantity angle) =
-    Basics.cos angle
-
-
-tan : Angle -> Float
-tan (Quantity angle) =
-    Basics.tan angle
-
-
-asin : Float -> Angle
-asin x =
-    Quantity (Basics.asin x)
-
-
-acos : Float -> Angle
-acos x =
-    Quantity (Basics.acos x)
-
-
-atan : Float -> Angle
-atan x =
-    Quantity (Basics.atan x)
-
-
-atan2 : Quantity units -> Quantity units -> Angle
-atan2 (Quantity y) (Quantity x) =
-    Quantity (Basics.atan2 y x)
 
 
 

@@ -12,8 +12,12 @@ module Temperature
 import Quantity exposing (Quantity(..))
 
 
+type Kelvins
+    = Kelvins
+
+
 type alias Temperature =
-    Quantity.Temperature
+    Quantity Kelvins
 
 
 kelvins : Float -> Temperature

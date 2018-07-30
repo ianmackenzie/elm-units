@@ -23,11 +23,12 @@ module Area
         , squareYards
         )
 
-import Quantity exposing (Quantity(..))
+import Length exposing (Meters)
+import Quantity exposing (Quantity(..), Squared)
 
 
 type alias Area =
-    Quantity.Area
+    Quantity (Squared Meters)
 
 
 squareMeters : Float -> Area

@@ -7,11 +7,13 @@ module Acceleration
         , metersPerSecondSquared
         )
 
-import Quantity exposing (Quantity(..))
+import Duration exposing (Seconds)
+import Length exposing (Meters)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Acceleration =
-    Quantity.Acceleration
+    Quantity (Rate (Rate Meters Seconds) Seconds)
 
 
 metersPerSecondSquared : Float -> Acceleration

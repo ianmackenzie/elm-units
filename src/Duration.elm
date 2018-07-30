@@ -1,6 +1,7 @@
 module Duration
     exposing
         ( Duration
+        , Seconds
         , days
         , from
         , hours
@@ -25,15 +26,19 @@ module Duration
         , years
         )
 
-import Quantity exposing (Quantity(..), Rate, Seconds)
+import Quantity exposing (Quantity(..), Rate)
 import Time
+
+
+type Seconds
+    = Seconds
 
 
 {-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
 time (which would generally be represented by a `Posix` value).
 -}
 type alias Duration =
-    Quantity.Duration
+    Quantity Seconds
 
 
 {-| Find the elapsed time from a start time to an end time. For example,

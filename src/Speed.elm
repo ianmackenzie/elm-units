@@ -11,11 +11,13 @@ module Speed
         , milesPerHour
         )
 
-import Quantity exposing (Quantity(..))
+import Duration exposing (Seconds)
+import Length exposing (Meters)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Speed =
-    Quantity.Speed
+    Quantity (Rate Meters Seconds)
 
 
 metersPerSecond : Float -> Speed

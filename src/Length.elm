@@ -1,6 +1,7 @@
 module Length
     exposing
         ( Length
+        , Meters
         , astronomicalUnits
         , centimeters
         , feet
@@ -36,11 +37,15 @@ module Length
         , yards
         )
 
-import Quantity exposing (Meters, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
+
+
+type Meters
+    = Meters
 
 
 type alias Length =
-    Quantity.Length
+    Quantity Meters
 
 
 meters : Float -> Length
