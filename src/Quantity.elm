@@ -4,10 +4,12 @@ module Quantity
         , Rate
         , Squared
         , abs
+        , add
         , at
         , at_
         , clamp
         , compare
+        , difference
         , for
         , greaterThan
         , lessThan
@@ -15,10 +17,8 @@ module Quantity
         , maximum
         , min
         , minimum
-        , minus
         , negate
         , per
-        , plus
         , product
         , ratio
         , scaleBy
@@ -53,22 +53,7 @@ zero =
 
 
 
--- 'Infix' operators
-
-
-negate : Quantity units -> Quantity units
-negate (Quantity x) =
-    Quantity -x
-
-
-plus : Quantity units -> Quantity units -> Quantity units
-plus (Quantity y) (Quantity x) =
-    Quantity (x + y)
-
-
-minus : Quantity units -> Quantity units -> Quantity units
-minus (Quantity y) (Quantity x) =
-    Quantity (x - y)
+-- Comparison
 
 
 lessThan : Quantity units -> Quantity units -> Bool
@@ -79,10 +64,6 @@ lessThan (Quantity y) (Quantity x) =
 greaterThan : Quantity units -> Quantity units -> Bool
 greaterThan (Quantity y) (Quantity x) =
     x > y
-
-
-
--- Comparison
 
 
 compare : Quantity units -> Quantity units -> Order
@@ -102,6 +83,31 @@ min (Quantity x) (Quantity y) =
 
 
 -- Arithmetic
+
+
+negate : Quantity units -> Quantity units
+negate (Quantity x) =
+    Quantity -x
+
+
+add : Quantity units -> Quantity units -> Quantity units
+add (Quantity x) (Quantity y) =
+    Quantity (x + y)
+
+
+difference : Quantity units -> Quantity units -> Quantity units
+difference (Quantity x) (Quantity y) =
+    Quantity (x - y)
+
+
+product : Quantity units -> Quantity units -> Quantity (Squared units)
+product (Quantity x) (Quantity y) =
+    Quantity (x * y)
+
+
+ratio : Quantity units -> Quantity units -> Float
+ratio (Quantity x) (Quantity y) =
+    x / y
 
 
 scaleBy : Float -> Quantity units -> Quantity units
@@ -129,23 +135,13 @@ sqrt (Quantity x) =
     Quantity (Basics.sqrt x)
 
 
-product : Quantity units -> Quantity units -> Quantity (Squared units)
-product (Quantity x) (Quantity y) =
-    Quantity (x * y)
-
-
-ratio : Quantity units -> Quantity units -> Float
-ratio (Quantity x) (Quantity y) =
-    x / y
-
-
 
 -- List functions
 
 
 sum : List (Quantity units) -> Quantity units
 sum quantities =
-    List.foldl plus (Quantity 0) quantities
+    List.foldl add (Quantity 0) quantities
 
 
 minimum : List (Quantity units) -> Maybe (Quantity units)
