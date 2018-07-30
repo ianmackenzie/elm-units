@@ -1,6 +1,7 @@
 module Speed
     exposing
         ( Speed
+        , SpeedUnits
         , feetPerSecond
         , inFeetPerSecond
         , inKilometersPerHour
@@ -11,13 +12,17 @@ module Speed
         , milesPerHour
         )
 
-import Duration exposing (Seconds)
-import Length exposing (Meters)
+import Duration exposing (TimeUnits)
+import Length exposing (LengthUnits)
 import Quantity exposing (Quantity(..), Rate)
 
 
+type alias SpeedUnits =
+    Rate LengthUnits TimeUnits
+
+
 type alias Speed =
-    Quantity (Rate Meters Seconds)
+    Quantity SpeedUnits
 
 
 metersPerSecond : Float -> Speed

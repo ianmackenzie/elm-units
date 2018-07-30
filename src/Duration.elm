@@ -1,7 +1,7 @@
 module Duration
     exposing
         ( Duration
-        , Seconds
+        , TimeUnits
         , days
         , from
         , hours
@@ -30,7 +30,7 @@ import Quantity exposing (Quantity(..), Rate)
 import Time
 
 
-type Seconds
+type TimeUnits
     = Seconds
 
 
@@ -38,7 +38,7 @@ type Seconds
 time (which would generally be represented by a `Posix` value).
 -}
 type alias Duration =
-    Quantity Seconds
+    Quantity TimeUnits
 
 
 {-| Find the elapsed time from a start time to an end time. For example,
@@ -212,36 +212,36 @@ inYears duration =
     inSeconds duration / 31557600
 
 
-perMillisecond : Quantity units -> Quantity (Rate units Seconds)
+perMillisecond : Quantity units -> Quantity (Rate units TimeUnits)
 perMillisecond quantity =
     Quantity.per (milliseconds 1) quantity
 
 
-perSecond : Quantity units -> Quantity (Rate units Seconds)
+perSecond : Quantity units -> Quantity (Rate units TimeUnits)
 perSecond quantity =
     Quantity.per (seconds 1) quantity
 
 
-perMinute : Quantity units -> Quantity (Rate units Seconds)
+perMinute : Quantity units -> Quantity (Rate units TimeUnits)
 perMinute quantity =
     Quantity.per (minutes 1) quantity
 
 
-perHour : Quantity units -> Quantity (Rate units Seconds)
+perHour : Quantity units -> Quantity (Rate units TimeUnits)
 perHour quantity =
     Quantity.per (hours 1) quantity
 
 
-perDay : Quantity units -> Quantity (Rate units Seconds)
+perDay : Quantity units -> Quantity (Rate units TimeUnits)
 perDay quantity =
     Quantity.per (days 1) quantity
 
 
-perWeek : Quantity units -> Quantity (Rate units Seconds)
+perWeek : Quantity units -> Quantity (Rate units TimeUnits)
 perWeek quantity =
     Quantity.per (weeks 1) quantity
 
 
-perYear : Quantity units -> Quantity (Rate units Seconds)
+perYear : Quantity units -> Quantity (Rate units TimeUnits)
 perYear quantity =
     Quantity.per (years 1) quantity

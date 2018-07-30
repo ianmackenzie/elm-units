@@ -1,7 +1,7 @@
 module Angle
     exposing
         ( Angle
-        , Radians
+        , AngleUnits
         , acos
         , asin
         , atan
@@ -23,12 +23,12 @@ module Angle
 import Quantity exposing (Quantity(..), Rate)
 
 
-type Radians
+type AngleUnits
     = Radians
 
 
 type alias Angle =
-    Quantity Radians
+    Quantity AngleUnits
 
 
 radians : Float -> Angle
@@ -61,17 +61,17 @@ inTurns angle =
     inRadians angle / (2 * pi)
 
 
-perDegree : Quantity units -> Quantity (Rate units Radians)
+perDegree : Quantity units -> Quantity (Rate units AngleUnits)
 perDegree quantity =
     Quantity.per (degrees 1) quantity
 
 
-perRadian : Quantity units -> Quantity (Rate units Radians)
+perRadian : Quantity units -> Quantity (Rate units AngleUnits)
 perRadian quantity =
     Quantity.per (radians 1) quantity
 
 
-perTurn : Quantity units -> Quantity (Rate units Radians)
+perTurn : Quantity units -> Quantity (Rate units AngleUnits)
 perTurn quantity =
     Quantity.per (turns 1) quantity
 

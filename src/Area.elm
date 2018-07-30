@@ -23,12 +23,16 @@ module Area
         , squareYards
         )
 
-import Length exposing (Meters)
+import Length exposing (LengthUnits)
 import Quantity exposing (Quantity(..), Squared)
 
 
+type alias AreaUnits =
+    Squared LengthUnits
+
+
 type alias Area =
-    Quantity (Squared Meters)
+    Quantity AreaUnits
 
 
 squareMeters : Float -> Area

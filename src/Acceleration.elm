@@ -1,19 +1,24 @@
 module Acceleration
     exposing
         ( Acceleration
+        , AccelerationUnits
         , feetPerSecondSquared
         , inFeetPerSecondSquared
         , inMetersPerSecondSquared
         , metersPerSecondSquared
         )
 
-import Duration exposing (Seconds)
-import Length exposing (Meters)
+import Duration exposing (TimeUnits)
 import Quantity exposing (Quantity(..), Rate)
+import Speed exposing (SpeedUnits)
+
+
+type alias AccelerationUnits =
+    Rate SpeedUnits TimeUnits
 
 
 type alias Acceleration =
-    Quantity (Rate (Rate Meters Seconds) Seconds)
+    Quantity AccelerationUnits
 
 
 metersPerSecondSquared : Float -> Acceleration
