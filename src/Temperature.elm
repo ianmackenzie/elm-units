@@ -22,11 +22,14 @@ module Temperature
         , maximum
         , min
         , minimum
+        , perDegreeCelsius
+        , perDegreeFahrenheit
+        , perKelvin
         , sort
         , toAbsolute
         )
 
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Rate)
 
 
 type TemperatureUnits
@@ -95,6 +98,21 @@ degreesFahrenheit numDegreesFahrenheit =
 inDegreesFahrenheit : Quantity TemperatureUnits -> Float
 inDegreesFahrenheit quantity =
     inKelvins quantity * 1.8
+
+
+perKelvin : Quantity units -> Quantity (Rate units TemperatureUnits)
+perKelvin quantity =
+    Quantity.per (kelvins 1) quantity
+
+
+perDegreeCelsius : Quantity units -> Quantity (Rate units TemperatureUnits)
+perDegreeCelsius quantity =
+    Quantity.per (degreesCelsius 1) quantity
+
+
+perDegreeFahrenheit : Quantity units -> Quantity (Rate units TemperatureUnits)
+perDegreeFahrenheit quantity =
+    Quantity.per (degreesFahrenheit 1) quantity
 
 
 
