@@ -3,6 +3,7 @@ module Quantity
         ( Quantity(..)
         , Rate
         , Squared
+        , Units
         , abs
         , add
         , at
@@ -12,6 +13,7 @@ module Quantity
         , difference
         , for
         , greaterThan
+        , inUnits
         , lessThan
         , max
         , maximum
@@ -19,6 +21,7 @@ module Quantity
         , minimum
         , negate
         , per
+        , perUnit
         , product
         , ratio
         , scaleBy
@@ -26,6 +29,7 @@ module Quantity
         , sqrt
         , squared
         , sum
+        , units
         , zero
         )
 
@@ -191,3 +195,26 @@ at (Quantity rate) (Quantity independentValue) =
 at_ : Quantity (Rate dependent independent) -> Quantity dependent -> Quantity independent
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
+
+
+
+-- Generic quantities
+
+
+type Units
+    = Units
+
+
+units : Float -> Quantity Units
+units x =
+    Quantity x
+
+
+inUnits : Quantity Units -> Float
+inUnits (Quantity x) =
+    x
+
+
+perUnit : Quantity units -> Quantity (Rate units Units)
+perUnit quantity =
+    per (units 1) quantity
