@@ -89,7 +89,7 @@ import Angle exposing (radians, degrees, inTurns)
 import Area exposing (inSquareInches)
 
 -- 6 feet 3 inches, converted to meters
-feet 6 |> Qty.plus (inches 3) |> inMeters
+feet 6 |> Qty.add (inches 3) |> inMeters
 --> 1.9050000000000002
 
 -- pi radians plus 45 degrees is 5/8 of a full turn
