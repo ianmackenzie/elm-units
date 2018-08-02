@@ -46,9 +46,9 @@ type Rate dependent independent
     = Rate Never
 
 
-value : Quantity units -> Float
-value (Quantity x) =
-    x
+unwrap : Quantity units -> Float
+unwrap (Quantity value) =
+    value
 
 
 zero : Quantity units
@@ -90,8 +90,8 @@ min (Quantity x) (Quantity y) =
 
 
 negate : Quantity units -> Quantity units
-negate (Quantity x) =
-    Quantity -x
+negate (Quantity value) =
+    Quantity -value
 
 
 add : Quantity units -> Quantity units -> Quantity units
@@ -115,28 +115,28 @@ ratio (Quantity x) (Quantity y) =
 
 
 scaleBy : Float -> Quantity units -> Quantity units
-scaleBy scale (Quantity x) =
-    Quantity (scale * x)
+scaleBy scale (Quantity value) =
+    Quantity (scale * value)
 
 
 abs : Quantity units -> Quantity units
-abs (Quantity x) =
-    Quantity (Basics.abs x)
+abs (Quantity value) =
+    Quantity (Basics.abs value)
 
 
 clamp : Quantity units -> Quantity units -> Quantity units -> Quantity units
-clamp (Quantity lower) (Quantity upper) (Quantity x) =
-    Quantity (Basics.clamp lower upper x)
+clamp (Quantity lower) (Quantity upper) (Quantity value) =
+    Quantity (Basics.clamp lower upper value)
 
 
 squared : Quantity units -> Quantity (Squared units)
-squared (Quantity x) =
-    Quantity (x * x)
+squared (Quantity value) =
+    Quantity (value * value)
 
 
 sqrt : Quantity (Squared units) -> Quantity units
-sqrt (Quantity x) =
-    Quantity (Basics.sqrt x)
+sqrt (Quantity value) =
+    Quantity (Basics.sqrt value)
 
 
 
@@ -170,7 +170,7 @@ maximum quantities =
 
 sort : List (Quantity units) -> List (Quantity units)
 sort quantities =
-    List.sortBy value quantities
+    List.sortBy unwrap quantities
 
 
 
@@ -206,13 +206,13 @@ type Units
 
 
 units : Float -> Quantity Units
-units x =
-    Quantity x
+units value =
+    Quantity value
 
 
 inUnits : Quantity Units -> Float
-inUnits (Quantity x) =
-    x
+inUnits (Quantity value) =
+    value
 
 
 perUnit : Quantity units -> Quantity (Rate units Units)
