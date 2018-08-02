@@ -37,7 +37,7 @@ type TemperatureUnits
 
 
 type Temperature
-    = Temperature (Quantity TemperatureUnits)
+    = Temperature Float
 
 
 kelvins : Float -> Quantity TemperatureUnits
@@ -52,12 +52,12 @@ inKelvins (Quantity numKelvins) =
 
 celsius : Float -> Temperature
 celsius temperatureInCelsius =
-    Temperature (kelvins (273.15 + temperatureInCelsius))
+    Temperature (273.15 + temperatureInCelsius)
 
 
 inCelsius : Temperature -> Float
-inCelsius (Temperature quantity) =
-    inKelvins quantity - 273.15
+inCelsius (Temperature temperatureInKelvins) =
+    temperatureInKelvins - 273.15
 
 
 fahrenheit : Float -> Temperature
@@ -71,13 +71,13 @@ inFahrenheit temperature =
 
 
 toAbsolute : Temperature -> Quantity TemperatureUnits
-toAbsolute (Temperature quantity) =
-    quantity
+toAbsolute (Temperature temperatureInKelvins) =
+    kelvins temperatureInKelvins
 
 
 fromAbsolute : Quantity TemperatureUnits -> Temperature
 fromAbsolute quantity =
-    Temperature quantity
+    Temperature (inKelvins quantity)
 
 
 degreesCelsius : Float -> Quantity TemperatureUnits
@@ -120,38 +120,38 @@ perDegreeFahrenheit quantity =
 
 
 lessThan : Temperature -> Temperature -> Bool
-lessThan (Temperature secondQuantity) (Temperature firstQuantity) =
-    Quantity.lessThan secondQuantity firstQuantity
+lessThan (Temperature y) (Temperature x) =
+    x < y
 
 
 greaterThan : Temperature -> Temperature -> Bool
-greaterThan (Temperature secondQuantity) (Temperature firstQuantity) =
-    Quantity.greaterThan secondQuantity firstQuantity
+greaterThan (Temperature y) (Temperature x) =
+    x > y
 
 
 clamp : Temperature -> Temperature -> Temperature -> Temperature
-clamp (Temperature lowerQuantity) (Temperature upperQuantity) (Temperature quantity) =
-    Temperature (Quantity.clamp lowerQuantity upperQuantity quantity)
+clamp (Temperature lower) (Temperature upper) (Temperature temperature) =
+    Temperature (Basics.clamp lower upper temperature)
 
 
 compare : Temperature -> Temperature -> Order
-compare (Temperature firstQuantity) (Temperature secondQuantity) =
-    Quantity.compare firstQuantity secondQuantity
+compare (Temperature x) (Temperature y) =
+    Basics.compare x y
 
 
 min : Temperature -> Temperature -> Temperature
-min (Temperature firstQuantity) (Temperature secondQuantity) =
-    Temperature (Quantity.min firstQuantity secondQuantity)
+min (Temperature x) (Temperature y) =
+    Temperature (Basics.min x y)
 
 
 max : Temperature -> Temperature -> Temperature
-max (Temperature firstQuantity) (Temperature secondQuantity) =
-    Temperature (Quantity.max firstQuantity secondQuantity)
+max (Temperature x) (Temperature y) =
+    Temperature (Basics.max x y)
 
 
 difference : Temperature -> Temperature -> Quantity TemperatureUnits
-difference (Temperature firstQuantity) (Temperature secondQuantity) =
-    Quantity.difference firstQuantity secondQuantity
+difference (Temperature x) (Temperature y) =
+    kelvins (x - y)
 
 
 minimum : List Temperature -> Maybe Temperature
