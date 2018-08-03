@@ -29,58 +29,68 @@ module Quantity
         , sqrt
         , squared
         , sum
+        , toFloat
         , units
         , zero
         )
 
 
-type Quantity units
-    = Quantity Float
+type Quantity number units
+    = Quantity number
 
 
 type Squared units
     = Squared Never
 
 
-type Rate dependent independent
-    = Rate Never
+type RateUnits dependent independent
+    = RateUnits Never
 
 
-unwrap : Quantity units -> Float
+type alias Rate dependent independent =
+    Quantity Float (RateUnits dependent independent)
+
+
+unwrap : Quantity number units -> number
 unwrap (Quantity value) =
     value
 
 
-zero : Quantity units
+zero : Quantity number units
 zero =
     Quantity 0
+
+
+toFloat : Quantity Int units -> Quantity Float units
+toFloat (Quantity value) =
+    Quantity (Basics.toFloat value)
 
 
 
 -- Comparison
 
 
-lessThan : Quantity units -> Quantity units -> Bool
+lessThan : Quantity number units -> Quantity number units -> Bool
 lessThan (Quantity y) (Quantity x) =
     x < y
 
 
-greaterThan : Quantity units -> Quantity units -> Bool
+greaterThan : Quantity number units -> Quantity number units -> Bool
 greaterThan (Quantity y) (Quantity x) =
     x > y
 
 
-compare : Quantity units -> Quantity units -> Order
+compare : Quantity number units -> Quantity number units -> Order
 compare (Quantity x) (Quantity y) =
     Basics.compare x y
 
 
-max : Quantity units -> Quantity units -> Quantity units
+max : Quantity number units -> Quantity number units -> Quantity number units
 max (Quantity x) (Quantity y) =
     Quantity (Basics.max x y)
 
 
-min : Quantity units -> Quantity units -> Quantity units
+min : Quantity number units -> Quantity number units -> Quantity number units
 min (Quantity x) (Quantity y) =
     Quantity (Basics.min x y)
 
@@ -89,52 +99,52 @@ min (Quantity x) (Quantity y) =
 -- Arithmetic
 
 
-negate : Quantity units -> Quantity units
+negate : Quantity number units -> Quantity number units
 negate (Quantity value) =
     Quantity -value
 
 
-add : Quantity units -> Quantity units -> Quantity units
+add : Quantity number units -> Quantity number units -> Quantity number units
 add (Quantity x) (Quantity y) =
     Quantity (x + y)
 
 
-difference : Quantity units -> Quantity units -> Quantity units
+difference : Quantity number units -> Quantity number units -> Quantity number units
 difference (Quantity x) (Quantity y) =
     Quantity (x - y)
 
 
-product : Quantity units -> Quantity units -> Quantity (Squared units)
+product : Quantity number units -> Quantity number units -> Quantity number (Squared units)
 product (Quantity x) (Quantity y) =
     Quantity (x * y)
 
 
-ratio : Quantity units -> Quantity units -> Float
+ratio : Quantity Float units -> Quantity Float units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
 
 
-scaleBy : Float -> Quantity units -> Quantity units
+scaleBy : number -> Quantity number units -> Quantity number units
 scaleBy scale (Quantity value) =
     Quantity (scale * value)
 
 
-abs : Quantity units -> Quantity units
+abs : Quantity number units -> Quantity number units
 abs (Quantity value) =
     Quantity (Basics.abs value)
 
 
-clamp : Quantity units -> Quantity units -> Quantity units -> Quantity units
+clamp : Quantity number units -> Quantity number units -> Quantity number units -> Quantity number units
 clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity (Basics.clamp lower upper value)
 
 
-squared : Quantity units -> Quantity (Squared units)
+squared : Quantity number units -> Quantity number (Squared units)
 squared (Quantity value) =
     Quantity (value * value)
 
 
-sqrt : Quantity (Squared units) -> Quantity units
+sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
 
@@ -143,12 +153,12 @@ sqrt (Quantity value) =
 -- List functions
 
 
-sum : List (Quantity units) -> Quantity units
+sum : List (Quantity number units) -> Quantity number units
 sum quantities =
     List.foldl add (Quantity 0) quantities
 
 
-minimum : List (Quantity units) -> Maybe (Quantity units)
+minimum : List (Quantity number units) -> Maybe (Quantity number units)
 minimum quantities =
     case quantities of
         [] ->
@@ -158,7 +168,7 @@ minimum quantities =
             Just (List.foldl min first rest)
 
 
-maximum : List (Quantity units) -> Maybe (Quantity units)
+maximum : List (Quantity number units) -> Maybe (Quantity number units)
 maximum quantities =
     case quantities of
         [] ->
@@ -168,7 +178,7 @@ maximum quantities =
             Just (List.foldl max first rest)
 
 
-sort : List (Quantity units) -> List (Quantity units)
+sort : List (Quantity number units) -> List (Quantity number units)
 sort quantities =
     List.sortBy unwrap quantities
 
@@ -177,22 +187,22 @@ sort quantities =
 -- Working with rates
 
 
-per : Quantity independent -> Quantity dependent -> Quantity (Rate dependent independent)
+per : Quantity Float independent -> Quantity Float dependent -> Rate dependent independent
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
-for : Quantity independent -> Quantity (Rate dependent independent) -> Quantity dependent
+for : Quantity Float independent -> Rate dependent independent -> Quantity Float dependent
 for (Quantity independentValue) (Quantity rate) =
     Quantity (rate * independentValue)
 
 
-at : Quantity (Rate dependent independent) -> Quantity independent -> Quantity dependent
+at : Rate dependent independent -> Quantity Float independent -> Quantity Float dependent
 at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-at_ : Quantity (Rate dependent independent) -> Quantity dependent -> Quantity independent
+at_ : Rate dependent independent -> Quantity Float dependent -> Quantity Float independent
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
 
@@ -205,16 +215,16 @@ type Units
     = Units
 
 
-units : Float -> Quantity Units
+units : number -> Quantity number Units
 units value =
     Quantity value
 
 
-inUnits : Quantity Units -> Float
+inUnits : Quantity number Units -> number
 inUnits (Quantity value) =
     value
 
 
-perUnit : Quantity units -> Quantity (Rate units Units)
+perUnit : Quantity Float units -> Rate units Units
 perUnit quantity =
     per (units 1) quantity

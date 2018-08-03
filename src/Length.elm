@@ -45,7 +45,7 @@ type LengthUnits
 
 
 type alias Length =
-    Quantity LengthUnits
+    Quantity Float LengthUnits
 
 
 meters : Float -> Length
@@ -158,56 +158,56 @@ inLightYears length =
     inMeters length / 9460730472580800
 
 
-perMillimeter : Quantity units -> Quantity (Rate units LengthUnits)
+perMillimeter : Quantity Float units -> Rate units LengthUnits
 perMillimeter quantity =
     Quantity.per (millimeters 1) quantity
 
 
-perCentimeter : Quantity units -> Quantity (Rate units LengthUnits)
+perCentimeter : Quantity Float units -> Rate units LengthUnits
 perCentimeter quantity =
     Quantity.per (centimeters 1) quantity
 
 
-perMeter : Quantity units -> Quantity (Rate units LengthUnits)
+perMeter : Quantity Float units -> Rate units LengthUnits
 perMeter quantity =
     Quantity.per (meters 1) quantity
 
 
-perKilometer : Quantity units -> Quantity (Rate units LengthUnits)
+perKilometer : Quantity Float units -> Rate units LengthUnits
 perKilometer quantity =
     Quantity.per (kilometers 1) quantity
 
 
-perInch : Quantity units -> Quantity (Rate units LengthUnits)
+perInch : Quantity Float units -> Rate units LengthUnits
 perInch quantity =
     Quantity.per (inches 1) quantity
 
 
-perFoot : Quantity units -> Quantity (Rate units LengthUnits)
+perFoot : Quantity Float units -> Rate units LengthUnits
 perFoot quantity =
     Quantity.per (feet 1) quantity
 
 
-perYard : Quantity units -> Quantity (Rate units LengthUnits)
+perYard : Quantity Float units -> Rate units LengthUnits
 perYard quantity =
     Quantity.per (yards 1) quantity
 
 
-perMile : Quantity units -> Quantity (Rate units LengthUnits)
+perMile : Quantity Float units -> Rate units LengthUnits
 perMile quantity =
     Quantity.per (miles 1) quantity
 
 
-perAstronomicalUnit : Quantity units -> Quantity (Rate units LengthUnits)
+perAstronomicalUnit : Quantity Float units -> Rate units LengthUnits
 perAstronomicalUnit quantity =
     Quantity.per (astronomicalUnits 1) quantity
 
 
-perParsec : Quantity units -> Quantity (Rate units LengthUnits)
+perParsec : Quantity Float units -> Rate units LengthUnits
 perParsec quantity =
     Quantity.per (parsecs 1) quantity
 
 
-perLightYear : Quantity units -> Quantity (Rate units LengthUnits)
+perLightYear : Quantity Float units -> Rate units LengthUnits
 perLightYear quantity =
     Quantity.per (lightYears 1) quantity

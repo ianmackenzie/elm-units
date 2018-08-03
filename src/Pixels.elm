@@ -14,20 +14,20 @@ type PixelUnits
     = PixelUnits
 
 
-type alias Pixels =
-    Quantity PixelUnits
+type alias Pixels number =
+    Quantity number PixelUnits
 
 
-pixels : Float -> Pixels
+pixels : number -> Pixels number
 pixels numPixels =
     Quantity numPixels
 
 
-inPixels : Pixels -> Float
+inPixels : Pixels number -> number
 inPixels (Quantity numPixels) =
     numPixels
 
 
-perPixel : Quantity units -> Quantity (Rate units PixelUnits)
+perPixel : Quantity Float units -> Rate units PixelUnits
 perPixel quantity =
     Quantity.per (pixels 1) quantity

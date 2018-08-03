@@ -40,12 +40,12 @@ type Temperature
     = Temperature Float
 
 
-kelvins : Float -> Quantity TemperatureUnits
+kelvins : Float -> Quantity Float TemperatureUnits
 kelvins numKelvins =
     Quantity numKelvins
 
 
-inKelvins : Quantity TemperatureUnits -> Float
+inKelvins : Quantity Float TemperatureUnits -> Float
 inKelvins (Quantity numKelvins) =
     numKelvins
 
@@ -70,47 +70,47 @@ inFahrenheit temperature =
     32 + 1.8 * inCelsius temperature
 
 
-toAbsolute : Temperature -> Quantity TemperatureUnits
+toAbsolute : Temperature -> Quantity Float TemperatureUnits
 toAbsolute (Temperature temperatureInKelvins) =
     kelvins temperatureInKelvins
 
 
-fromAbsolute : Quantity TemperatureUnits -> Temperature
+fromAbsolute : Quantity Float TemperatureUnits -> Temperature
 fromAbsolute quantity =
     Temperature (inKelvins quantity)
 
 
-degreesCelsius : Float -> Quantity TemperatureUnits
+degreesCelsius : Float -> Quantity Float TemperatureUnits
 degreesCelsius numDegreesCelsius =
     kelvins numDegreesCelsius
 
 
-inDegreesCelsius : Quantity TemperatureUnits -> Float
+inDegreesCelsius : Quantity Float TemperatureUnits -> Float
 inDegreesCelsius quantity =
     inKelvins quantity
 
 
-degreesFahrenheit : Float -> Quantity TemperatureUnits
+degreesFahrenheit : Float -> Quantity Float TemperatureUnits
 degreesFahrenheit numDegreesFahrenheit =
     kelvins (numDegreesFahrenheit / 1.8)
 
 
-inDegreesFahrenheit : Quantity TemperatureUnits -> Float
+inDegreesFahrenheit : Quantity Float TemperatureUnits -> Float
 inDegreesFahrenheit quantity =
     inKelvins quantity * 1.8
 
 
-perKelvin : Quantity units -> Quantity (Rate units TemperatureUnits)
+perKelvin : Quantity Float units -> Rate units TemperatureUnits
 perKelvin quantity =
     Quantity.per (kelvins 1) quantity
 
 
-perDegreeCelsius : Quantity units -> Quantity (Rate units TemperatureUnits)
+perDegreeCelsius : Quantity Float units -> Rate units TemperatureUnits
 perDegreeCelsius quantity =
     Quantity.per (degreesCelsius 1) quantity
 
 
-perDegreeFahrenheit : Quantity units -> Quantity (Rate units TemperatureUnits)
+perDegreeFahrenheit : Quantity Float units -> Rate units TemperatureUnits
 perDegreeFahrenheit quantity =
     Quantity.per (degreesFahrenheit 1) quantity
 
@@ -149,7 +149,7 @@ max (Temperature x) (Temperature y) =
     Temperature (Basics.max x y)
 
 
-difference : Temperature -> Temperature -> Quantity TemperatureUnits
+difference : Temperature -> Temperature -> Quantity Float TemperatureUnits
 difference (Temperature x) (Temperature y) =
     kelvins (x - y)
 
