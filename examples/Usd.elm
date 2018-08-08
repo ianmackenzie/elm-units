@@ -36,16 +36,6 @@ inDollars (Quantity numCents) =
     numCents / 100
 
 
-perCent : Quantity Float units -> Rate units Cents
-perCent quantity =
-    Quantity.per (cents 1) quantity
-
-
-perDollar : Quantity Float units -> Rate units Cents
-perDollar quantity =
-    Quantity.per (dollars 1) quantity
-
-
 roundToNearestCent : Usd Float -> Usd Int
 roundToNearestCent (Quantity numCents) =
     Quantity (round numCents)

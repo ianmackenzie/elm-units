@@ -36,16 +36,6 @@ inEuros (Quantity numCents) =
     numCents / 100
 
 
-perCent : Quantity Float units -> Rate units Cents
-perCent quantity =
-    Quantity.per (cents 1) quantity
-
-
-perEuro : Quantity Float units -> Rate units Cents
-perEuro quantity =
-    Quantity.per (euros 1) quantity
-
-
 roundToNearestCent : Eur Float -> Eur Int
 roundToNearestCent (Quantity numCents) =
     Quantity (round numCents)
