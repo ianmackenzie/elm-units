@@ -2,6 +2,7 @@ module Quantity
     exposing
         ( Fractional
         , Quantity(..)
+        , Quotient
         , Rate
         , Squared
         , Units
