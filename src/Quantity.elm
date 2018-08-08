@@ -21,7 +21,6 @@ module Quantity
         , minimum
         , negate
         , per
-        , perUnit
         , product
         , ratio
         , scaleBy
@@ -223,8 +222,3 @@ units value =
 inUnits : Quantity number Units -> number
 inUnits (Quantity value) =
     value
-
-
-perUnit : Quantity Float units -> Rate units Units
-perUnit quantity =
-    per (units 1) quantity
