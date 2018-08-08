@@ -26,7 +26,7 @@ type MassUnits
 
 
 type alias Mass =
-    Quantity MassUnits
+    Quantity Float MassUnits
 
 
 kilograms : Float -> Mass
