@@ -12,6 +12,7 @@ module Area
         , inSquareMeters
         , inSquareMiles
         , inSquareMillimeters
+        , inSquarePixels
         , inSquareYards
         , squareCentimeters
         , squareFeet
@@ -20,116 +21,134 @@ module Area
         , squareMeters
         , squareMiles
         , squareMillimeters
+        , squarePixels
         , squareYards
         )
 
 import Length exposing (LengthUnits)
-import Quantity exposing (Quantity(..), Squared)
+import Quantity exposing (Fractional, Quantity(..), Squared)
+import Spaces exposing (ScreenSpace, WorldSpace)
 
 
-type alias AreaUnits =
-    Squared LengthUnits
+{-| The area units for a particular space are the squared length units for that
+space.
+-}
+type alias AreaUnits space =
+    Squared (LengthUnits space)
 
 
-type alias Area =
-    Quantity Float AreaUnits
+{-| A generic 'area' in a particular space is a fractional number of area units
+in that space.
+-}
+type alias Area space =
+    Fractional (AreaUnits space)
 
 
-squareMeters : Float -> Area
+squarePixels : number -> Quantity number (AreaUnits ScreenSpace)
+squarePixels numSquarePixels =
+    Quantity numSquarePixels
+
+
+inSquarePixels : Quantity number (AreaUnits ScreenSpace) -> number
+inSquarePixels (Quantity numSquarePixels) =
+    numSquarePixels
+
+
+squareMeters : Float -> Area WorldSpace
 squareMeters numSquareMeters =
     Quantity numSquareMeters
 
 
-inSquareMeters : Area -> Float
+inSquareMeters : Area WorldSpace -> Float
 inSquareMeters (Quantity numSquareMeters) =
     numSquareMeters
 
 
-squareMillimeters : Float -> Area
+squareMillimeters : Float -> Area WorldSpace
 squareMillimeters numSquareMillimeters =
     squareMeters (1.0e-6 * numSquareMillimeters)
 
 
-inSquareMillimeters : Area -> Float
+inSquareMillimeters : Area WorldSpace -> Float
 inSquareMillimeters area =
     1.0e6 * inSquareMeters area
 
 
-squareInches : Float -> Area
+squareInches : Float -> Area WorldSpace
 squareInches numSquareInches =
     squareMeters (0.0254 * 0.0254 * numSquareInches)
 
 
-inSquareInches : Area -> Float
+inSquareInches : Area WorldSpace -> Float
 inSquareInches area =
     inSquareMeters area / (0.0254 * 0.0254)
 
 
-squareCentimeters : Float -> Area
+squareCentimeters : Float -> Area WorldSpace
 squareCentimeters numSquareCentimeters =
     squareMeters (1.0e-4 * numSquareCentimeters)
 
 
-inSquareCentimeters : Area -> Float
+inSquareCentimeters : Area WorldSpace -> Float
 inSquareCentimeters area =
     1.0e4 * inSquareMeters area
 
 
-squareFeet : Float -> Area
+squareFeet : Float -> Area WorldSpace
 squareFeet numSquareFeet =
     squareMeters (0.3048 * 0.3048 * numSquareFeet)
 
 
-inSquareFeet : Area -> Float
+inSquareFeet : Area WorldSpace -> Float
 inSquareFeet area =
     inSquareMeters area / (0.3048 * 0.3048)
 
 
-squareYards : Float -> Area
+squareYards : Float -> Area WorldSpace
 squareYards numSquareYards =
     squareMeters (0.9144 * 0.9144 * numSquareYards)
 
 
-inSquareYards : Area -> Float
+inSquareYards : Area WorldSpace -> Float
 inSquareYards area =
     inSquareMeters area / (0.9144 * 0.9144)
 
 
-hectares : Float -> Area
+hectares : Float -> Area WorldSpace
 hectares numHectares =
     squareMeters (1.0e4 * numHectares)
 
 
-inHectares : Area -> Float
+inHectares : Area WorldSpace -> Float
 inHectares area =
     1.0e-4 * inSquareMeters area
 
 
-squareKilometers : Float -> Area
+squareKilometers : Float -> Area WorldSpace
 squareKilometers numSquareKilometers =
     squareMeters (1.0e6 * numSquareKilometers)
 
 
-inSquareKilometers : Area -> Float
+inSquareKilometers : Area WorldSpace -> Float
 inSquareKilometers area =
     1.0e-6 * inSquareMeters area
 
 
-acres : Float -> Area
+acres : Float -> Area WorldSpace
 acres numAcres =
     squareMeters (4046.8564224 * numAcres)
 
 
-inAcres : Area -> Float
+inAcres : Area WorldSpace -> Float
 inAcres area =
     inSquareMeters area / 4046.8564224
 
 
-squareMiles : Float -> Area
+squareMiles : Float -> Area WorldSpace
 squareMiles numSquareMiles =
     squareMeters (1609.344 * 1609.344 * numSquareMiles)
 
 
-inSquareMiles : Area -> Float
+inSquareMiles : Area WorldSpace -> Float
 inSquareMiles area =
     inSquareMeters area / (1609.344 * 1609.344)

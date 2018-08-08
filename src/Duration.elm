@@ -1,7 +1,7 @@
 module Duration
     exposing
         ( Duration
-        , TimeUnits
+        , Seconds
         , days
         , from
         , hours
@@ -19,19 +19,21 @@ module Duration
         , years
         )
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..))
 import Time
 
 
-type TimeUnits
-    = Seconds
+{-| The standard unit of time is seconds.
+-}
+type Seconds
+    = Seconds Never
 
 
 {-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
 time (which would generally be represented by a `Posix` value).
 -}
 type alias Duration =
-    Quantity Float TimeUnits
+    Fractional Seconds
 
 
 {-| Find the elapsed time from a start time to an end time. For example,

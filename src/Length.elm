@@ -2,6 +2,8 @@ module Length
     exposing
         ( Length
         , LengthUnits
+        , Meters
+        , Pixels
         , astronomicalUnits
         , centimeters
         , feet
@@ -15,6 +17,7 @@ module Length
         , inMiles
         , inMillimeters
         , inParsecs
+        , inPixels
         , inYards
         , inches
         , kilometers
@@ -23,125 +26,161 @@ module Length
         , miles
         , millimeters
         , parsecs
+        , pixels
+        , roundToNearestPixel
         , yards
         )
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..), Whole)
+import Spaces exposing (ScreenSpace, WorldSpace)
 
 
-type LengthUnits
-    = Meters
+{-| A given space such as world space or screen space has a particular type of
+length units associated with it.
+-}
+type LengthUnits space
+    = LengthUnits Never
 
 
-type alias Length =
-    Quantity Float LengthUnits
+{-| Meters are the standard length unit in world space.
+-}
+type alias Meters =
+    LengthUnits WorldSpace
 
 
-meters : Float -> Length
+{-| Pixels are the standard length unit in screen space.
+-}
+type alias Pixels =
+    LengthUnits ScreenSpace
+
+
+{-| A generic 'length' in a particular space is a fractional number of length
+units in that space.
+-}
+type alias Length space =
+    Fractional (LengthUnits space)
+
+
+pixels : number -> Quantity number Pixels
+pixels numPixels =
+    Quantity numPixels
+
+
+inPixels : Quantity number Pixels -> number
+inPixels (Quantity numPixels) =
+    numPixels
+
+
+roundToNearestPixel : Fractional Pixels -> Whole Pixels
+roundToNearestPixel (Quantity numPixels) =
+    Quantity (round numPixels)
+
+
+meters : Float -> Length WorldSpace
 meters numMeters =
     Quantity numMeters
 
 
-inMeters : Length -> Float
+inMeters : Length WorldSpace -> Float
 inMeters (Quantity numMeters) =
     numMeters
 
 
-millimeters : Float -> Length
+millimeters : Float -> Length WorldSpace
 millimeters numMillimeters =
     meters (0.001 * numMillimeters)
 
 
-inMillimeters : Length -> Float
+inMillimeters : Length WorldSpace -> Float
 inMillimeters length =
     1000 * inMeters length
 
 
-inches : Float -> Length
+inches : Float -> Length WorldSpace
 inches numInches =
     meters (0.0254 * numInches)
 
 
-inInches : Length -> Float
+inInches : Length WorldSpace -> Float
 inInches length =
     inMeters length / 0.0254
 
 
-centimeters : Float -> Length
+centimeters : Float -> Length WorldSpace
 centimeters numCentimeters =
     meters (0.01 * numCentimeters)
 
 
-inCentimeters : Length -> Float
+inCentimeters : Length WorldSpace -> Float
 inCentimeters length =
     100 * inMeters length
 
 
-feet : Float -> Length
+feet : Float -> Length WorldSpace
 feet numFeet =
     meters (0.3048 * numFeet)
 
 
-inFeet : Length -> Float
+inFeet : Length WorldSpace -> Float
 inFeet length =
     inMeters length / 0.3048
 
 
-yards : Float -> Length
+yards : Float -> Length WorldSpace
 yards numYards =
     meters (0.9144 * numYards)
 
 
-inYards : Length -> Float
+inYards : Length WorldSpace -> Float
 inYards length =
     inMeters length / 0.9144
 
 
-kilometers : Float -> Length
+kilometers : Float -> Length WorldSpace
 kilometers numKilometers =
     meters (1000 * numKilometers)
 
 
-inKilometers : Length -> Float
+inKilometers : Length WorldSpace -> Float
 inKilometers length =
     0.001 * inMeters length
 
 
-miles : Float -> Length
+miles : Float -> Length WorldSpace
 miles numMiles =
     meters (1609.344 * numMiles)
 
 
-inMiles : Length -> Float
+inMiles : Length WorldSpace -> Float
 inMiles length =
     inMeters length / 1609.344
 
 
-astronomicalUnits : Float -> Length
+astronomicalUnits : Float -> Length WorldSpace
 astronomicalUnits numAstronomicalUnits =
     meters (149597870700 * numAstronomicalUnits)
 
 
-inAstronomicalUnits : Length -> Float
+inAstronomicalUnits : Length WorldSpace -> Float
 inAstronomicalUnits length =
     inMeters length / 149597870700
 
 
-parsecs : Float -> Length
+parsecs : Float -> Length WorldSpace
 parsecs numParsecs =
     astronomicalUnits (numParsecs * 648000 / pi)
 
 
-inParsecs : Length -> Float
+inParsecs : Length WorldSpace -> Float
 inParsecs length =
     inAstronomicalUnits length * pi / 648000
 
 
-lightYears : Float -> Length
+lightYears : Float -> Length WorldSpace
 lightYears numLightYears =
     meters (9460730472580800 * numLightYears)
 
 
-inLightYears : Length -> Float
+inLightYears : Length WorldSpace -> Float
 inLightYears length =
     inMeters length / 9460730472580800

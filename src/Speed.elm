@@ -7,59 +7,72 @@ module Speed
         , inKilometersPerHour
         , inMetersPerSecond
         , inMilesPerHour
+        , inPixelsPerSecond
         , kilometersPerHour
         , metersPerSecond
         , milesPerHour
+        , pixelsPerSecond
         )
 
-import Duration exposing (TimeUnits)
+import Duration exposing (Seconds)
 import Length exposing (LengthUnits)
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Quotient, Rate)
+import Spaces exposing (ScreenSpace, WorldSpace)
 
 
-type alias SpeedUnits =
-    Rate LengthUnits TimeUnits
+type alias SpeedUnits space =
+    Quotient (LengthUnits space) Seconds
 
 
-type alias Speed =
-    Quantity Float SpeedUnits
+type alias Speed space =
+    Rate (LengthUnits space) Seconds
 
 
-metersPerSecond : Float -> Speed
+pixelsPerSecond : Float -> Speed ScreenSpace
+pixelsPerSecond numPixelsPerSecond =
+    Quantity numPixelsPerSecond
+
+
+inPixelsPerSecond : Speed ScreenSpace -> Float
+inPixelsPerSecond (Quantity numPixelsPerSecond) =
+    numPixelsPerSecond
+
+
+metersPerSecond : Float -> Speed WorldSpace
 metersPerSecond numMetersPerSecond =
     Quantity numMetersPerSecond
 
 
-inMetersPerSecond : Speed -> Float
+inMetersPerSecond : Speed WorldSpace -> Float
 inMetersPerSecond (Quantity numMetersPerSecond) =
     numMetersPerSecond
 
 
-feetPerSecond : Float -> Speed
+feetPerSecond : Float -> Speed WorldSpace
 feetPerSecond numFeetPerSecond =
     metersPerSecond (0.3048 * numFeetPerSecond)
 
 
-inFeetPerSecond : Speed -> Float
+inFeetPerSecond : Speed WorldSpace -> Float
 inFeetPerSecond speed =
     inMetersPerSecond speed / 0.3048
 
 
-kilometersPerHour : Float -> Speed
+kilometersPerHour : Float -> Speed WorldSpace
 kilometersPerHour numKilometersPerHour =
     metersPerSecond (numKilometersPerHour / 3.6)
 
 
-inKilometersPerHour : Speed -> Float
+inKilometersPerHour : Speed WorldSpace -> Float
 inKilometersPerHour speed =
     3.6 * inMetersPerSecond speed
 
 
-milesPerHour : Float -> Speed
+milesPerHour : Float -> Speed WorldSpace
 milesPerHour numMilesPerHour =
     metersPerSecond (numMilesPerHour * 1609.344 / 3600)
 
 
-inMilesPerHour : Speed -> Float
+inMilesPerHour : Speed WorldSpace -> Float
 inMilesPerHour speed =
     (3600 / 1609.344) * inMetersPerSecond speed

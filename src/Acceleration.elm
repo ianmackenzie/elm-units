@@ -5,37 +5,50 @@ module Acceleration
         , feetPerSecondSquared
         , inFeetPerSecondSquared
         , inMetersPerSecondSquared
+        , inPixelsPerSecondSquared
         , metersPerSecondSquared
+        , pixelsPerSecondSquared
         )
 
-import Duration exposing (TimeUnits)
-import Quantity exposing (Quantity(..), Rate)
+import Duration exposing (Seconds)
+import Quantity exposing (Quantity(..), Quotient, Rate)
+import Spaces exposing (ScreenSpace, WorldSpace)
 import Speed exposing (SpeedUnits)
 
 
-type alias AccelerationUnits =
-    Rate SpeedUnits TimeUnits
+type alias AccelerationUnits space =
+    Quotient (SpeedUnits space) Seconds
 
 
-type alias Acceleration =
-    Quantity Float AccelerationUnits
+type alias Acceleration space =
+    Rate (SpeedUnits space) Seconds
 
 
-metersPerSecondSquared : Float -> Acceleration
+pixelsPerSecondSquared : Float -> Acceleration ScreenSpace
+pixelsPerSecondSquared numPixelsPerSecondSquared =
+    Quantity numPixelsPerSecondSquared
+
+
+inPixelsPerSecondSquared : Acceleration ScreenSpace -> Float
+inPixelsPerSecondSquared (Quantity numPixelsPerSecondSquared) =
+    numPixelsPerSecondSquared
+
+
+metersPerSecondSquared : Float -> Acceleration WorldSpace
 metersPerSecondSquared numMetersPerSecondSquared =
     Quantity numMetersPerSecondSquared
 
 
-inMetersPerSecondSquared : Acceleration -> Float
+inMetersPerSecondSquared : Acceleration WorldSpace -> Float
 inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
     numMetersPerSecondSquared
 
 
-feetPerSecondSquared : Float -> Acceleration
+feetPerSecondSquared : Float -> Acceleration WorldSpace
 feetPerSecondSquared numFeetPerSecondSquared =
     metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
 
 
-inFeetPerSecondSquared : Acceleration -> Float
+inFeetPerSecondSquared : Acceleration WorldSpace -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
