@@ -28,7 +28,7 @@ type AngleUnits
 
 
 type alias Angle =
-    Quantity AngleUnits
+    Quantity Float AngleUnits
 
 
 radians : Float -> Angle
@@ -61,17 +61,17 @@ inTurns angle =
     inRadians angle / (2 * pi)
 
 
-perDegree : Quantity units -> Quantity (Rate units AngleUnits)
+perDegree : Quantity Float units -> Rate units AngleUnits
 perDegree quantity =
     Quantity.per (degrees 1) quantity
 
 
-perRadian : Quantity units -> Quantity (Rate units AngleUnits)
+perRadian : Quantity Float units -> Rate units AngleUnits
 perRadian quantity =
     Quantity.per (radians 1) quantity
 
 
-perTurn : Quantity units -> Quantity (Rate units AngleUnits)
+perTurn : Quantity Float units -> Rate units AngleUnits
 perTurn quantity =
     Quantity.per (turns 1) quantity
 
@@ -106,6 +106,6 @@ atan x =
     Quantity (Basics.atan x)
 
 
-atan2 : Quantity units -> Quantity units -> Angle
+atan2 : Quantity Float units -> Quantity Float units -> Angle
 atan2 (Quantity y) (Quantity x) =
     Quantity (Basics.atan2 y x)

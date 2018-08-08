@@ -22,7 +22,7 @@ type alias SpeedUnits =
 
 
 type alias Speed =
-    Quantity SpeedUnits
+    Quantity Float SpeedUnits
 
 
 metersPerSecond : Float -> Speed

@@ -18,7 +18,7 @@ type alias AccelerationUnits =
 
 
 type alias Acceleration =
-    Quantity AccelerationUnits
+    Quantity Float AccelerationUnits
 
 
 metersPerSecondSquared : Float -> Acceleration

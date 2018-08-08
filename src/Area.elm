@@ -32,7 +32,7 @@ type alias AreaUnits =
 
 
 type alias Area =
-    Quantity AreaUnits
+    Quantity Float AreaUnits
 
 
 squareMeters : Float -> Area
