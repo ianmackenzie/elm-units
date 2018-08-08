@@ -1,9 +1,11 @@
 module Quantity
     exposing
-        ( Quantity(..)
+        ( Fractional
+        , Quantity(..)
         , Rate
         , Squared
         , Units
+        , Whole
         , abs
         , add
         , at
@@ -28,7 +30,7 @@ module Quantity
         , sqrt
         , squared
         , sum
-        , toFloat
+        , toFractional
         , units
         , zero
         )
@@ -38,16 +40,24 @@ type Quantity number units
     = Quantity number
 
 
+type alias Whole units =
+    Quantity Int units
+
+
+type alias Fractional units =
+    Quantity Float units
+
+
 type Squared units
     = Squared Never
 
 
-type RateUnits dependent independent
+type RateUnits dependentUnits independentUnits
     = RateUnits Never
 
 
-type alias Rate dependent independent =
-    Quantity Float (RateUnits dependent independent)
+type alias Rate dependentUnits independentUnits =
+    Fractional (RateUnits dependentUnits independentUnits)
 
 
 unwrap : Quantity number units -> number
@@ -60,8 +70,8 @@ zero =
     Quantity 0
 
 
-toFloat : Quantity Int units -> Quantity Float units
-toFloat (Quantity value) =
+toFractional : Whole units -> Fractional units
+toFractional (Quantity value) =
     Quantity (Basics.toFloat value)
 
 
@@ -118,7 +128,7 @@ product (Quantity x) (Quantity y) =
     Quantity (x * y)
 
 
-ratio : Quantity Float units -> Quantity Float units -> Float
+ratio : Fractional units -> Fractional units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
 
@@ -143,7 +153,7 @@ squared (Quantity value) =
     Quantity (value * value)
 
 
-sqrt : Quantity Float (Squared units) -> Quantity Float units
+sqrt : Fractional (Squared units) -> Fractional units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
 
@@ -186,22 +196,22 @@ sort quantities =
 -- Working with rates
 
 
-per : Quantity Float independent -> Quantity Float dependent -> Rate dependent independent
+per : Fractional independentUnits -> Fractional dependentUnits -> Rate dependentUnits independentUnits
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
-for : Quantity Float independent -> Rate dependent independent -> Quantity Float dependent
+for : Fractional independentUnits -> Rate dependentUnits independentUnits -> Fractional dependentUnits
 for (Quantity independentValue) (Quantity rate) =
     Quantity (rate * independentValue)
 
 
-at : Rate dependent independent -> Quantity Float independent -> Quantity Float dependent
+at : Rate dependentUnits independentUnits -> Fractional independentUnits -> Fractional dependentUnits
 at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-at_ : Rate dependent independent -> Quantity Float dependent -> Quantity Float independent
+at_ : Rate dependentUnits independentUnits -> Fractional dependentUnits -> Fractional independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
 
