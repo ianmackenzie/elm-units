@@ -52,12 +52,12 @@ type Squared units
     = Squared Never
 
 
-type RateUnits dependentUnits independentUnits
-    = RateUnits Never
+type Quotient numeratorUnits denominatorUnits
+    = Quotient Never
 
 
 type alias Rate dependentUnits independentUnits =
-    Fractional (RateUnits dependentUnits independentUnits)
+    Fractional (Quotient dependentUnits independentUnits)
 
 
 unwrap : Quantity number units -> number
