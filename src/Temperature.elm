@@ -22,9 +22,6 @@ module Temperature
         , maximum
         , min
         , minimum
-        , perDegreeCelsius
-        , perDegreeFahrenheit
-        , perKelvin
         , sort
         , toAbsolute
         )
@@ -98,21 +95,6 @@ degreesFahrenheit numDegreesFahrenheit =
 inDegreesFahrenheit : Quantity Float TemperatureUnits -> Float
 inDegreesFahrenheit quantity =
     inKelvins quantity * 1.8
-
-
-perKelvin : Quantity Float units -> Rate units TemperatureUnits
-perKelvin quantity =
-    Quantity.per (kelvins 1) quantity
-
-
-perDegreeCelsius : Quantity Float units -> Rate units TemperatureUnits
-perDegreeCelsius quantity =
-    Quantity.per (degreesCelsius 1) quantity
-
-
-perDegreeFahrenheit : Quantity Float units -> Rate units TemperatureUnits
-perDegreeFahrenheit quantity =
-    Quantity.per (degreesFahrenheit 1) quantity
 
 
 

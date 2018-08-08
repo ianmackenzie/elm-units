@@ -11,9 +11,6 @@ module Angle
         , inDegrees
         , inRadians
         , inTurns
-        , perDegree
-        , perRadian
-        , perTurn
         , radians
         , sin
         , tan
@@ -59,21 +56,6 @@ turns numTurns =
 inTurns : Angle -> Float
 inTurns angle =
     inRadians angle / (2 * pi)
-
-
-perDegree : Quantity Float units -> Rate units AngleUnits
-perDegree quantity =
-    Quantity.per (degrees 1) quantity
-
-
-perRadian : Quantity Float units -> Rate units AngleUnits
-perRadian quantity =
-    Quantity.per (radians 1) quantity
-
-
-perTurn : Quantity Float units -> Rate units AngleUnits
-perTurn quantity =
-    Quantity.per (turns 1) quantity
 
 
 sin : Angle -> Float

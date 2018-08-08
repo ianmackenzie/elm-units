@@ -14,13 +14,6 @@ module Duration
         , inYears
         , milliseconds
         , minutes
-        , perDay
-        , perHour
-        , perMillisecond
-        , perMinute
-        , perSecond
-        , perWeek
-        , perYear
         , seconds
         , weeks
         , years
@@ -210,38 +203,3 @@ years numYears =
 inYears : Duration -> Float
 inYears duration =
     inSeconds duration / 31557600
-
-
-perMillisecond : Quantity Float units -> Rate units TimeUnits
-perMillisecond quantity =
-    Quantity.per (milliseconds 1) quantity
-
-
-perSecond : Quantity Float units -> Rate units TimeUnits
-perSecond quantity =
-    Quantity.per (seconds 1) quantity
-
-
-perMinute : Quantity Float units -> Rate units TimeUnits
-perMinute quantity =
-    Quantity.per (minutes 1) quantity
-
-
-perHour : Quantity Float units -> Rate units TimeUnits
-perHour quantity =
-    Quantity.per (hours 1) quantity
-
-
-perDay : Quantity Float units -> Rate units TimeUnits
-perDay quantity =
-    Quantity.per (days 1) quantity
-
-
-perWeek : Quantity Float units -> Rate units TimeUnits
-perWeek quantity =
-    Quantity.per (weeks 1) quantity
-
-
-perYear : Quantity Float units -> Rate units TimeUnits
-perYear quantity =
-    Quantity.per (years 1) quantity

@@ -13,13 +13,6 @@ module Mass
         , kilograms
         , longTons
         , ounces
-        , perGram
-        , perKilogram
-        , perLongTon
-        , perOunce
-        , perPound
-        , perShortTon
-        , perTonne
         , pounds
         , shortTons
         , tonnes
@@ -104,38 +97,3 @@ longTons numLongTons =
 inLongTons : Mass -> Float
 inLongTons mass =
     inPounds mass / 2240
-
-
-perKilogram : Quantity units -> Quantity (Rate units MassUnits)
-perKilogram quantity =
-    Quantity.per (kilograms 1) quantity
-
-
-perGram : Quantity units -> Quantity (Rate units MassUnits)
-perGram quantity =
-    Quantity.per (grams 1) quantity
-
-
-perPound : Quantity units -> Quantity (Rate units MassUnits)
-perPound quantity =
-    Quantity.per (pounds 1) quantity
-
-
-perOunce : Quantity units -> Quantity (Rate units MassUnits)
-perOunce quantity =
-    Quantity.per (ounces 1) quantity
-
-
-perTonne : Quantity units -> Quantity (Rate units MassUnits)
-perTonne quantity =
-    Quantity.per (tonnes 1) quantity
-
-
-perShortTon : Quantity units -> Quantity (Rate units MassUnits)
-perShortTon quantity =
-    Quantity.per (shortTons 1) quantity
-
-
-perLongTon : Quantity units -> Quantity (Rate units MassUnits)
-perLongTon quantity =
-    Quantity.per (longTons 1) quantity

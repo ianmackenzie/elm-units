@@ -3,7 +3,6 @@ module Pixels
         ( PixelUnits
         , Pixels
         , inPixels
-        , perPixel
         , pixels
         )
 
@@ -26,8 +25,3 @@ pixels numPixels =
 inPixels : Pixels number -> number
 inPixels (Quantity numPixels) =
     numPixels
-
-
-perPixel : Quantity Float units -> Rate units PixelUnits
-perPixel quantity =
-    Quantity.per (pixels 1) quantity

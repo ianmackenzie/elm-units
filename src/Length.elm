@@ -23,17 +23,6 @@ module Length
         , miles
         , millimeters
         , parsecs
-        , perAstronomicalUnit
-        , perCentimeter
-        , perFoot
-        , perInch
-        , perKilometer
-        , perLightYear
-        , perMeter
-        , perMile
-        , perMillimeter
-        , perParsec
-        , perYard
         , yards
         )
 
@@ -156,58 +145,3 @@ lightYears numLightYears =
 inLightYears : Length -> Float
 inLightYears length =
     inMeters length / 9460730472580800
-
-
-perMillimeter : Quantity Float units -> Rate units LengthUnits
-perMillimeter quantity =
-    Quantity.per (millimeters 1) quantity
-
-
-perCentimeter : Quantity Float units -> Rate units LengthUnits
-perCentimeter quantity =
-    Quantity.per (centimeters 1) quantity
-
-
-perMeter : Quantity Float units -> Rate units LengthUnits
-perMeter quantity =
-    Quantity.per (meters 1) quantity
-
-
-perKilometer : Quantity Float units -> Rate units LengthUnits
-perKilometer quantity =
-    Quantity.per (kilometers 1) quantity
-
-
-perInch : Quantity Float units -> Rate units LengthUnits
-perInch quantity =
-    Quantity.per (inches 1) quantity
-
-
-perFoot : Quantity Float units -> Rate units LengthUnits
-perFoot quantity =
-    Quantity.per (feet 1) quantity
-
-
-perYard : Quantity Float units -> Rate units LengthUnits
-perYard quantity =
-    Quantity.per (yards 1) quantity
-
-
-perMile : Quantity Float units -> Rate units LengthUnits
-perMile quantity =
-    Quantity.per (miles 1) quantity
-
-
-perAstronomicalUnit : Quantity Float units -> Rate units LengthUnits
-perAstronomicalUnit quantity =
-    Quantity.per (astronomicalUnits 1) quantity
-
-
-perParsec : Quantity Float units -> Rate units LengthUnits
-perParsec quantity =
-    Quantity.per (parsecs 1) quantity
-
-
-perLightYear : Quantity Float units -> Rate units LengthUnits
-perLightYear quantity =
-    Quantity.per (lightYears 1) quantity
