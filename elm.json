@@ -1,7 +1,7 @@
 {
     "type": "package",
     "name": "ianmackenzie/elm-units",
-    "summary": "Simple unit types and conversions for Elm",
+    "summary": "Simple, safe and convenient unit types and conversions for Elm",
     "license": "BSD-3-Clause",
     "version": "1.0.0",
     "exposed-modules": [
