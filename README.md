@@ -66,12 +66,6 @@ quarterMileTime =
         |> Duration.inSeconds
 ```
 
-Basically, anywhere you are currently using a `Float` or `Int` that implicitly
-has some sort of units associated with it (for example "5 pixels",
-"3.5 minutes", "10 meters" or "61.4 miles per hour"), then there's a good chance
-you can replace it with a `Quantity` value from this package for a nice gain in
-type safety (with little to no runtime cost!).
-
 ## Table of Contents
 
   - [Background](#background)
