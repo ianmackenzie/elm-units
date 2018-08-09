@@ -68,7 +68,7 @@ quarterMileTime =
 
 ## Table of Contents
 
-  - [Install](#install)
+  - [Installation](#installation)
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
     - [Arithmetic and Comparison](#arithmetic-and-comparison)
@@ -79,10 +79,10 @@ quarterMileTime =
     - [Understanding Quantity Types](#understanding-quantity-types)
   - [Getting Help](#getting-help)
   - [API](#api)
-  - [Contribute](#contribute)
+  - [Contributing](#contributing)
   - [License](#license)
 
-## Install
+## Installation
 
 TODO
 
@@ -311,7 +311,7 @@ three platforms =)
 Full API documentation will be available on the Elm package web site once this
 package is published.
 
-## Contribute
+## Contributing
 
 TODO
 
