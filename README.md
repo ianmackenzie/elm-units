@@ -72,7 +72,6 @@ quarterMileTime =
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
     - [Arithmetic and Comparison](#arithmetic-and-comparison)
-    - [Rates of Change](#rates-of-change)
     - [Spaces](#spaces)
     - [Custom Functions](#custom-functions)
     - [Custom Units](#custom-units)
@@ -203,8 +202,6 @@ Quantity.product (Length.feet 2) (Length.inches 8)
     |> Area.inSquareInches
 --> 96
 ```
-
-### Rates of Change
 
 Special support is provided for calculations involving rates of change:
 
