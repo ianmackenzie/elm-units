@@ -1,6 +1,7 @@
 module Point3d
     exposing
         ( Point3d
+        , convert
         , coordinates
         , distanceFrom
         , fromCoordinates
@@ -49,3 +50,16 @@ distanceFrom p1 p2 =
             z2 - z1
     in
     Quantity (sqrt (dx * dx + dy * dy + dz * dz))
+
+
+convert : Length.Conversion sourceSpace destinationSpace -> Point3d sourceSpace -> Point3d destinationSpace
+convert sourceToDestination point =
+    let
+        ( x, y, z ) =
+            coordinates point
+    in
+    fromCoordinates
+        ( Length.convert sourceToDestination x
+        , Length.convert sourceToDestination y
+        , Length.convert sourceToDestination z
+        )

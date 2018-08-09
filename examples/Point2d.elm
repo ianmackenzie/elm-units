@@ -1,6 +1,7 @@
 module Point2d
     exposing
         ( Point2d
+        , convert
         , coordinates
         , distanceFrom
         , fromCoordinates
@@ -46,3 +47,15 @@ distanceFrom p1 p2 =
             y2 - y1
     in
     Quantity (sqrt (dx * dx + dy * dy))
+
+
+convert : Length.Conversion sourceSpace destinationSpace -> Point2d sourceSpace -> Point2d destinationSpace
+convert sourceToDestination point =
+    let
+        ( x, y ) =
+            coordinates point
+    in
+    fromCoordinates
+        ( Length.convert sourceToDestination x
+        , Length.convert sourceToDestination y
+        )
