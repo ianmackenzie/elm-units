@@ -5,7 +5,7 @@
 *Note*: This package has not yet been published!
 
 `elm-units` is useful whenever you want a simple, safe and convenient way to
-store, pass around, convert between, compare, or do arithmetic on
+store, pass around, convert between, compare, or do arithmetic on:
 
   - Durations (seconds, milliseconds, hours...)
   - Angles (degrees, radians, turns...)
@@ -18,7 +18,7 @@ store, pass around, convert between, compare, or do arithmetic on
   - Or even values in your own custom units, such as 'number of tiles' in a
     tile-based game
 
-It allows you to create nice data types like
+It allows you to create data types like
 
 ```elm
 type alias Camera =
@@ -29,7 +29,7 @@ type alias Camera =
     }
 ```
 
-and nice function signatures like
+and function signatures like
 
 ```elm
 {-| Compute the time necessary to cover a given distance, starting from rest,
@@ -72,6 +72,7 @@ type safety (with little to no runtime cost!).
     - [Fundamentals](#fundamentals)
     - [Arithmetic and Comparison](#arithmetic-and-comparison)
     - [Rates of Change](#rates-of-change)
+    - [Spaces](#spaces)
     - [Custom Functions](#custom-functions)
     - [Custom Units](#custom-units)
     - [Understanding Quantity Types](#understanding-quantity-types)
@@ -96,10 +97,12 @@ code in terms of higher-level concepts like 'duration', 'angle', 'length' and
 'speed' etc. without having to worry about units.
 
 `elm-units` is somewhat similar to Haskell's [`units` package](http://hackage.haskell.org/package/units)
-and F#'s [built-in unit support](https://fsharpforfunandprofit.com/posts/units-of-measure/)
+and F#'s [built-in unit support](https://fsharpforfunandprofit.com/posts/units-of-measure/),
 but is designed from the ground up for Elm.
 
 ## Install
+
+TODO
 
 ## Usage
 
@@ -141,7 +144,7 @@ subscriptions model =
     Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)
 ```
 
-Later on when you handle the `Tick` message, you can extract the duration value
+Later on, when you handle the `Tick` message, you can extract the duration value
 in whatever units you want. Perhaps you want to keep track of how many frames
 per second your application is running at:
 
@@ -155,11 +158,11 @@ update message model =
             )
 ```
 
-Note that any necessary conversion is done automatically - you simply create a
+Note that any necessary conversion is done automatically - you create a
 `Duration` from a `Float` by specifying what kind of units you *have*, and then
-later extract a `Float` value by specifying what kind of units you *want*. This
-means you can skip the 'store the value in a message' step and just use the
-provided functions to do unit conversions:
+later extract a `Float` value by specifying what kind of units you *want*. This,
+incidentally, means you can skip the 'store the value in a message' step and
+just use the provided functions to do unit conversions:
 
 ```elm
 Duration.hours 3 |> Duration.inSeconds
@@ -253,8 +256,8 @@ Length.astronomicalUnits 1 |> Quantity.at_ speedOfLight |> Duration.inMinutes
 --> 8.316746397269274
 ```
 
-Note that the `per`, `for`, `at` and `at_` functions are not restricted to speed
-(length per unit time) - any units work:
+Note that the various functions above are not restricted to speed (length per
+unit time) - any units work:
 
 ```elm
 pixelsPerInch =
@@ -268,6 +271,10 @@ Length.centimeters 3 |> Quantity.at pixelsPerInch |> Length.inPixels
 produce values of different types, so you need an explicit conversion ratio like
 the above if you want to convert between the two.)
 
+### Spaces
+
+TODO
+
 ### Custom Functions
 
 TODO (ideal gas law example)
@@ -279,6 +286,8 @@ TODO (currencies? game tiles?)
 ### Understanding Quantity Types
 
 TODO
+
+The following types are all equivalent:
 
 ```elm
 -- Length in world space
@@ -297,6 +306,8 @@ Quantity Float Meters
 Quantity Float (LengthUnits WorldSpace)
 ```
 
+So are all the following:
+
 ```elm
 Speed WorldSpace
 Fractional (SpeedUnits WorldSpace)
@@ -308,9 +319,9 @@ Rate Meters Seconds
 
 ## Getting Help
 
-For general questions about using `elm-units`, try asking in the [Elm Slack](http://elmlang.herokuapp.com/) or
-posting on [the Elm Discourse forums](https://discourse.elm-lang.org/) or
-[the Elm subreddit](https://www.reddit.com/r/elm/). I'm **ianmackenzie** on all
+For general questions about using `elm-units`, try asking in the [Elm Slack](http://elmlang.herokuapp.com/)
+or posting on the [Elm Discourse forums](https://discourse.elm-lang.org/) or the
+[Elm subreddit](https://www.reddit.com/r/elm/). I'm **@ianmackenzie** on all
 three platforms =)
 
 ## API
