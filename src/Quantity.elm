@@ -74,7 +74,7 @@ zero =
 
 toFractional : Whole units -> Fractional units
 toFractional (Quantity value) =
-    Quantity (Basics.toFloat value)
+    Quantity (toFloat value)
 
 
 
