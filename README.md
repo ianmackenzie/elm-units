@@ -4,8 +4,8 @@
 
 *Note*: This package has not yet been published!
 
-`elm-units` is useful whenever you want a simple, safe and convenient way to
-store, pass around, convert between, compare, or do arithmetic on:
+`elm-units` is useful whenever you want to store, pass around, convert between,
+compare, or do arithmetic on:
 
   - Durations (seconds, milliseconds, hours...)
   - Angles (degrees, radians, turns...)
