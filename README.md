@@ -29,7 +29,11 @@ type alias Camera =
     }
 ```
 
-and function signatures like
+and functions like
+
+canOperateAt : Temperature -> Camera -> Bool
+canOperateAt temperature camera =
+    temperature |> Quantity.greaterThan camera.minimumOperatingTemperature
 
 ```elm
 {-| Compute the time necessary to cover a given distance, starting from rest,
@@ -51,6 +55,10 @@ camera =
     , shutterSpeed = Duration.milliseconds 2.5
     , minimumOperatingTemperature = Temperature.celsius -35
     }
+
+isSafe : Bool
+isSafe =
+    camera |> canOperateAt (Temperature.fahrenheit -10)
 
 quarterMileTime : Float
 quarterMileTime =
