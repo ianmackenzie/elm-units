@@ -68,7 +68,6 @@ quarterMileTime =
 
 ## Table of Contents
 
-  - [Background](#background)
   - [Install](#install)
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
@@ -82,25 +81,6 @@ quarterMileTime =
   - [API](#api)
   - [Contribute](#contribute)
   - [License](#license)
-
-## Background
-
-Have you ever taken a `Float` value that is a number of milliseconds and
-accidentally treated it as a number of seconds, or vice versa? How about angles
-in degrees versus radians? Have you ever documented a function as accepting a
-length in meters, and then just crossed your fingers and hoped that everyone
-read the documentation carefully and never accidentally passed a length in feet
-instead?
-
-This package is meant to make it impossible to accidentally mix up units in
-these ways, while allowing different parts of a codebase (perhaps in different
-packages!) to work in whatever units they find most convenient. This lets you
-code in terms of higher-level concepts like 'duration', 'angle', 'length' and
-'speed' etc. without having to worry about units.
-
-`elm-units` is somewhat similar to Haskell's [`units` package](http://hackage.haskell.org/package/units)
-and F#'s [built-in unit support](https://fsharpforfunandprofit.com/posts/units-of-measure/),
-but is designed from the ground up for Elm.
 
 ## Install
 
