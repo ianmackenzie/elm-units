@@ -31,11 +31,11 @@ type alias Camera =
 
 and functions like
 
+```elm
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
     temperature |> Quantity.greaterThan camera.minimumOperatingTemperature
 
-```elm
 {-| Compute the time necessary to cover a given distance, starting from rest,
 with the given acceleration.
 -}
