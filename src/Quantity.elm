@@ -17,6 +17,7 @@ module Quantity
         , for
         , greaterThan
         , inUnits
+        , invert
         , lessThan
         , max
         , maximum
@@ -215,6 +216,11 @@ at (Quantity rate) (Quantity independentValue) =
 at_ : Rate dependentUnits independentUnits -> Fractional dependentUnits -> Fractional independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
+
+
+invert : Rate dependentUnits independentUnits -> Rate independentUnits dependentUnits
+invert (Quantity rate) =
+    Quantity (1 / rate)
 
 
 
