@@ -1,11 +1,13 @@
 module Length
     exposing
-        ( Length
+        ( Conversion
+        , Length
         , LengthUnits
         , Meters
         , Pixels
         , astronomicalUnits
         , centimeters
+        , convert
         , feet
         , inAstronomicalUnits
         , inCentimeters
@@ -31,7 +33,7 @@ module Length
         , yards
         )
 
-import Quantity exposing (Fractional, Quantity(..), Whole)
+import Quantity exposing (Fractional, Quantity(..), Rate, Whole)
 import Spaces exposing (ScreenSpace, WorldSpace)
 
 
@@ -59,6 +61,10 @@ units in that space.
 -}
 type alias Length space =
     Fractional (LengthUnits space)
+
+
+type alias Conversion sourceSpace destinationSpace =
+    Rate (LengthUnits destinationSpace) (LengthUnits sourceSpace)
 
 
 pixels : number -> Quantity number Pixels
@@ -184,3 +190,8 @@ lightYears numLightYears =
 inLightYears : Length WorldSpace -> Float
 inLightYears length =
     inMeters length / 9460730472580800
+
+
+convert : Conversion sourceSpace destinationSpace -> Length sourceSpace -> Length destinationSpace
+convert rate length =
+    length |> Quantity.at rate

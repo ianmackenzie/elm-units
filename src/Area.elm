@@ -2,6 +2,7 @@ module Area
     exposing
         ( Area
         , acres
+        , convert
         , hectares
         , inAcres
         , inHectares
@@ -152,3 +153,8 @@ squareMiles numSquareMiles =
 inSquareMiles : Area WorldSpace -> Float
 inSquareMiles area =
     inSquareMeters area / (1609.344 * 1609.344)
+
+
+convert : Length.Conversion sourceSpace destinationSpace -> Area sourceSpace -> Area destinationSpace
+convert (Quantity rate) (Quantity value) =
+    Quantity (rate * rate * value)

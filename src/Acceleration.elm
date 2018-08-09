@@ -2,6 +2,7 @@ module Acceleration
     exposing
         ( Acceleration
         , AccelerationUnits
+        , convert
         , feetPerSecondSquared
         , inFeetPerSecondSquared
         , inMetersPerSecondSquared
@@ -11,6 +12,7 @@ module Acceleration
         )
 
 import Duration exposing (Seconds)
+import Length
 import Quantity exposing (Quantity(..), Quotient, Rate)
 import Spaces exposing (ScreenSpace, WorldSpace)
 import Speed exposing (SpeedUnits)
@@ -52,3 +54,8 @@ feetPerSecondSquared numFeetPerSecondSquared =
 inFeetPerSecondSquared : Acceleration WorldSpace -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
+
+
+convert : Length.Conversion sourceSpace destinationSpace -> Acceleration sourceSpace -> Acceleration destinationSpace
+convert (Quantity rate) (Quantity value) =
+    Quantity (rate * value)

@@ -2,6 +2,7 @@ module Speed
     exposing
         ( Speed
         , SpeedUnits
+        , convert
         , feetPerSecond
         , inFeetPerSecond
         , inKilometersPerHour
@@ -76,3 +77,8 @@ milesPerHour numMilesPerHour =
 inMilesPerHour : Speed WorldSpace -> Float
 inMilesPerHour speed =
     (3600 / 1609.344) * inMetersPerSecond speed
+
+
+convert : Length.Conversion sourceSpace destinationSpace -> Speed sourceSpace -> Speed destinationSpace
+convert (Quantity rate) (Quantity value) =
+    Quantity (rate * value)
