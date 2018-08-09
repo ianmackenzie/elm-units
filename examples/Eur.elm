@@ -1,51 +1,47 @@
 module Eur exposing (..)
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..), Whole)
 
 
 type Cents
     = Cents Never
 
 
-type alias Eur number =
-    Quantity number Cents
-
-
-amount : number -> number -> Eur number
+amount : number -> number -> Quantity number Cents
 amount numEuros numCents =
     Quantity (numEuros * 100 + numCents)
 
 
-cents : number -> Eur number
+cents : number -> Quantity number Cents
 cents numCents =
     Quantity numCents
 
 
-inCents : Eur number -> number
+inCents : Quantity number Cents -> number
 inCents (Quantity numCents) =
     numCents
 
 
-euros : number -> Eur number
+euros : number -> Quantity number Cents
 euros numEuros =
     Quantity (100 * numEuros)
 
 
-inEuros : Eur Float -> Float
+inEuros : Fractional Cents -> Float
 inEuros (Quantity numCents) =
     numCents / 100
 
 
-roundToNearestCent : Eur Float -> Eur Int
+roundToNearestCent : Fractional Cents -> Whole Cents
 roundToNearestCent (Quantity numCents) =
     Quantity (round numCents)
 
 
-roundDownToNearestCent : Eur Float -> Eur Int
+roundDownToNearestCent : Fractional Cents -> Whole Cents
 roundDownToNearestCent (Quantity numCents) =
     Quantity (floor numCents)
 
 
-roundUpToNearestCent : Eur Float -> Eur Int
+roundUpToNearestCent : Fractional Cents -> Whole Cents
 roundUpToNearestCent (Quantity numCents) =
     Quantity (ceiling numCents)

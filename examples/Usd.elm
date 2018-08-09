@@ -1,51 +1,47 @@
 module Usd exposing (..)
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..), Whole)
 
 
 type Cents
     = Cents Never
 
 
-type alias Usd number =
-    Quantity number Cents
-
-
-amount : number -> number -> Usd number
+amount : number -> number -> Quantity number Cents
 amount numDollars numCents =
     Quantity (numDollars * 100 + numCents)
 
 
-cents : number -> Usd number
+cents : number -> Quantity number Cents
 cents numCents =
     Quantity numCents
 
 
-inCents : Usd number -> number
+inCents : Quantity number Cents -> number
 inCents (Quantity numCents) =
     numCents
 
 
-dollars : number -> Usd number
+dollars : number -> Quantity number Cents
 dollars numDollars =
     Quantity (100 * numDollars)
 
 
-inDollars : Usd Float -> Float
+inDollars : Fractional Cents -> Float
 inDollars (Quantity numCents) =
     numCents / 100
 
 
-roundToNearestCent : Usd Float -> Usd Int
+roundToNearestCent : Fractional Cents -> Whole Cents
 roundToNearestCent (Quantity numCents) =
     Quantity (round numCents)
 
 
-roundDownToNearestCent : Usd Float -> Usd Int
+roundDownToNearestCent : Fractional Cents -> Whole Cents
 roundDownToNearestCent (Quantity numCents) =
     Quantity (floor numCents)
 
 
-roundUpToNearestCent : Usd Float -> Usd Int
+roundUpToNearestCent : Fractional Cents -> Whole Cents
 roundUpToNearestCent (Quantity numCents) =
     Quantity (ceiling numCents)
