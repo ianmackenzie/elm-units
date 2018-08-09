@@ -8,7 +8,8 @@
     "dependencies": {
         "direct": {
             "elm/core": "1.0.0",
-            "elm/json": "1.0.0"
+            "elm/json": "1.0.0",
+            "elm/time": "1.0.0"
         },
         "indirect": {}
     },
