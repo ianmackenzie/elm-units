@@ -1,7 +1,7 @@
 module Temperature
     exposing
-        ( Temperature
-        , TemperatureUnits
+        ( Kelvins
+        , Temperature
         , celsius
         , clamp
         , compare
@@ -26,23 +26,25 @@ module Temperature
         , toAbsolute
         )
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
-type TemperatureUnits
-    = Kelvins
+{-| Kelvins are the standard unit of temperature.
+-}
+type Kelvins
+    = Kelvins Never
 
 
 type Temperature
     = Temperature Float
 
 
-kelvins : Float -> Quantity Float TemperatureUnits
+kelvins : Float -> Fractional Kelvins
 kelvins numKelvins =
     Quantity numKelvins
 
 
-inKelvins : Quantity Float TemperatureUnits -> Float
+inKelvins : Fractional Kelvins -> Float
 inKelvins (Quantity numKelvins) =
     numKelvins
 
@@ -67,32 +69,32 @@ inFahrenheit temperature =
     32 + 1.8 * inCelsius temperature
 
 
-toAbsolute : Temperature -> Quantity Float TemperatureUnits
+toAbsolute : Temperature -> Fractional Kelvins
 toAbsolute (Temperature temperatureInKelvins) =
     kelvins temperatureInKelvins
 
 
-fromAbsolute : Quantity Float TemperatureUnits -> Temperature
+fromAbsolute : Fractional Kelvins -> Temperature
 fromAbsolute quantity =
     Temperature (inKelvins quantity)
 
 
-degreesCelsius : Float -> Quantity Float TemperatureUnits
+degreesCelsius : Float -> Fractional Kelvins
 degreesCelsius numDegreesCelsius =
     kelvins numDegreesCelsius
 
 
-inDegreesCelsius : Quantity Float TemperatureUnits -> Float
+inDegreesCelsius : Fractional Kelvins -> Float
 inDegreesCelsius quantity =
     inKelvins quantity
 
 
-degreesFahrenheit : Float -> Quantity Float TemperatureUnits
+degreesFahrenheit : Float -> Fractional Kelvins
 degreesFahrenheit numDegreesFahrenheit =
     kelvins (numDegreesFahrenheit / 1.8)
 
 
-inDegreesFahrenheit : Quantity Float TemperatureUnits -> Float
+inDegreesFahrenheit : Fractional Kelvins -> Float
 inDegreesFahrenheit quantity =
     inKelvins quantity * 1.8
 
@@ -131,7 +133,7 @@ max (Temperature x) (Temperature y) =
     Temperature (Basics.max x y)
 
 
-difference : Temperature -> Temperature -> Quantity Float TemperatureUnits
+difference : Temperature -> Temperature -> Fractional Kelvins
 difference (Temperature x) (Temperature y) =
     kelvins (x - y)
 

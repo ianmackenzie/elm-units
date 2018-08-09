@@ -1,7 +1,7 @@
 module Angle
     exposing
         ( Angle
-        , AngleUnits
+        , Radians
         , acos
         , asin
         , atan
@@ -17,15 +17,19 @@ module Angle
         , turns
         )
 
-import Quantity exposing (Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
-type AngleUnits
-    = Radians
+{-| Radians are the standard unit of angle.
+-}
+type Radians
+    = Radians Never
 
 
+{-| An angle is a fractional number of radians.
+-}
 type alias Angle =
-    Quantity Float AngleUnits
+    Fractional Radians
 
 
 radians : Float -> Angle
