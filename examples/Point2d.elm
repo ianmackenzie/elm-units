@@ -7,29 +7,30 @@ module Point2d
         , origin
         )
 
+import Length exposing (Length)
 import Quantity exposing (Quantity(..))
 
 
-type Point2d units
-    = Point2d ( Quantity Float units, Quantity Float units )
+type Point2d space
+    = Point2d ( Length space, Length space )
 
 
-origin : Point2d units
+origin : Point2d space
 origin =
     fromCoordinates ( Quantity.zero, Quantity.zero )
 
 
-fromCoordinates : ( Quantity Float units, Quantity Float units ) -> Point2d units
+fromCoordinates : ( Length space, Length space ) -> Point2d space
 fromCoordinates coordinates_ =
     Point2d coordinates_
 
 
-coordinates : Point2d units -> ( Quantity Float units, Quantity Float units )
+coordinates : Point2d space -> ( Length space, Length space )
 coordinates (Point2d coordinates_) =
     coordinates_
 
 
-distanceFrom : Point2d units -> Point2d units -> Quantity Float units
+distanceFrom : Point2d space -> Point2d space -> Length space
 distanceFrom p1 p2 =
     let
         ( Quantity x1, Quantity y1 ) =

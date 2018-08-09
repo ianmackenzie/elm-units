@@ -7,29 +7,30 @@ module Point3d
         , origin
         )
 
+import Length exposing (Length)
 import Quantity exposing (Quantity(..))
 
 
-type Point3d units
-    = Point3d ( Quantity Float units, Quantity Float units, Quantity Float units )
+type Point3d space
+    = Point3d ( Length space, Length space, Length space )
 
 
-origin : Point3d units
+origin : Point3d space
 origin =
     fromCoordinates ( Quantity.zero, Quantity.zero, Quantity.zero )
 
 
-fromCoordinates : ( Quantity Float units, Quantity Float units, Quantity Float units ) -> Point3d units
+fromCoordinates : ( Length space, Length space, Length space ) -> Point3d space
 fromCoordinates coordinates_ =
     Point3d coordinates_
 
 
-coordinates : Point3d units -> ( Quantity Float units, Quantity Float units, Quantity Float units )
+coordinates : Point3d space -> ( Length space, Length space, Length space )
 coordinates (Point3d coordinates_) =
     coordinates_
 
 
-distanceFrom : Point3d units -> Point3d units -> Quantity Float units
+distanceFrom : Point3d space -> Point3d space -> Length space
 distanceFrom p1 p2 =
     let
         ( Quantity x1, Quantity y1, Quantity z1 ) =
