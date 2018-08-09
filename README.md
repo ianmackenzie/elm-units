@@ -250,6 +250,8 @@ Length.centimeters 3 |> Quantity.at pixelsPerInch |> Length.inPixels
 produce values of different types, so you need an explicit conversion ratio like
 the above if you want to convert between the two.)
 
+TODO: comparison (separate section?)
+
 ### Spaces
 
 TODO
