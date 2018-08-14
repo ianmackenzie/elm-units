@@ -33,34 +33,99 @@ module Length
         , yards
         )
 
+{-| A `Length space` refers to a length in a particular [space](Spaces). For
+example, a `Length WorldSpace` refers to a length/distance in the real world
+(measured in meters, feet, light years or some other physical unit) and a
+`Length ScreenSpace` refers to a length/distance in screen coordinates (measured
+in pixels).
+
+@docs Length
+
+
+# Units
+
+Length in a particular space is stored as a [`Fractional`](Quantity#Fractional)
+number of base length units in that space; each space will generally have a
+different associated base length unit. For example, the base length unit in
+world space is meters, so the type `Length WorldSpace` is equivalent to
+`Fractional Meters`. Similarly, the base length unit in screen space is pixels,
+so `Length ScreenSpace` is equivalent to `Fractional Pixels`.
+
+@docs LengthUnits, Meters, Pixels
+
+
+# Screen space
+
+@docs pixels, inPixels, roundToNearestPixel
+
+
+# World space
+
+
+## Construction
+
+@docs meters, millimeters, centimeters, kilometers
+@docs inches, feet, yards, miles
+@docs astronomicalUnits, parsecs, lightYears
+
+
+## Conversion
+
+@docs inMeters, inMillimeters, inCentimeters, inKilometers
+@docs inInches, inFeet, inYards, inMiles
+@docs inAstronomicalUnits, inParsecs, inLightYears
+
+-}
+
 import Quantity exposing (Fractional, Quantity(..), Rate, Whole)
 import Spaces exposing (ScreenSpace, WorldSpace)
 
 
-{-| A given space such as world space or screen space has a particular type of
-length units associated with it.
+{-| -}
+type alias Length space =
+    Fractional (LengthUnits space)
+
+
+{-| `LengthUnits space` refers to the base length units associated with a given
+space. It is unlikely you will need to write code that refers to `LengthUnits`
+directly, but you may see it pop up in compiler error messages.
 -}
 type LengthUnits space
     = LengthUnits Never
 
 
-{-| Meters are the standard length unit in world space.
+{-| Meters are the base length unit in world space, so
+
+    Length WorldSpace
+
+and
+
+    Fractional Meters
+
+are equivalent because they both expand to
+
+    Fractional (LengthUnits WorldSpace)
+
 -}
 type alias Meters =
     LengthUnits WorldSpace
 
 
-{-| Pixels are the standard length unit in screen space.
+{-| Pixels are the base length unit in screen space, so
+
+    Length ScreenSpace
+
+and
+
+    Fractional Pixels
+
+are equivalent because they both expand to
+
+    Fractional (LengthUnits ScreenSpace)
+
 -}
 type alias Pixels =
     LengthUnits ScreenSpace
-
-
-{-| A generic 'length' in a particular space is a fractional number of length
-units in that space.
--}
-type alias Length space =
-    Fractional (LengthUnits space)
 
 
 type alias Conversion sourceSpace destinationSpace =
