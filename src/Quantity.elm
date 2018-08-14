@@ -37,6 +37,8 @@ module Quantity
         , zero
         )
 
+-- Quantity types
+
 
 type Quantity number units
     = Quantity number
@@ -50,6 +52,10 @@ type alias Fractional units =
     Quantity Float units
 
 
+
+-- Unit types
+
+
 type Squared units
     = Squared Never
 
@@ -58,8 +64,8 @@ type Quotient numeratorUnits denominatorUnits
     = Quotient Never
 
 
-type alias Rate dependentUnits independentUnits =
-    Fractional (Quotient dependentUnits independentUnits)
+
+-- Basics
 
 
 unwrap : Quantity number units -> number
@@ -198,6 +204,10 @@ sort quantities =
 -- Working with rates
 
 
+type alias Rate dependentUnits independentUnits =
+    Fractional (Quotient dependentUnits independentUnits)
+
+
 per : Fractional independentUnits -> Fractional dependentUnits -> Rate dependentUnits independentUnits
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
@@ -224,7 +234,7 @@ invert (Quantity rate) =
 
 
 
--- Generic quantities
+-- Generic units
 
 
 type Units
