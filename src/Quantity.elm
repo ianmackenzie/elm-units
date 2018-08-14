@@ -166,7 +166,7 @@ sqrt (Quantity value) =
 
 sum : List (Quantity number units) -> Quantity number units
 sum quantities =
-    List.foldl add (Quantity 0) quantities
+    List.foldl add zero quantities
 
 
 minimum : List (Quantity number units) -> Maybe (Quantity number units)
