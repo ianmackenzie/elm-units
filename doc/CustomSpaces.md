@@ -1,31 +1,34 @@
 # Custom Spaces
 
 `elm-units` defines a couple of standard spaces (`RealWorld` and `OnScreen`),
-but you can easily define your own! For example, if you were working on a tile
-based game, you might want to define a new space type and corresponding units
-type:
+but you can easily define your own! For example, if you were working on a 2D
+tile-based game, you might define a new space type, a corresponding units type
+and a matching pair of constructor/extractor functions:
 
 ```elm
-import Length exposing (LengthUnits)
+module Game
 
+import Quantity exposing (Quantity(..))
+import Length exposing (Length, LengthUnits)
+
+{-| Game world space
+-}
 type InGameWorld
     = InGameWorld Never
 
+{-| Units in the game world
+-}
 type alias Tiles =
     LengthUnits InGameWorld
-```
 
-You could then create functions to construct and deconstruct lengths in your
-game world:
-
-```elm
-import Quantity exposing (Quantity(..))
-import Length exposing (Length)
-
+{-| Construct a `Length InGameWorld` from a given number of tiles
+-}
 tiles : Float -> Length InGameWorld
 tiles numTiles =
     Quantity numTiles
 
+{-| Extract number of tiles from a `Length InGameWorld`
+-}
 inTiles : Length InGameWorld -> Float
 inTiles (Quantity numTiles) =
     numTiles
@@ -35,6 +38,7 @@ Then you can immediately start doing math with game-space quantities, converting
 safely back and forth between tiles and pixels, etc.:
 
 ```elm
+import Game exposing (tiles, inTiles)
 import Quantity
 import Length exposing (pixels, inPixels)
 import Duration exposing (seconds)
@@ -55,12 +59,12 @@ milliseconds 30 |> Quantity.at speed
 --> tiles 0.36
 ```
 
-If you wanted to restrict some functions/variables to be whole (integral)
-numbers of tiles, you could make the code slightly more generic:
+If you wanted to restrict some functions/variables to use whole (integral)
+numbers of tiles, you could make the constructor/extractor functions more
+generic and add a function to round a fractional number of tiles to a whole
+number of tiles:
 
 ```elm
-import Quantity exposing (Quantity(..))
-
 tiles : number -> Quantity number Tiles
 tiles numTiles =
     Quantity numTiles
@@ -76,4 +80,4 @@ roundToNearestTile (Quantity numTiles) =
 
 Then `tiles 3.5` would be accepted by a function with argument type `Length
 InGameWorld` (or its equivalent, `Fractional Tiles`), but not one with argument
-type `Whole Tiles`; `tiles 3` would be accepted by either.
+type `Whole Tiles`. In contrast, `tiles 3` would be accepted by either.
