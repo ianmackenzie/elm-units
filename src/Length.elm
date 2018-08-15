@@ -4,7 +4,9 @@ module Length
         , Length
         , LengthUnits
         , Meters
+        , OnScreen
         , Pixels
+        , RealWorld
         , astronomicalUnits
         , centimeters
         , convert
@@ -33,13 +35,17 @@ module Length
         , yards
         )
 
-{-| A `Length space` refers to a length in a particular [space](Spaces). For
-example, a `Length WorldSpace` refers to a length/distance in the real world
-(measured in meters, feet, light years or some other physical unit) and a
-`Length ScreenSpace` refers to a length/distance in screen coordinates (measured
-in pixels).
+{-|
 
 @docs Length
+
+
+# Spaces
+
+This module includes a couple of predefined spaces, but you can also [define
+your own](https://github.com/ianmackenzie/elm-units/blob/master/docs/CustomSpaces.md).
+
+@docs RealWorld, OnScreen
 
 
 # Units
@@ -47,11 +53,11 @@ in pixels).
 Length in a particular space is stored as a [`Fractional`](Quantity#Fractional)
 number of base length units in that space; each space will generally have a
 different associated base length unit. For example, the base length unit in
-world space is meters, so the type `Length WorldSpace` is equivalent to
+world space is meters, so the type `Length RealWorld` is equivalent to
 `Fractional Meters`. Similarly, the base length unit in screen space is pixels,
-so `Length ScreenSpace` is equivalent to `Fractional Pixels`.
+so `Length OnScreen` is equivalent to `Fractional Pixels`.
 
-@docs LengthUnits, Meters, Pixels
+@docs LengthUnits, Pixels, Meters
 
 
 # Screen space
@@ -78,12 +84,29 @@ so `Length ScreenSpace` is equivalent to `Fractional Pixels`.
 -}
 
 import Quantity exposing (Fractional, Quantity(..), Rate, Whole)
-import Spaces exposing (ScreenSpace, WorldSpace)
 
 
-{-| -}
+{-| A `Length space` refers to a length in a particular _space_. For example,
+`Length.meters 3` is a `Length RealWorld` and refers to a length/distance in the
+real, physical world. `Length.pixels 5` is instead a `Length OnScreen`. The
+distinction makes it impossible to do nonsensical things like add a length in
+pixels to a length in meters, while allowing for things that _do_ make sense
+like adding length in meters to a length in feet.
+-}
 type alias Length space =
     Fractional (LengthUnits space)
+
+
+{-| The `RealWorld` space refers to lengths in the real, physical world.
+-}
+type RealWorld
+    = RealWorld Never
+
+
+{-| The `OnScreen` space refers to lengths on a computer screen.
+-}
+type OnScreen
+    = OnScreen Never
 
 
 {-| `LengthUnits space` refers to the base length units associated with a given
@@ -94,38 +117,47 @@ type LengthUnits space
     = LengthUnits Never
 
 
-{-| Meters are the base length unit in world space, so
-
-    Length WorldSpace
-
-and
-
-    Fractional Meters
-
-are equivalent because they both expand to
-
-    Fractional (LengthUnits WorldSpace)
-
--}
-type alias Meters =
-    LengthUnits WorldSpace
-
-
 {-| Pixels are the base length unit in screen space, so
 
-    Length ScreenSpace
+    Length OnScreen
 
-and
+is equivalent to
 
     Fractional Pixels
 
-are equivalent because they both expand to
+because they both expand to
 
-    Fractional (LengthUnits ScreenSpace)
+    Fractional (LengthUnits OnScreen)
+
+Therefore you could take a `Length RealWorld`, [`convert`](#convert) it into a
+`Length OnScreen`, then pass the result to a function that accepted an argument
+of type `Fractional Pixels`. If instead that function only accepted `Whole
+Pixels`, then you would have to call [`roundToNearestPixel`](#roundToNearestPixel)
+first!
 
 -}
 type alias Pixels =
-    LengthUnits ScreenSpace
+    LengthUnits OnScreen
+
+
+{-| Meters are the base length unit in world space, so
+
+    Length RealWorld
+
+is equivalent to
+
+    Fractional Meters
+
+because they both expand to
+
+    Fractional (LengthUnits RealWorld)
+
+This is, however, less useful than `Pixels` because it rarely makes sense to
+restrict a value to a whole number of meters.
+
+-}
+type alias Meters =
+    LengthUnits RealWorld
 
 
 type alias Conversion sourceSpace destinationSpace =
@@ -147,112 +179,112 @@ roundToNearestPixel (Quantity numPixels) =
     Quantity (round numPixels)
 
 
-meters : Float -> Length WorldSpace
+meters : Float -> Length RealWorld
 meters numMeters =
     Quantity numMeters
 
 
-inMeters : Length WorldSpace -> Float
+inMeters : Length RealWorld -> Float
 inMeters (Quantity numMeters) =
     numMeters
 
 
-millimeters : Float -> Length WorldSpace
+millimeters : Float -> Length RealWorld
 millimeters numMillimeters =
     meters (0.001 * numMillimeters)
 
 
-inMillimeters : Length WorldSpace -> Float
+inMillimeters : Length RealWorld -> Float
 inMillimeters length =
     1000 * inMeters length
 
 
-inches : Float -> Length WorldSpace
+inches : Float -> Length RealWorld
 inches numInches =
     meters (0.0254 * numInches)
 
 
-inInches : Length WorldSpace -> Float
+inInches : Length RealWorld -> Float
 inInches length =
     inMeters length / 0.0254
 
 
-centimeters : Float -> Length WorldSpace
+centimeters : Float -> Length RealWorld
 centimeters numCentimeters =
     meters (0.01 * numCentimeters)
 
 
-inCentimeters : Length WorldSpace -> Float
+inCentimeters : Length RealWorld -> Float
 inCentimeters length =
     100 * inMeters length
 
 
-feet : Float -> Length WorldSpace
+feet : Float -> Length RealWorld
 feet numFeet =
     meters (0.3048 * numFeet)
 
 
-inFeet : Length WorldSpace -> Float
+inFeet : Length RealWorld -> Float
 inFeet length =
     inMeters length / 0.3048
 
 
-yards : Float -> Length WorldSpace
+yards : Float -> Length RealWorld
 yards numYards =
     meters (0.9144 * numYards)
 
 
-inYards : Length WorldSpace -> Float
+inYards : Length RealWorld -> Float
 inYards length =
     inMeters length / 0.9144
 
 
-kilometers : Float -> Length WorldSpace
+kilometers : Float -> Length RealWorld
 kilometers numKilometers =
     meters (1000 * numKilometers)
 
 
-inKilometers : Length WorldSpace -> Float
+inKilometers : Length RealWorld -> Float
 inKilometers length =
     0.001 * inMeters length
 
 
-miles : Float -> Length WorldSpace
+miles : Float -> Length RealWorld
 miles numMiles =
     meters (1609.344 * numMiles)
 
 
-inMiles : Length WorldSpace -> Float
+inMiles : Length RealWorld -> Float
 inMiles length =
     inMeters length / 1609.344
 
 
-astronomicalUnits : Float -> Length WorldSpace
+astronomicalUnits : Float -> Length RealWorld
 astronomicalUnits numAstronomicalUnits =
     meters (149597870700 * numAstronomicalUnits)
 
 
-inAstronomicalUnits : Length WorldSpace -> Float
+inAstronomicalUnits : Length RealWorld -> Float
 inAstronomicalUnits length =
     inMeters length / 149597870700
 
 
-parsecs : Float -> Length WorldSpace
+parsecs : Float -> Length RealWorld
 parsecs numParsecs =
     astronomicalUnits (numParsecs * 648000 / pi)
 
 
-inParsecs : Length WorldSpace -> Float
+inParsecs : Length RealWorld -> Float
 inParsecs length =
     inAstronomicalUnits length * pi / 648000
 
 
-lightYears : Float -> Length WorldSpace
+lightYears : Float -> Length RealWorld
 lightYears numLightYears =
     meters (9460730472580800 * numLightYears)
 
 
-inLightYears : Length WorldSpace -> Float
+inLightYears : Length RealWorld -> Float
 inLightYears length =
     inMeters length / 9460730472580800
 

@@ -16,9 +16,8 @@ module Speed
         )
 
 import Duration exposing (Seconds)
-import Length exposing (LengthUnits)
+import Length exposing (LengthUnits, OnScreen, RealWorld)
 import Quantity exposing (Quantity(..), Quotient, Rate)
-import Spaces exposing (ScreenSpace, WorldSpace)
 
 
 type alias SpeedUnits space =
@@ -29,52 +28,52 @@ type alias Speed space =
     Rate (LengthUnits space) Seconds
 
 
-pixelsPerSecond : Float -> Speed ScreenSpace
+pixelsPerSecond : Float -> Speed OnScreen
 pixelsPerSecond numPixelsPerSecond =
     Quantity numPixelsPerSecond
 
 
-inPixelsPerSecond : Speed ScreenSpace -> Float
+inPixelsPerSecond : Speed OnScreen -> Float
 inPixelsPerSecond (Quantity numPixelsPerSecond) =
     numPixelsPerSecond
 
 
-metersPerSecond : Float -> Speed WorldSpace
+metersPerSecond : Float -> Speed RealWorld
 metersPerSecond numMetersPerSecond =
     Quantity numMetersPerSecond
 
 
-inMetersPerSecond : Speed WorldSpace -> Float
+inMetersPerSecond : Speed RealWorld -> Float
 inMetersPerSecond (Quantity numMetersPerSecond) =
     numMetersPerSecond
 
 
-feetPerSecond : Float -> Speed WorldSpace
+feetPerSecond : Float -> Speed RealWorld
 feetPerSecond numFeetPerSecond =
     metersPerSecond (0.3048 * numFeetPerSecond)
 
 
-inFeetPerSecond : Speed WorldSpace -> Float
+inFeetPerSecond : Speed RealWorld -> Float
 inFeetPerSecond speed =
     inMetersPerSecond speed / 0.3048
 
 
-kilometersPerHour : Float -> Speed WorldSpace
+kilometersPerHour : Float -> Speed RealWorld
 kilometersPerHour numKilometersPerHour =
     metersPerSecond (numKilometersPerHour / 3.6)
 
 
-inKilometersPerHour : Speed WorldSpace -> Float
+inKilometersPerHour : Speed RealWorld -> Float
 inKilometersPerHour speed =
     3.6 * inMetersPerSecond speed
 
 
-milesPerHour : Float -> Speed WorldSpace
+milesPerHour : Float -> Speed RealWorld
 milesPerHour numMilesPerHour =
     metersPerSecond (numMilesPerHour * 1609.344 / 3600)
 
 
-inMilesPerHour : Speed WorldSpace -> Float
+inMilesPerHour : Speed RealWorld -> Float
 inMilesPerHour speed =
     (3600 / 1609.344) * inMetersPerSecond speed
 
