@@ -16,7 +16,7 @@ module Speed
         )
 
 import Duration exposing (Seconds)
-import Length exposing (LengthUnits, OnScreen, RealWorld)
+import Length exposing (InWorld, LengthUnits, OnScreen)
 import Quantity exposing (Quantity(..), Quotient, Rate)
 
 
@@ -38,42 +38,42 @@ inPixelsPerSecond (Quantity numPixelsPerSecond) =
     numPixelsPerSecond
 
 
-metersPerSecond : Float -> Speed RealWorld
+metersPerSecond : Float -> Speed InWorld
 metersPerSecond numMetersPerSecond =
     Quantity numMetersPerSecond
 
 
-inMetersPerSecond : Speed RealWorld -> Float
+inMetersPerSecond : Speed InWorld -> Float
 inMetersPerSecond (Quantity numMetersPerSecond) =
     numMetersPerSecond
 
 
-feetPerSecond : Float -> Speed RealWorld
+feetPerSecond : Float -> Speed InWorld
 feetPerSecond numFeetPerSecond =
     metersPerSecond (0.3048 * numFeetPerSecond)
 
 
-inFeetPerSecond : Speed RealWorld -> Float
+inFeetPerSecond : Speed InWorld -> Float
 inFeetPerSecond speed =
     inMetersPerSecond speed / 0.3048
 
 
-kilometersPerHour : Float -> Speed RealWorld
+kilometersPerHour : Float -> Speed InWorld
 kilometersPerHour numKilometersPerHour =
     metersPerSecond (numKilometersPerHour / 3.6)
 
 
-inKilometersPerHour : Speed RealWorld -> Float
+inKilometersPerHour : Speed InWorld -> Float
 inKilometersPerHour speed =
     3.6 * inMetersPerSecond speed
 
 
-milesPerHour : Float -> Speed RealWorld
+milesPerHour : Float -> Speed InWorld
 milesPerHour numMilesPerHour =
     metersPerSecond (numMilesPerHour * 1609.344 / 3600)
 
 
-inMilesPerHour : Speed RealWorld -> Float
+inMilesPerHour : Speed InWorld -> Float
 inMilesPerHour speed =
     (3600 / 1609.344) * inMetersPerSecond speed
 

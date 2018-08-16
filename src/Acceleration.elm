@@ -12,7 +12,7 @@ module Acceleration
         )
 
 import Duration exposing (Seconds)
-import Length exposing (OnScreen, RealWorld)
+import Length exposing (InWorld, OnScreen)
 import Quantity exposing (Quantity(..), Quotient, Rate)
 import Speed exposing (SpeedUnits)
 
@@ -35,22 +35,22 @@ inPixelsPerSecondSquared (Quantity numPixelsPerSecondSquared) =
     numPixelsPerSecondSquared
 
 
-metersPerSecondSquared : Float -> Acceleration RealWorld
+metersPerSecondSquared : Float -> Acceleration InWorld
 metersPerSecondSquared numMetersPerSecondSquared =
     Quantity numMetersPerSecondSquared
 
 
-inMetersPerSecondSquared : Acceleration RealWorld -> Float
+inMetersPerSecondSquared : Acceleration InWorld -> Float
 inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
     numMetersPerSecondSquared
 
 
-feetPerSecondSquared : Float -> Acceleration RealWorld
+feetPerSecondSquared : Float -> Acceleration InWorld
 feetPerSecondSquared numFeetPerSecondSquared =
     metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
 
 
-inFeetPerSecondSquared : Acceleration RealWorld -> Float
+inFeetPerSecondSquared : Acceleration InWorld -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
 

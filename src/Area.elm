@@ -27,7 +27,7 @@ module Area
         , squareYards
         )
 
-import Length exposing (LengthUnits, OnScreen, RealWorld)
+import Length exposing (InWorld, LengthUnits, OnScreen)
 import Quantity exposing (Fractional, Quantity(..), Squared, Whole)
 
 
@@ -64,102 +64,102 @@ roundToNearestSquarePixel (Quantity numSquarePixels) =
     Quantity (round numSquarePixels)
 
 
-squareMeters : Float -> Area RealWorld
+squareMeters : Float -> Area InWorld
 squareMeters numSquareMeters =
     Quantity numSquareMeters
 
 
-inSquareMeters : Area RealWorld -> Float
+inSquareMeters : Area InWorld -> Float
 inSquareMeters (Quantity numSquareMeters) =
     numSquareMeters
 
 
-squareMillimeters : Float -> Area RealWorld
+squareMillimeters : Float -> Area InWorld
 squareMillimeters numSquareMillimeters =
     squareMeters (1.0e-6 * numSquareMillimeters)
 
 
-inSquareMillimeters : Area RealWorld -> Float
+inSquareMillimeters : Area InWorld -> Float
 inSquareMillimeters area =
     1.0e6 * inSquareMeters area
 
 
-squareInches : Float -> Area RealWorld
+squareInches : Float -> Area InWorld
 squareInches numSquareInches =
     squareMeters (0.0254 * 0.0254 * numSquareInches)
 
 
-inSquareInches : Area RealWorld -> Float
+inSquareInches : Area InWorld -> Float
 inSquareInches area =
     inSquareMeters area / (0.0254 * 0.0254)
 
 
-squareCentimeters : Float -> Area RealWorld
+squareCentimeters : Float -> Area InWorld
 squareCentimeters numSquareCentimeters =
     squareMeters (1.0e-4 * numSquareCentimeters)
 
 
-inSquareCentimeters : Area RealWorld -> Float
+inSquareCentimeters : Area InWorld -> Float
 inSquareCentimeters area =
     1.0e4 * inSquareMeters area
 
 
-squareFeet : Float -> Area RealWorld
+squareFeet : Float -> Area InWorld
 squareFeet numSquareFeet =
     squareMeters (0.3048 * 0.3048 * numSquareFeet)
 
 
-inSquareFeet : Area RealWorld -> Float
+inSquareFeet : Area InWorld -> Float
 inSquareFeet area =
     inSquareMeters area / (0.3048 * 0.3048)
 
 
-squareYards : Float -> Area RealWorld
+squareYards : Float -> Area InWorld
 squareYards numSquareYards =
     squareMeters (0.9144 * 0.9144 * numSquareYards)
 
 
-inSquareYards : Area RealWorld -> Float
+inSquareYards : Area InWorld -> Float
 inSquareYards area =
     inSquareMeters area / (0.9144 * 0.9144)
 
 
-hectares : Float -> Area RealWorld
+hectares : Float -> Area InWorld
 hectares numHectares =
     squareMeters (1.0e4 * numHectares)
 
 
-inHectares : Area RealWorld -> Float
+inHectares : Area InWorld -> Float
 inHectares area =
     1.0e-4 * inSquareMeters area
 
 
-squareKilometers : Float -> Area RealWorld
+squareKilometers : Float -> Area InWorld
 squareKilometers numSquareKilometers =
     squareMeters (1.0e6 * numSquareKilometers)
 
 
-inSquareKilometers : Area RealWorld -> Float
+inSquareKilometers : Area InWorld -> Float
 inSquareKilometers area =
     1.0e-6 * inSquareMeters area
 
 
-acres : Float -> Area RealWorld
+acres : Float -> Area InWorld
 acres numAcres =
     squareMeters (4046.8564224 * numAcres)
 
 
-inAcres : Area RealWorld -> Float
+inAcres : Area InWorld -> Float
 inAcres area =
     inSquareMeters area / 4046.8564224
 
 
-squareMiles : Float -> Area RealWorld
+squareMiles : Float -> Area InWorld
 squareMiles numSquareMiles =
     squareMeters (1609.344 * 1609.344 * numSquareMiles)
 
 
-inSquareMiles : Area RealWorld -> Float
+inSquareMiles : Area InWorld -> Float
 inSquareMiles area =
     inSquareMeters area / (1609.344 * 1609.344)
 
