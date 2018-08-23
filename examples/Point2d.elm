@@ -1,37 +1,37 @@
-module Point2d
-    exposing
-        ( Point2d
-        , convert
-        , coordinates
-        , distanceFrom
-        , fromCoordinates
-        , origin
-        )
+module Point2d exposing
+    ( Point2d
+    , coordinates
+    , distanceFrom
+    , fromCoordinates
+    , fromTuple
+    , origin
+    , toTuple
+    )
 
-import Length exposing (Length)
-import Quantity exposing (Quantity(..))
-
-
-type Point2d space
-    = Point2d ( Length space, Length space )
+import CoordinateSystem exposing (CoordinateSystem, Nowhere)
+import Quantity exposing (Fractional, Quantity(..))
 
 
-origin : Point2d space
+type Point2d coordinateSystem
+    = Point2d ( Float, Float )
+
+
+origin : Point2d (CoordinateSystem name units)
 origin =
     fromCoordinates ( Quantity.zero, Quantity.zero )
 
 
-fromCoordinates : ( Length space, Length space ) -> Point2d space
-fromCoordinates coordinates_ =
-    Point2d coordinates_
+fromCoordinates : ( Fractional units, Fractional units ) -> Point2d (CoordinateSystem name units)
+fromCoordinates ( Quantity x, Quantity y ) =
+    Point2d ( x, y )
 
 
-coordinates : Point2d space -> ( Length space, Length space )
-coordinates (Point2d coordinates_) =
-    coordinates_
+coordinates : Point2d (CoordinateSystem name units) -> ( Fractional units, Fractional units )
+coordinates (Point2d ( x, y )) =
+    ( Quantity x, Quantity y )
 
 
-distanceFrom : Point2d space -> Point2d space -> Length space
+distanceFrom : Point2d (CoordinateSystem name units) -> Point2d (CoordinateSystem name units) -> Fractional units
 distanceFrom p1 p2 =
     let
         ( Quantity x1, Quantity y1 ) =
@@ -49,13 +49,11 @@ distanceFrom p1 p2 =
     Quantity (sqrt (dx * dx + dy * dy))
 
 
-convert : Length.Conversion sourceSpace destinationSpace -> Point2d sourceSpace -> Point2d destinationSpace
-convert sourceToDestination point =
-    let
-        ( x, y ) =
-            coordinates point
-    in
-    fromCoordinates
-        ( Length.convert sourceToDestination x
-        , Length.convert sourceToDestination y
-        )
+fromTuple : ( Float, Float ) -> Point2d Nowhere
+fromTuple tuple =
+    Point2d tuple
+
+
+toTuple : Point2d Nowhere -> ( Float, Float )
+toTuple (Point2d tuple) =
+    tuple
