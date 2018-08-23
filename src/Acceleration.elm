@@ -1,60 +1,41 @@
-module Acceleration
-    exposing
-        ( Acceleration
-        , AccelerationUnits
-        , convert
-        , feetPerSecondSquared
-        , inFeetPerSecondSquared
-        , inMetersPerSecondSquared
-        , inPixelsPerSecondSquared
-        , metersPerSecondSquared
-        , pixelsPerSecondSquared
-        )
+module Acceleration exposing
+    ( Acceleration
+    , MetersPerSecondSquared
+    , feetPerSecondSquared
+    , inFeetPerSecondSquared
+    , inMetersPerSecondSquared
+    , metersPerSecondSquared
+    )
 
 import Duration exposing (Seconds)
-import Length exposing (InWorld, OnScreen)
-import Quantity exposing (Quantity(..), Quotient, Rate)
-import Speed exposing (SpeedUnits)
+import Length exposing (Meters)
+import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Speed exposing (MetersPerSecond)
 
 
-type alias AccelerationUnits space =
-    Quotient (SpeedUnits space) Seconds
+type alias MetersPerSecondSquared =
+    Quotient MetersPerSecond Seconds
 
 
-type alias Acceleration space =
-    Rate (SpeedUnits space) Seconds
+type alias Acceleration =
+    Fractional MetersPerSecondSquared
 
 
-pixelsPerSecondSquared : Float -> Acceleration OnScreen
-pixelsPerSecondSquared numPixelsPerSecondSquared =
-    Quantity numPixelsPerSecondSquared
-
-
-inPixelsPerSecondSquared : Acceleration OnScreen -> Float
-inPixelsPerSecondSquared (Quantity numPixelsPerSecondSquared) =
-    numPixelsPerSecondSquared
-
-
-metersPerSecondSquared : Float -> Acceleration InWorld
+metersPerSecondSquared : Float -> Acceleration
 metersPerSecondSquared numMetersPerSecondSquared =
     Quantity numMetersPerSecondSquared
 
 
-inMetersPerSecondSquared : Acceleration InWorld -> Float
+inMetersPerSecondSquared : Acceleration -> Float
 inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
     numMetersPerSecondSquared
 
 
-feetPerSecondSquared : Float -> Acceleration InWorld
+feetPerSecondSquared : Float -> Acceleration
 feetPerSecondSquared numFeetPerSecondSquared =
     metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
 
 
-inFeetPerSecondSquared : Acceleration InWorld -> Float
+inFeetPerSecondSquared : Acceleration -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
-
-
-convert : Length.Conversion sourceSpace destinationSpace -> Acceleration sourceSpace -> Acceleration destinationSpace
-convert (Quantity rate) (Quantity value) =
-    Quantity (rate * value)

@@ -1,41 +1,33 @@
-module Quantity
-    exposing
-        ( Fractional
-        , Quantity(..)
-        , Quotient
-        , Rate
-        , Squared
-        , Units
-        , Whole
-        , abs
-        , add
-        , at
-        , at_
-        , clamp
-        , compare
-        , difference
-        , for
-        , greaterThan
-        , inUnits
-        , invert
-        , lessThan
-        , max
-        , maximum
-        , min
-        , minimum
-        , negate
-        , per
-        , product
-        , ratio
-        , scaleBy
-        , sort
-        , sqrt
-        , squared
-        , sum
-        , toFractional
-        , units
-        , zero
-        )
+module Quantity exposing
+    ( Quantity(..), Whole, Fractional
+    , Squared, Quotient
+    , zero, toFractional
+    , lessThan, greaterThan, compare, max, min
+    , negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
+    , sum, minimum, maximum, sort
+    , Rate, per, for, at, at_, invert
+    , number, toNumber
+    )
+
+{-|
+
+@docs Quantity, Whole, Fractional
+
+@docs Squared, Quotient
+
+@docs zero, toFractional
+
+@docs lessThan, greaterThan, compare, max, min
+
+@docs negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
+
+@docs sum, minimum, maximum, sort
+
+@docs Rate, per, for, at, at_, invert
+
+@docs number, toNumber
+
+-}
 
 -- Quantity types
 
@@ -237,15 +229,11 @@ invert (Quantity rate) =
 -- Generic units
 
 
-type Units
-    = Units
-
-
-units : number -> Quantity number Units
-units value =
+number : number -> Quantity number Never
+number value =
     Quantity value
 
 
-inUnits : Quantity number Units -> number
-inUnits (Quantity value) =
+toNumber : Quantity number Never -> number
+toNumber (Quantity value) =
     value

@@ -1,169 +1,135 @@
-module Area
-    exposing
-        ( Area
-        , SquarePixels
-        , acres
-        , convert
-        , hectares
-        , inAcres
-        , inHectares
-        , inSquareCentimeters
-        , inSquareFeet
-        , inSquareInches
-        , inSquareKilometers
-        , inSquareMeters
-        , inSquareMiles
-        , inSquareMillimeters
-        , inSquarePixels
-        , inSquareYards
-        , squareCentimeters
-        , squareFeet
-        , squareInches
-        , squareKilometers
-        , squareMeters
-        , squareMiles
-        , squareMillimeters
-        , squarePixels
-        , squareYards
-        )
+module Area exposing
+    ( Area
+    , SquareMeters
+    , acres
+    , hectares
+    , inAcres
+    , inHectares
+    , inSquareCentimeters
+    , inSquareFeet
+    , inSquareInches
+    , inSquareKilometers
+    , inSquareMeters
+    , inSquareMiles
+    , inSquareMillimeters
+    , inSquareYards
+    , squareCentimeters
+    , squareFeet
+    , squareInches
+    , squareKilometers
+    , squareMeters
+    , squareMiles
+    , squareMillimeters
+    , squareYards
+    )
 
-import Length exposing (InWorld, LengthUnits, OnScreen)
+import Length exposing (Meters)
 import Quantity exposing (Fractional, Quantity(..), Squared, Whole)
 
 
-{-| The area units for a particular space are the squared length units for that
-space.
--}
-type alias AreaUnits space =
-    Squared (LengthUnits space)
+type alias SquareMeters =
+    Squared Meters
 
 
-type alias SquarePixels =
-    AreaUnits OnScreen
+type alias Area =
+    Fractional SquareMeters
 
 
-{-| A generic 'area' in a particular space is a fractional number of area units
-in that space.
--}
-type alias Area space =
-    Fractional (AreaUnits space)
-
-
-squarePixels : number -> Quantity number (AreaUnits OnScreen)
-squarePixels numSquarePixels =
-    Quantity numSquarePixels
-
-
-inSquarePixels : Quantity number (AreaUnits OnScreen) -> number
-inSquarePixels (Quantity numSquarePixels) =
-    numSquarePixels
-
-
-roundToNearestSquarePixel : Fractional SquarePixels -> Whole SquarePixels
-roundToNearestSquarePixel (Quantity numSquarePixels) =
-    Quantity (round numSquarePixels)
-
-
-squareMeters : Float -> Area InWorld
+squareMeters : Float -> Area
 squareMeters numSquareMeters =
     Quantity numSquareMeters
 
 
-inSquareMeters : Area InWorld -> Float
+inSquareMeters : Area -> Float
 inSquareMeters (Quantity numSquareMeters) =
     numSquareMeters
 
 
-squareMillimeters : Float -> Area InWorld
+squareMillimeters : Float -> Area
 squareMillimeters numSquareMillimeters =
     squareMeters (1.0e-6 * numSquareMillimeters)
 
 
-inSquareMillimeters : Area InWorld -> Float
+inSquareMillimeters : Area -> Float
 inSquareMillimeters area =
     1.0e6 * inSquareMeters area
 
 
-squareInches : Float -> Area InWorld
+squareInches : Float -> Area
 squareInches numSquareInches =
     squareMeters (0.0254 * 0.0254 * numSquareInches)
 
 
-inSquareInches : Area InWorld -> Float
+inSquareInches : Area -> Float
 inSquareInches area =
     inSquareMeters area / (0.0254 * 0.0254)
 
 
-squareCentimeters : Float -> Area InWorld
+squareCentimeters : Float -> Area
 squareCentimeters numSquareCentimeters =
     squareMeters (1.0e-4 * numSquareCentimeters)
 
 
-inSquareCentimeters : Area InWorld -> Float
+inSquareCentimeters : Area -> Float
 inSquareCentimeters area =
     1.0e4 * inSquareMeters area
 
 
-squareFeet : Float -> Area InWorld
+squareFeet : Float -> Area
 squareFeet numSquareFeet =
     squareMeters (0.3048 * 0.3048 * numSquareFeet)
 
 
-inSquareFeet : Area InWorld -> Float
+inSquareFeet : Area -> Float
 inSquareFeet area =
     inSquareMeters area / (0.3048 * 0.3048)
 
 
-squareYards : Float -> Area InWorld
+squareYards : Float -> Area
 squareYards numSquareYards =
     squareMeters (0.9144 * 0.9144 * numSquareYards)
 
 
-inSquareYards : Area InWorld -> Float
+inSquareYards : Area -> Float
 inSquareYards area =
     inSquareMeters area / (0.9144 * 0.9144)
 
 
-hectares : Float -> Area InWorld
+hectares : Float -> Area
 hectares numHectares =
     squareMeters (1.0e4 * numHectares)
 
 
-inHectares : Area InWorld -> Float
+inHectares : Area -> Float
 inHectares area =
     1.0e-4 * inSquareMeters area
 
 
-squareKilometers : Float -> Area InWorld
+squareKilometers : Float -> Area
 squareKilometers numSquareKilometers =
     squareMeters (1.0e6 * numSquareKilometers)
 
 
-inSquareKilometers : Area InWorld -> Float
+inSquareKilometers : Area -> Float
 inSquareKilometers area =
     1.0e-6 * inSquareMeters area
 
 
-acres : Float -> Area InWorld
+acres : Float -> Area
 acres numAcres =
     squareMeters (4046.8564224 * numAcres)
 
 
-inAcres : Area InWorld -> Float
+inAcres : Area -> Float
 inAcres area =
     inSquareMeters area / 4046.8564224
 
 
-squareMiles : Float -> Area InWorld
+squareMiles : Float -> Area
 squareMiles numSquareMiles =
     squareMeters (1609.344 * 1609.344 * numSquareMiles)
 
 
-inSquareMiles : Area InWorld -> Float
+inSquareMiles : Area -> Float
 inSquareMiles area =
     inSquareMeters area / (1609.344 * 1609.344)
-
-
-convert : Length.Conversion sourceSpace destinationSpace -> Area sourceSpace -> Area destinationSpace
-convert (Quantity rate) (Quantity value) =
-    Quantity (rate * rate * value)

@@ -13,7 +13,8 @@
         "Acceleration",
         "Area",
         "Mass",
-        "Temperature"
+        "Temperature",
+        "Pixels"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
