@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
     , Rate, per, for, at, at_, invert
-    , number, toNumber
+    , int, toInt, float, toFloat
     )
 
 {-|
@@ -25,7 +25,7 @@ module Quantity exposing
 
 @docs Rate, per, for, at, at_, invert
 
-@docs number, toNumber
+@docs int, toInt, float, toFloat
 
 -}
 
@@ -72,7 +72,7 @@ zero =
 
 toFractional : Whole units -> Fractional units
 toFractional (Quantity value) =
-    Quantity (toFloat value)
+    Quantity (Basics.toFloat value)
 
 
 
@@ -226,14 +226,24 @@ invert (Quantity rate) =
 
 
 
--- Generic units
+-- Unitless quantities
 
 
-number : number -> Quantity number Never
-number value =
+int : Int -> Whole Never
+int value =
     Quantity value
 
 
-toNumber : Quantity number Never -> number
-toNumber (Quantity value) =
+toInt : Whole Never -> Int
+toInt (Quantity value) =
+    value
+
+
+float : Float -> Fractional Never
+float value =
+    Quantity value
+
+
+toFloat : Fractional Never -> Float
+toFloat (Quantity value) =
     value
