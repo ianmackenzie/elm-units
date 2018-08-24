@@ -82,7 +82,11 @@ quarterMileTime =
 
 ## Installation
 
-TODO
+Once this package is published, you will be able to install it with
+
+```
+elm install ianmackenzie/elm-units
+```
 
 ## Usage
 
