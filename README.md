@@ -241,7 +241,24 @@ Length.centimeters 3 |> Quantity.at pixelsPerInch |> Pixels.inPixels
 --> 113.38582677165354
 ```
 
-TODO: comparison (separate section?)
+Finally, `Quantity` values can be compared/sorted:
+
+```elm
+meters 1 |> Quantity.greaterThan (feet 3)
+--> True
+
+Quantity.compare (meters 1) (feet 3)
+--> GT
+
+Quantity.max (meters 1) (feet 3)
+--> meters 1
+
+Quantity.maximum [ meters 1, feet 3 ]
+--> Just (meters 1)
+
+Quantity.sort [ meters 1, feet 3 ]
+--> [ feet 3, meters 1 ]
+```
 
 ### Custom Functions
 
