@@ -9,7 +9,7 @@ compare, or do arithmetic on:
 
   - Durations (seconds, milliseconds, hours...)
   - Angles (degrees, radians, turns...)
-  - Pixel counts (whole or fractional)
+  - Pixels (whole or fractional)
   - Lengths (meters, feet, inches, miles, light years...)
   - Temperatures (Celsius, Fahrenheit, kelvins)
   - Speeds (pixels per second, miles per hour...) or any other rate of change
@@ -39,7 +39,7 @@ canOperateAt temperature camera =
 {-| Compute the time necessary to cover a given distance, starting from rest,
 with the given acceleration.
 -}
-timeToCover : Length WorldSpace -> Acceleration WorldSpace -> Duration
+timeToCover : Length -> Acceleration -> Duration
 timeToCover distance acceleration =
     ...
 ```
@@ -72,7 +72,6 @@ quarterMileTime =
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
     - [Arithmetic and Comparison](#arithmetic-and-comparison)
-    - [Spaces](#spaces)
     - [Custom Functions](#custom-functions)
     - [Custom Units](#custom-units)
     - [Understanding Quantity Types](#understanding-quantity-types)
@@ -176,12 +175,8 @@ The argument is:
 
 But (|>) is piping it a function that expects:
 
-    Length WorldSpace
+    Length
 ```
-
-(We'll get to exactly what `WorldSpace` means a bit later, but basically it
-indicates "a length in real-world coordinates" as opposed to "a length in screen
-coordinates" or a length in some other unrelated coordinate system.)
 
 ### Arithmetic and Comparison
 
@@ -240,25 +235,17 @@ unit time) - any units work:
 
 ```elm
 pixelsPerInch =
-    Length.pixels 96 |> Quantity.per (Length.inches 1)
+    Pixels.pixels 96 |> Quantity.per (Length.inches 1)
 
-Length.centimeters 3 |> Quantity.at pixelsPerInch |> Length.inPixels
+Length.centimeters 3 |> Quantity.at pixelsPerInch |> Pixels.inPixels
 --> 113.38582677165354
 ```
 
-(Although defined in the same module, `Length.pixels` and `Length.inches`
-produce values of different types, so you need an explicit conversion ratio like
-the above if you want to convert between the two.)
-
 TODO: comparison (separate section?)
-
-### Spaces
-
-TODO
 
 ### Custom Functions
 
-TODO (ideal gas law example)
+TODO (kinetic energy example)
 
 ### Custom Units
 
@@ -266,36 +253,43 @@ TODO (currencies? game tiles?)
 
 ### Understanding Quantity Types
 
-TODO
-
-The following types are all equivalent:
+The same quantity type can often be expressed in multiple different ways, which is important to understand especially when trying to interpret error messages! Take the `Speed` type alias as an example. It is defined as
 
 ```elm
--- Length in world space
-Length WorldSpace
-
--- Fractional number of length units in world space
-Fractional (LengthUnits WorldSpace)
-
--- Fractional number of meters
-Fractional Meters
-
--- Float-valued quantity of meters
-Quantity Float Meters
-
--- Float-valued quantity of length units in world space
-Quantity Float (LengthUnits WorldSpace)
+type alias Speed =
+    Fractional MetersPerSecond
 ```
 
-So are all the following:
+where the `MetersPerSecond` type alias is defined as
 
 ```elm
-Speed WorldSpace
-Fractional (SpeedUnits WorldSpace)
-Fractional (Quotient (LengthUnits WorldSpace) Seconds)
-Quantity Float (Quotient (LengthUnits WorldSpace) Seconds)
-Quantity Float (Quotient Meters Seconds)
+type alias MetersPerSecond =
+    Quotient Meters Seconds
+```
+
+so `Speed` is equivalent to
+
+```elm
+Fractional (Quotient Meters Seconds)
+```
+
+but there also exists a generic `Rate` type alias
+
+```elm
+type alias Rate dependentUnits independentUnits =
+    Fractional (Quotient dependentUnits independentUnits)
+```
+
+which means `Speed` can be expressed as
+
+```elm
 Rate Meters Seconds
+```
+
+Alternately, simply expanding the `Fractional` type alias gives
+
+```elm
+Quantity Float (Quotient Meters Seconds)
 ```
 
 ## Getting Help
