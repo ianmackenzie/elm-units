@@ -249,7 +249,7 @@ TODO (kinetic energy example)
 
 ### Custom Units
 
-TODO (currencies? game tiles?)
+`elm-units` defines many standard unit types, but you can easily define your own! See [CustomUnits](doc/CustomUnits.md) for an example.
 
 ### Understanding Quantity Types
 
