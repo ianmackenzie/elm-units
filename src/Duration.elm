@@ -6,16 +6,16 @@ module Duration exposing
     , hours
     , inDays
     , inHours
+    , inJulianYears
     , inMilliseconds
     , inMinutes
     , inSeconds
     , inWeeks
-    , inYears
+    , julianYears
     , milliseconds
     , minutes
     , seconds
     , weeks
-    , years
     )
 
 import Quantity exposing (Fractional, Quantity(..))
@@ -187,20 +187,20 @@ modern Gregorian calendar, but the Julian year is a bit easier to remember and
 reason about and has the virtue of being the 'year' value used in the definition
 of a light year.
 
-    years 1 == days 365.25
+    julianYears 1 == days 365.25
 
 -}
-years : Float -> Duration
-years numYears =
-    seconds (31557600 * numYears)
+julianYears : Float -> Duration
+julianYears numJulianYears =
+    seconds (31557600 * numJulianYears)
 
 
 {-| Convert a `Duration` to a value in Julian years.
 
-    hours 10000 |> inYears
+    hours 10000 |> inJulianYears
     --> 1.1407711613050422
 
 -}
-inYears : Duration -> Float
-inYears duration =
+inJulianYears : Duration -> Float
+inJulianYears duration =
     inSeconds duration / 31557600
