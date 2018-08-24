@@ -47,7 +47,7 @@ roundToNearestTile quantity =
     tiles (round (inTiles quantity))
 ```
 
-Then you can immediately start doing math with tiles, converting safely back and forth between tiles and pixels, etc.:
+Then you can start doing math with tiles, converting safely back and forth between tiles and pixels, etc.:
 
 ```elm
 import Game exposing (tiles, inTiles)
