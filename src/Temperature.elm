@@ -1,30 +1,29 @@
-module Temperature
-    exposing
-        ( Kelvins
-        , Temperature
-        , celsius
-        , clamp
-        , compare
-        , degreesCelsius
-        , degreesFahrenheit
-        , difference
-        , fahrenheit
-        , fromAbsolute
-        , greaterThan
-        , inCelsius
-        , inDegreesCelsius
-        , inDegreesFahrenheit
-        , inFahrenheit
-        , inKelvins
-        , kelvins
-        , lessThan
-        , max
-        , maximum
-        , min
-        , minimum
-        , sort
-        , toAbsolute
-        )
+module Temperature exposing
+    ( Kelvins
+    , Temperature
+    , celsius
+    , clamp
+    , compare
+    , degreesCelsius
+    , degreesFahrenheit
+    , difference
+    , fahrenheit
+    , fromAbsolute
+    , greaterThan
+    , inCelsius
+    , inDegreesCelsius
+    , inDegreesFahrenheit
+    , inFahrenheit
+    , inKelvins
+    , kelvins
+    , lessThan
+    , max
+    , maximum
+    , min
+    , minimum
+    , sort
+    , toAbsolute
+    )
 
 import Quantity exposing (Fractional, Quantity(..), Rate)
 

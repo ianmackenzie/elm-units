@@ -1,21 +1,20 @@
-module Angle
-    exposing
-        ( Angle
-        , Radians
-        , acos
-        , asin
-        , atan
-        , atan2
-        , cos
-        , degrees
-        , inDegrees
-        , inRadians
-        , inTurns
-        , radians
-        , sin
-        , tan
-        , turns
-        )
+module Angle exposing
+    ( Angle
+    , Radians
+    , acos
+    , asin
+    , atan
+    , atan2
+    , cos
+    , degrees
+    , inDegrees
+    , inRadians
+    , inTurns
+    , radians
+    , sin
+    , tan
+    , turns
+    )
 
 import Quantity exposing (Fractional, Quantity(..), Rate)
 

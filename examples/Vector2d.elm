@@ -1,13 +1,12 @@
-module Vector2d
-    exposing
-        ( Vector2d
-        , components
-        , for
-        , fromComponents
-        , magnitude
-        , per
-        , zero
-        )
+module Vector2d exposing
+    ( Vector2d
+    , components
+    , for
+    , fromComponents
+    , magnitude
+    , per
+    , zero
+    )
 
 import Length exposing (LengthUnits)
 import Point2d exposing (Point2d)

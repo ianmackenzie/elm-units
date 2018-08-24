@@ -1,22 +1,21 @@
-module Mass
-    exposing
-        ( Mass
-        , MassUnits
-        , grams
-        , inGrams
-        , inKilograms
-        , inLongTons
-        , inOunces
-        , inPounds
-        , inShortTons
-        , inTonnes
-        , kilograms
-        , longTons
-        , ounces
-        , pounds
-        , shortTons
-        , tonnes
-        )
+module Mass exposing
+    ( Mass
+    , MassUnits
+    , grams
+    , inGrams
+    , inKilograms
+    , inLongTons
+    , inOunces
+    , inPounds
+    , inShortTons
+    , inTonnes
+    , kilograms
+    , longTons
+    , ounces
+    , pounds
+    , shortTons
+    , tonnes
+    )
 
 import Quantity exposing (Quantity(..), Rate)
 

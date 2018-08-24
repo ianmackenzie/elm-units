@@ -1,4 +1,14 @@
-module Eur exposing (..)
+module Eur exposing
+    ( Cents(..)
+    , amount
+    , cents
+    , euros
+    , inCents
+    , inEuros
+    , roundDownToNearestCent
+    , roundToNearestCent
+    , roundUpToNearestCent
+    )
 
 import Quantity exposing (Fractional, Quantity(..), Whole)
 

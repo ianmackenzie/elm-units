@@ -1,23 +1,22 @@
-module Duration
-    exposing
-        ( Duration
-        , Seconds
-        , days
-        , from
-        , hours
-        , inDays
-        , inHours
-        , inMilliseconds
-        , inMinutes
-        , inSeconds
-        , inWeeks
-        , inYears
-        , milliseconds
-        , minutes
-        , seconds
-        , weeks
-        , years
-        )
+module Duration exposing
+    ( Duration
+    , Seconds
+    , days
+    , from
+    , hours
+    , inDays
+    , inHours
+    , inMilliseconds
+    , inMinutes
+    , inSeconds
+    , inWeeks
+    , inYears
+    , milliseconds
+    , minutes
+    , seconds
+    , weeks
+    , years
+    )
 
 import Quantity exposing (Fractional, Quantity(..))
 import Time

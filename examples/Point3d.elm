@@ -1,12 +1,11 @@
-module Point3d
-    exposing
-        ( Point3d
-        , convert
-        , coordinates
-        , distanceFrom
-        , fromCoordinates
-        , origin
-        )
+module Point3d exposing
+    ( Point3d
+    , convert
+    , coordinates
+    , distanceFrom
+    , fromCoordinates
+    , origin
+    )
 
 import Length exposing (Length)
 import Quantity exposing (Quantity(..))

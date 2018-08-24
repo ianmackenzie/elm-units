@@ -1,4 +1,14 @@
-module Usd exposing (..)
+module Usd exposing
+    ( Cents(..)
+    , amount
+    , cents
+    , dollars
+    , inCents
+    , inDollars
+    , roundDownToNearestCent
+    , roundToNearestCent
+    , roundUpToNearestCent
+    )
 
 import Quantity exposing (Fractional, Quantity(..), Whole)
 

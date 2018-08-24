@@ -1,9 +1,8 @@
-module Displacement2d
-    exposing
-        ( Displacement2d
-        , convert
-        , from
-        )
+module Displacement2d exposing
+    ( Displacement2d
+    , convert
+    , from
+    )
 
 import Length exposing (LengthUnits)
 import Point2d exposing (Point2d)

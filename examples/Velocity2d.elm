@@ -1,8 +1,7 @@
-module Velocity2d
-    exposing
-        ( Velocity2d
-        , convert
-        )
+module Velocity2d exposing
+    ( Velocity2d
+    , convert
+    )
 
 import Length
 import Speed exposing (Speed, SpeedUnits)

@@ -1,8 +1,7 @@
-module Acceleration2d
-    exposing
-        ( Acceleration2d
-        , convert
-        )
+module Acceleration2d exposing
+    ( Acceleration2d
+    , convert
+    )
 
 import Acceleration exposing (Acceleration, AccelerationUnits)
 import Length
