@@ -262,7 +262,28 @@ Quantity.sort [ meters 1, feet 3 ]
 
 ### Custom Functions
 
-TODO (kinetic energy example)
+Some calculations cannot be expressed using the built-in `Quantity` functions.
+Take kinetic energy `E_k = 1/2 * m * v^2`, for example - the `elm-units` type
+system is not sophisticated enough to work out the units properly. Instead,
+you'd need to create a custom function like
+
+```elm
+kineticEnergy : Mass -> Speed -> Energy
+kineticEnergy (Quantity m) (Quantity v) =
+    Quantity (0.5 * m * v^2)
+```
+
+In the _implementation_ of `kineticEnergy`, you're working with raw `Float`
+values so you need to be careful to make sure the units actually do work out.
+(The values will be in [SI](https://en.wikipedia.org/wiki/International_System_of_Units)
+units - meters, seconds etc.) Once the function has been implemented, though, it
+can be used un a completely type-safe way - callers can supply arguments using
+whatever units they like, and extract results in whatever units they want:
+
+```elm
+kineticEnergy (Mass.tonnes 1.5) (milesPerHour 60) |> inKilowattHours
+--> 0.14988357119999998
+```
 
 ### Custom Units
 
