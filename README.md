@@ -302,14 +302,7 @@ type alias Speed =
     Fractional MetersPerSecond
 ```
 
-where the `MetersPerSecond` type alias is defined as
-
-```elm
-type alias MetersPerSecond =
-    Quotient Meters Seconds
-```
-
-so `Speed` is equivalent to
+Expanding the `MetersPerSecond` type alias, this is
 
 ```elm
 Fractional (Quotient Meters Seconds)
@@ -328,11 +321,13 @@ which means `Speed` can be expressed as
 Rate Meters Seconds
 ```
 
-Alternately, simply expanding the `Fractional` type alias gives
+Alternately, expanding the `Fractional` type alias gives
 
 ```elm
 Quantity Float (Quotient Meters Seconds)
 ```
+
+which is the "true" type with no type aliases left to expand.
 
 ## Getting Help
 
