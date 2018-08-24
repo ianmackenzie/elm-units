@@ -112,8 +112,7 @@ as a number of seconds, leading to things like way-too-fast animations. Let's
 modify the code to use a `Duration` value instead.
 
 First, define the `Tick` message to store a `Duration` value instead of a
-`Float`, then take the value returned by the `onAnimationFrameDelta`
-subscription and convert it to a `Duration` using the `milliseconds` function:
+`Float`:
 
 ```elm
 import Browser.Events
@@ -121,32 +120,36 @@ import Duration exposing (Duration)
 
 type Msg
     = Tick Duration
+```
 
+Then take the value returned by the `onAnimationFrameDelta` subscription and
+convert it to a `Duration` using the `milliseconds` function:
+
+```elm
 subscriptions model =
-    -- Convert the Float value to a Duration using the
-    -- 'milliseconds' function, then store in a Tick message
     Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)
 ```
 
 Later on, when you handle the `Tick` message, you can extract the duration value
 in whatever units you want. Perhaps you want to keep track of how many frames
-per second your application is running at:
+per second your application is running at, so you compute the reciprocal of the
+duration in seconds:
 
 ```elm
 update message model =
     case message of
         Tick duration ->
-            -- Extract the duration as a number of seconds
             ( { model | fps = 1 / Duration.inSeconds duration }
             , Cmd.none
             )
 ```
 
 Note that any necessary conversion is done automatically - you create a
-`Duration` from a `Float` by specifying what kind of units you *have*, and then
-later extract a `Float` value by specifying what kind of units you *want*. This,
-incidentally, means you can skip the 'store the value in a message' step and
-just use the provided functions to do unit conversions:
+`Duration` from a `Float` by specifying what kind of units you *have*
+(milliseconds), and then later extract a `Float` value by specifying what kind
+of units you *want* (seconds). This, incidentally, means you can skip the 'store
+the value in a message' step and just use the provided functions to do unit
+conversions:
 
 ```elm
 Duration.hours 3 |> Duration.inSeconds
