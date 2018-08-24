@@ -248,20 +248,20 @@ Length.centimeters 3 |> Quantity.at pixelsPerInch |> Pixels.inPixels
 Finally, `Quantity` values can be compared/sorted:
 
 ```elm
-meters 1 |> Quantity.greaterThan (feet 3)
+Length.meters 1 |> Quantity.greaterThan (Length.feet 3)
 --> True
 
-Quantity.compare (meters 1) (feet 3)
+Quantity.compare (Length.meters 1) (Length.feet 3)
 --> GT
 
-Quantity.max (meters 1) (feet 3)
---> meters 1
+Quantity.max (Length.meters 1) (Length.feet 3)
+--> Length.meters 1
 
-Quantity.maximum [ meters 1, feet 3 ]
---> Just (meters 1)
+Quantity.maximum [ Length.meters 1, Length.feet 3 ]
+--> Just (Length.meters 1)
 
-Quantity.sort [ meters 1, feet 3 ]
---> [ feet 3, meters 1 ]
+Quantity.sort [ Length.meters 1, Length.feet 3 ]
+--> [ Length.feet 3, Length.meters 1 ]
 ```
 
 ### Custom Functions
@@ -285,7 +285,8 @@ can be used un a completely type-safe way - callers can supply arguments using
 whatever units they like, and extract results in whatever units they want:
 
 ```elm
-kineticEnergy (Mass.tonnes 1.5) (milesPerHour 60) |> inKilowattHours
+kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
+    |> Energy.inKilowattHours
 --> 0.14988357119999998
 ```
 
