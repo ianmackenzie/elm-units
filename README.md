@@ -34,7 +34,7 @@ and functions like
 ```elm
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
-    temperature |> Quantity.greaterThan camera.minimumOperatingTemperature
+    temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
 
 {-| Compute the time necessary to cover a given distance, starting from rest,
 with the given acceleration.
