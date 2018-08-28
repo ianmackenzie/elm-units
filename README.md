@@ -53,9 +53,8 @@ camera =
     , minimumOperatingTemperature = Temperature.celsius -35
     }
 
-isSafe : Bool
-isSafe =
-    camera |> canOperateAt (Temperature.fahrenheit -10)
+camera |> canOperateAt (Temperature.fahrenheit -10)
+--> True
 ```
 
 ## Table of Contents
