@@ -1,6 +1,6 @@
 module Mass exposing
-    ( Mass
-    , MassUnits
+    ( Kilograms
+    , Mass
     , grams
     , inGrams
     , inKilograms
@@ -17,15 +17,17 @@ module Mass exposing
     , tonnes
     )
 
-import Quantity exposing (Quantity(..), Rate)
+import Acceleration exposing (MetersPerSecondSquared)
+import Force exposing (Newtons)
+import Quantity exposing (Fractional, Quantity(..), Quotient)
 
 
-type MassUnits
-    = Kilograms
+type alias Kilograms =
+    Quotient Newtons MetersPerSecondSquared
 
 
 type alias Mass =
-    Quantity Float MassUnits
+    Fractional Kilograms
 
 
 kilograms : Float -> Mass
