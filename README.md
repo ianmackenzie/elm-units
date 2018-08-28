@@ -21,6 +21,10 @@ compare, or do arithmetic on:
 It allows you to create data types like
 
 ```elm
+import Angle exposing (Angle)
+import Duration exposing (Duration)
+import Temperature exposing (Temperature)
+
 type alias Camera =
     { manufacturer : String
     , fieldOfView : Angle
