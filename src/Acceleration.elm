@@ -5,6 +5,7 @@ module Acceleration exposing
     , inFeetPerSecondSquared
     , inMetersPerSecondSquared
     , metersPerSecondSquared
+    , standardGravity
     )
 
 import Duration exposing (Seconds)
@@ -39,3 +40,8 @@ feetPerSecondSquared numFeetPerSecondSquared =
 inFeetPerSecondSquared : Acceleration -> Float
 inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
+
+
+standardGravity : Acceleration
+standardGravity =
+    metersPerSecondSquared 9.80665
