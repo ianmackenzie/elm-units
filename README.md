@@ -62,6 +62,7 @@ camera |> canOperateAt (Temperature.fahrenheit -10)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
+    - [The `Quantity` Type](#the-quantity-type)
     - [Arithmetic and Comparison](#arithmetic-and-comparison)
     - [Custom Functions](#custom-functions)
     - [Custom Units](#custom-units)
@@ -176,9 +177,44 @@ But (|>) is piping it a function that expects:
     Length
 ```
 
+### The `Quantity` Type
+
+All values produced by this package (with the exception of `Temperature`, which
+is a bit of a special case) are actually values of type `Quantity`, defined as
+
+```elm
+type Quantity number units
+    = Quantity number
+```
+
+with some convenient type aliases
+
+```elm
+-- A fractional number of units, useful for general quantities like length
+type alias Fractional units =
+    Quantity Float units
+    
+-- A whole number of units, useful for exact values in cents/pixels
+type alias Whole units =
+    Quantity Int units
+```
+
+For example, `Length` is defined as
+
+```elm
+type alias Length =
+    Fractional Meters
+```
+
+This means that a `Length` is internally stored as a `Float` number of `Meters`,
+but this can mostly be treated as an implementation detail.
+
+Having a common `Quantity` type means that it is possible to define generic
+arithmetic and comparison operations that work on any kind of quantity; read on!
+
 ### Arithmetic and Comparison
 
-You can do basic math with units:
+You can do basic math with `Quantity` values:
 
 ```elm
 -- 6 feet 3 inches, converted to meters
