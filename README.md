@@ -35,13 +35,6 @@ and functions like
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
     temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
-
-{-| Compute the time necessary to cover a given distance, starting from rest,
-with the given acceleration.
--}
-timeToCover : Length -> Acceleration -> Duration
-timeToCover distance acceleration =
-    ...
 ```
 
 which then let you write readable, type-safe code using whatever units you want,
@@ -59,11 +52,6 @@ camera =
 isSafe : Bool
 isSafe =
     camera |> canOperateAt (Temperature.fahrenheit -10)
-
-quarterMileTime : Float
-quarterMileTime =
-    timeToCover (Length.miles 0.25) (Acceleration.metersPerSecondSquared 4.5)
-        |> Duration.inSeconds
 ```
 
 ## Table of Contents
