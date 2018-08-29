@@ -2,10 +2,11 @@ module Acceleration exposing
     ( Acceleration
     , MetersPerSecondSquared
     , feetPerSecondSquared
+    , gees
     , inFeetPerSecondSquared
+    , inGees
     , inMetersPerSecondSquared
     , metersPerSecondSquared
-    , standardGravity
     )
 
 import Duration exposing (Seconds)
@@ -42,6 +43,11 @@ inFeetPerSecondSquared acceleration =
     inMetersPerSecondSquared acceleration / 0.3048
 
 
-standardGravity : Acceleration
-standardGravity =
-    metersPerSecondSquared 9.80665
+gees : Float -> Acceleration
+gees numGees =
+    metersPerSecondSquared (9.80665 * numGees)
+
+
+inGees : Acceleration -> Float
+inGees acceleration =
+    inMetersPerSecondSquared acceleration / 9.80665
