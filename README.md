@@ -18,7 +18,23 @@ compare, or do arithmetic on:
   - Or even values in your own custom units, such as 'number of tiles' in a
     tile-based game
 
-It allows you to create data types like
+The core of the package consists of functions like
+
+```elm
+Length.meters : Float -> Length
+Length.feet : Float -> Length
+Duration.seconds : Float -> Duration
+Duration.milliseconds : Float -> Duration
+
+Length.inMeters : Length -> Float
+Length.inFeet : Length -> Float
+Duration.inSeconds : Duration -> Float
+Duration.inMilliseconds : Duration -> Float
+```
+
+which let you construct type-safe values (from whatever units you want) which
+you can then store inside other data types, pass around as function arguments,
+and convert back to `Float` values (in whatever units you want) where necessary:
 
 ```elm
 import Angle exposing (Angle)
@@ -31,20 +47,7 @@ type alias Camera =
     , shutterSpeed : Duration
     , minimumOperatingTemperature : Temperature
     }
-```
 
-and functions like
-
-```elm
-canOperateAt : Temperature -> Camera -> Bool
-canOperateAt temperature camera =
-    temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
-```
-
-which then let you write readable, type-safe code using whatever units you want,
-with any necessary unit conversions happening automatically:
-
-```elm
 camera : Camera
 camera =
     { manufacturer = "Kodak"
@@ -53,8 +56,27 @@ camera =
     , minimumOperatingTemperature = Temperature.celsius -35
     }
 
+canOperateAt : Temperature -> Camera -> Bool
+canOperateAt temperature camera =
+    temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
+
 camera |> canOperateAt (Temperature.fahrenheit -10)
 --> True
+
+camera.fieldOfView |> Angle.inRadians
+--> pi / 3
+```
+
+Additionally, quantity types like `Length` are actually of type `Quantity number
+units` (`Length` is `Quantity Float Meters`, for example), and there are several
+generic functions which let you work directly with `Quantity` values:
+
+```elm
+Quantity.add (Duration.hours 2) (Duration.minutes 30)
+--> Duration.seconds 9000
+
+Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
+--> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
 ```
 
 ## Table of Contents
@@ -194,7 +216,7 @@ with some convenient type aliases
 -- A fractional number of units, useful for general quantities like length
 type alias Fractional units =
     Quantity Float units
-    
+
 -- A whole number of units, useful for exact values in cents/pixels
 type alias Whole units =
     Quantity Int units
