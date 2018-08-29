@@ -114,8 +114,9 @@ type Msg
     = Tick Duration
 ```
 
-Then take the value returned by the `onAnimationFrameDelta` subscription and
-convert it to a `Duration` using the `milliseconds` function:
+Then take the value returned by the `onAnimationFrameDelta` subscription (which
+is a value in milliseconds) and convert it to a `Duration` using the
+`milliseconds` function:
 
 ```elm
 subscriptions model =
