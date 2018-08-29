@@ -312,7 +312,7 @@ In the _implementation_ of `kineticEnergy`, you're working with raw `Float`
 values so you need to be careful to make sure the units actually do work out.
 (The values will be in [SI](https://en.wikipedia.org/wiki/International_System_of_Units)
 units - meters, seconds etc.) Once the function has been implemented, though, it
-can be used un a completely type-safe way - callers can supply arguments using
+can be used in a completely type-safe way - callers can supply arguments using
 whatever units they like, and extract results in whatever units they want:
 
 ```elm
