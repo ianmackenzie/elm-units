@@ -3,7 +3,7 @@ module Quantity exposing
     , Squared, Quotient
     , zero, toFractional
     , lessThan, greaterThan, compare, max, min
-    , negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
+    , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
     , Rate, per, times, at, at_, invert
     , int, toInt, float, toFloat
@@ -19,7 +19,7 @@ module Quantity exposing
 
 @docs lessThan, greaterThan, compare, max, min
 
-@docs negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
+@docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
 
 @docs sum, minimum, maximum, sort
 
@@ -113,13 +113,13 @@ negate (Quantity value) =
     Quantity -value
 
 
-add : Quantity number units -> Quantity number units -> Quantity number units
-add (Quantity x) (Quantity y) =
+plus : Quantity number units -> Quantity number units -> Quantity number units
+plus (Quantity y) (Quantity x) =
     Quantity (x + y)
 
 
-difference : Quantity number units -> Quantity number units -> Quantity number units
-difference (Quantity x) (Quantity y) =
+minus : Quantity number units -> Quantity number units -> Quantity number units
+minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
@@ -164,7 +164,7 @@ sqrt (Quantity value) =
 
 sum : List (Quantity number units) -> Quantity number units
 sum quantities =
-    List.foldl add zero quantities
+    List.foldl plus zero quantities
 
 
 minimum : List (Quantity number units) -> Maybe (Quantity number units)
