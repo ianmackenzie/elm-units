@@ -2,7 +2,7 @@ module Quantity exposing
     ( Quantity(..), Whole, Fractional
     , Squared, Quotient
     , zero, toFractional
-    , lessThan, greaterThan, compare, max, min
+    , lessThan, greaterThan, compare, equalWithin, max, min
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
     , Rate, per, times, at, at_, invert
@@ -17,7 +17,7 @@ module Quantity exposing
 
 @docs zero, toFractional
 
-@docs lessThan, greaterThan, compare, max, min
+@docs lessThan, greaterThan, compare, equalWithin, max, min
 
 @docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
 
@@ -92,6 +92,11 @@ greaterThan (Quantity y) (Quantity x) =
 compare : Quantity number units -> Quantity number units -> Order
 compare (Quantity x) (Quantity y) =
     Basics.compare x y
+
+
+equalWithin : Quantity number units -> Quantity number units -> Quantity number units -> Bool
+equalWithin (Quantity tolerance) (Quantity x) (Quantity y) =
+    Basics.abs (x - y) <= tolerance
 
 
 max : Quantity number units -> Quantity number units -> Quantity number units
