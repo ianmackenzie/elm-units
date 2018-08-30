@@ -63,7 +63,7 @@ poundsPerSquareInch value =
 
 inPoundsPerSquareInch : Pressure -> Float
 inPoundsPerSquareInch pressure =
-    pressure |> Quantity.for (Area.squareInches 1) |> Force.inPounds
+    pressure |> Quantity.times (Area.squareInches 1) |> Force.inPounds
 
 
 atmospheres : Float -> Pressure

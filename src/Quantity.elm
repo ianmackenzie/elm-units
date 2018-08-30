@@ -5,7 +5,7 @@ module Quantity exposing
     , lessThan, greaterThan, compare, max, min
     , negate, add, difference, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
-    , Rate, per, for, times, at, at_, invert
+    , Rate, per, times, at, at_, invert
     , int, toInt, float, toFloat
     )
 
@@ -23,7 +23,7 @@ module Quantity exposing
 
 @docs sum, minimum, maximum, sort
 
-@docs Rate, per, for, times, at, at_, invert
+@docs Rate, per, times, at, at_, invert
 
 @docs int, toInt, float, toFloat
 
@@ -205,16 +205,9 @@ per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
-for : Fractional independentUnits -> Rate dependentUnits independentUnits -> Fractional dependentUnits
-for (Quantity independentValue) (Quantity rate) =
-    Quantity (rate * independentValue)
-
-
-{-| Alias for `for` which may read better in some cases.
--}
 times : Fractional independentUnits -> Rate dependentUnits independentUnits -> Fractional dependentUnits
-times =
-    for
+times (Quantity independentValue) (Quantity rate) =
+    Quantity (rate * independentValue)
 
 
 at : Rate dependentUnits independentUnits -> Fractional independentUnits -> Fractional dependentUnits
