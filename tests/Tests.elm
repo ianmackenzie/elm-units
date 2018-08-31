@@ -1,4 +1,11 @@
-module Tests exposing (forces, lengths, powers, pressures, speeds)
+module Tests exposing
+    ( durations
+    , forces
+    , lengths
+    , powers
+    , pressures
+    , speeds
+    )
 
 import Acceleration exposing (..)
 import Current exposing (..)
@@ -103,5 +110,16 @@ pressures =
         "Pa"
         [ ( atmospheres 1
           , kilopascals 101.325
+          )
+        ]
+
+
+durations : Test
+durations =
+    equalPairs
+        "Durations"
+        "s"
+        [ ( julianYears 1
+          , days 365.25
           )
         ]
