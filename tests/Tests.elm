@@ -99,7 +99,7 @@ forces =
 pressures : Test
 pressures =
     equalPairs
-        "Pressure"
+        "Pressures"
         "Pa"
         [ ( atmospheres 1
           , kilopascals 101.325
