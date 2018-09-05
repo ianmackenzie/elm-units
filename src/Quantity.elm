@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
     , Rate, per, times, at, at_, invert
-    , int, toInt, float, toFloat
+    , Unitless, int, toInt, float, toFloat
     )
 
 {-|
@@ -25,7 +25,7 @@ module Quantity exposing
 
 @docs Rate, per, times, at, at_, invert
 
-@docs int, toInt, float, toFloat
+@docs Unitless, int, toInt, float, toFloat
 
 -}
 
@@ -234,21 +234,25 @@ invert (Quantity rate) =
 -- Unitless quantities
 
 
-int : Int -> Whole Never
+type Unitless
+    = Unitless
+
+
+int : Int -> Whole Unitless
 int value =
     Quantity value
 
 
-toInt : Whole Never -> Int
+toInt : Whole Unitless -> Int
 toInt (Quantity value) =
     value
 
 
-float : Float -> Fractional Never
+float : Float -> Fractional Unitless
 float value =
     Quantity value
 
 
-toFloat : Fractional Never -> Float
+toFloat : Fractional Unitless -> Float
 toFloat (Quantity value) =
     value
