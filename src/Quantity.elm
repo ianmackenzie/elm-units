@@ -11,6 +11,9 @@ module Quantity exposing
 
 {-|
 
+
+# Quantity types
+
 @docs Quantity, Whole, Fractional
 
 
@@ -21,11 +24,23 @@ composite units in a fairly flexible way.
 
 @docs Squared, Rate
 
+
+# Basics
+
 @docs zero, toFractional
+
+
+# Comparison
 
 @docs lessThan, greaterThan, compare, equalWithin, max, min
 
+
+# Arithmetic
+
 @docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
+
+
+# Working with lists
 
 @docs sum, minimum, maximum, sort
 
