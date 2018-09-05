@@ -22,7 +22,7 @@ import Quantity exposing (Fractional, Quantity(..), Rate)
 {-| Radians are the standard unit of angle.
 -}
 type Radians
-    = Radians Never
+    = Radians
 
 
 {-| An angle is a fractional number of radians.

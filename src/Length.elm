@@ -34,7 +34,7 @@ import Quantity exposing (Fractional, Quantity(..), Rate)
 {-| Meters are the standard units of length.
 -}
 type Meters
-    = Meters Never
+    = Meters
 
 
 {-| A length is a fractional number of meters.

@@ -14,7 +14,7 @@ import Quantity exposing (Fractional, Quantity(..), Whole)
 
 
 type Cents
-    = Cents Never
+    = Cents
 
 
 amount : number -> number -> Quantity number Cents

@@ -31,7 +31,7 @@ import Quantity exposing (Fractional, Quantity(..), Rate)
 {-| Kelvins are the standard unit of temperature.
 -}
 type Kelvins
-    = Kelvins Never
+    = Kelvins
 
 
 type Temperature

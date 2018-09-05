@@ -25,7 +25,7 @@ import Time
 {-| The standard unit of time is seconds.
 -}
 type Seconds
-    = Seconds Never
+    = Seconds
 
 
 {-| A `Duration` refers to an elapsed time, as opposed to a specific instant in

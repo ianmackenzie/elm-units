@@ -49,11 +49,11 @@ type alias Fractional units =
 
 
 type Squared units
-    = Squared Never
+    = Squared units
 
 
 type Quotient numeratorUnits denominatorUnits
-    = Quotient Never
+    = Quotient numeratorUnits denominatorUnits
 
 
 
