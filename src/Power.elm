@@ -11,11 +11,11 @@ module Power exposing
 
 import Duration exposing (Seconds)
 import Energy exposing (Joules)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
 type alias Watts =
-    Quotient Joules Seconds
+    Rate Joules Seconds
 
 
 type alias Power =

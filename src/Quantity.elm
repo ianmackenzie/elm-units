@@ -1,11 +1,11 @@
 module Quantity exposing
     ( Quantity(..), Whole, Fractional
-    , Squared, Quotient
+    , Squared, Rate
     , zero, toFractional
     , lessThan, greaterThan, compare, equalWithin, max, min
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
-    , Rate, per, times, at, at_, invert
+    , per, times, at, at_, invert
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -13,7 +13,13 @@ module Quantity exposing
 
 @docs Quantity, Whole, Fractional
 
-@docs Squared, Quotient
+
+# Unit types
+
+The `Squared` and `Rate` units types allow you to build up and work with
+composite units in a fairly flexible way.
+
+@docs Squared, Rate
 
 @docs zero, toFractional
 
@@ -23,7 +29,10 @@ module Quantity exposing
 
 @docs sum, minimum, maximum, sort
 
-@docs Rate, per, times, at, at_, invert
+
+# Working with rates
+
+@docs per, times, at, at_, invert
 
 @docs Unitless, int, toInt, float, toFloat
 
@@ -45,15 +54,53 @@ type alias Fractional units =
 
 
 
--- Unit types
+-- Units types
 
 
+{-| Represents a units type that is the square of some other units type; for
+example `Meters` is one units type (the type of a `Length`) and `Squared Meters`
+is another (the type of an `Area`). This is useful because some functions in
+this module (specifically `product`, `squared`, and `sqrt`) "know" about the
+`Squared` type and how to work with it. For example, the type signature of
+`Quantity.squared` is
+
+    squared :
+        Quantity number units
+        -> Quantity number (Squared units)
+
+which means that it takes an arguments in some `units` type and produces a
+result in `Squared units` (regardless of what those base `units` are!).
+`Quantity.sqrt` then has the type signature
+
+    sqrt : Fractional (Squared units) -> Fractional units
+
+which means that it takes a (floating-point) argument in `Squared units` for
+some `units` type, and produces a result in the original `units`. This means
+that you could write a 2D hypotenuse function that worked on _any_ units type as
+
+    hypot : Fractional units -> Fractional units -> Fractional units
+    hypot x y =
+        Quantity.sqrt <|
+            Quantity.sum
+                [ Quantity.squared x
+                , Quantity.squared y
+                ]
+
+since each list item is in `Squared units`, so the sum will also be in `Squared
+units`, which `Quantity.sqrt` then turns back into `units`.
+
+-}
 type Squared units
     = Squared units
 
 
-type Quotient numeratorUnits denominatorUnits
-    = Quotient numeratorUnits denominatorUnits
+{-| Represents a rate or quotient such as a speed (`Rate Meters Seconds`) or a
+pressure (`Rate Newtons SquareMeters`). As with `squared`, there are several
+functions that "know" about the `Rate` type and how to work with it - see the
+[Working with rates](#working-with-rates) section for details.
+-}
+type Rate dependentUnits independentUnits
+    = Rate dependentUnits independentUnits
 
 
 
@@ -201,31 +248,27 @@ sort quantities =
 -- Working with rates
 
 
-type alias Rate dependentUnits independentUnits =
-    Fractional (Quotient dependentUnits independentUnits)
-
-
-per : Fractional independentUnits -> Fractional dependentUnits -> Rate dependentUnits independentUnits
+per : Fractional independentUnits -> Fractional dependentUnits -> Fractional (Rate dependentUnits independentUnits)
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
-times : Fractional independentUnits -> Rate dependentUnits independentUnits -> Fractional dependentUnits
+times : Fractional independentUnits -> Fractional (Rate dependentUnits independentUnits) -> Fractional dependentUnits
 times (Quantity independentValue) (Quantity rate) =
     Quantity (rate * independentValue)
 
 
-at : Rate dependentUnits independentUnits -> Fractional independentUnits -> Fractional dependentUnits
+at : Fractional (Rate dependentUnits independentUnits) -> Fractional independentUnits -> Fractional dependentUnits
 at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-at_ : Rate dependentUnits independentUnits -> Fractional dependentUnits -> Fractional independentUnits
+at_ : Fractional (Rate dependentUnits independentUnits) -> Fractional dependentUnits -> Fractional independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
 
 
-invert : Rate dependentUnits independentUnits -> Rate independentUnits dependentUnits
+invert : Fractional (Rate dependentUnits independentUnits) -> Fractional (Rate independentUnits dependentUnits)
 invert (Quantity rate) =
     Quantity (1 / rate)
 

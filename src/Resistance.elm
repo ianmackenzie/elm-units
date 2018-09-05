@@ -6,12 +6,12 @@ module Resistance exposing
     )
 
 import Current exposing (Amperes)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 import Voltage exposing (Volts)
 
 
 type alias Ohms =
-    Quotient Volts Amperes
+    Rate Volts Amperes
 
 
 type alias Resistance =

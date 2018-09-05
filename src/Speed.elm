@@ -13,11 +13,11 @@ module Speed exposing
 
 import Duration exposing (Seconds)
 import Length exposing (Meters)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
 type alias MetersPerSecond =
-    Quotient Meters Seconds
+    Rate Meters Seconds
 
 
 type alias Speed =

@@ -21,7 +21,7 @@ module Pixels exposing
 -}
 
 import Duration exposing (Seconds)
-import Quantity exposing (Fractional, Quantity(..), Quotient, Squared, Whole)
+import Quantity exposing (Fractional, Quantity(..), Rate, Squared, Whole)
 
 
 type Pixels
@@ -29,11 +29,11 @@ type Pixels
 
 
 type alias PixelsPerSecond =
-    Quotient Pixels Seconds
+    Rate Pixels Seconds
 
 
 type alias PixelsPerSecondSquared =
-    Quotient PixelsPerSecond Seconds
+    Rate PixelsPerSecond Seconds
 
 
 type alias SquarePixels =

@@ -15,11 +15,11 @@ module Pressure exposing
 
 import Area exposing (SquareMeters)
 import Force exposing (Newtons)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
 type alias Pascals =
-    Quotient Newtons SquareMeters
+    Rate Newtons SquareMeters
 
 
 type alias Pressure =

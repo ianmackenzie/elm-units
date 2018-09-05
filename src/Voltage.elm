@@ -7,11 +7,11 @@ module Voltage exposing
 
 import Current exposing (Amperes)
 import Power exposing (Watts)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
 type alias Volts =
-    Quotient Watts Amperes
+    Rate Watts Amperes
 
 
 type alias Voltage =

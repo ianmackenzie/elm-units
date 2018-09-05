@@ -9,11 +9,11 @@ module Current exposing
 
 import Charge exposing (Coulombs)
 import Duration exposing (Seconds)
-import Quantity exposing (Fractional, Quantity(..), Quotient)
+import Quantity exposing (Fractional, Quantity(..), Rate)
 
 
 type alias Amperes =
-    Quotient Coulombs Seconds
+    Rate Coulombs Seconds
 
 
 type alias Current =
