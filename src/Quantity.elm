@@ -40,7 +40,7 @@ composite units in a fairly flexible way.
 @docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
 
 
-# Working with lists
+# List functions
 
 @docs sum, minimum, maximum, sort
 
@@ -53,11 +53,11 @@ composite units in a fairly flexible way.
 # Unitless quantities
 
 It is sometimes be useful to be able to represent _unitless_ quantities,
-especially when writing generic code (in most other cases, it is likely simpler
-and easier to just use `Int` or `Float` values directly). All the conversions in
-this section simply wrap or unwrap a `Float` or `Int` value into a `Quantity`
-value, and so should get compiled away entirely when using `elm make
---optimize`.
+especially when working with generic code (in most other cases, it is likely
+simpler and easier to just use `Int` or `Float` values directly). All the
+conversions in this section simply wrap or unwrap a `Float` or `Int` value into
+a `Quantity` value, and so should get compiled away entirely when using `elm
+make --optimize`.
 
 @docs Unitless, int, toInt, float, toFloat
 
