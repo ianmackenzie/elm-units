@@ -34,6 +34,16 @@ composite units in a fairly flexible way.
 
 @docs per, times, at, at_, invert
 
+
+# Unitless quantities
+
+It is sometimes be useful to be able to represent _unitless_ quantities,
+especially when writing generic code (in most other cases, it is likely simpler
+and easier to just use `Int` or `Float` values directly). All the conversions in
+this section simply wrap or unwrap a `Float` or `Int` value into a `Quantity`
+value, and so should get compiled away entirely when using `elm make
+--optimize`.
+
 @docs Unitless, int, toInt, float, toFloat
 
 -}
@@ -277,25 +287,37 @@ invert (Quantity rate) =
 -- Unitless quantities
 
 
+{-| A special units type representing 'no units'. A `Whole Unitless` value is
+interchangeable with a simple `Int`, and a `Fractional Unitless` value is
+interchangeable with a simple `Float`.
+-}
 type Unitless
     = Unitless
 
 
+{-| Convert a plain `Int` into a `Whole Unitless` value.
+-}
 int : Int -> Whole Unitless
 int value =
     Quantity value
 
 
+{-| Convert a `Whole Unitless` value into a plain `Int`.
+-}
 toInt : Whole Unitless -> Int
 toInt (Quantity value) =
     value
 
 
+{-| Convert a plain `Float` into a `Fractional Unitless` value.
+-}
 float : Float -> Fractional Unitless
 float value =
     Quantity value
 
 
+{-| Convert a `Fractional Unitless` value into a plain `Int`.
+-}
 toFloat : Fractional Unitless -> Float
 toFloat (Quantity value) =
     value
