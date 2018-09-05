@@ -91,6 +91,6 @@ atan x =
     Quantity (Basics.atan x)
 
 
-atan2 : Quantity Float units -> Quantity Float units -> Angle
+atan2 : Fractional units -> Fractional units -> Angle
 atan2 (Quantity y) (Quantity x) =
     Quantity (Basics.atan2 y x)
