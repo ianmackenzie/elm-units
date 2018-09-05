@@ -132,11 +132,6 @@ type Rate dependentUnits independentUnits
 -- Basics
 
 
-unwrap : Quantity number units -> number
-unwrap (Quantity value) =
-    value
-
-
 zero : Quantity number units
 zero =
     Quantity 0
@@ -262,6 +257,11 @@ maximum quantities =
 
         first :: rest ->
             Just (List.foldl max first rest)
+
+
+unwrap : Quantity number units -> number
+unwrap (Quantity value) =
+    value
 
 
 sort : List (Quantity number units) -> List (Quantity number units)
