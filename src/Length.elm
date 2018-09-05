@@ -28,7 +28,7 @@ module Length exposing
 
 -}
 
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..))
 
 
 {-| Meters are the standard units of length.

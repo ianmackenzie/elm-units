@@ -16,7 +16,7 @@ module Angle exposing
     , turns
     )
 
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..))
 
 
 {-| Radians are the standard unit of angle.

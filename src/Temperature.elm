@@ -25,7 +25,7 @@ module Temperature exposing
     , toAbsolute
     )
 
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Fractional, Quantity(..))
 
 
 {-| Kelvins are the standard unit of temperature.
