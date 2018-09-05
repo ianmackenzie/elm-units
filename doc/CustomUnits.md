@@ -32,7 +32,7 @@ inTiles (Quantity numTiles) =
 Note that using the generic `number` type when defining these functions means that they can be used to define/work with either whole (`Int`) or fractional (`Float`) numbers of tiles.
 
 It may also be convenient to add a function to round to the nearest tile:
-   
+
 ```elm
 roundToNearestTile : Fractional Tiles -> Whole Tiles
 roundToNearestTile (Quantity numTiles) =
@@ -40,7 +40,7 @@ roundToNearestTile (Quantity numTiles) =
 ```
 
 Note that this could alternatively be implemented as
-   
+
 ```elm
 roundToNearestTile : Fractional Tiles -> Whole Tiles
 roundToNearestTile quantity =
@@ -58,14 +58,14 @@ import Quantity
 Quantity.sum [ tiles 5, tiles 2.3, tiles 0.6 ]
 --> tiles 7.9
 
-pixelsPerTile : Rate Pixels Tiles
+pixelsPerTile : Fractional (Rate Pixels Tiles)
 pixelsPerTile =
     pixels 24 |> Quantity.per (tiles 1)
 
 tiles 3 |> Quantity.at pixelsPerTile
 --> pixels 72
 
-speed : Rate Tiles Seconds
+speed : Fractional (Rate Tiles Seconds)
 speed =
     tiles 12 |> Quantity.per (seconds 1)
 
