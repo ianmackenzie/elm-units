@@ -66,14 +66,51 @@ make --optimize`.
 -- Quantity types
 
 
+{-| A `Quantity` is effectively a `number` (an `Int` or `Float`) tagged with a
+`units` type. So a
+
+    Quantity Float Meters
+
+is a `Float` number of `Meters` and a
+
+    Quantity Int Pixels
+
+is an `Int` number of \`Pixels. When compiling with
+
+    elm make --optimize
+
+the `Quantity` wrapper type will be compiled away, so the runtime performance
+should be the same as just using a raw `Float` or `Int`.
+
+-}
 type Quantity number units
     = Quantity number
 
 
+{-| The `Whole` type alias provides a convenient shorthand for referring an
+`Int` number of a particular unit;
+
+    Whole Pixels
+
+is equivalent to
+
+    Quantity Int Pixels
+
+-}
 type alias Whole units =
     Quantity Int units
 
 
+{-| The `Fractional` type alias provides a convenient shorthand for referring an
+`Int` number of a particular unit;
+
+    Fractional Meters
+
+is equivalent to
+
+    Quantity Float Meters
+
+-}
 type alias Fractional units =
     Quantity Float units
 
