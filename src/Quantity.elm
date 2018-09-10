@@ -375,7 +375,7 @@ float value =
     Quantity value
 
 
-{-| Convert a `Fractional Unitless` value into a plain `Int`.
+{-| Convert a `Fractional Unitless` value into a plain `Float`.
 -}
 toFloat : Fractional Unitless -> Float
 toFloat (Quantity value) =
