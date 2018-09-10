@@ -322,12 +322,12 @@ per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
-times : Fractional independentUnits -> Fractional (Rate dependentUnits independentUnits) -> Fractional dependentUnits
+times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
 times (Quantity independentValue) (Quantity rate) =
     Quantity (rate * independentValue)
 
 
-at : Fractional (Rate dependentUnits independentUnits) -> Fractional independentUnits -> Fractional dependentUnits
+at : Quantity number (Rate dependentUnits independentUnits) -> Quantity number independentUnits -> Quantity number dependentUnits
 at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
