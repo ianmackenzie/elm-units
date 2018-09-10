@@ -169,11 +169,18 @@ type Rate dependentUnits independentUnits
 -- Basics
 
 
+{-| Construct a zero-valued quantity. This can be treated as either an `Int` or
+`Float` quantity in any units type, similar to how `Nothing` can be treated as
+any kind of `Maybe` type and `[]` can be treated as any kind of `List`.
+-}
 zero : Quantity number units
 zero =
     Quantity 0
 
 
+{-| Convert an `Int`-valued `Quantity` to a `Float`-valued one. The actual value
+will be unchanged.
+-}
 toFractional : Whole units -> Fractional units
 toFractional (Quantity value) =
     Quantity (Basics.toFloat value)
