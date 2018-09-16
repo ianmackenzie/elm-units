@@ -4,21 +4,23 @@
 
 *Note*: This package has not yet been published!
 
-`elm-units` is useful whenever you want to store, pass around, convert between,
+`elm-units` is useful if you want to store, pass around, convert between,
 compare, or do arithmetic on:
 
   - Durations (seconds, milliseconds, hours...)
   - Angles (degrees, radians, turns...)
-  - Pixels (whole or fractional)
   - Lengths (meters, feet, inches, miles, light years...)
   - Temperatures (Celsius, Fahrenheit, kelvins)
+  - Pixels (whole or partial)
   - Speeds (pixels per second, miles per hour...) or any other rate of change
   - Any of the other built-in quantity types: areas, accelerations, masses,
     forces, pressures, currents, voltages...
   - Or even values in your own custom units, such as 'number of tiles' in a
     tile-based game
 
-The core of the package consists of functions like
+It is aimed especially at engineering/scientific/technical appliations but is
+designed to be generic enough to work well for other fields such as games and
+finance. The core of the package consists of functions like
 
 ```elm
 Length.meters : Float -> Length
@@ -32,9 +34,24 @@ Duration.inSeconds : Duration -> Float
 Duration.inMilliseconds : Duration -> Float
 ```
 
-which let you construct type-safe values (from whatever units you want) which
-you can then store inside other data types, pass around as function arguments,
-and convert back to `Float` values (in whatever units you want) where necessary:
+You can use these functions to do simple unit conversions:
+
+```elm
+Duration.hours 3 |> Duration.inSeconds
+--> 10800
+
+Length.feet 10 |> Length.inMeters
+--> 3.048
+
+Speed.milesPerHour 60 |> Speed.inMetersPerSecond
+--> 26.8224
+
+Temperature.degreesCelsius 30 |> Temperature.inDegreesFahrenheit
+--> 86
+```
+
+Type-safe values like `Length`s and `Duration`s also work very well as as record
+fields or function arguments:
 
 ```elm
 import Angle exposing (Angle)
@@ -67,9 +84,10 @@ camera.fieldOfView |> Angle.inRadians
 --> pi / 3
 ```
 
-Additionally, quantity types like `Length` are actually of type `Quantity number
+Finally, quantity types like `Length` are actually of type `Quantity number
 units` (`Length` is `Quantity Float Meters`, for example), and there are several
-generic functions which let you work directly with `Quantity` values:
+generic functions which let you work directly with any kind of `Quantity`
+values:
 
 ```elm
 Quantity.add (Duration.hours 2) (Duration.minutes 30)
@@ -118,87 +136,6 @@ To take code that currently uses raw `Float` values and convert it to using
     JSON etc.), use a function such as `Duration.inMillliseconds`,
     `Angle.inRadians` or `Temperature.inCelsius` to extract the value in
     whatever units you want.
-
-Let's see what that looks like in practice! A pretty common pattern in Elm apps
-is to have a `Tick Float` message that contains a number of milliseconds since
-the last animation frame, but it's very easy to accidentally treat that `Float`
-as a number of seconds, leading to things like way-too-fast animations. Let's
-modify the code to use a `Duration` value instead.
-
-First, define the `Tick` message to store a `Duration` value instead of a
-`Float`:
-
-```elm
-import Browser.Events
-import Duration exposing (Duration)
-
-type Msg
-    = Tick Duration
-```
-
-Then take the value returned by the `onAnimationFrameDelta` subscription (which
-is a value in milliseconds) and convert it to a `Duration` using the
-`milliseconds` function:
-
-```elm
-subscriptions model =
-    Browser.Events.onAnimationFrameDelta (Duration.milliseconds >> Tick)
-```
-
-Later on, when you handle the `Tick` message, you can extract the duration value
-in whatever units you want. Perhaps you want to keep track of how many frames
-per second your application is running at, so you compute the reciprocal of the
-duration in seconds:
-
-```elm
-update message model =
-    case message of
-        Tick duration ->
-            ( { model | fps = 1 / Duration.inSeconds duration }
-            , Cmd.none
-            )
-```
-
-Note that any necessary conversion is done automatically - you create a
-`Duration` from a `Float` by specifying what kind of units you *have*
-(milliseconds), and then later extract a `Float` value by specifying what kind
-of units you *want* (seconds). This, incidentally, means you can skip the 'store
-the value in a message' step and just use the provided functions to do unit
-conversions:
-
-```elm
-Duration.hours 3 |> Duration.inSeconds
---> 10800
-
-Length.feet 10 |> Length.inMeters
---> 3.048
-
-Speed.milesPerHour 60 |> Speed.inMetersPerSecond
---> 26.8224
-
-Temperature.celsius 30 |> Temperature.inFahrenheit
---> 86
-```
-
-If you try to do a conversion that doesn't make sense, you'll get a compile
-error:
-
-```elm
-Duration.seconds 30 |> Length.inMeters
--- TYPE MISMATCH ----------------------------------------------------------- elm
-
-This function cannot handle the argument sent through the (|>) pipe:
-
-1|   Duration.seconds 30 |> Length.inMeters
-                            ^^^^^^^^^^^^^^^
-The argument is:
-
-    Duration
-
-But (|>) is piping it a function that expects:
-
-    Length
-```
 
 ### The `Quantity` Type
 
