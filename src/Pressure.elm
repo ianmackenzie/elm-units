@@ -15,7 +15,7 @@ module Pressure exposing
 
 import Area exposing (SquareMeters)
 import Force exposing (Newtons)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Pascals =
@@ -23,7 +23,7 @@ type alias Pascals =
 
 
 type alias Pressure =
-    Fractional Pascals
+    Quantity Float Pascals
 
 
 pascals : Float -> Pressure

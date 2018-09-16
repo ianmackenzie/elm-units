@@ -11,7 +11,7 @@ module Power exposing
 
 import Duration exposing (Seconds)
 import Energy exposing (Joules)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Watts =
@@ -19,7 +19,7 @@ type alias Watts =
 
 
 type alias Power =
-    Fractional Watts
+    Quantity Float Watts
 
 
 watts : Float -> Power

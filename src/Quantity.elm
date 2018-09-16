@@ -1,7 +1,7 @@
 module Quantity exposing
-    ( Quantity(..), Whole, Fractional
+    ( Quantity(..)
     , Squared, Rate
-    , zero, toFractional
+    , zero
     , lessThan, greaterThan, compare, equalWithin, max, min
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
@@ -15,7 +15,7 @@ module Quantity exposing
 
 # Quantity types
 
-@docs Quantity, Whole, Fractional
+@docs Quantity
 
 
 # Unit types
@@ -28,7 +28,7 @@ composite units in a fairly flexible way.
 
 # Basics
 
-@docs zero, toFractional
+@docs zero
 
 
 # Comparison
@@ -93,34 +93,6 @@ type Quantity number units
     = Quantity number
 
 
-{-| The `Whole` type alias provides a convenient shorthand for referring an
-`Int` number of a particular unit;
-
-    Whole Pixels
-
-is equivalent to
-
-    Quantity Int Pixels
-
--}
-type alias Whole units =
-    Quantity Int units
-
-
-{-| The `Fractional` type alias provides a convenient shorthand for referring an
-`Int` number of a particular unit;
-
-    Fractional Meters
-
-is equivalent to
-
-    Quantity Float Meters
-
--}
-type alias Fractional units =
-    Quantity Float units
-
-
 
 -- Units types
 
@@ -140,13 +112,18 @@ which means that it takes an arguments in some `units` type and produces a
 result in `Squared units` (regardless of what those base `units` are!).
 `Quantity.sqrt` then has the type signature
 
-    sqrt : Fractional (Squared units) -> Fractional units
+    sqrt :
+        Quantity Float (Squared units)
+        -> Quantity Float units
 
 which means that it takes a (floating-point) argument in `Squared units` for
 some `units` type, and produces a result in the original `units`. This means
 that you could write a 2D hypotenuse function that worked on _any_ units type as
 
-    hypot : Fractional units -> Fractional units -> Fractional units
+    hypot :
+        Quantity Float units
+        -> Quantity Float units
+        -> Quantity Float units
     hypot x y =
         Quantity.sqrt <|
             Quantity.sum
@@ -182,14 +159,6 @@ any kind of `Maybe` type and `[]` can be treated as any kind of `List`.
 zero : Quantity number units
 zero =
     Quantity 0
-
-
-{-| Convert an `Int`-valued `Quantity` to a `Float`-valued one. The actual value
-will be unchanged.
--}
-toFractional : Whole units -> Fractional units
-toFractional (Quantity value) =
-    Quantity (Basics.toFloat value)
 
 
 
@@ -250,7 +219,7 @@ product (Quantity x) (Quantity y) =
     Quantity (x * y)
 
 
-ratio : Fractional units -> Fractional units -> Float
+ratio : Quantity Float units -> Quantity Float units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
 
@@ -275,7 +244,7 @@ squared (Quantity value) =
     Quantity (value * value)
 
 
-sqrt : Fractional (Squared units) -> Fractional units
+sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
 
@@ -323,7 +292,7 @@ sort quantities =
 -- Working with rates
 
 
-per : Fractional independentUnits -> Fractional dependentUnits -> Fractional (Rate dependentUnits independentUnits)
+per : Quantity Float independentUnits -> Quantity Float dependentUnits -> Quantity Float (Rate dependentUnits independentUnits)
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
@@ -338,12 +307,12 @@ at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-at_ : Fractional (Rate dependentUnits independentUnits) -> Fractional dependentUnits -> Fractional independentUnits
+at_ : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float dependentUnits -> Quantity Float independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
 
 
-invert : Fractional (Rate dependentUnits independentUnits) -> Fractional (Rate independentUnits dependentUnits)
+invert : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
 invert (Quantity rate) =
     Quantity (1 / rate)
 
@@ -366,37 +335,37 @@ map function (Quantity value) =
 -- Unitless quantities
 
 
-{-| A special units type representing 'no units'. A `Whole Unitless` value is
-interchangeable with a simple `Int`, and a `Fractional Unitless` value is
-interchangeable with a simple `Float`.
+{-| A special units type representing 'no units'. A `Quantity Int Unitless`
+value is interchangeable with a simple `Int`, and a `Quantity Float Unitless`
+value is interchangeable with a simple `Float`.
 -}
 type Unitless
     = Unitless
 
 
-{-| Convert a plain `Int` into a `Whole Unitless` value.
+{-| Convert a plain `Int` into a `Quantity Int Unitless` value.
 -}
-int : Int -> Whole Unitless
+int : Int -> Quantity Int Unitless
 int value =
     Quantity value
 
 
-{-| Convert a `Whole Unitless` value into a plain `Int`.
+{-| Convert a `Quantity Int Unitless` value into a plain `Int`.
 -}
-toInt : Whole Unitless -> Int
+toInt : Quantity Int Unitless -> Int
 toInt (Quantity value) =
     value
 
 
-{-| Convert a plain `Float` into a `Fractional Unitless` value.
+{-| Convert a plain `Float` into a `Quantity Float Unitless` value.
 -}
-float : Float -> Fractional Unitless
+float : Float -> Quantity Float Unitless
 float value =
     Quantity value
 
 
-{-| Convert a `Fractional Unitless` value into a plain `Float`.
+{-| Convert a `Quantity Float Unitless` value into a plain `Float`.
 -}
-toFloat : Fractional Unitless -> Float
+toFloat : Quantity Float Unitless -> Float
 toFloat (Quantity value) =
     value

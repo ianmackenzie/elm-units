@@ -16,7 +16,7 @@ module Angle exposing
     , turns
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 {-| Radians are the standard unit of angle.
@@ -28,7 +28,7 @@ type Radians
 {-| An angle is a fractional number of radians.
 -}
 type alias Angle =
-    Fractional Radians
+    Quantity Float Radians
 
 
 radians : Float -> Angle
@@ -91,6 +91,6 @@ atan x =
     Quantity (Basics.atan x)
 
 
-atan2 : Fractional units -> Fractional units -> Angle
+atan2 : Quantity Float units -> Quantity Float units -> Angle
 atan2 (Quantity y) (Quantity x) =
     Quantity (Basics.atan2 y x)

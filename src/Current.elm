@@ -9,7 +9,7 @@ module Current exposing
 
 import Charge exposing (Coulombs)
 import Duration exposing (Seconds)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Amperes =
@@ -17,7 +17,7 @@ type alias Amperes =
 
 
 type alias Current =
-    Fractional Amperes
+    Quantity Float Amperes
 
 
 amperes : Float -> Current

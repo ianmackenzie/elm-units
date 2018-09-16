@@ -10,7 +10,7 @@ module Usd exposing
     , roundUpToNearestCent
     )
 
-import Quantity exposing (Fractional, Quantity(..), Whole)
+import Quantity exposing (Quantity(..))
 
 
 type Cents
@@ -37,21 +37,21 @@ dollars numDollars =
     Quantity (100 * numDollars)
 
 
-inDollars : Fractional Cents -> Float
+inDollars : Quantity Float Cents -> Float
 inDollars (Quantity numCents) =
     numCents / 100
 
 
-roundToNearestCent : Fractional Cents -> Whole Cents
+roundToNearestCent : Quantity Float Cents -> Quantity Int Cents
 roundToNearestCent (Quantity numCents) =
     Quantity (round numCents)
 
 
-roundDownToNearestCent : Fractional Cents -> Whole Cents
+roundDownToNearestCent : Quantity Float Cents -> Quantity Int Cents
 roundDownToNearestCent (Quantity numCents) =
     Quantity (floor numCents)
 
 
-roundUpToNearestCent : Fractional Cents -> Whole Cents
+roundUpToNearestCent : Quantity Float Cents -> Quantity Int Cents
 roundUpToNearestCent (Quantity numCents) =
     Quantity (ceiling numCents)

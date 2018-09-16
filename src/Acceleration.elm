@@ -11,7 +11,7 @@ module Acceleration exposing
 
 import Duration exposing (Seconds)
 import Length exposing (Meters)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 import Speed exposing (MetersPerSecond)
 
 
@@ -20,7 +20,7 @@ type alias MetersPerSecondSquared =
 
 
 type alias Acceleration =
-    Fractional MetersPerSecondSquared
+    Quantity Float MetersPerSecondSquared
 
 
 metersPerSecondSquared : Float -> Acceleration

@@ -28,7 +28,7 @@ module Length exposing
 
 -}
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 {-| Meters are the standard units of length.
@@ -37,10 +37,10 @@ type Meters
     = Meters
 
 
-{-| A length is a fractional number of meters.
+{-| A length is represented by a number of meters.
 -}
 type alias Length =
-    Fractional Meters
+    Quantity Float Meters
 
 
 meters : Float -> Length

@@ -24,7 +24,7 @@ module Area exposing
     )
 
 import Length exposing (Meters)
-import Quantity exposing (Fractional, Quantity(..), Squared, Whole)
+import Quantity exposing (Quantity(..), Squared)
 
 
 type alias SquareMeters =
@@ -32,7 +32,7 @@ type alias SquareMeters =
 
 
 type alias Area =
-    Fractional SquareMeters
+    Quantity Float SquareMeters
 
 
 squareMeters : Float -> Area

@@ -6,7 +6,7 @@ module Resistance exposing
     )
 
 import Current exposing (Amperes)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 import Voltage exposing (Volts)
 
 
@@ -15,7 +15,7 @@ type alias Ohms =
 
 
 type alias Resistance =
-    Fractional Ohms
+    Quantity Float Ohms
 
 
 ohms : Float -> Resistance

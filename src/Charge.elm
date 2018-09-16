@@ -9,7 +9,7 @@ module Charge exposing
     , milliampereHours
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 type Coulombs
@@ -17,7 +17,7 @@ type Coulombs
 
 
 type alias Charge =
-    Fractional Coulombs
+    Quantity Float Coulombs
 
 
 coulombs : Float -> Charge

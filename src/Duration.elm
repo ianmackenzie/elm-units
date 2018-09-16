@@ -18,7 +18,7 @@ module Duration exposing
     , weeks
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 import Time
 
 
@@ -32,7 +32,7 @@ type Seconds
 time (which would generally be represented by a `Posix` value).
 -}
 type alias Duration =
-    Fractional Seconds
+    Quantity Float Seconds
 
 
 {-| Find the elapsed time from a start time to an end time. For example,

@@ -19,7 +19,7 @@ module Mass exposing
 
 import Acceleration exposing (MetersPerSecondSquared)
 import Force exposing (Newtons)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Kilograms =
@@ -27,7 +27,7 @@ type alias Kilograms =
 
 
 type alias Mass =
-    Fractional Kilograms
+    Quantity Float Kilograms
 
 
 kilograms : Float -> Mass

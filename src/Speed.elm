@@ -13,7 +13,7 @@ module Speed exposing
 
 import Duration exposing (Seconds)
 import Length exposing (Meters)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias MetersPerSecond =
@@ -21,7 +21,7 @@ type alias MetersPerSecond =
 
 
 type alias Speed =
-    Fractional MetersPerSecond
+    Quantity Float MetersPerSecond
 
 
 metersPerSecond : Float -> Speed

@@ -7,7 +7,7 @@ module Voltage exposing
 
 import Current exposing (Amperes)
 import Power exposing (Watts)
-import Quantity exposing (Fractional, Quantity(..), Rate)
+import Quantity exposing (Quantity(..), Rate)
 
 
 type alias Volts =
@@ -15,7 +15,7 @@ type alias Volts =
 
 
 type alias Voltage =
-    Fractional Volts
+    Quantity Float Volts
 
 
 volts : Float -> Voltage

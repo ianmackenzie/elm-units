@@ -47,14 +47,14 @@ import Quantity
 Quantity.sum [ tiles 5, tiles 2.3, tiles 0.6 ]
 --> tiles 7.9
 
-pixelsPerTile : Fractional (Rate Pixels Tiles)
+pixelsPerTile : Quantity Float (Rate Pixels Tiles)
 pixelsPerTile =
     pixels 24 |> Quantity.per (tiles 1)
 
 tiles 3 |> Quantity.at pixelsPerTile
 --> pixels 72
 
-speed : Fractional (Rate Tiles Seconds)
+speed : Quantity Float (Rate Tiles Seconds)
 speed =
     tiles 12 |> Quantity.per (seconds 1)
 

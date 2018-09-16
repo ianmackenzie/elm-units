@@ -18,7 +18,7 @@ module Pixels exposing
 -}
 
 import Duration exposing (Seconds)
-import Quantity exposing (Fractional, Quantity(..), Rate, Squared, Whole)
+import Quantity exposing (Quantity(..), Rate, Squared)
 
 
 type Pixels
@@ -46,20 +46,12 @@ Note that passing an `Int` will give you a
 
     Quantity Int Pixels
 
-which is equivalent to
-
-    Whole Pixels
-
 while passing a `Float` will give you a
 
     Quantity Float Pixels
 
-which is equivalent to
-
-    Fractional Pixels
-
-If you pass a _literal_ integer like `1920`, the result can be used as either a
-`Fractional` _or_ `Whole` number of pixels.
+If you pass a _literal_ integer like `1920`, the result can be used as either an
+`Int` _or_ `Float` number of pixels.
 
 -}
 pixels : number -> Quantity number Pixels
@@ -72,22 +64,22 @@ inPixels (Quantity numPixels) =
     numPixels
 
 
-pixelsPerSecond : Float -> Fractional PixelsPerSecond
+pixelsPerSecond : Float -> Quantity Float PixelsPerSecond
 pixelsPerSecond numPixelsPerSecond =
     Quantity numPixelsPerSecond
 
 
-inPixelsPerSecond : Fractional PixelsPerSecond -> Float
+inPixelsPerSecond : Quantity Float PixelsPerSecond -> Float
 inPixelsPerSecond (Quantity numPixelsPerSecond) =
     numPixelsPerSecond
 
 
-pixelsPerSecondSquared : Float -> Fractional PixelsPerSecondSquared
+pixelsPerSecondSquared : Float -> Quantity Float PixelsPerSecondSquared
 pixelsPerSecondSquared numPixelsPerSecondSquared =
     Quantity numPixelsPerSecondSquared
 
 
-inPixelsPerSecondSquared : Fractional PixelsPerSecondSquared -> Float
+inPixelsPerSecondSquared : Quantity Float PixelsPerSecondSquared -> Float
 inPixelsPerSecondSquared (Quantity numPixelsPerSecondSquared) =
     numPixelsPerSecondSquared
 

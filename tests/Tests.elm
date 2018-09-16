@@ -17,14 +17,14 @@ import Length exposing (..)
 import Mass exposing (..)
 import Power exposing (..)
 import Pressure exposing (..)
-import Quantity exposing (Fractional, Quantity(..), at, at_, minus, per, plus, times)
+import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
 import Resistance exposing (..)
 import Speed exposing (..)
 import Test exposing (Test)
 import Voltage exposing (..)
 
 
-equalityTest : String -> String -> ( Fractional units, Fractional units ) -> Test
+equalityTest : String -> String -> ( Quantity Float units, Quantity Float units ) -> Test
 equalityTest title unit ( Quantity x, Quantity y ) =
     let
         description =
@@ -39,7 +39,7 @@ equalityTest title unit ( Quantity x, Quantity y ) =
     Test.test description (\() -> Expect.within (Expect.Absolute 1.0e-12) x y)
 
 
-equalPairs : String -> String -> List ( Fractional units, Fractional units ) -> Test
+equalPairs : String -> String -> List ( Quantity Float units, Quantity Float units ) -> Test
 equalPairs title unit pairs =
     Test.describe title (List.map (equalityTest title unit) pairs)
 

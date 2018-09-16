@@ -13,7 +13,7 @@ module Force exposing
     , pounds
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 type Newtons
@@ -21,7 +21,7 @@ type Newtons
 
 
 type alias Force =
-    Fractional Newtons
+    Quantity Float Newtons
 
 
 newtons : Float -> Force

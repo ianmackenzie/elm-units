@@ -11,7 +11,7 @@ module Energy exposing
     , megajoules
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+import Quantity exposing (Quantity(..))
 
 
 type Joules
@@ -19,7 +19,7 @@ type Joules
 
 
 type alias Energy =
-    Fractional Joules
+    Quantity Float Joules
 
 
 joules : Float -> Energy

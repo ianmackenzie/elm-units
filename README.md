@@ -152,23 +152,11 @@ type Quantity number units
     = Quantity number
 ```
 
-with some convenient type aliases
-
-```elm
--- A fractional number of units, useful for general quantities like length
-type alias Fractional units =
-    Quantity Float units
-
--- A whole number of units, useful for exact values in cents/pixels
-type alias Whole units =
-    Quantity Int units
-```
-
 For example, `Length` is defined as
 
 ```elm
 type alias Length =
-    Fractional Meters
+    Quantity Float Meters
 ```
 
 This means that a `Length` is internally stored as a `Float` number of `Meters`,
@@ -293,26 +281,20 @@ own! See [CustomUnits](doc/CustomUnits.md) for an example.
 
 ### Understanding Quantity Types
 
-The same quantity type can often be expressed in multiple different ways, which is important to understand especially when trying to interpret error messages! Take the `Speed` type alias as an example. It is defined as
+The same quantity type can often be expressed in multiple different ways. Take
+the `Speed` type as an example. It is an alias for
 
 ```elm
-type alias Speed =
-    Fractional MetersPerSecond
+Quantity Float MetersPerSecond
 ```
 
-Expanding the `MetersPerSecond` type alias, this is
-
-```elm
-Fractional (Rate Meters Seconds)
-```
-
-Expanding the `Fractional` type alias then gives
+but expanding the `MetersPerSecond` type alias, this is equivalent to
 
 ```elm
 Quantity Float (Rate Meters Seconds)
 ```
 
-which is the "true" type with no type aliases left to expand.
+and you may see any one of these three forms pop up in error messages.
 
 ## Getting Help
 
