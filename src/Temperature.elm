@@ -294,4 +294,4 @@ maximum temperatures =
 
 sort : List Temperature -> List Temperature
 sort temperatures =
-    List.sortWith compare temperatures
+    List.sortBy inKelvins temperatures
