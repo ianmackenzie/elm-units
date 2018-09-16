@@ -1,6 +1,8 @@
 # Custom Units
 
-`elm-units` defines many standard unit types, but you can easily define your own! For example, if you were working on a 2D tile-based game, you might define a new `Tiles` units type:
+`elm-units` defines many standard unit types, but you can easily define your
+own! For example, if you were working on a 2D tile-based game, you might define
+a new `Tiles` units type:
 
 ```elm
 module Game
@@ -29,7 +31,9 @@ inTiles (Quantity numTiles) =
     numTiles
 ```
 
-Note that using the generic `number` type when defining these functions means that they can be used to define/work with either whole (`Int`) or fractional (`Float`) numbers of tiles.
+Note that using the generic `number` type when defining these functions means
+that they can be used to define/work with either whole (`Int`) or partial
+(`Float`) numbers of tiles.
 
 It may also be convenient to add a function to round to the nearest tile:
 
@@ -47,7 +51,8 @@ roundToNearestTile quantity =
     tiles (round (inTiles quantity))
 ```
 
-Then you can start doing math with tiles, converting safely back and forth between tiles and pixels, etc.:
+Then you can start doing math with tiles, converting safely back and forth
+between tiles and pixels, etc.:
 
 ```elm
 import Game exposing (tiles, inTiles)
