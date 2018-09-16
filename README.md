@@ -95,6 +95,11 @@ Duration.hours 2 |> Quantity.plus (Duration.minutes 30)
 
 Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
 --> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
+
+Duration.minutes 2
+  |> Quantity.at (Speed.metersPerSecond 15)
+  |> Length.inKilometers
+--> 1.8
 ```
 
 ## Table of Contents
