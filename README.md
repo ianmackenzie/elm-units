@@ -70,14 +70,14 @@ camera =
     { manufacturer = "Kodak"
     , fieldOfView = Angle.degrees 60
     , shutterSpeed = Duration.milliseconds 2.5
-    , minimumOperatingTemperature = Temperature.celsius -35
+    , minimumOperatingTemperature = Temperature.degreesCelsius -35
     }
 
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
     temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
 
-camera |> canOperateAt (Temperature.fahrenheit -10)
+camera |> canOperateAt (Temperature.degreesFahrenheit -10)
 --> True
 
 camera.fieldOfView |> Angle.inRadians
@@ -136,10 +136,10 @@ To take code that currently uses raw `Float` values and convert it to using
     to storing a `Duration` or `Angle` or `Temperature` etc. value instead.
   - Whenever you *have* a `Float` (from an external package, JSON decoder etc.),
     use a function such as `Duration.seconds`, `Angle.degrees` or
-    `Temperature.fahrenheit` to turn it into a type-safe value.
+    `Temperature.degreesFahrenheit` to turn it into a type-safe value.
   - Whenever you *need* a `Float` (to pass to an external package, encode as
     JSON etc.), use a function such as `Duration.inMillliseconds`,
-    `Angle.inRadians` or `Temperature.inCelsius` to extract the value in
+    `Angle.inRadians` or `Temperature.inDegreesCelsius` to extract the value in
     whatever units you want.
 
 ### The `Quantity` Type
