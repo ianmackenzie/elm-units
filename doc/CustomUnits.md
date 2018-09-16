@@ -41,7 +41,7 @@ between tiles and pixels, etc.:
 ```elm
 import Game exposing (tiles, inTiles)
 import Pixels exposing (pixels, inPixels)
-import Duration exposing (seconds)
+import Duration exposing (seconds, milliseconds)
 import Quantity
 
 Quantity.sum [ tiles 5, tiles 2.3, tiles 0.6 ]
