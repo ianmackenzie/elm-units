@@ -164,6 +164,9 @@ temperatures =
                     |> Temperature.plus (Temperature.fahrenheitDegrees 3)
               , Temperature.degreesFahrenheit 80
               )
+            , ( Temperature.absoluteZero
+              , Temperature.degreesCelsius -273.15
+              )
             ]
 
 
