@@ -219,7 +219,7 @@ Length.miles 1 |> Quantity.per (Duration.minutes 1) |> Speed.inKilometersPerHour
 
 -- Reverse engineer the speed of light from defined lengths/durations
 speedOfLight =
-    Length.lightYears 1 |> Quantity.per (Duration.years 1)
+    Length.lightYears 1 |> Quantity.per (Duration.julianYears 1)
 
 speedOfLight |> Speed.inMetersPerSecond
 --> 299792458
