@@ -1,7 +1,6 @@
 module Pixels exposing
     ( Pixels, PixelsPerSecond, PixelsPerSecondSquared, SquarePixels
     , pixels, inPixels
-    , roundToNearestPixel
     , pixelsPerSecond, inPixelsPerSecond
     , squarePixels, inSquarePixels
     )
@@ -11,8 +10,6 @@ module Pixels exposing
 @docs Pixels, PixelsPerSecond, PixelsPerSecondSquared, SquarePixels
 
 @docs pixels, inPixels
-
-@docs roundToNearestPixel
 
 @docs pixelsPerSecond, inPixelsPerSecond
 
@@ -75,11 +72,6 @@ inPixels (Quantity numPixels) =
     numPixels
 
 
-roundToNearestPixel : Fractional Pixels -> Whole Pixels
-roundToNearestPixel (Quantity numPixels) =
-    Quantity (round numPixels)
-
-
 pixelsPerSecond : Float -> Fractional PixelsPerSecond
 pixelsPerSecond numPixelsPerSecond =
     Quantity numPixelsPerSecond
@@ -108,8 +100,3 @@ squarePixels numSquarePixels =
 inSquarePixels : Quantity number SquarePixels -> number
 inSquarePixels (Quantity numSquarePixels) =
     numSquarePixels
-
-
-roundToNearestSquarePixel : Fractional SquarePixels -> Whole SquarePixels
-roundToNearestSquarePixel (Quantity numSquarePixels) =
-    Quantity (round numSquarePixels)
