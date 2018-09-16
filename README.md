@@ -172,7 +172,8 @@ type alias Length =
 ```
 
 This means that a `Length` is internally stored as a `Float` number of `Meters`,
-but this can mostly be treated as an implementation detail.
+but the choice of internal units can mostly be treated as an implementation
+detail.
 
 Having a common `Quantity` type means that it is possible to define generic
 arithmetic and comparison operations that work on any kind of quantity; read on!
@@ -277,7 +278,7 @@ values so you need to be careful to make sure the units actually do work out.
 (The values will be in [SI](https://en.wikipedia.org/wiki/International_System_of_Units)
 units - meters, seconds etc.) Once the function has been implemented, though, it
 can be used in a completely type-safe way - callers can supply arguments using
-whatever units they like, and extract results in whatever units they want:
+whatever units they have, and extract results in whatever units they want:
 
 ```elm
 kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
