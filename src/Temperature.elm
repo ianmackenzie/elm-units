@@ -1,107 +1,208 @@
 module Temperature exposing
-    ( Kelvins
-    , Temperature
-    , celsius
-    , clamp
-    , compare
-    , degreesCelsius
-    , degreesFahrenheit
-    , difference
-    , fahrenheit
-    , fromAbsolute
-    , greaterThan
-    , inCelsius
-    , inDegreesCelsius
-    , inDegreesFahrenheit
-    , inFahrenheit
-    , inKelvins
-    , kelvins
-    , lessThan
-    , max
-    , maximum
-    , min
-    , minimum
-    , sort
-    , toAbsolute
+    ( Temperature, Delta, CelsiusDegrees
+    , degreesCelsius, inDegreesCelsius, degreesFahrenheit, inDegreesFahrenheit, kelvins, inKelvins, absoluteZero
+    , celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
+    , lessThan, greaterThan, compare, equalWithin, min, max
+    , plus, minus, clamp
+    , minimum, maximum, sort
     )
 
-import Quantity exposing (Fractional, Quantity(..))
+{-| Unlike other modules in `elm-units`, this module contains two different
+primary types:
+
+  - `Temperature`, which is not actually a `Quantity` since temperatures don't
+    really act like normal quantities. For example, it doesn't make sense to
+    add two temperatures or find the ratio between them.
+  - `Delta`, which represents the difference between two temperatures. A `Delta`
+    _is_ a `Quantity` since it does make sense to add two deltas to get a net
+    delta, find the ratio between two deltas (one rise in temperature might be
+    twice as much as another rise in temperature), etc.
+
+Since a `Temperature` value is not a `Quantity`, this module exposes specialized
+functions for doing the operations on `Temperature` values that _do_ make sense,
+such as comparing two temperatures or sorting a list of temperatures. It's also
+possible to find the delta from one temperature to another using `deltaFrom`,
+and then add/subtract a `Delta` from a `Temperature` using `plus` and `minus`.
+
+@docs Temperature, Delta, CelsiusDegrees
 
 
-{-| Kelvins are the standard unit of temperature.
+# Temperatures
+
+@docs degreesCelsius, inDegreesCelsius, degreesFahrenheit, inDegreesFahrenheit, kelvins, inKelvins, absoluteZero
+
+
+# Deltas
+
+Following the suggestion mentioned [here](https://en.wikipedia.org/wiki/Celsius#Temperatures_and_intervals),
+this module uses (for example) `celsiusDegrees` to indicate a temperature delta
+(change in temperature), in contrast to `degreesCelsius` which indicates an
+actual temperature.
+
+@docs deltaFrom, celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
+
+
+# Comparison
+
+@docs lessThan, greaterThan, compare, equalWithin, min, max
+
+
+# Arithmetic
+
+@docs plus, minus, clamp
+
+
+# List functions
+
+@docs minimum, maximum, sort
+
 -}
-type Kelvins
-    = Kelvins
+
+import Quantity exposing (Quantity(..))
 
 
+{-| A temperature such as 25 degrees Celsius or 80 degrees Fahrenheit.
+-}
 type Temperature
     = Temperature Float
 
 
-kelvins : Float -> Fractional Kelvins
+{-| A `Delta` represents the difference between two temperatures.
+-}
+type alias Delta =
+    Quantity Float CelsiusDegrees
+
+
+{-| Tempereature deltas are represented by Celsius degrees.
+-}
+type CelsiusDegrees
+    = CelsiusDegrees
+
+
+
+-- Temperatures
+
+
+{-| Construct a temperature from a number of degrees Celsius.
+-}
+degreesCelsius : Float -> Temperature
+degreesCelsius numDegreesCelsius =
+    kelvins (273.15 + numDegreesCelsius)
+
+
+{-| Convert a temperature to a number of degrees Celsius.
+-}
+inDegreesCelsius : Temperature -> Float
+inDegreesCelsius temperature =
+    inKelvins temperature - 273.15
+
+
+{-| Construct a temperature from a number of degrees Fahrenheit.
+-}
+degreesFahrenheit : Float -> Temperature
+degreesFahrenheit numDegreesFahrenheit =
+    degreesCelsius ((numDegreesFahrenheit - 32) / 1.8)
+
+
+{-| Convert a temperature to a number of degrees Fahrenheit.
+-}
+inDegreesFahrenheit : Temperature -> Float
+inDegreesFahrenheit temperature =
+    32 + 1.8 * inDegreesCelsius temperature
+
+
+{-| Construct a temperature from a number of kelvins.
+
+    Temperature.kelvins 300
+    --> Temperature.degreesCelsius 26.85
+
+-}
+kelvins : Float -> Temperature
 kelvins numKelvins =
-    Quantity numKelvins
+    Temperature numKelvins
 
 
-inKelvins : Fractional Kelvins -> Float
-inKelvins (Quantity numKelvins) =
+{-| Convert a temperature to number of kelvins.
+
+    Temperature.degreesCelsius 0
+        |> Temperature.inKelvins
+    --> 273.15
+
+-}
+inKelvins : Temperature -> Float
+inKelvins (Temperature numKelvins) =
     numKelvins
 
 
-celsius : Float -> Temperature
-celsius temperatureInCelsius =
-    Temperature (273.15 + temperatureInCelsius)
+{-| [Absolute zero](https://en.wikipedia.org/wiki/Absolute_zero), equal to zero
+kelvins or -273.15 degrees Celsius.
 
+    Temperature.absoluteZero
+    --> Temperature.degreesCelsius -273.15
 
-inCelsius : Temperature -> Float
-inCelsius (Temperature temperatureInKelvins) =
-    temperatureInKelvins - 273.15
-
-
-fahrenheit : Float -> Temperature
-fahrenheit temperatureInFahrenheit =
-    celsius ((temperatureInFahrenheit - 32) / 1.8)
-
-
-inFahrenheit : Temperature -> Float
-inFahrenheit temperature =
-    32 + 1.8 * inCelsius temperature
-
-
-toAbsolute : Temperature -> Fractional Kelvins
-toAbsolute (Temperature temperatureInKelvins) =
-    kelvins temperatureInKelvins
-
-
-fromAbsolute : Fractional Kelvins -> Temperature
-fromAbsolute quantity =
-    Temperature (inKelvins quantity)
-
-
-degreesCelsius : Float -> Fractional Kelvins
-degreesCelsius numDegreesCelsius =
-    kelvins numDegreesCelsius
-
-
-inDegreesCelsius : Fractional Kelvins -> Float
-inDegreesCelsius quantity =
-    inKelvins quantity
-
-
-degreesFahrenheit : Float -> Fractional Kelvins
-degreesFahrenheit numDegreesFahrenheit =
-    kelvins (numDegreesFahrenheit / 1.8)
-
-
-inDegreesFahrenheit : Fractional Kelvins -> Float
-inDegreesFahrenheit quantity =
-    inKelvins quantity * 1.8
+-}
+absoluteZero : Temperature
+absoluteZero =
+    kelvins 0
 
 
 
--- Math with Temperature values
+-- Deltas
 
 
+{-| Construct a temperature delta from a number of Celsius degrees.
+-}
+celsiusDegrees : Float -> Delta
+celsiusDegrees numCelsiusDegrees =
+    Quantity numCelsiusDegrees
+
+
+{-| Convert a temperature delta to a number of Celsius degrees.
+-}
+inCelsiusDegrees : Delta -> Float
+inCelsiusDegrees (Quantity numCelsiusDegrees) =
+    numCelsiusDegrees
+
+
+{-| Construct a temperature delta from a number of Fahrenheit degrees.
+
+    Temperature.fahrenheitDegrees 36
+    --> Temperature.celsiusDegrees 20
+
+-}
+fahrenheitDegrees : Float -> Delta
+fahrenheitDegrees numFahrenheitDegrees =
+    celsiusDegrees (numFahrenheitDegrees / 1.8)
+
+
+{-| Convert a temperature delta to a number of Fahrenheit degrees.
+
+    Temperature.celsiusDegrees 10
+        |> Temperature.inFahrenheitDegrees
+    --> 18
+
+-}
+inFahrenheitDegrees : Delta -> Float
+inFahrenheitDegrees quantity =
+    inCelsiusDegrees quantity * 1.8
+
+
+
+-- Comparison
+
+
+{-| Check if one temperature is less than the other. Note that if you want to
+check if `x` is less than `y`, you would write
+
+    Temperature.lessThan y x
+
+or alternatively
+
+    x |> Temperature.lessThan y
+
+This
+
+-}
 lessThan : Temperature -> Temperature -> Bool
 lessThan (Temperature y) (Temperature x) =
     x < y
@@ -112,14 +213,14 @@ greaterThan (Temperature y) (Temperature x) =
     x > y
 
 
-clamp : Temperature -> Temperature -> Temperature -> Temperature
-clamp (Temperature lower) (Temperature upper) (Temperature temperature) =
-    Temperature (Basics.clamp lower upper temperature)
-
-
 compare : Temperature -> Temperature -> Order
 compare (Temperature x) (Temperature y) =
     Basics.compare x y
+
+
+equalWithin : Delta -> Temperature -> Temperature -> Bool
+equalWithin (Quantity tolerance) (Temperature x) (Temperature y) =
+    Basics.abs (x - y) <= tolerance
 
 
 min : Temperature -> Temperature -> Temperature
@@ -132,9 +233,43 @@ max (Temperature x) (Temperature y) =
     Temperature (Basics.max x y)
 
 
-difference : Temperature -> Temperature -> Fractional Kelvins
-difference (Temperature x) (Temperature y) =
-    kelvins (x - y)
+
+-- Arithmetic
+
+
+plus : Delta -> Temperature -> Temperature
+plus (Quantity delta) (Temperature temperature) =
+    Temperature (temperature + delta)
+
+
+{-| Subtract one `Temperature` from another to get a `Delta`:
+
+    -- 25 degrees Celsius is 77 degrees Fahrenheit
+    start =
+        Temperature.celsius 25
+
+    end =
+        Temperature.fahrenheit 80
+
+    end |> Temperature.minus start
+    --> Temperature.fahrenheitDegrees 3
+
+    start |> Temperature.minus end
+    --> Temperature.fahrenheitDegrees -3
+
+-}
+minus : Temperature -> Temperature -> Delta
+minus (Temperature y) (Temperature x) =
+    Quantity (x - y)
+
+
+clamp : Temperature -> Temperature -> Temperature -> Temperature
+clamp (Temperature lower) (Temperature upper) (Temperature temperature) =
+    Temperature (Basics.clamp lower upper temperature)
+
+
+
+-- List functions
 
 
 minimum : List Temperature -> Maybe Temperature
