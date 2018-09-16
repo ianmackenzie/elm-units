@@ -90,7 +90,7 @@ generic functions which let you work directly with any kind of `Quantity`
 values:
 
 ```elm
-Quantity.add (Duration.hours 2) (Duration.minutes 30)
+Duration.hours 2 |> Quantity.plus (Duration.minutes 30)
 --> Duration.seconds 9000
 
 Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
@@ -178,7 +178,7 @@ You can do basic math with `Quantity` values:
 
 ```elm
 -- 6 feet 3 inches, converted to meters
-Length.feet 6 |> Quantity.add (Length.inches 3) |> Length.inMeters
+Length.feet 6 |> Quantity.plus (Length.inches 3) |> Length.inMeters
 --> 1.9050000000000002
 
 -- pi radians plus 45 degrees is 5/8 of a full turn
