@@ -287,7 +287,8 @@ kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
 
 ### Custom Units
 
-`elm-units` defines many standard unit types, but you can easily define your own! See [CustomUnits](doc/CustomUnits.md) for an example.
+`elm-units` defines many standard unit types, but you can easily define your
+own! See [CustomUnits](doc/CustomUnits.md) for an example.
 
 ### Understanding Quantity Types
 
