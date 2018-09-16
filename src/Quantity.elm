@@ -6,6 +6,7 @@ module Quantity exposing
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
     , sum, minimum, maximum, sort
     , per, times, at, at_, invert
+    , map
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -48,6 +49,11 @@ composite units in a fairly flexible way.
 # Working with rates
 
 @docs per, times, at, at_, invert
+
+
+# Mapping
+
+@docs map
 
 
 # Unitless quantities
@@ -340,6 +346,20 @@ at_ (Quantity rate) (Quantity dependentValue) =
 invert : Fractional (Rate dependentUnits independentUnits) -> Fractional (Rate independentUnits dependentUnits)
 invert (Quantity rate) =
     Quantity (1 / rate)
+
+
+
+-- Mapping
+
+
+{-| Transform a quantity by applying a function to the underlying value. This is
+primarily useful for converting back and forth between `Int`- and `Float`-valued
+quantities. For example, if you had a `Float` number of pixels, you could round
+to the nearest whole pixel with `Quantity.map round` and you
+-}
+map : (number1 -> number2) -> Quantity number1 units -> Quantity number2 units
+map function (Quantity value) =
+    Quantity (function value)
 
 
 
