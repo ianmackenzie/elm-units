@@ -1,0 +1,22 @@
+sudo: false
+
+language: node_js
+node_js: node
+
+cache:
+  directories:
+    - .elm
+
+os:
+  - linux
+
+before_install:
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
+install:
+  - node --version
+  - npm --version
+  - npm install -g elm@0.19.0 elm-test@0.19.0-beta5
+
+script:
+  - elm-test
