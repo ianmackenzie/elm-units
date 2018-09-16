@@ -35,22 +35,6 @@ Note that using the generic `number` type when defining these functions means
 that they can be used to define/work with either whole (`Int`) or partial
 (`Float`) numbers of tiles.
 
-It may also be convenient to add a function to round to the nearest tile:
-
-```elm
-roundToNearestTile : Fractional Tiles -> Whole Tiles
-roundToNearestTile (Quantity numTiles) =
-    Quantity (round numTiles)
-```
-
-Note that this could alternatively be implemented as
-
-```elm
-roundToNearestTile : Fractional Tiles -> Whole Tiles
-roundToNearestTile quantity =
-    tiles (round (inTiles quantity))
-```
-
 Then you can start doing math with tiles, converting safely back and forth
 between tiles and pixels, etc.:
 
