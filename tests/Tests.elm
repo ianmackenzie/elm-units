@@ -5,6 +5,8 @@ module Tests exposing
     , powers
     , pressures
     , speeds
+    , temperatureDeltas
+    , temperatures
     )
 
 import Acceleration exposing (..)
@@ -20,6 +22,7 @@ import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
 import Resistance exposing (..)
 import Speed exposing (..)
+import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
 
@@ -121,5 +124,58 @@ durations =
         "s"
         [ ( julianYears 1
           , days 365.25
+          )
+        ]
+
+
+temperatureEqualityTest : ( Temperature, Temperature ) -> Test
+temperatureEqualityTest ( x, y ) =
+    let
+        xInCelsius =
+            Temperature.inDegreesCelsius x
+
+        yInCelsius =
+            Temperature.inDegreesCelsius y
+
+        description =
+            String.join " "
+                [ "Temperatures"
+                , String.fromFloat xInCelsius ++ "C"
+                , "and"
+                , String.fromFloat yInCelsius ++ "C"
+                , "should be equal"
+                ]
+    in
+    Test.test description
+        (\() -> Expect.within (Expect.Absolute 1.0e-12) xInCelsius yInCelsius)
+
+
+temperatures : Test
+temperatures =
+    Test.describe "Temperatures" <|
+        List.map temperatureEqualityTest
+            [ ( Temperature.degreesCelsius -40
+              , Temperature.degreesFahrenheit -40
+              )
+            , ( Temperature.degreesCelsius 0
+              , Temperature.degreesFahrenheit 32
+              )
+            , ( Temperature.degreesCelsius 25
+                    |> Temperature.plus (Temperature.fahrenheitDegrees 3)
+              , Temperature.degreesFahrenheit 80
+              )
+            ]
+
+
+temperatureDeltas : Test
+temperatureDeltas =
+    equalPairs
+        "Temperature deltas"
+        "K"
+        [ ( Quantity.sum
+                [ Temperature.celsiusDegrees 10
+                , Temperature.fahrenheitDegrees 5
+                ]
+          , Temperature.fahrenheitDegrees 23
           )
         ]
