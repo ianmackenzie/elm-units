@@ -51,8 +51,33 @@ Temperature.degreesCelsius 30 |> Temperature.inDegreesFahrenheit
 --> 86
 ```
 
-Type-safe values like `Length`s and `Duration`s also work very well as as record
-fields or function arguments:
+Additionally, types like `Length` are actually of type `Quantity number units`
+(`Length` is `Quantity Float Meters`, for example), and there are several
+generic functions which let you work directly with any kind of `Quantity`
+values:
+
+```elm
+Duration.hours 2
+  |> Quantity.plus (Duration.minutes 30)
+  |> Duration.inSeconds
+--> 9000
+
+Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
+--> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
+
+Quantity.sort [ Duration.seconds 100, Duration.minutes 1, Duration.hours 0.1 ]
+--> [ Duration.minutes 1, Duration.seconds 100, Duration.hours 0.1 ]
+
+-- How far do we go if we drive for 2 minutes at 15 meters per second?
+Duration.minutes 2
+  |> Quantity.at (Speed.metersPerSecond 15)
+  |> Length.inKilometers
+--> 1.8
+```
+
+Perhaps most importantly, values like `Length`s and `Duration`s work very well
+as as record fields or function arguments, since they help ensure that the math
+will always work out even if different bits of code work in different units:
 
 ```elm
 import Angle exposing (Angle)
@@ -83,30 +108,6 @@ camera |> canOperateAt (Temperature.degreesFahrenheit -10)
 
 camera.fieldOfView |> Angle.inRadians
 --> pi / 3
-```
-
-Finally, quantity types like `Length` are actually of type `Quantity number
-units` (`Length` is `Quantity Float Meters`, for example), and there are several
-generic functions which let you work directly with any kind of `Quantity`
-values:
-
-```elm
-Duration.hours 2
-  |> Quantity.plus (Duration.minutes 30)
-  |> Duration.inSeconds
---> 9000
-
-Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
---> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
-
-Quantity.sort [ Duration.seconds 100, Duration.minutes 1, Duration.hours 0.1 ]
---> [ Duration.minutes 1, Duration.seconds 100, Duration.hours 0.1 ]
-
--- How far do we go if we drive for 2 minutes at 15 meters per second?
-Duration.minutes 2
-  |> Quantity.at (Speed.metersPerSecond 15)
-  |> Length.inKilometers
---> 1.8
 ```
 
 ## Table of Contents
