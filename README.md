@@ -279,7 +279,7 @@ will work as expected - it will result in
 instead of
 
 ```elm
-[ x - a, x - b, x -c ]
+[ x - a, x - b, x - c ]
 ```
 
 which is what you would get if `Quantity.minus` took arguments in the 'normal'
