@@ -248,6 +248,31 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 --> [ Length.feet 3, Length.meters 1 ]
 ```
 
+#### Argument order
+
+Note that functions like `plus`, `minus`, `lessThan` and `greaterThan` take "the
+second argument first" - that is,
+
+```elm
+Quantity.lessThan x y
+```
+
+means `y < x`, not `x < y`. This is done so that use with `|>` works the way you
+expect, for example
+
+```elm
+x |> Quantity.lessThan y
+```
+
+_does_ mean `x < y`, and also so that things like
+
+```elm
+List.map (Quantity.minus 2) quantities
+```
+
+will work as expected (will subtract 2 from each item in the list, instead of
+subtracting each item in the list from 2!).
+
 ### Custom Functions
 
 Some calculations cannot be expressed using the built-in `Quantity` functions.
