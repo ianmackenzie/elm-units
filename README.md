@@ -258,13 +258,13 @@ Quantity.lessThan x y
 ```
 
 means `y < x`, not `x < y`. This is done so that use with `|>` works the way you
-expect, for example
+expect. For example
 
 ```elm
 x |> Quantity.lessThan y
 ```
 
-_does_ mean `x < y`, and also so that things like
+_does_ mean `x < y`. It also means that things like
 
 ```elm
 List.map (Quantity.minus 2) quantities
