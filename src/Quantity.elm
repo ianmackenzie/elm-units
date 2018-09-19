@@ -99,8 +99,8 @@ type Quantity number units
 
 {-| Represents a units type that is the square of some other units type; for
 example `Meters` is one units type (the type of a `Length`) and `Squared Meters`
-is another (the type of an `Area`). This is useful because some functions in
-this module (specifically `product`, `squared`, and `sqrt`) "know" about the
+is another (the units type of an `Area`). This is useful because some functions
+in this module (specifically `product`, `squared`, and `sqrt`) "know" about the
 `Squared` type and how to work with it. For example, the type signature of
 `Quantity.squared` is
 
@@ -131,8 +131,13 @@ that you could write a 2D hypotenuse function that worked on _any_ units type as
                 , Quantity.squared y
                 ]
 
-since each list item is in `Squared units`, so the sum will also be in `Squared
-units`, which `Quantity.sqrt` then turns back into `units`.
+This works because:
+
+  - The `x` and `y` arguments are both in `units`
+  - So each list item is in `Squared units`
+  - So the sum is also in `Squared units`
+  - And calling `sqrt` on something in `Squared units` returns a value back in
+    `units`
 
 -}
 type Squared units
