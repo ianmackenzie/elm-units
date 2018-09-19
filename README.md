@@ -250,28 +250,47 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 
 #### Argument order
 
-Note that functions like `plus`, `minus`, `lessThan` and `greaterThan` take "the
-second argument first" - that is,
+Note that `Quantity.minus`, `Quantity.lessThan` and `Quantity.greaterThan` "take
+the second argument first"; for example,
 
 ```elm
 Quantity.lessThan x y
 ```
 
-means `y < x`, not `x < y`. This is done so that use with `|>` works the way you
-expect. For example
+means `y < x`, *not* `x < y`. This is done for a couple of reasons. First, so
+that use with `|>` works the way you expect; for example,
 
 ```elm
 x |> Quantity.lessThan y
 ```
 
-_does_ mean `x < y`. It also means that things like
+_does_ mean `x < y` and
+
 
 ```elm
-List.map (Quantity.minus 2) quantities
+a |> Quantity.minus b |> Quantity.lessThan c
 ```
 
-will work as expected (will subtract 2 from each item in the list, instead of
-subtracting each item in the list from 2!).
+means `a - b < c`. The 'reversed' argument order also means that things like
+
+```elm
+List.map (Quantity.minus x) [ a, b, c ]
+```
+
+will work as expected - it will result in
+
+```elm
+[ a - x, b - x, c - x ]
+```
+
+instead of
+
+```elm
+[ x - a, x - b, x -c ]
+```
+
+which is what you would get if `Quantity.minus` took arguments in the 'normal'
+order.
 
 ### Custom Functions
 
