@@ -258,7 +258,7 @@ Quantity.lessThan x y
 ```
 
 means `y < x`, *not* `x < y`. This is done for a couple of reasons. First, so
-that use with `|>` works the way you expect; for example,
+that use with `|>` works naturally; for example,
 
 ```elm
 x |> Quantity.lessThan y
