@@ -264,14 +264,7 @@ that use with `|>` works the way you expect; for example,
 x |> Quantity.lessThan y
 ```
 
-_does_ mean `x < y` and
-
-
-```elm
-a |> Quantity.minus b |> Quantity.lessThan c
-```
-
-means `a - b < c`. The 'reversed' argument order also means that things like
+_does_ mean `x < y`. The 'reversed' argument order also means that things like
 
 ```elm
 List.map (Quantity.minus x) [ a, b, c ]
