@@ -90,12 +90,18 @@ generic functions which let you work directly with any kind of `Quantity`
 values:
 
 ```elm
-Duration.hours 2 |> Quantity.plus (Duration.minutes 30)
---> Duration.seconds 9000
+Duration.hours 2
+  |> Quantity.plus (Duration.minutes 30)
+  |> Duration.inSeconds
+--> 9000
 
 Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
 --> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
 
+Quantity.sort [ Duration.seconds 100, Duration.minutes 1, Duration.hours 0.1 ]
+--> [ Duration.minutes 1, Duration.seconds 100, Duration.hours 0.1 ]
+
+-- How far do we go if we drive for 2 minutes at 15 meters per second?
 Duration.minutes 2
   |> Quantity.at (Speed.metersPerSecond 15)
   |> Length.inKilometers
