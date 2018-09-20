@@ -87,7 +87,7 @@ is a `Float` number of `Meters` and a
 
     Quantity Int Pixels
 
-is an `Int` number of \`Pixels. When compiling with
+is an `Int` number of `Pixels`. When compiling with
 
     elm make --optimize
 
