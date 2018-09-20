@@ -4,6 +4,7 @@ module Quantity exposing
     , zero
     , lessThan, greaterThan, compare, equalWithin, max, min
     , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
+    , round, floor, ceiling
     , sum, minimum, maximum, sort
     , per, times, at, at_, invert
     , map
@@ -39,6 +40,11 @@ composite units in a fairly flexible way.
 # Arithmetic
 
 @docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
+
+
+# Rounding
+
+@docs round, floor, ceiling
 
 
 # List functions
@@ -252,6 +258,25 @@ squared (Quantity value) =
 sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
+
+
+
+-- Rounding
+
+
+round : Quantity Float units -> Quantity Int units
+round (Quantity value) =
+    Quantity (Basics.round value)
+
+
+floor : Quantity Float units -> Quantity Int units
+floor (Quantity value) =
+    Quantity (Basics.floor value)
+
+
+ceiling : Quantity Float units -> Quantity Int units
+ceiling (Quantity value) =
+    Quantity (Basics.ceiling value)
 
 
 
