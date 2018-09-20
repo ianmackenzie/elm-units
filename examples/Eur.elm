@@ -5,9 +5,6 @@ module Eur exposing
     , euros
     , inCents
     , inEuros
-    , roundDownToNearestCent
-    , roundToNearestCent
-    , roundUpToNearestCent
     )
 
 import Quantity exposing (Quantity(..))
@@ -40,18 +37,3 @@ euros numEuros =
 inEuros : Quantity Float Cents -> Float
 inEuros (Quantity numCents) =
     numCents / 100
-
-
-roundToNearestCent : Quantity Float Cents -> Quantity Int Cents
-roundToNearestCent (Quantity numCents) =
-    Quantity (round numCents)
-
-
-roundDownToNearestCent : Quantity Float Cents -> Quantity Int Cents
-roundDownToNearestCent (Quantity numCents) =
-    Quantity (floor numCents)
-
-
-roundUpToNearestCent : Quantity Float Cents -> Quantity Int Cents
-roundUpToNearestCent (Quantity numCents) =
-    Quantity (ceiling numCents)
