@@ -86,23 +86,24 @@ import Duration exposing (Duration)
 import Temperature exposing (Temperature)
 
 type alias Camera =
-    { manufacturer : String
-    , fieldOfView : Angle
+    { fieldOfView : Angle
     , shutterSpeed : Duration
     , minimumOperatingTemperature : Temperature
     }
 
 camera : Camera
 camera =
-    { manufacturer = "Kodak"
-    , fieldOfView = Angle.degrees 60
+    { fieldOfView = Angle.degrees 60
     , shutterSpeed = Duration.milliseconds 2.5
-    , minimumOperatingTemperature = Temperature.degreesCelsius -35
+    , minimumOperatingTemperature = Temperature.degreesCelsius -25
     }
 
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
     temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
+
+camera |> canOperateAt (Temperature.degreesFahrenheit -20)
+--> False
 
 camera |> canOperateAt (Temperature.degreesFahrenheit -10)
 --> True
