@@ -255,6 +255,17 @@ max (Temperature x) (Temperature y) =
 -- Arithmetic
 
 
+{-| Add a `Delta` to a `Temperature` to get a new `Temperature`.
+
+    Temperature.degreesCelsius 25
+        |> Temperature.plus
+            (Temperature.celsiusDegrees 7)
+    --> Temperature.degreesCelsius 32
+
+If you want to _subtract_ a `Delta` from a `Temperature`, you can [`negate`](Quantity#negate)
+the delta first and then call `plus`.
+
+-}
 plus : Delta -> Temperature -> Temperature
 plus (Quantity delta) (Temperature temperature) =
     Temperature (temperature + delta)
