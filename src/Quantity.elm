@@ -95,7 +95,7 @@ type Quantity number units
 
 
 
--- Units types
+---------- UNIT TYPES ----------
 
 
 {-| Represents a units type that is the square of some other units type; for
@@ -155,7 +155,7 @@ type Rate dependentUnits independentUnits
 
 
 
--- Basics
+---------- CONSTANTS ----------
 
 
 {-| Construct a zero-valued quantity. This can be treated as either an `Int` or
@@ -168,7 +168,7 @@ zero =
 
 
 
--- Comparison
+---------- COMPARISON ----------
 
 
 {-| Check if one quantity is less than another. Note the [argument order](#argument-order)!
@@ -284,7 +284,7 @@ min (Quantity x) (Quantity y) =
 
 
 
--- Arithmetic
+---------- ARITHMETIC ----------
 
 
 {-| Negate a quantity!
@@ -467,7 +467,7 @@ sqrt (Quantity value) =
 
 
 
--- Rounding
+---------- ROUNDING ----------
 
 
 round : Quantity Float units -> Quantity Int units
@@ -486,7 +486,7 @@ ceiling (Quantity value) =
 
 
 
--- List functions
+---------- LIST FUNCTIONS ----------
 
 
 sum : List (Quantity number units) -> Quantity number units
@@ -525,7 +525,7 @@ sort quantities =
 
 
 
--- Working with rates
+---------- WORKING WITH RATES ----------
 
 
 per : Quantity Float independentUnits -> Quantity Float dependentUnits -> Quantity Float (Rate dependentUnits independentUnits)
@@ -554,7 +554,7 @@ invert (Quantity rate) =
 
 
 
--- Mapping
+---------- MAPPING ----------
 
 
 {-| Transform a quantity by applying a function to the underlying value. This is
@@ -567,7 +567,7 @@ map function (Quantity value) =
 
 
 
--- Unitless quantities
+---------- UNITLESS QUANTITIES ----------
 
 
 {-| A special units type representing 'no units'. A `Quantity Int Unitless`
