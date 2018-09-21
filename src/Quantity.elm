@@ -99,47 +99,11 @@ type Quantity number units
 
 
 {-| Represents a units type that is the square of some other units type; for
-example `Meters` is one units type (the type of a `Length`) and `Squared Meters`
-is another (the units type of an `Area`). This is useful because some functions
-in this module (specifically `product`, `squared`, and `sqrt`) "know" about the
-`Squared` type and how to work with it. For example, the type signature of
-`Quantity.squared` is
-
-    squared :
-        Quantity number units
-        -> Quantity number (Squared units)
-
-which means that it takes an arguments in some `units` type and produces a
-result in `Squared units` (regardless of what those base `units` are!).
-`Quantity.sqrt` then has the type signature
-
-    sqrt :
-        Quantity Float (Squared units)
-        -> Quantity Float units
-
-which means that it takes a (floating-point) argument in `Squared units` for
-some `units` type, and produces a result in the original `units`. This means
-that you could write a 2D hypotenuse function that worked on _any_ units type as
-
-    hypot :
-        Quantity Float units
-        -> Quantity Float units
-        -> Quantity Float units
-    hypot x y =
-        Quantity.sqrt <|
-            Quantity.sum
-                [ Quantity.squared x
-                , Quantity.squared y
-                ]
-
-This works because:
-
-  - The `x` and `y` arguments are both in `units`
-  - So each list item is in `Squared units`
-  - So the sum is also in `Squared units`
-  - And calling `sqrt` on something in `Squared units` returns a value back in
-    `units`
-
+example, `Meters` is one units type (the units type of a `Length`) and `Squared
+Meters` is another (the units type of an `Area`). This is useful because some
+functions in this module (specifically [`product`](Quantity#product),
+[`squared`](Quantity#squared), and [`sqrt`](Quantity#sqrt)) "know" about the
+`Squared` type and how to work with it.
 -}
 type Squared units
     = Squared units
@@ -448,20 +412,27 @@ quantity in plain `units`:
     Quantity.sqrt (Area.hectares 1)
     --> Length.meters 100
 
-Getting fancier, you could implement a generic [root mean square](https://en.wikipedia.org/wiki/Root_mean_square)
-function (that works with any units type) as
+Getting fancier, you could write a 2D hypotenuse (magnitude) function that
+worked on _any_ quantity type (length, speed, force...) as
 
-    rootMeanSquare : List (Quantity Float units) -> Quantity Float units
-    rootMeanSquare values =
-        let
-            squares =
-                List.map Quantity.squared values
-        in
-        Quantity.sqrt
-            (Quantity.sum squares
-                |> Quantity.divideBy
-                    (toFloat (List.length squares))
-            )
+    hypotenuse :
+        Quantity Float units
+        -> Quantity Float units
+        -> Quantity Float units
+    hypotenuse x y =
+        Quantity.sqrt <|
+            Quantity.sum
+                [ Quantity.squared x
+                , Quantity.squared y
+                ]
+
+This works because:
+
+  - The `x` and `y` arguments are both in `units`
+  - So each list item is in `Squared units`
+  - So the sum is also in `Squared units`
+  - And calling `sqrt` on something in `Squared units` returns a value back in
+    `units`
 
 -}
 sqrt : Quantity Float (Squared units) -> Quantity Float units
