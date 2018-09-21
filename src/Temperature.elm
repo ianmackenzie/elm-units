@@ -211,6 +211,21 @@ lessThan (Temperature y) (Temperature x) =
     x < y
 
 
+{-| Check if one temperature is less than another. Note the [argument order](#argument-order)!
+
+    roomTemperature =
+        Temperature.degreesCelsius 21
+
+    Temperature.degreesFahrenheit 50
+        |> Temperature.greaterThan roomTemperature
+    --> False
+
+    -- Same as:
+    Temperature.greaterThan roomTemperature
+        (Temperature.degreesFahrenheit 50)
+    --> False
+
+-}
 greaterThan : Temperature -> Temperature -> Bool
 greaterThan (Temperature y) (Temperature x) =
     x > y
