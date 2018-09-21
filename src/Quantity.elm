@@ -433,6 +433,9 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity.squared (Length.meters 5)
     --> Area.squareMeters 25
 
+(See the documentation of [`product`](Quantity#product) for an explanation of
+why a squared `Length` does in fact give you an `Area`.)
+
 -}
 squared : Quantity number units -> Quantity number (Squared units)
 squared (Quantity value) =
