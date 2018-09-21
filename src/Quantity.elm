@@ -3,7 +3,7 @@ module Quantity exposing
     , Squared, Rate
     , zero
     , lessThan, greaterThan, compare, equalWithin, max, min
-    , negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
+    , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
     , round, floor, ceiling
     , sum, minimum, maximum, sort
     , per, times, at, at_, invert
@@ -39,7 +39,7 @@ composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, plus, minus, product, ratio, scaleBy, abs, clamp, squared, sqrt
+@docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
 
 
 # Rounding
@@ -238,6 +238,11 @@ ratio (Quantity x) (Quantity y) =
 scaleBy : number -> Quantity number units -> Quantity number units
 scaleBy scale (Quantity value) =
     Quantity (scale * value)
+
+
+divideBy : Float -> Quantity Float units -> Quantity Float units
+divideBy divisor (Quantity value) =
+    Quantity (value / divisor)
 
 
 abs : Quantity number units -> Quantity number units
