@@ -13,9 +13,6 @@ module Quantity exposing
 
 {-|
 
-
-# Quantity types
-
 @docs Quantity
 
 
@@ -74,8 +71,6 @@ make --optimize`.
 @docs Unitless, int, toInt, float, toFloat
 
 -}
-
--- Quantity types
 
 
 {-| A `Quantity` is effectively a `number` (an `Int` or `Float`) tagged with a
