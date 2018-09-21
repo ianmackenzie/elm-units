@@ -158,9 +158,9 @@ type Rate dependentUnits independentUnits
 ---------- CONSTANTS ----------
 
 
-{-| Construct a zero-valued quantity. This can be treated as either an `Int` or
-`Float` quantity in any units type, similar to how `Nothing` can be treated as
-any kind of `Maybe` type and `[]` can be treated as any kind of `List`.
+{-| The generic zero value. This can be treated as either an `Int` or `Float`
+quantity in any units type, similar to how `Nothing` can be treated as any kind
+of `Maybe` type and `[]` can be treated as any kind of `List`.
 -}
 zero : Quantity number units
 zero =
