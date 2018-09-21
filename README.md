@@ -260,8 +260,8 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 
 #### Argument order
 
-Note that `Quantity.minus`, `Quantity.lessThan` and `Quantity.greaterThan` "take
-the second argument first"; for example,
+Note that `Quantity.minus`, `Quantity.lessThan` and `Quantity.greaterThan` (and
+their `Temperature` equivalents) "take the second argument first"; for example,
 
 ```elm
 Quantity.lessThan x y
