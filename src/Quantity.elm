@@ -24,7 +24,7 @@ composite units in a fairly flexible way.
 @docs Squared, Rate
 
 
-# Basics
+# Constants
 
 @docs zero
 
