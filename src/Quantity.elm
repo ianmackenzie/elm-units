@@ -342,13 +342,13 @@ minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
-{-| Multiply two quantities (with the same units) together, resulting in a
-quantity with those units squared.
+{-| Multiply two quantities with the same `units` together, resulting in a
+quantity in `Squared units`.
 
 This works for any units type (which is useful when used with [`sqrt`](Quantity#sqrt)!)
 but one special case is worth pointing out. The units type of an [`Area`](Area#Area)
-is `SquareMeters`, which is actually a type alias for `Squared Meters`. This
-means that the product of two `Length`s does in fact give you an `Area`:
+is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
+the product of two `Length`s does in fact give you an `Area`:
 
     Quantity.product (Length.meters 2) (Length.centimeters 40)
     --> Area.squareMeters 0.8
@@ -432,8 +432,8 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity (Basics.clamp lower upper value)
 
 
-{-| Square a quantity with some units, resulting in a new quantity with
-those units squared:
+{-| Square a quantity with some `units`, resulting in a new quantity in
+`Squared units`:
 
     Quantity.squared (Length.meters 5)
     --> Area.squareMeters 25
@@ -444,8 +444,8 @@ squared (Quantity value) =
     Quantity (value * value)
 
 
-{-| Take a quantity in `Squared units` (produced by `product` or `squared`), and
-return the square root of that quantity in the original `units`.
+{-| Take a quantity in `Squared units` and return the square root of that
+quantity in plain `units`:
 
     Quantity.sqrt (Area.hectares 1)
     --> Length.meters 100
