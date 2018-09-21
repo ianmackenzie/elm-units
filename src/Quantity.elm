@@ -146,9 +146,9 @@ type Squared units
 
 
 {-| Represents a rate or quotient such as a speed (`Rate Meters Seconds`) or a
-pressure (`Rate Newtons SquareMeters`). As with `squared`, there are several
-functions that "know" about the `Rate` type and how to work with it - see the
-[Working with rates](#working-with-rates) section for details.
+pressure (`Rate Newtons SquareMeters`). As with `Squared`, there are several
+functions that "know" about the `Rate` type and how to work with it - see
+[Working with rates](Quantity#working-with-rates) for details.
 -}
 type Rate dependentUnits independentUnits
     = Rate dependentUnits independentUnits
