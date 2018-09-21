@@ -176,31 +176,113 @@ zero =
 -- Comparison
 
 
+{-| Check if one quantity is less than another. Note the [argument order](#argument-order)!
+
+    oneMeter =
+        Length.meters 1
+
+    Length.feet 1 |> Quantity.lessThan oneMeter
+    --> True
+
+    -- Same as:
+    Quantity.lessThan oneMeter (Length.feet 1)
+    --> True
+
+    List.filter (Quantity.lessThan oneMeter)
+        [ Length.feet 1
+        , Length.parsecs 1
+        , Length.yards 1
+        , Length.lightYears 1
+        ]
+    --> [ Length.feet 1, Length.yards 1 ]
+
+-}
 lessThan : Quantity number units -> Quantity number units -> Bool
 lessThan (Quantity y) (Quantity x) =
     x < y
 
 
+{-| Check if one quantity is greater than another. Note the [argument order](#argument-order)!
+
+    oneMeter =
+        Length.meters 1
+
+    Length.feet 1 |> Quantity.greaterThan oneMeter
+    --> False
+
+    -- Same as:
+    Quantity.greaterThan oneMeter (Length.feet 1)
+    --> False
+
+    List.filter (Quantity.greaterThan oneMeter)
+        [ Length.feet 1
+        , Length.parsecs 1
+        , Length.yards 1
+        , Length.lightYears 1
+        ]
+    --> [ Length.parsecs 1, Length.lightYears 1 ]
+
+-}
 greaterThan : Quantity number units -> Quantity number units -> Bool
 greaterThan (Quantity y) (Quantity x) =
     x > y
 
 
+{-| Compare two quantities, returning an [`Order`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Order)
+value indicating whether the first is less than, equal to or greater than the
+second.
+
+    Quantity.compare (Duration.minutes 90) (Duration.hours 1)
+    --> GT
+
+    Quantity.compare (Duration.minutes 60) (Duration.hours 1)
+    --> EQ
+
+-}
 compare : Quantity number units -> Quantity number units -> Order
 compare (Quantity x) (Quantity y) =
     Basics.compare x y
 
 
+{-| Check if two quantities are equal within a given absolute tolerance. The
+given tolerance must be greater than or equal to zero - if it is negative, then
+the result will always be false.
+
+    -- 3 feet is 91.44 centimeters or 0.9144 meters
+
+    Quantity.equalWithin (Length.centimeters 10)
+        (Length.meters 1)
+        (Length.feet 3)
+    --> True
+
+    Quantity.equalWithin (Length.centimeters 5)
+        (Length.meters 1)
+        (Length.feet 3)
+    --> False
+
+-}
 equalWithin : Quantity number units -> Quantity number units -> Quantity number units -> Bool
 equalWithin (Quantity tolerance) (Quantity x) (Quantity y) =
     Basics.abs (x - y) <= tolerance
 
 
+{-| Find the maximum of two quantities.
+
+    Quantity.max (Duration.hours 2) (Duration.minutes 100)
+    --> Duration.hours 2
+
+-}
 max : Quantity number units -> Quantity number units -> Quantity number units
 max (Quantity x) (Quantity y) =
     Quantity (Basics.max x y)
 
 
+{-| Find the minimum of two quantities.
+
+    Quantity.min (Duration.hours 2) (Duration.minutes 100)
+    --> Duration.minutes 100
+
+-}
 min : Quantity number units -> Quantity number units -> Quantity number units
 min (Quantity x) (Quantity y) =
     Quantity (Basics.min x y)
