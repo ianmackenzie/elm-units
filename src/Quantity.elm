@@ -357,9 +357,8 @@ invert (Quantity rate) =
 
 
 {-| Transform a quantity by applying a function to the underlying value. This is
-primarily useful for converting back and forth between `Int`- and `Float`-valued
-quantities. For example, if you had a `Float` number of pixels, you could round
-to the nearest whole pixel with `Quantity.map round` and you
+primarily useful to convert an `Int`-valued quantity into a `Float`-valued one,
+using `Quantity.map toFloat`.
 -}
 map : (number1 -> number2) -> Quantity number1 units -> Quantity number2 units
 map function (Quantity value) =
