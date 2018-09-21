@@ -292,56 +292,180 @@ min (Quantity x) (Quantity y) =
 -- Arithmetic
 
 
+{-| Negate a quantity!
+
+    Quantity.negate (Length.millimeters 10)
+    --> Length.millimeters -10
+
+-}
 negate : Quantity number units -> Quantity number units
 negate (Quantity value) =
     Quantity -value
 
 
+{-| Add two quantities.
+
+    Length.meters 1 |> Quantity.plus (Length.centimeters 5)
+    --> Length.centimeters 105
+
+-}
 plus : Quantity number units -> Quantity number units -> Quantity number units
 plus (Quantity y) (Quantity x) =
     Quantity (x + y)
 
 
+{-| Subtract one quantity from another. Note the [argument order](#argument-order)!
+
+    fifteenMinutes =
+        Duration.minutes 15
+
+    Duration.hours 1 |> Quantity.minus fifteenMinutes
+    --> Duration.minutes 45
+
+    -- Same as:
+    Quantity.minus fifteenMinutes (Duration.hours 1)
+    --> Duration.minutes 45
+
+    List.map (Quantity.minus fifteenMinutes)
+        [ Duration.hours 1
+        , Duration.hours 2
+        , Duration.minutes 30
+        ]
+    --> [ Duration.minutes 45
+    --> , Duration.minutes 105
+    --> , Duration.minutes 15
+    --> ]
+
+-}
 minus : Quantity number units -> Quantity number units -> Quantity number units
 minus (Quantity y) (Quantity x) =
     Quantity (x - y)
 
 
+{-| Multiply two quantities (with the same units) together, resulting in a
+quantity with those units squared.
+
+This works for any units type (which is useful when used with [`sqrt`](Quantity#sqrt)!)
+but one special case is worth pointing out. The units type of an [`Area`](Area#Area)
+is `SquareMeters`, which is actually a type alias for `Squared Meters`. This
+means that the product of two `Length`s does in fact give you an `Area`:
+
+    Quantity.product (Length.meters 2) (Length.centimeters 40)
+    --> Area.squareMeters 0.8
+
+    -- This is the definition of an acre, I kid you not 😈
+    Quantity.product (Length.feet 66) (Length.feet 660)
+    --> Area.acres 1
+
+-}
 product : Quantity number units -> Quantity number units -> Quantity number (Squared units)
 product (Quantity x) (Quantity y) =
     Quantity (x * y)
 
 
+{-| Find the ratio of two quantities with the same units.
+
+    Quantity.ratio (Length.miles 1) (Length.yards 1)
+    --> 1760
+
+-}
 ratio : Quantity Float units -> Quantity Float units -> Float
 ratio (Quantity x) (Quantity y) =
     x / y
 
 
+{-| Multiply a `Quantity` by a `Float`.
+
+    Quantity.scaleBy 1.5 (Duration.hours 1)
+    --> Duration.minutes 90
+
+-}
 scaleBy : number -> Quantity number units -> Quantity number units
 scaleBy scale (Quantity value) =
     Quantity (scale * value)
 
 
+{-| Divide a `Quantity` by a `Float`.
+
+    Quantity.divideBy 2 (Duration.hours 1)
+    --> Duration.minutes 30
+
+-}
 divideBy : Float -> Quantity Float units -> Quantity Float units
 divideBy divisor (Quantity value) =
     Quantity (value / divisor)
 
 
+{-| Get the absolute value of a quantity.
+
+    Quantity.abs (Duration.milliseconds -10)
+    --> Duration.milliseconds 10
+
+-}
 abs : Quantity number units -> Quantity number units
 abs (Quantity value) =
     Quantity (Basics.abs value)
 
 
+{-| Given a lower and upper bound, clamp a given quantity to within those
+bounds. Say you wanted to clamp an angle to be between +/-30 degrees:
+
+    lowerBound =
+        Angle.degrees -30
+
+    upperBound =
+        Angle.degrees 30
+
+    Quantity.clamp lowerBound upperBound (Angle.degrees 5)
+    --> Angle.degrees 5
+
+    -- One radian is approximately 57 degrees
+    Quantity.clamp lowerBound upperBound (Angle.radians 1)
+    --> Angle.degrees 30
+
+    Quantity.clamp lowerBound upperBound (Angle.turns -0.5)
+    --> Angle.degrees -30
+
+-}
 clamp : Quantity number units -> Quantity number units -> Quantity number units -> Quantity number units
 clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity (Basics.clamp lower upper value)
 
 
+{-| Square a quantity with some units, resulting in a new quantity with
+those units squared:
+
+    Quantity.squared (Length.meters 5)
+    --> Area.squareMeters 25
+
+-}
 squared : Quantity number units -> Quantity number (Squared units)
 squared (Quantity value) =
     Quantity (value * value)
 
 
+{-| Take a quantity in `Squared units` (produced by `product` or `squared`), and
+return the square root of that quantity in the original `units`.
+
+    Quantity.sqrt (Area.hectares 1)
+    --> Length.meters 100
+
+Getting fancier, you could implement a generic [root mean square](https://en.wikipedia.org/wiki/Root_mean_square)
+function (that works with any units type) as
+
+    rootMeanSquare : List (Quantity Float units) -> Quantity Float units
+    rootMeanSquare values =
+        let
+            squares =
+                List.map Quantity.squared values
+        in
+        Quantity.sqrt
+            (Quantity.sum squares
+                |> Quantity.divideBy
+                    (toFloat (List.length squares))
+            )
+
+-}
 sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
