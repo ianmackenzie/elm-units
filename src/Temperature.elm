@@ -191,16 +191,19 @@ inFahrenheitDegrees quantity =
 -- Comparison
 
 
-{-| Check if one temperature is less than the other. Note that if you want to
-check if `x` is less than `y`, you would write
+{-| Check if one temperature is less than another. Note the [argument order](#argument-order)!
 
-    Temperature.lessThan y x
+    roomTemperature =
+        Temperature.degreesCelsius 21
 
-or alternatively
+    Temperature.degreesFahrenheit 50
+        |> Temperature.lessThan roomTemperature
+    --> True
 
-    x |> Temperature.lessThan y
-
-This
+    -- Same as:
+    Temperature.lessThan roomTemperature
+        (Temperature.degreesFahrenheit 50)
+    --> True
 
 -}
 lessThan : Temperature -> Temperature -> Bool
