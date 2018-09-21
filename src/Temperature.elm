@@ -21,8 +21,8 @@ primary types:
 Since a `Temperature` value is not a `Quantity`, this module exposes specialized
 functions for doing the operations on `Temperature` values that _do_ make sense,
 such as comparing two temperatures or sorting a list of temperatures. It's also
-possible to find the delta from one temperature to another using `deltaFrom`,
-and then add/subtract a `Delta` from a `Temperature` using `plus` and `minus`.
+possible to find the delta from one temperature to another using [`minus`](Temperature#minus),
+and then add a `Delta` to a `Temperature` using [`plus`](Temperature#plus).
 
 @docs Temperature, Delta, CelsiusDegrees
 
@@ -39,7 +39,7 @@ this module uses (for example) `celsiusDegrees` to indicate a temperature delta
 (change in temperature), in contrast to `degreesCelsius` which indicates an
 actual temperature.
 
-@docs deltaFrom, celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
+@docs celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
 
 
 # Comparison
