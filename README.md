@@ -77,8 +77,8 @@ Duration.minutes 2
 
 Perhaps most importantly, values like `Length`s and `Duration`s work very well
 as as record fields or function arguments, since they help ensure that the math
-will always work out correctly even if different bits of code work in different
-units:
+will always work out correctly even if different parts of a codebase work in
+different units:
 
 ```elm
 import Angle exposing (Angle)
