@@ -53,6 +53,11 @@ something else?
 
 # List functions
 
+These functions act just like the corresponding functions in the built-in `List`
+module. They're necessary because the built-in `List.sum` only supports `List
+Int` and `List Float`, and `minimum`/`maximum`/`sort` only support built-in
+comparable types like `Int`, `Float`, `String` and tuples.
+
 @docs sum, minimum, maximum, sort
 
 
@@ -488,11 +493,35 @@ ceiling (Quantity value) =
 ---------- LIST FUNCTIONS ----------
 
 
+{-| Find the sum of a list of quanties.
+
+    Quantity.sum
+        [ Length.meters 1
+        , Length.centimeters 2
+        , Length.millimeters 3
+        ]
+    --> Length.meters 1.023
+
+    Quantity.sum []
+    --> Quantity.zero
+
+-}
 sum : List (Quantity number units) -> Quantity number units
 sum quantities =
     List.foldl plus zero quantities
 
 
+{-| Find the minimum value in a list of quantities. Returns `Nothing` if the
+list is empty.
+
+    Quantity.minimum
+        [ Mass.kilograms 1
+        , Mass.pounds 2
+        , Mass.tonnes 3
+        ]
+    --> Just (Mass.pounds 2)
+
+-}
 minimum : List (Quantity number units) -> Maybe (Quantity number units)
 minimum quantities =
     case quantities of
@@ -503,6 +532,17 @@ minimum quantities =
             Just (List.foldl min first rest)
 
 
+{-| Find the maximum value in a list of quantities. Returns `Nothing` if the
+list is empty.
+
+    Quantity.maximum
+        [ Mass.kilograms 1
+        , Mass.pounds 2
+        , Mass.tonnes 3
+        ]
+    --> Just (Mass.tonnes 3)
+
+-}
 maximum : List (Quantity number units) -> Maybe (Quantity number units)
 maximum quantities =
     case quantities of
@@ -518,6 +558,19 @@ unwrap (Quantity value) =
     value
 
 
+{-| Sort a list of quantities.
+
+    Quantity.sort
+        [ Mass.kilograms 1
+        , Mass.pounds 2
+        , Mass.tonnes 3
+        ]
+    --> [ Mass.pounds 2
+    --> , Mass.kilograms 1
+    --> , Mass.tonnes 3
+    --> ]
+
+-}
 sort : List (Quantity number units) -> List (Quantity number units)
 sort quantities =
     List.sortBy unwrap quantities
