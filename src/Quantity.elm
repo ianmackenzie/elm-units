@@ -41,6 +41,13 @@ composite units in a fairly flexible way.
 
 # Rounding
 
+Note that these functions only really make sense for quantities in units like
+pixels, cents or game tiles where an `Int` number of units is meaningful. For
+quantities like `Length` or `Duration`, it doesn't really make sense to round to
+an `Int` value since the underyling base unit is pretty arbitrary - should
+`round`ing a `Duration` give you an `Int` number of seconds, milliseconds, or
+something else?
+
 @docs round, floor, ceiling
 
 
@@ -444,16 +451,34 @@ sqrt (Quantity value) =
 ---------- ROUNDING ----------
 
 
+{-| Round a `Float`-valued quantity to the nearest `Int`.
+
+    Quantity.round (Pixels.pixels 3.5)
+    --> Pixels.pixels 4
+
+-}
 round : Quantity Float units -> Quantity Int units
 round (Quantity value) =
     Quantity (Basics.round value)
 
 
+{-| Round a `Float`-valued quantity down to the nearest `Int`.
+
+    Quantity.floor (Pixels.pixels -2.1)
+    --> Pixels.pixels -3
+
+-}
 floor : Quantity Float units -> Quantity Int units
 floor (Quantity value) =
     Quantity (Basics.floor value)
 
 
+{-| Round a `Float`-valued quantity up to the nearest `Int`.
+
+    Quantity.ceiling (Pixels.pixels 1.2)
+    --> Pixels.pixels 2
+
+-}
 ceiling : Quantity Float units -> Quantity Int units
 ceiling (Quantity value) =
     Quantity (Basics.ceiling value)
