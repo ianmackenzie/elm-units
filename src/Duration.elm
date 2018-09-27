@@ -3,8 +3,9 @@ module Duration exposing
     , from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
     )
 
-{-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
-time (which would generally be represented by a [`Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+{-| A `Duration` refers to an elapsed time in seconds, milliseconds, hours etc.,
+as opposed to a specific instant in time (which would generally be represented
+by a [`Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
 value). It is stored as a number of seconds.
 
 @docs Duration, Seconds

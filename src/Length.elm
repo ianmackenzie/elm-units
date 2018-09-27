@@ -6,8 +6,8 @@ module Length exposing
     , astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
     )
 
-{-| A `Length` represents a distance or size (length, width, height etc.) in the
-real world. It is stored as a number of meters.
+{-| A `Length` represents a length in meters, feet, centimeters, miles etc. It
+is stored as a number of meters.
 
 @docs Length, Meters
 
