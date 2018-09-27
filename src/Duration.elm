@@ -188,7 +188,8 @@ the historical Julian calendar. This is 10 minutes and 48 seconds longer than
 a Gregorian year (365.2425 days), which is the average length of a year in the
 modern Gregorian calendar, but the Julian year is a bit easier to remember and
 reason about and has the virtue of being the 'year' value used in the definition
-of a light year.
+of a [light year](Length#lightYears).
+
     Duration.julianYears 1
     --> Duration.days 365.25
 
