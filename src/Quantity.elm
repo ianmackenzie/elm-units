@@ -317,7 +317,9 @@ but one special case is worth pointing out. The units type of an [`Area`](Area#A
 is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
 the product of two `Length`s does in fact give you an `Area`:
 
-    Quantity.product (Length.meters 2) (Length.centimeters 40)
+    Quantity.product
+        (Length.meters 2)
+        (Length.centimeters 40)
     --> Area.squareMeters 0.8
 
     -- This is the definition of an acre, I kid you not 😈
