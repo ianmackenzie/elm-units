@@ -124,7 +124,7 @@ kelvins numKelvins =
     Temperature numKelvins
 
 
-{-| Convert a temperature to number of kelvins.
+{-| Convert a temperature to a number of kelvins.
 
     Temperature.degreesCelsius 0
         |> Temperature.inKelvins
