@@ -1,5 +1,5 @@
 module Length exposing
-    ( Meters, Length
+    ( Length, Meters
     , meters, inMeters
     , microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
     , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
@@ -9,7 +9,7 @@ module Length exposing
 {-| A `Length` represents a distance or size (length, width, height etc.) in the
 real world. It is stored as a number of meters.
 
-@docs Meters, Length
+@docs Length, Meters
 
 
 ## Metric
