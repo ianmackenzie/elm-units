@@ -38,7 +38,8 @@ type alias Duration =
 {-| Find the elapsed time from a start time to an end time. For example,
 assuming that `nineAM` and `fivePM` are two `Time.Posix` values on the same day:
 
-    Duration.from nineAM fivePM == hours 8
+    Duration.from nineAM fivePM
+    --> Duration.hours 8
 
 -}
 from : Time.Posix -> Time.Posix -> Duration
@@ -51,9 +52,6 @@ from startTime endTime =
 
 
 {-| Construct a `Duration` from a given number of seconds.
-
-    seconds 60 == minutes 1
-
 -}
 seconds : Float -> Duration
 seconds numSeconds =
@@ -62,7 +60,7 @@ seconds numSeconds =
 
 {-| Convert a `Duration` to a value in seconds.
 
-    milliseconds 10 |> inSeconds
+    Duration.milliseconds 10 |> Duration.inSeconds
     --> 0.01
 
 -}
@@ -73,7 +71,8 @@ inSeconds (Quantity numSeconds) =
 
 {-| Construct a `Duration` from a given number of milliseconds.
 
-    milliseconds 5000 == seconds 5
+    Duration.milliseconds 5000
+    --> Duration.seconds 5
 
 -}
 milliseconds : Float -> Duration
@@ -83,7 +82,7 @@ milliseconds numMilliseconds =
 
 {-| Convert a `Duration` to a value in milliseconds.
 
-    seconds 0.5 |> inMilliseconds
+    Duration.seconds 0.5 |> Duration.inMilliseconds
     --> 500
 
 -}
@@ -94,7 +93,8 @@ inMilliseconds duration =
 
 {-| Construct a `Duration` from a given number of minutes.
 
-    minutes 3 == seconds 180
+    Duration.minutes 3
+    --> Duration.seconds 180
 
 -}
 minutes : Float -> Duration
@@ -104,7 +104,7 @@ minutes numMinutes =
 
 {-| Convert a `Duration` to a value in minutes.
 
-    seconds 90 |> inMinutes
+    Duration.seconds 90 |> Duration.inMinutes
     --> 1.5
 
 -}
@@ -115,7 +115,8 @@ inMinutes duration =
 
 {-| Construct a `Duration` from a given number of hours.
 
-    hours 1 == seconds 3600
+    Duration.hours 1
+    --> Duration.seconds 3600
 
 -}
 hours : Float -> Duration
@@ -125,7 +126,7 @@ hours numHours =
 
 {-| Convert a `Duration` to a value in hours.
 
-    minutes 120 |> inHours
+    Duration.minutes 120 |> Duration.inHours
     --> 2
 
 -}
@@ -139,7 +140,8 @@ exactly 24 hours or 86400 seconds. Therefore, it is only equal to the length of
 a given calendar day if that calendar day does not include either a leap second
 or any added/removed daylight savings hours.
 
-    days 1 == hours 24
+    Duration.days 1
+    --> Duration.hours 24
 
 -}
 days : Float -> Duration
@@ -149,7 +151,7 @@ days numDays =
 
 {-| Convert a `Duration` to a value in days.
 
-    hours 72 |> inDays
+    Duration.hours 72 |> Duration.inDays
     --> 3
 
 -}
@@ -160,7 +162,8 @@ inDays duration =
 
 {-| Construct a `Duration` from a given number of weeks.
 
-    weeks 1 == days 7
+    Duration.weeks 1
+    --> Duration.days 7
 
 -}
 weeks : Float -> Duration
@@ -170,7 +173,7 @@ weeks numWeeks =
 
 {-| Convert a `Duration` to a value in weeks.
 
-    days 28 |> inWeeks
+    Duration.days 28 |> Duration.inWeeks
     --> 4
 
 -}
@@ -186,8 +189,9 @@ a Gregorian year (365.2425 days), which is the average length of a year in the
 modern Gregorian calendar, but the Julian year is a bit easier to remember and
 reason about and has the virtue of being the 'year' value used in the definition
 of a light year.
+    Duration.julianYears 1
+    --> Duration.days 365.25
 
-    julianYears 1 == days 365.25
 
 -}
 julianYears : Float -> Duration
@@ -197,7 +201,7 @@ julianYears numJulianYears =
 
 {-| Convert a `Duration` to a value in Julian years.
 
-    hours 10000 |> inJulianYears
+    Duration.hours 10000 |> Duration.inJulianYears
     --> 1.1407711613050422
 
 -}
