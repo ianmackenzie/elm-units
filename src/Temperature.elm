@@ -111,10 +111,12 @@ inDegreesFahrenheit temperature =
     32 + 1.8 * inDegreesCelsius temperature
 
 
-{-| Construct a temperature from a number of kelvins.
+{-| Construct a temperature from a number of [kelvins][kelvin].
 
     Temperature.kelvins 300
     --> Temperature.degreesCelsius 26.85
+
+[kelvin]: https://en.wikipedia.org/wiki/Kelvin "Kelvin"
 
 -}
 kelvins : Float -> Temperature
