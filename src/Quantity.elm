@@ -343,7 +343,7 @@ ratio (Quantity x) (Quantity y) =
     x / y
 
 
-{-| Multiply a `Quantity` by a `Float`.
+{-| Multiply a `Quantity` by a `number`.
 
     Quantity.scaleBy 1.5 (Duration.hours 1)
     --> Duration.minutes 90
