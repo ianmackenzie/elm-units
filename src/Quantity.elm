@@ -41,12 +41,11 @@ composite units in a fairly flexible way.
 
 # Rounding
 
-Note that these functions only really make sense for quantities in units like
-pixels, cents or game tiles where an `Int` number of units is meaningful. For
-quantities like `Length` or `Duration`, it doesn't really make sense to round to
-an `Int` value since the underyling base unit is pretty arbitrary - should
-`round`ing a `Duration` give you an `Int` number of seconds, milliseconds, or
-something else?
+These functions only really make sense for quantities in units like pixels,
+cents or game tiles where an `Int` number of units is meaningful. For quantities
+like `Length` or `Duration`, it doesn't really make sense to round to an `Int`
+value since the underyling base unit is pretty arbitrary - should `round`ing a
+`Duration` give you an `Int` number of seconds, milliseconds, or something else?
 
 @docs round, floor, ceiling
 
