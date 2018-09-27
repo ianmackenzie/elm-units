@@ -73,7 +73,7 @@ type alias Delta =
     Quantity Float CelsiusDegrees
 
 
-{-| Tempereature deltas are represented by Celsius degrees.
+{-| Tempereature deltas are stored as a number of Celsius degrees.
 -}
 type CelsiusDegrees
     = CelsiusDegrees
