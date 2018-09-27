@@ -93,12 +93,9 @@ is a `Float` number of `Meters` and a
 
     Quantity Int Pixels
 
-is an `Int` number of `Pixels`. When compiling with
-
-    elm make --optimize
-
-the `Quantity` wrapper type will be compiled away, so the runtime performance
-should be the same as just using a raw `Float` or `Int`.
+is an `Int` number of `Pixels`. When compiling with `elm make --optimize` the
+`Quantity` wrapper type will be compiled away, so the runtime performance should
+be the same as just using a raw `Float` or `Int`.
 
 -}
 type Quantity number units
