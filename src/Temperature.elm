@@ -322,7 +322,8 @@ plus (Quantity delta) (Temperature temperature) =
     Temperature (temperature + delta)
 
 
-{-| Subtract one `Temperature` from another to get a `Delta`:
+{-| Subtract one `Temperature` from another to get a `Delta`. Note the [argument
+order](/#argument-order)!
 
     -- 25 degrees Celsius is 77 degrees Fahrenheit
     start =
