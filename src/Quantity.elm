@@ -130,7 +130,7 @@ type Rate dependentUnits independentUnits
 ---------- CONSTANTS ----------
 
 
-{-| The generic zero value. This can be treated as either an `Int` or `Float`
+{-| A generic zero value. This can be treated as either an `Int` or `Float`
 quantity in any units type, similar to how `Nothing` can be treated as any kind
 of `Maybe` type and `[]` can be treated as any kind of `List`.
 -}
