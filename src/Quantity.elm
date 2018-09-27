@@ -667,8 +667,8 @@ at_ (Quantity rate) (Quantity dependentValue) =
 
 
 {-| Find the inverse of a given rate. May be useful if you are using a rate to
-define a conversion, and want to convert the other way instead (although
-consider just switching from `at` to `at_` or vice versa instead.)
+define a conversion, and want to convert the other way (although consider just
+switching from `at` to `at_` or vice versa instead.)
 -}
 invert : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
 invert (Quantity rate) =
