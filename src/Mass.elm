@@ -18,12 +18,11 @@ module Mass exposing
     )
 
 import Acceleration exposing (MetersPerSecondSquared)
-import Force exposing (Newtons)
 import Quantity exposing (Quantity(..), Rate)
 
 
-type alias Kilograms =
-    Rate Newtons MetersPerSecondSquared
+type Kilograms
+    = Kilograms
 
 
 type alias Mass =

@@ -13,11 +13,13 @@ module Force exposing
     , pounds
     )
 
-import Quantity exposing (Quantity(..))
+import Energy exposing (Joules)
+import Length exposing (Meters)
+import Quantity exposing (Quantity(..), Rate)
 
 
-type Newtons
-    = Newtons
+type alias Newtons =
+    Rate Joules Meters
 
 
 type alias Force =
