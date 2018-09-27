@@ -648,7 +648,7 @@ at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-{-| Given a rate an a _dependent_ value, determine the necessary amount of the
+{-| Given a rate and a _dependent_ value, determine the necessary amount of the
 _independent_ value:
 
     Length.kilometers 75
