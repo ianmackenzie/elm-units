@@ -207,8 +207,11 @@ inMiles length =
     inMeters length / 1609.344
 
 
-{-| Construct a length from a number of astronomical units (AU). One AU is
+{-| Construct a length from a number of [astronomical units][au] (AU). One AU is
 approximately equal to the average distance of the Earth from the Sun.
+
+[au]: https://en.wikipedia.org/wiki/Astronomical_unit "Astronomical unit"
+
 -}
 astronomicalUnits : Float -> Length
 astronomicalUnits numAstronomicalUnits =
@@ -222,7 +225,10 @@ inAstronomicalUnits length =
     inMeters length / 149597870700
 
 
-{-| Construct a length from a number of parsecs.
+{-| Construct a length from a number of [parsecs][parsec].
+
+[parsec]: https://en.wikipedia.org/wiki/Parsec "Parsec"
+
 -}
 parsecs : Float -> Length
 parsecs numParsecs =
