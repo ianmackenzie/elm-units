@@ -231,21 +231,70 @@ greaterThan (Temperature y) (Temperature x) =
     x > y
 
 
+{-| Compare two temperatures, returning an [`Order`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Order)
+value indicating whether the first is less than, equal to or greater than the
+second.
+
+    Temperature.compare
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 75)
+    --> GT
+
+    Temperature.compare
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 77)
+    --> EQ
+
+(Note that due to floating-point roundoff, you generally shouldn't rely on
+temperatures comparing as exactly equal.)
+
+-}
 compare : Temperature -> Temperature -> Order
 compare (Temperature x) (Temperature y) =
     Basics.compare x y
 
 
+{-| Check if two temperatures are equal within a given delta tolerance. The
+tolerance must be greater than or equal to zero - if it is negative, then the
+result will always be false.
+
+    Temperature.equalWithin (Temperature.fahrenheitDegrees 1)
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 75)
+    --> False
+
+    Temperature.equalWithin (Temperature.fahrenheitDegrees 3)
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 75)
+    --> True
+
+-}
 equalWithin : Delta -> Temperature -> Temperature -> Bool
 equalWithin (Quantity tolerance) (Temperature x) (Temperature y) =
     Basics.abs (x - y) <= tolerance
 
 
+{-| Find the minimum of two temperatures.
+
+    Temperature.min
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 75)
+    --> Temperature.degreesFahrenheit 75
+
+-}
 min : Temperature -> Temperature -> Temperature
 min (Temperature x) (Temperature y) =
     Temperature (Basics.min x y)
 
 
+{-| Find the maximum of two temperatures.
+
+    Temperature.max
+        (Temperature.degreesCelsius 25)
+        (Temperature.degreesFahrenheit 75)
+    --> Temperature.degreesCelsius 25
+
+-}
 max : Temperature -> Temperature -> Temperature
 max (Temperature x) (Temperature y) =
     Temperature (Basics.max x y)
@@ -292,6 +341,29 @@ minus (Temperature y) (Temperature x) =
     Quantity (x - y)
 
 
+{-| Given a lower and upper bound, clamp a given temperature to within those
+bounds. Say you wanted to clamp a temperature to be between 18 and 22 degrees
+Celsius:
+
+    lowerBound =
+        Temperature.degreesCelsius 18
+
+    upperBound =
+        Temperature.degreesCelsius 22
+
+    Temperature.degreesCelsius 25
+        |> Temperature.clamp lowerBound upperBound
+    --> Temperature.degreesCelsius 22
+
+    Temperature.degreesFahrenheit 67 -- approx 19.4 °C
+        |> Temperature.clamp lowerBound upperBound
+    --> Temperature.degreesFahrenheit 67
+
+    Temperature.absoluteZero
+        |> Temperature.clamp lowerBound upperBound
+    --> Temperature.degreesCelsius 18
+
+-}
 clamp : Temperature -> Temperature -> Temperature -> Temperature
 clamp (Temperature lower) (Temperature upper) (Temperature temperature) =
     Temperature (Basics.clamp lower upper temperature)
@@ -301,6 +373,17 @@ clamp (Temperature lower) (Temperature upper) (Temperature temperature) =
 -- List functions
 
 
+{-| Find the minimum of a list of temperatures. Returns `Nothing` if the list
+is empty.
+
+    Temperature.minimum
+        [ Temperature.degreesCelsius 20
+        , Temperature.kelvins 300
+        , Temperature.degreesFahrenheit 74
+        ]
+    --> Just (Temperature.degreesCelsius 20)
+
+-}
 minimum : List Temperature -> Maybe Temperature
 minimum temperatures =
     case temperatures of
@@ -311,6 +394,17 @@ minimum temperatures =
             Nothing
 
 
+{-| Find the maximum of a list of temperatures. Returns `Nothing` if the list
+is empty.
+
+    Temperature.maximum
+        [ Temperature.degreesCelsius 20
+        , Temperature.kelvins 300
+        , Temperature.degreesFahrenheit 74
+        ]
+    --> Just (Temperature.kelvins 300)
+
+-}
 maximum : List Temperature -> Maybe Temperature
 maximum temperatures =
     case temperatures of
@@ -321,6 +415,19 @@ maximum temperatures =
             Nothing
 
 
+{-| Sort a list of temperatures from lowest to highest.
+
+    Temperature.sort
+        [ Temperature.degreesCelsius 20
+        , Temperature.kelvins 300
+        , Temperature.degreesFahrenheit 74
+        ]
+    --> [ Temperature.degreesCelsius 20
+    --> , Temperature.degreesFahrenheit 74
+    --> , Temperature.kelvins 300
+    --> ]
+
+-}
 sort : List Temperature -> List Temperature
 sort temperatures =
     List.sortBy inKelvins temperatures
