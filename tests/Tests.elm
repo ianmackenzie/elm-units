@@ -1,6 +1,5 @@
 module Tests exposing
     ( durations
-    , forces
     , lengths
     , powers
     , pressures
@@ -91,17 +90,6 @@ powers =
         "W"
         [ ( watts 50
           , amperes 5 |> at (amperes 5 |> at (ohms 2))
-          )
-        ]
-
-
-forces : Test
-forces =
-    equalPairs
-        "Forces"
-        "N"
-        [ ( kilograms 20 |> times (metersPerSecondSquared 5)
-          , newtons 100
           )
         ]
 
