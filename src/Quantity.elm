@@ -143,7 +143,7 @@ zero =
 ---------- COMPARISON ----------
 
 
-{-| Check if one quantity is less than another. Note the [argument order](#argument-order)!
+{-| Check if one quantity is less than another. Note the [argument order](/#argument-order)!
 
     oneMeter =
         Length.meters 1
@@ -169,7 +169,7 @@ lessThan (Quantity y) (Quantity x) =
     x < y
 
 
-{-| Check if one quantity is greater than another. Note the [argument order](#argument-order)!
+{-| Check if one quantity is greater than another. Note the [argument order](/#argument-order)!
 
     oneMeter =
         Length.meters 1
@@ -281,7 +281,7 @@ plus (Quantity y) (Quantity x) =
     Quantity (x + y)
 
 
-{-| Subtract one quantity from another. Note the [argument order](#argument-order)!
+{-| Subtract one quantity from another. Note the [argument order](/#argument-order)!
 
     fifteenMinutes =
         Duration.minutes 15
