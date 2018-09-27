@@ -182,7 +182,7 @@ inWeeks duration =
     inSeconds duration / 604800
 
 
-{-| Construct a `Duration` from a given number of [Julian years](https://en.wikipedia.org/wiki/Julian_year_(astronomy)).
+{-| Construct a `Duration` from a given number of [Julian years][julian_year].
 A Julian year is defined as exactly 365.25 days, the average length of a year in
 the historical Julian calendar. This is 10 minutes and 48 seconds longer than
 a Gregorian year (365.2425 days), which is the average length of a year in the
@@ -192,6 +192,7 @@ of a light year.
     Duration.julianYears 1
     --> Duration.days 365.25
 
+[julian_year]: https://en.wikipedia.org/wiki/Julian_year_(astronomy) "Julian year"
 
 -}
 julianYears : Float -> Duration
