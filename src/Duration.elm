@@ -1,36 +1,28 @@
 module Duration exposing
-    ( Duration
-    , Seconds
-    , days
-    , from
-    , hours
-    , inDays
-    , inHours
-    , inJulianYears
-    , inMilliseconds
-    , inMinutes
-    , inSeconds
-    , inWeeks
-    , julianYears
-    , milliseconds
-    , minutes
-    , seconds
-    , weeks
+    ( Duration, Seconds
+    , from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
     )
+
+{-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
+time (which would generally be represented by a [`Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+value). It is stored as a number of seconds.
+
+@docs Duration, Seconds
+
+@docs from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+
+-}
 
 import Quantity exposing (Quantity(..))
 import Time
 
 
-{-| The standard unit of time is seconds.
--}
+{-| -}
 type Seconds
     = Seconds
 
 
-{-| A `Duration` refers to an elapsed time, as opposed to a specific instant in
-time (which would generally be represented by a `Posix` value).
--}
+{-| -}
 type alias Duration =
     Quantity Float Seconds
 
