@@ -580,26 +580,98 @@ sort quantities =
 ---------- WORKING WITH RATES ----------
 
 
+{-| Construct a rate of change by dividing a dependent quantity (numerator) by
+an independent quantity (denominator):
+
+    distance =
+        Length.miles 1
+
+    time =
+        Duration.minutes 1
+
+    speed =
+        distance |> Quantity.per time
+
+    speed |> Speed.inMilesPerHour
+    --> 60
+
+Note that we could directly use our rate of change value as a `Speed`! That is
+because many built-in quantity types are defined as rates of change, for
+example:
+
+  - `Speed` is `Length` per `Duration`
+  - `Acceleration` is `Speed` per `Duration`
+  - `Pressure` is `Force` per `Area`
+  - `Power` is `Energy` per `Duration`
+  - `Force` is `Energy` per `Length`
+  - `Current` is `Charge` per `Duration`
+  - `Voltage` is `Power` per `Current`
+  - `Resistance` is `Voltage` per `Current`
+
+-}
 per : Quantity Float independentUnits -> Quantity Float dependentUnits -> Quantity Float (Rate dependentUnits independentUnits)
 per (Quantity independentValue) (Quantity dependentValue) =
     Quantity (dependentValue / independentValue)
 
 
+{-| Multiply a rate of change by an independent quantity (the denominator in
+the rate) to get a total value:
+
+    -- Pressure is Force per Area
+    pressure =
+        Pressure.kilopascals 10
+
+    area =
+        Area.squareMeters 3
+
+    force =
+        pressure |> Quantity.times area
+
+    force |> Force.inNewtons
+    --> 30000
+
+-}
 times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
 times (Quantity independentValue) (Quantity rate) =
     Quantity (rate * independentValue)
 
 
+{-| Same as `times` but with the argument order flipped, which may read better
+in some cases:
+
+    Duration.minutes 30
+        |> Quantity.at
+            (Speed.kilometersPerHour 100)
+    --> Length.kilometers 50
+
+-}
 at : Quantity number (Rate dependentUnits independentUnits) -> Quantity number independentUnits -> Quantity number dependentUnits
 at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
+{-| Given a rate an a _dependent_ value, determine the necessary amount of the
+_independent_ value:
+
+    Length.kilometers 75
+        |> Quantity.at_
+            (Speed.kilometersPerHour 100)
+    --> Duration.minutes 45
+
+Where `times` and `at` perform multiplication, `at_` performs division - you
+multiply a speed by a duration to get a distance, but you divide a distance by
+a speed to get a duration.
+
+-}
 at_ : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float dependentUnits -> Quantity Float independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
     Quantity (dependentValue / rate)
 
 
+{-| Find the inverse of a given rate. May be useful if you are using a rate to
+define a conversion, and want to convert the other way instead (although
+consider just switching from `at` to `at_` or vice versa instead.)
+-}
 invert : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
 invert (Quantity rate) =
     Quantity (1 / rate)
