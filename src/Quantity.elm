@@ -708,6 +708,27 @@ in some cases:
             (Speed.kilometersPerHour 100)
     --> Length.kilometers 50
 
+Can be useful to define conversion functions from one unit to another, since
+if you define a `rate` then `Quantity.at rate` will give you a conversion
+function:
+
+    pixelDensity : Quantity Float (Rate Pixels Meters)
+    pixelDensity =
+        Pixels.pixels 96 |> Quantity.per (Length.inches 1)
+
+    lengthToPixels : Length -> Quantity Float Pixels
+    lengthToPixels length =
+        Quantity.at pixelDensity length
+
+    lengthToPixels (Length.inches 3)
+    --> Pixels.pixels 288
+
+Eagle-eyed readers will note that using partial application you could also
+simply write
+
+    lengthToPixels =
+        Quantity.at pixelDensity
+
 -}
 at : Quantity number (Rate dependentUnits independentUnits) -> Quantity number independentUnits -> Quantity number dependentUnits
 at (Quantity rate) (Quantity independentValue) =
@@ -726,6 +747,19 @@ Where `times` and `at` perform multiplication, `at_` performs division - you
 multiply a speed by a duration to get a distance, but you divide a distance by
 a speed to get a duration.
 
+Similar to `at`, `at_` can be used to define an _inverse_ conversion function:
+
+    pixelDensity : Quantity Float (Rate Pixels Meters)
+    pixelDensity =
+        Pixels.pixels 96 |> Quantity.per (Length.inches 1)
+
+    pixelsToLength : Quantity Float Pixels -> Length
+    pixelsToLength pixels =
+        Quantity.at_ pixelDensity pixels
+
+    pixelsToLength (Pixels.pixels 48)
+    --> Length.inches 0.5
+
 -}
 at_ : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float dependentUnits -> Quantity Float independentUnits
 at_ (Quantity rate) (Quantity dependentValue) =
@@ -733,8 +767,14 @@ at_ (Quantity rate) (Quantity dependentValue) =
 
 
 {-| Find the inverse of a given rate. May be useful if you are using a rate to
-define a conversion, and want to convert the other way (although consider just
-switching from `at` to `at_` or vice versa instead.)
+define a conversion, and want to convert the other way;
+
+    Quantity.at (Quantity.inverse rate)
+
+is equivalent to
+
+    Quantity.at_ rate
+
 -}
 inverse : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
 inverse (Quantity rate) =
