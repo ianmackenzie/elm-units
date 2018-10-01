@@ -296,6 +296,10 @@ isInfinite (Quantity value) =
 {-| Check if a quantity's underlying value is NaN (not-a-number).
 
     Quantity.isNan (Quantity.sqrt (Area.squareMeters -4))
+    --> True
+
+    Quantity.isNan (Quantity.sqrt (Area.squareMeters 4))
+    --> False
 
 -}
 isNaN : Quantity Float units -> Bool
