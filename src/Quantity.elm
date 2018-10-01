@@ -378,6 +378,8 @@ the product of two `Length`s does in fact give you an `Area`:
     Quantity.product (Length.feet 66) (Length.feet 660)
     --> Area.acres 1
 
+Note that there are [other forms of multiplication](/#multiplication)!
+
 -}
 product : Quantity number units -> Quantity number units -> Quantity number (Squared units)
 product (Quantity x) (Quantity y) =
@@ -399,6 +401,8 @@ ratio (Quantity x) (Quantity y) =
 
     Quantity.scaleBy 1.5 (Duration.hours 1)
     --> Duration.minutes 90
+
+Note that there are [other forms of multiplication](/#multiplication)!
 
 -}
 scaleBy : number -> Quantity number units -> Quantity number units
@@ -687,6 +691,8 @@ the rate) to get a total value:
 
     pressure |> Quantity.times area
     --> Force.newtons 30000
+
+Note that there are [other forms of multiplication](/#multiplication)!
 
 -}
 times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits

@@ -258,6 +258,22 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 --> [ Length.feet 3, Length.meters 1 ]
 ```
 
+#### Multiplication
+
+There are three different multiplication functions in `elm-units`, used for
+different kinds of multiplication:
+
+  - [`Quantity.product`](Quantity#product) is used to multiply two quantities
+    with the same `units` together, resulting in a quantity in `Squared units`;
+    this can be used to multiply two lengths together to get an area, for
+    example
+  - [`Quantity.scaleBy`](Quantity#scaleBy) is used to multiply a quantity by
+    a plain `Float` or `Int` scaling factor
+  - [`Quantity.times`](Quantity#times) is used to multiply a rate of change by
+    an indepent quantity value to get a dependent quantity value; for example,
+    multiplying a `Speed` by a `Duration` to get a `Length`, or a `Pressure` by
+    an `Area` to get a `Force`
+
 #### Argument order
 
 Note that `Quantity.minus`, `Quantity.lessThan` and `Quantity.greaterThan` (and
