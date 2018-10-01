@@ -678,18 +678,15 @@ per (Quantity independentValue) (Quantity dependentValue) =
 {-| Multiply a rate of change by an independent quantity (the denominator in
 the rate) to get a total value:
 
-    -- Pressure is Force per Area
+    -- Pressure is force per area
     pressure =
         Pressure.kilopascals 10
 
     area =
         Area.squareMeters 3
 
-    force =
-        pressure |> Quantity.times area
-
-    force |> Force.inNewtons
-    --> 30000
+    pressure |> Quantity.times area
+    --> Force.newtons 30000
 
 -}
 times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
