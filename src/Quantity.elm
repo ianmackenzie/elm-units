@@ -1,8 +1,8 @@
 module Quantity exposing
     ( Quantity(..)
     , Squared, Rate
-    , zero
-    , lessThan, greaterThan, compare, equalWithin, max, min
+    , zero, infinity, positiveInfinity, negativeInfinity
+    , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
     , round, floor, ceiling
     , sum, minimum, maximum, sort
@@ -26,12 +26,12 @@ composite units in a fairly flexible way.
 
 # Constants
 
-@docs zero
+@docs zero, infinity, positiveInfinity, negativeInfinity
 
 
 # Comparison
 
-@docs lessThan, greaterThan, compare, equalWithin, max, min
+@docs lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
 
 
 # Arithmetic
@@ -137,6 +137,27 @@ of `Maybe` type and `[]` can be treated as any kind of `List`.
 zero : Quantity number units
 zero =
     Quantity 0
+
+
+{-| Alias for `positiveInfinity`.
+-}
+infinity : Quantity Float units
+infinity =
+    positiveInfinity
+
+
+{-| A generic positive infinity value.
+-}
+positiveInfinity : Quantity Float units
+positiveInfinity =
+    Quantity (1 / 0)
+
+
+{-| A generic negative infinity value.
+-}
+negativeInfinity : Quantity Float units
+negativeInfinity =
+    Quantity (-1 / 0)
 
 
 
@@ -253,6 +274,33 @@ max (Quantity x) (Quantity y) =
 min : Quantity number units -> Quantity number units -> Quantity number units
 min (Quantity x) (Quantity y) =
     Quantity (Basics.min x y)
+
+
+{-| Check if a quantity is positive or negative infinity.
+
+    Quantity.isInfinite
+        (Length.meters 1
+            |> Quantity.per (Duration.seconds 0)
+        )
+    --> True
+
+    Quantity.isInfinite Quantity.negativeInfinity
+    --> True
+
+-}
+isInfinite : Quantity Float units -> Bool
+isInfinite (Quantity value) =
+    Basics.isInfinite value
+
+
+{-| Check if a quantity's underlying value is NaN (not-a-number).
+
+    Quantity.isNan (Quantity.sqrt (Area.squareMeters -4))
+
+-}
+isNaN : Quantity Float units -> Bool
+isNaN (Quantity value) =
+    Basics.isNaN value
 
 
 
