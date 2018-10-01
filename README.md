@@ -1,7 +1,5 @@
 # elm-units
 
-> Simple, safe and convenient unit types and conversions for Elm
-
 *Note*: This package has not yet been published!
 
 `elm-units` is useful if you want to store, pass around, convert between,
