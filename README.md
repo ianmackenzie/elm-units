@@ -258,8 +258,8 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 
 #### Multiplication
 
-There are three different multiplication functions in `elm-units`, used for
-different kinds of multiplication:
+There are actually three different multiplication functions in `elm-units`, used
+for different kinds of multiplication:
 
   - [`Quantity.product`](Quantity#product) is used to multiply two quantities
     with the same `units` together, resulting in a quantity in `Squared units`;
