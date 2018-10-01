@@ -4,7 +4,7 @@ module Quantity exposing
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
-    , round, floor, ceiling
+    , round, floor, ceiling, truncate
     , sum, minimum, maximum, sort
     , per, times, at, at_, invert
     , map
@@ -47,7 +47,7 @@ like `Length` or `Duration`, it doesn't really make sense to round to an `Int`
 value since the underyling base unit is pretty arbitrary - should `round`ing a
 `Duration` give you an `Int` number of seconds, milliseconds, or something else?
 
-@docs round, floor, ceiling
+@docs round, floor, ceiling, truncate
 
 
 # List functions
@@ -533,6 +533,17 @@ floor (Quantity value) =
 ceiling : Quantity Float units -> Quantity Int units
 ceiling (Quantity value) =
     Quantity (Basics.ceiling value)
+
+
+{-| Round a `Float`-valued quantity towards zero.
+
+    Quantity.truncate (Pixels.pixels -2.8)
+    --> Pixels.pixels -2
+
+-}
+truncate : Quantity Float units -> Quantity Int units
+truncate (Quantity value) =
+    Quantity (Basics.truncate value)
 
 
 
