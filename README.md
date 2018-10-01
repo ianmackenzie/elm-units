@@ -324,10 +324,10 @@ kineticEnergy (Quantity m) (Quantity v) =
 
 In the _implementation_ of `kineticEnergy`, you're working with raw `Float`
 values so you need to be careful to make sure the units actually do work out.
-(The values will be in [SI](https://en.wikipedia.org/wiki/International_System_of_Units)
-units - meters, seconds etc.) Once the function has been implemented, though, it
-can be used in a completely type-safe way - callers can supply arguments using
-whatever units they have, and extract results in whatever units they want:
+(The values will be in [SI units][6] - meters, seconds etc.) Once the function
+has been implemented, though, it can be used in a completely type-safe way -
+callers can supply arguments using whatever units they have, and extract results
+in whatever units they want:
 
 ```elm
 kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
@@ -338,7 +338,7 @@ kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
 ### Custom Units
 
 `elm-units` defines many standard unit types, but you can easily define your
-own! See [CustomUnits](doc/CustomUnits.md) for an example.
+own! See [CustomUnits][1] for an example.
 
 ### Understanding Quantity Types
 
@@ -359,10 +359,9 @@ and you may see any one of these three forms pop up in error messages.
 
 ## Getting Help
 
-For general questions about using `elm-units`, try asking in the [Elm Slack](http://elmlang.herokuapp.com/)
-or posting on the [Elm Discourse forums](https://discourse.elm-lang.org/) or the
-[Elm subreddit](https://www.reddit.com/r/elm/). I'm **@ianmackenzie** on all
-three platforms =)
+For general questions about using `elm-units`, try asking in the [Elm Slack][3]
+or posting on the [Elm Discourse forums][4] or the [Elm subreddit][5]. I'm
+**@ianmackenzie** on all three platforms =)
 
 ## API
 
@@ -375,4 +374,11 @@ TODO
 
 ## License
 
-[BSD-3-Clause © Ian Mackenzie](LICENSE)
+[BSD-3-Clause © Ian Mackenzie][2]
+
+[1]: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
+[2]: https://github.com/ianmackenzie/elm-units/blob/master/LICENSE
+[3]: http://elmlang.herokuapp.com/
+[4]: https://discourse.elm-lang.org/
+[5]: https://www.reddit.com/r/elm/
+[6]: https://en.wikipedia.org/wiki/International_System_of_Units
