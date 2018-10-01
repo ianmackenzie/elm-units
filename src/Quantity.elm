@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
     , round, floor, ceiling, truncate
     , sum, minimum, maximum, sort
-    , per, times, at, at_, invert
+    , per, times, at, at_, inverse
     , map
     , Unitless, int, toInt, float, toFloat
     )
@@ -62,7 +62,7 @@ comparable types like `Int`, `Float`, `String` and tuples.
 
 # Working with rates
 
-@docs per, times, at, at_, invert
+@docs per, times, at, at_, inverse
 
 
 # Mapping
@@ -736,8 +736,8 @@ at_ (Quantity rate) (Quantity dependentValue) =
 define a conversion, and want to convert the other way (although consider just
 switching from `at` to `at_` or vice versa instead.)
 -}
-invert : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
-invert (Quantity rate) =
+inverse : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
+inverse (Quantity rate) =
     Quantity (1 / rate)
 
 
