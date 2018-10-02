@@ -2,6 +2,7 @@ module Pixels exposing
     ( Pixels, PixelsPerSecond, PixelsPerSecondSquared, SquarePixels
     , pixels, inPixels
     , pixelsPerSecond, inPixelsPerSecond
+    , pixelsPerSecondSquared, inPixelsPerSecondSquared
     , squarePixels, inSquarePixels
     )
 
@@ -22,6 +23,8 @@ even do type-safe math directly on pixel values.
 @docs pixels, inPixels
 
 @docs pixelsPerSecond, inPixelsPerSecond
+
+@docs pixelsPerSecondSquared, inPixelsPerSecondSquared
 
 @docs squarePixels, inSquarePixels
 

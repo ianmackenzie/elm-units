@@ -268,8 +268,7 @@ conversionsToQuantityAndBack =
         , Test.describe "Pixels" <|
             [ fuzzFloatToQuantityAndBack "pixels" Pixels.pixels Pixels.inPixels
             , fuzzFloatToQuantityAndBack "pixelsPerSecond" Pixels.pixelsPerSecond Pixels.inPixelsPerSecond
-
-            --, fuzzFloatToQuantityAndBack "pixelsPerSecondSquared" Pixels.pixelsPerSecondSquared Pixels.inPixelsPerSecondSquared
+            , fuzzFloatToQuantityAndBack "pixelsPerSecondSquared" Pixels.pixelsPerSecondSquared Pixels.inPixelsPerSecondSquared
             , fuzzFloatToQuantityAndBack "squarePixels" Pixels.squarePixels Pixels.inSquarePixels
             ]
         , Test.describe "Power" <|
