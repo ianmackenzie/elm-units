@@ -394,7 +394,7 @@ and you may see any one of these three forms pop up in error messages.
 
 For general questions about using `elm-units`, try asking in the [Elm Slack][3]
 or posting on the [Elm Discourse forums][4] or the [Elm subreddit][5]. I'm
-**@ianmackenzie** on all three platforms =)
+**@ianmackenzie** on all three =)
 
 ## API
 
