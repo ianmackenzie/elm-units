@@ -16,7 +16,7 @@ compare, or do arithmetic on:
   - Or even values in your own custom units, such as 'number of tiles' in a
     tile-based game
 
-It is aimed especially at engineering/scientific/technical appliations but is
+It is aimed especially at engineering/scientific/technical applications but is
 designed to be generic enough to work well for other fields such as games and
 finance. The core of the package consists of types like `Length`, `Duration`,
 `Temperature`, `Speed` and `Pixels`, and functions like
@@ -301,7 +301,7 @@ for different kinds of multiplication:
   - [`Quantity.scaleBy`](Quantity#scaleBy) is used to multiply a quantity by
     a plain `Float` or `Int` scaling factor
   - [`Quantity.times`](Quantity#times) is used to multiply a rate of change by
-    an indepent quantity value to get a dependent quantity value; for example,
+    an independent quantity value to get a dependent quantity value; for example,
     multiplying a `Speed` by a `Duration` to get a `Length`, or a `Pressure` by
     an `Area` to get a `Force`
 
