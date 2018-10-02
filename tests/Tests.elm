@@ -275,6 +275,9 @@ conversionsToQuantityAndBack =
             [ fuzzFloatToQuantityAndBack "watts" Power.watts Power.inWatts
             , fuzzFloatToQuantityAndBack "kilowatts" Power.kilowatts Power.inKilowatts
             , fuzzFloatToQuantityAndBack "megawatts" Power.megawatts Power.inMegawatts
+            , fuzzFloatToQuantityAndBack "metricHorsepower" Power.metricHorsepower Power.inMetricHorsepower
+            , fuzzFloatToQuantityAndBack "mechanicalHorsepower" Power.mechanicalHorsepower Power.inMechanicalHorsepower
+            , fuzzFloatToQuantityAndBack "electricalHorsepower" Power.electricalHorsepower Power.inElectricalHorsepower
             ]
         , Test.describe "Pressure" <|
             [ fuzzFloatToQuantityAndBack "pascals" Pressure.pascals Pressure.inPascals
