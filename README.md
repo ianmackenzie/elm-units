@@ -45,7 +45,8 @@ Length.feet 10 |> Length.inMeters
 Speed.milesPerHour 60 |> Speed.inMetersPerSecond
 --> 26.8224
 
-Temperature.degreesCelsius 30 |> Temperature.inDegreesFahrenheit
+Temperature.degreesCelsius 30
+    |> Temperature.inDegreesFahrenheit
 --> 86
 ```
 
@@ -60,13 +61,28 @@ Duration.hours 2
   |> Duration.inSeconds
 --> 9000
 
-Quantity.sort [ Length.feet 1, Length.inches 1, Length.meters 1 ]
---> [ Length.inches 1, Length.feet 1, Length.meters 1  ]
+Quantity.sort
+    [ Length.feet 1
+    , Length.inches 1
+    , Length.meters 1
+    ]
+--> [ Length.inches 1
+--> , Length.feet 1
+--> , Length.meters 1
+--> ]
 
-Quantity.sort [ Duration.seconds 100, Duration.minutes 1, Duration.hours 0.1 ]
---> [ Duration.minutes 1, Duration.seconds 100, Duration.hours 0.1 ]
+Quantity.sort
+    [ Duration.seconds 100
+    , Duration.minutes 1
+    , Duration.hours 0.1
+    ]
+--> [ Duration.minutes 1
+--> , Duration.seconds 100
+--> , Duration.hours 0.1
+--> ]
 
--- How far do we go if we drive for 2 minutes at 15 meters per second?
+-- How far do we go if we drive for 2 minutes
+-- at 15 meters per second?
 Duration.minutes 2
   |> Quantity.at (Speed.metersPerSecond 15)
   |> Length.inKilometers
@@ -93,12 +109,15 @@ camera : Camera
 camera =
     { fieldOfView = Angle.degrees 60
     , shutterSpeed = Duration.milliseconds 2.5
-    , minimumOperatingTemperature = Temperature.degreesCelsius -25
+    , minimumOperatingTemperature =
+        Temperature.degreesCelsius -25
     }
 
 canOperateAt : Temperature -> Camera -> Bool
 canOperateAt temperature camera =
-    temperature |> Temperature.greaterThan camera.minimumOperatingTemperature
+    temperature
+        |> Temperature.greaterThan
+            camera.minimumOperatingTemperature
 
 camera |> canOperateAt (Temperature.degreesFahrenheit -20)
 --> False
@@ -180,14 +199,18 @@ You can do basic math with `Quantity` values:
 
 ```elm
 -- 6 feet 3 inches, converted to meters
-Length.feet 6 |> Quantity.plus (Length.inches 3) |> Length.inMeters
+Length.feet 6
+    |> Quantity.plus (Length.inches 3)
+    |> Length.inMeters
 --> 1.9050000000000002
 
 -- pi radians plus 45 degrees is 5/8 of a full turn
-Quantity.sum [ Angle.radians pi, Angle.degrees 45 ] |> Angle.inTurns
+Quantity.sum [ Angle.radians pi, Angle.degrees 45 ]
+    |> Angle.inTurns
 --> 0.625
 
--- Area of a triangle with base of 2 feet and height of 8 inches
+-- Area of a triangle with base of 2 feet and
+-- height of 8 inches
 Quantity.product (Length.feet 2) (Length.inches 8)
     |> Quantity.scaleBy 0.5
     |> Area.inSquareInches
@@ -203,26 +226,34 @@ Duration.seconds 10
     |> Length.inMeters
 --> 277.77777777777777
 
--- How long will it take to travel 20 km if we're driving at 60 mph?
+-- How long will it take to travel 20 km
+-- if we're driving at 60 mph?
 Length.kilometers 20
     |> Quantity.at_ (Speed.milesPerHour 60)
     |> Duration.inMinutes
 --> 12.427423844746679
 
 -- How fast is "a mile a minute", in kilometers per hour?
-Length.miles 1 |> Quantity.per (Duration.minutes 1) |> Speed.inKilometersPerHour
+Length.miles 1
+    |> Quantity.per (Duration.minutes 1)
+    |> Speed.inKilometersPerHour
 --> 96.56064
 
--- Reverse engineer the speed of light from defined lengths/durations
+-- Reverse engineer the speed of light
+-- from defined lengths/durations
 speedOfLight =
-    Length.lightYears 1 |> Quantity.per (Duration.julianYears 1)
+    Length.lightYears 1
+        |> Quantity.per (Duration.julianYears 1)
 
 speedOfLight |> Speed.inMetersPerSecond
 --> 299792458
 
--- One astronomical unit is the (average) distance from the Sun to the Earth
--- Roughly how long does it take light to reach the Earth from the Sun?
-Length.astronomicalUnits 1 |> Quantity.at_ speedOfLight |> Duration.inMinutes
+-- One astronomical unit is the (average) distance from the
+-- Sun to the Earth. Roughly how long does it take light to
+-- reach the Earth from the Sun?
+Length.astronomicalUnits 1
+    |> Quantity.at_ speedOfLight
+    |> Duration.inMinutes
 --> 8.316746397269274
 ```
 
@@ -233,7 +264,9 @@ unit time) - any units work:
 pixelsPerInch =
     Pixels.pixels 96 |> Quantity.per (Length.inches 1)
 
-Length.centimeters 3 |> Quantity.at pixelsPerInch |> Pixels.inPixels
+Length.centimeters 3
+    |> Quantity.at pixelsPerInch
+    |> Pixels.inPixels
 --> 113.38582677165354
 ```
 
