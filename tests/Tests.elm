@@ -1,5 +1,6 @@
 module Tests exposing
-    ( durations
+    ( conversionsToQuantityAndBack
+    , durations
     , lengths
     , powers
     , pressures
@@ -9,13 +10,18 @@ module Tests exposing
     )
 
 import Acceleration exposing (..)
+import Angle exposing (..)
+import Area exposing (..)
+import Charge exposing (..)
 import Current exposing (..)
 import Duration exposing (..)
+import Energy exposing (..)
 import Expect exposing (Expectation)
 import Force exposing (..)
 import Fuzz exposing (Fuzzer)
 import Length exposing (..)
 import Mass exposing (..)
+import Pixels exposing (..)
 import Power exposing (..)
 import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
@@ -44,6 +50,13 @@ equalityTest title unit ( Quantity x, Quantity y ) =
 equalPairs : String -> String -> List ( Quantity Float units, Quantity Float units ) -> Test
 equalPairs title unit pairs =
     Test.describe title (List.map (equalityTest title unit) pairs)
+
+
+fuzzFloatToQuantityAndBack : String -> (Float -> Quantity Float unit) -> (Quantity Float unit -> Float) -> Test
+fuzzFloatToQuantityAndBack testName toQuantity fromQuantity =
+    Test.fuzz (Fuzz.floatRange -10 10) testName <|
+        \randomFloat ->
+            Expect.within (Expect.Absolute 1.0e-12) randomFloat (randomFloat |> toQuantity |> fromQuantity)
 
 
 lengths : Test
@@ -169,4 +182,121 @@ temperatureDeltas =
                 ]
           , Temperature.fahrenheitDegrees 23
           )
+        ]
+
+
+conversionsToQuantityAndBack : Test
+conversionsToQuantityAndBack =
+    Test.describe "Conversion to Quantity and back is (almost) identity" <|
+        [ Test.describe "Acceleration" <|
+            [ fuzzFloatToQuantityAndBack "metersPerSecondSquared" Acceleration.metersPerSecondSquared Acceleration.inMetersPerSecondSquared
+            , fuzzFloatToQuantityAndBack "feetPerSecondSquared" Acceleration.feetPerSecondSquared Acceleration.inFeetPerSecondSquared
+            , fuzzFloatToQuantityAndBack "gees" Acceleration.gees Acceleration.inGees
+            ]
+        , Test.describe "Angle" <|
+            [ fuzzFloatToQuantityAndBack "radians" Angle.radians Angle.inRadians
+            , fuzzFloatToQuantityAndBack "degrees" Angle.degrees Angle.inDegrees
+            , fuzzFloatToQuantityAndBack "turns" Angle.turns Angle.inTurns
+            ]
+        , Test.describe "Area" <|
+            [ fuzzFloatToQuantityAndBack "squareMeters" Area.squareMeters Area.inSquareMeters
+            , fuzzFloatToQuantityAndBack "squareMillimeters" Area.squareMillimeters Area.inSquareMillimeters
+            , fuzzFloatToQuantityAndBack "squareInches" Area.squareInches Area.inSquareInches
+            , fuzzFloatToQuantityAndBack "squareCentimeters" Area.squareCentimeters Area.inSquareCentimeters
+            , fuzzFloatToQuantityAndBack "squareFeet" Area.squareFeet Area.inSquareFeet
+            , fuzzFloatToQuantityAndBack "squareYards" Area.squareYards Area.inSquareYards
+            , fuzzFloatToQuantityAndBack "hectares" Area.hectares Area.inHectares
+            , fuzzFloatToQuantityAndBack "squareKilometers" Area.squareKilometers Area.inSquareKilometers
+            , fuzzFloatToQuantityAndBack "acres" Area.acres Area.inAcres
+            , fuzzFloatToQuantityAndBack "squareMiles" Area.squareMiles Area.inSquareMiles
+            ]
+        , Test.describe "Charge" <|
+            [ fuzzFloatToQuantityAndBack "coulombs" Charge.coulombs Charge.inCoulombs
+            , fuzzFloatToQuantityAndBack "ampereHours" Charge.ampereHours Charge.inAmpereHours
+            , fuzzFloatToQuantityAndBack "milliampereHours" Charge.milliampereHours Charge.inMilliampereHours
+            ]
+        , Test.describe "Current" <|
+            [ fuzzFloatToQuantityAndBack "ampere" Current.amperes Current.inAmperes
+            , fuzzFloatToQuantityAndBack "milliampere" Current.milliamperes Current.inMilliamperes
+            ]
+        , Test.describe "Duration" <|
+            [ fuzzFloatToQuantityAndBack "seconds" Duration.seconds Duration.inSeconds
+            , fuzzFloatToQuantityAndBack "milliseconds" Duration.milliseconds Duration.inMilliseconds
+            , fuzzFloatToQuantityAndBack "minutes" Duration.minutes Duration.inMinutes
+            , fuzzFloatToQuantityAndBack "hours" Duration.hours Duration.inHours
+            , fuzzFloatToQuantityAndBack "days" Duration.days Duration.inDays
+            , fuzzFloatToQuantityAndBack "weeks" Duration.weeks Duration.inWeeks
+            , fuzzFloatToQuantityAndBack "julianYears" Duration.julianYears Duration.inJulianYears
+            ]
+        , Test.describe "Energy" <|
+            [ fuzzFloatToQuantityAndBack "joules" Energy.joules Energy.inJoules
+            , fuzzFloatToQuantityAndBack "kilojoules" Energy.kilojoules Energy.inKilojoules
+            , fuzzFloatToQuantityAndBack "megajoules" Energy.megajoules Energy.inMegajoules
+            , fuzzFloatToQuantityAndBack "kilowattHours" Energy.kilowattHours Energy.inKilowattHours
+            ]
+        , Test.describe "Force" <|
+            [ fuzzFloatToQuantityAndBack "newtons" Force.newtons Force.inNewtons
+            , fuzzFloatToQuantityAndBack "kilonewtons" Force.kilonewtons Force.inKilonewtons
+            , fuzzFloatToQuantityAndBack "meganewtons" Force.meganewtons Force.inMeganewtons
+            , fuzzFloatToQuantityAndBack "pounds" Force.pounds Force.inPounds
+            , fuzzFloatToQuantityAndBack "kips" Force.kips Force.inKips
+            ]
+        , Test.describe "Length" <|
+            [ fuzzFloatToQuantityAndBack "meters" Length.meters Length.inMeters
+            , fuzzFloatToQuantityAndBack "microns" Length.microns Length.inMicrons
+            , fuzzFloatToQuantityAndBack "millimeters" Length.millimeters Length.inMillimeters
+            , fuzzFloatToQuantityAndBack "thou" Length.thou Length.inThou
+            , fuzzFloatToQuantityAndBack "inches" Length.inches Length.inInches
+            , fuzzFloatToQuantityAndBack "centimeters" Length.centimeters Length.inCentimeters
+            , fuzzFloatToQuantityAndBack "feet" Length.feet Length.inFeet
+            , fuzzFloatToQuantityAndBack "yards" Length.yards Length.inYards
+            , fuzzFloatToQuantityAndBack "kilometers" Length.kilometers Length.inKilometers
+            , fuzzFloatToQuantityAndBack "miles" Length.miles Length.inMiles
+            , fuzzFloatToQuantityAndBack "astronomicalUnits" Length.astronomicalUnits Length.inAstronomicalUnits
+            , fuzzFloatToQuantityAndBack "parsecs" Length.parsecs Length.inParsecs
+            , fuzzFloatToQuantityAndBack "lightYears" Length.lightYears Length.inLightYears
+            ]
+        , Test.describe "Mass" <|
+            [ fuzzFloatToQuantityAndBack "kilograms" Mass.kilograms Mass.inKilograms
+            , fuzzFloatToQuantityAndBack "grams" Mass.grams Mass.inGrams
+            , fuzzFloatToQuantityAndBack "pounds" Mass.pounds Mass.inPounds
+            , fuzzFloatToQuantityAndBack "ounces" Mass.ounces Mass.inOunces
+            , fuzzFloatToQuantityAndBack "tonnes" Mass.tonnes Mass.inTonnes
+            , fuzzFloatToQuantityAndBack "shortTons" Mass.shortTons Mass.inShortTons
+            , fuzzFloatToQuantityAndBack "longTons" Mass.longTons Mass.inLongTons
+            ]
+        , Test.describe "Pixels" <|
+            [ fuzzFloatToQuantityAndBack "pixels" Pixels.pixels Pixels.inPixels
+            , fuzzFloatToQuantityAndBack "pixelsPerSecond" Pixels.pixelsPerSecond Pixels.inPixelsPerSecond
+            , fuzzFloatToQuantityAndBack "pixelsPerSecondSquared" Pixels.pixelsPerSecondSquared Pixels.inPixelsPerSecondSquared
+            , fuzzFloatToQuantityAndBack "squarePixels" Pixels.squarePixels Pixels.inSquarePixels
+            ]
+        , Test.describe "Power" <|
+            [ fuzzFloatToQuantityAndBack "watts" Power.watts Power.inWatts
+            , fuzzFloatToQuantityAndBack "kilowatts" Power.kilowatts Power.inKilowatts
+            , fuzzFloatToQuantityAndBack "megawatts" Power.megawatts Power.inMegawatts
+            ]
+        , Test.describe "Pressure" <|
+            [ fuzzFloatToQuantityAndBack "pascals" Pressure.pascals Pressure.inPascals
+            , fuzzFloatToQuantityAndBack "kilopascals" Pressure.kilopascals Pressure.inKilopascals
+            , fuzzFloatToQuantityAndBack "megapascals" Pressure.megapascals Pressure.inMegapascals
+            , fuzzFloatToQuantityAndBack "poundsPerSquareInch" Pressure.poundsPerSquareInch Pressure.inPoundsPerSquareInch
+            , fuzzFloatToQuantityAndBack "atmospheres" Pressure.atmospheres Pressure.inAtmospheres
+            ]
+        , Test.describe "Resistance" <|
+            [ fuzzFloatToQuantityAndBack "ohms" Resistance.ohms Resistance.inOhms
+            ]
+        , Test.describe "Speed" <|
+            [ fuzzFloatToQuantityAndBack "metersPerSecond" Speed.metersPerSecond Speed.inMetersPerSecond
+            , fuzzFloatToQuantityAndBack "feetPerSecond" Speed.feetPerSecond Speed.inFeetPerSecond
+            , fuzzFloatToQuantityAndBack "kilometersPerHour" Speed.kilometersPerHour Speed.inKilometersPerHour
+            , fuzzFloatToQuantityAndBack "milesPerHour" Speed.milesPerHour Speed.inMilesPerHour
+            ]
+        , Test.describe "Temperature" <|
+            [ fuzzFloatToQuantityAndBack "celsiusDegrees" Temperature.celsiusDegrees Temperature.inCelsiusDegrees
+            , fuzzFloatToQuantityAndBack "fahrenheitDegrees" Temperature.fahrenheitDegrees Temperature.inFahrenheitDegrees
+            ]
+        , Test.describe "Voltage" <|
+            [ fuzzFloatToQuantityAndBack "volts" Voltage.volts Voltage.inVolts
+            ]
         ]
