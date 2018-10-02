@@ -261,7 +261,7 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "grams" Mass.grams Mass.inGrams
             , fuzzFloatToQuantityAndBack "pounds" Mass.pounds Mass.inPounds
             , fuzzFloatToQuantityAndBack "ounces" Mass.ounces Mass.inOunces
-            , fuzzFloatToQuantityAndBack "tonnes" Mass.tonnes Mass.inTonnes
+            , fuzzFloatToQuantityAndBack "metricTons" Mass.metricTons Mass.inMetricTons
             , fuzzFloatToQuantityAndBack "shortTons" Mass.shortTons Mass.inShortTons
             , fuzzFloatToQuantityAndBack "longTons" Mass.longTons Mass.inLongTons
             ]
