@@ -1,7 +1,8 @@
 module Mass exposing
     ( Mass, Kilograms
     , kilograms, inKilograms, grams, inGrams, metricTons, inMetricTons
-    , pounds, inPounds, ounces, inOunces, shortTons, inShortTons, longTons, inLongTons
+    , pounds, inPounds, ounces, inOunces, longTons, inLongTons
+    , shortTons, inShortTons
     )
 
 {-| A `Mass` represents a mass in kilograms, pounds, metric or imperial tons
@@ -17,7 +18,12 @@ etc. It is stored as a number of kilograms.
 
 ## Imperial
 
-@docs pounds, inPounds, ounces, inOunces, shortTons, inShortTons, longTons, inLongTons
+@docs pounds, inPounds, ounces, inOunces, longTons, inLongTons
+
+
+## U.S. customary
+
+@docs shortTons, inShortTons
 
 -}
 
