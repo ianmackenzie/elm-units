@@ -403,7 +403,7 @@ package is published.
 
 ## Contributing
 
-Yes please! Likely the easiest way to contribute is to add a module for a new
+Yes please! One of the best ways to contribute is to add a module for a new
 quantity type; see [issue #6][7] for details. I'll add a proper CONTRIBUTING.md
 at some point, but some brief guidelines in the meantime:
 
