@@ -403,7 +403,16 @@ package is published.
 
 ## Contributing
 
-TODO
+Yes please! Likely the easiest way to contribute is to add a module for a new
+quantity type; see [issue #6][7] for details. I'll add a proper CONTRIBUTING.md
+at some point, but some brief guidelines in the meantime:
+
+  - Open a pull request by forking this repository, creating a new branch in
+    your fork, making all changes in that branch, then opening a pull request
+    from that branch.
+  - Format code with [`elm-format`][8] 0.8.0.
+  - Git commit messages should follow [the seven rules of a great Git commit
+    message], although I'm not strict about the 50 or 72 character rules.
 
 ## License
 
@@ -415,3 +424,5 @@ TODO
 [4]: https://discourse.elm-lang.org/
 [5]: https://www.reddit.com/r/elm/
 [6]: https://en.wikipedia.org/wiki/International_System_of_Units
+[7]: https://github.com/ianmackenzie/elm-units/issues/6
+[8]: https://github.com/avh4/elm-format
