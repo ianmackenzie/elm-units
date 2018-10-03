@@ -6,13 +6,8 @@ module Voltage exposing
 {-| A `Voltage` value represents a voltage (electric potential difference, if
 we're being picky) in volts.
 
-Note that since `Volts` is defined as `Rate Watts Amperes` (power
-per unit current), you can construct a `Voltage` value using `Quantity.per`:
-
-    voltage =
-        power |> Quantity.per current
-
-You can also do rate-related calculations with `Voltage` values to compute
+Note that since `Volts` is defined as `Rate Watts Amperes` (power per unit
+current), you can do rate-related calculations with `Voltage` values to compute
 `Power` or `Current`:
 
     -- elm-units version of 'P = V * I'
@@ -30,7 +25,7 @@ Just for fun, note that since you can also [express `Voltage` in terms of
 above as
 
     -- P = I^2 * R
-    alsoPower =
+    power =
         current
             |> Quantity.at
                 (current
