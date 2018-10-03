@@ -103,9 +103,9 @@ type Quantity number units
 {-| Represents a units type that is the square of some other units type; for
 example, `Meters` is one units type (the units type of a `Length`) and `Squared
 Meters` is another (the units type of an `Area`). This is useful because some
-functions in this module (specifically [`product`](Quantity#product),
-[`squared`](Quantity#squared), and [`sqrt`](Quantity#sqrt)) "know" about the
-`Squared` type and how to work with it.
+functions in this module (specifically [`product`](#product),
+[`squared`](#squared), and [`sqrt`](#sqrt)) "know" about the `Squared` type and
+how to work with it.
 -}
 type Squared units
     = Squared units
@@ -114,8 +114,7 @@ type Squared units
 {-| Represents the units type of a rate or quotient such as a speed (`Rate
 Meters Seconds`) or a pressure (`Rate Newtons SquareMeters`). As with `Squared`,
 there are several functions that "know" about the `Rate` units type and how to
-work with it - see [Working with rates](Quantity#working-with-rates) for
-details.
+work with it - see [Working with rates](#working-with-rates) for details.
 -}
 type Rate dependentUnits independentUnits
     = Rate dependentUnits independentUnits
@@ -359,10 +358,11 @@ minus (Quantity y) (Quantity x) =
 {-| Multiply two quantities with the same `units` together, resulting in a
 quantity in `Squared units`.
 
-This works for any units type (which is useful when used with [`sqrt`](Quantity#sqrt)!)
-but one special case is worth pointing out. The units type of an [`Area`](Area#Area)
-is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
-the product of two `Length`s does in fact give you an `Area`:
+This works for any units type (which is useful when used with [`sqrt`](#sqrt)!)
+but one special case is worth pointing out. The units type of an
+[`Area`](Area#Area) is `SquareMeters`, which is a type alias for `Squared
+Meters`. This means that the product of two `Length`s does in fact give you an
+`Area`:
 
     Quantity.product
         (Length.meters 2)
@@ -462,8 +462,8 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity.squared (Length.meters 5)
     --> Area.squareMeters 25
 
-(See the documentation of [`product`](Quantity#product) for an explanation of
-why a squared `Length` does in fact give you an `Area`.)
+(See the documentation of [`product`](#product) for an explanation of why a
+squared `Length` does in fact give you an `Area`.)
 
 -}
 squared : Quantity number units -> Quantity number (Squared units)
