@@ -4,10 +4,9 @@ module Quantity exposing
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
-    , round, floor, ceiling, truncate
+    , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort
     , per, times, at, at_, inverse
-    , map
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -39,7 +38,7 @@ composite units in a fairly flexible way.
 @docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
 
 
-# Rounding
+# `Int`/`Float` conversion
 
 These functions only really make sense for quantities in units like pixels,
 cents or game tiles where an `Int` number of units is meaningful. For quantities
@@ -47,7 +46,7 @@ like `Length` or `Duration`, it doesn't really make sense to round to an `Int`
 value since the underyling base unit is pretty arbitrary - should `round`ing a
 `Duration` give you an `Int` number of seconds, milliseconds, or something else?
 
-@docs round, floor, ceiling, truncate
+@docs round, floor, ceiling, truncate, toFloatQuantity
 
 
 # List functions
@@ -63,11 +62,6 @@ comparable types like `Int`, `Float`, `String` and tuples.
 # Working with rates
 
 @docs per, times, at, at_, inverse
-
-
-# Mapping
-
-@docs map
 
 
 # Unitless quantities
@@ -512,7 +506,7 @@ sqrt (Quantity value) =
 
 
 
----------- ROUNDING ----------
+---------- INT/FLOAT CONVERSIONS ----------
 
 
 {-| Round a `Float`-valued quantity to the nearest `Int`.
@@ -563,6 +557,15 @@ ceiling (Quantity value) =
 truncate : Quantity Float units -> Quantity Int units
 truncate (Quantity value) =
     Quantity (Basics.truncate value)
+
+
+{-| Convert a `Quantity Int units` to a `Quantity Float units` with the same
+value. Useful when you have an `Int`-valued quantity and want to divide it by
+something, multiply it by a fractional value etc.
+-}
+toFloatQuantity : Quantity Int units -> Quantity Float units
+toFloatQuantity (Quantity value) =
+    Quantity (Basics.toFloat value)
 
 
 
@@ -793,19 +796,6 @@ inverse (Quantity rate) =
 
 
 
----------- MAPPING ----------
-
-
-{-| Transform a quantity by applying a function to the underlying value. This is
-primarily useful to convert an `Int`-valued quantity into a `Float`-valued one,
-using `Quantity.map toFloat`.
--}
-map : (number1 -> number2) -> Quantity number1 units -> Quantity number2 units
-map function (Quantity value) =
-    Quantity (function value)
-
-
-
 ---------- UNITLESS QUANTITIES ----------
 
 
@@ -839,6 +829,10 @@ float value =
 
 
 {-| Convert a `Quantity Float Unitless` value into a plain `Float`.
+
+If you're looking for a function to convert a `Quantity Int units` to `Quantity
+Float units`, check out [`toFloatQuantity`](#toFloatQuantity).
+
 -}
 toFloat : Quantity Float Unitless -> Float
 toFloat (Quantity value) =
