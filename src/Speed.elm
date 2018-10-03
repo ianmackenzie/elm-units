@@ -7,7 +7,7 @@ module Speed exposing
 {-| A `Speed` value represents a speed in meters per second, miles per hour etc.
 It is stored as a number of meters per second.
 
-Note that since `MetersPerSecond` is defined as `Rate Meters Second` (length
+Note that since `MetersPerSecond` is defined as `Rate Meters Seconds` (length
 per unit time), you can construct a `Speed` value using `Quantity.per`:
 
     speed =
