@@ -72,12 +72,12 @@ comparable types like `Int`, `Float`, `String` and tuples.
 
 # Unitless quantities
 
-It is sometimes be useful to be able to represent _unitless_ quantities,
-especially when working with generic code (in most other cases, it is likely
-simpler and easier to just use `Int` or `Float` values directly). All the
-conversions in this section simply wrap or unwrap a `Float` or `Int` value into
-a `Quantity` value, and so should get compiled away entirely when using `elm
-make --optimize`.
+It is sometimes useful to be able to represent _unitless_ quantities, especially
+when working with generic code (in most other cases, it is likely simpler and
+easier to just use `Int` or `Float` values directly). All the conversions in
+this section simply wrap or unwrap a `Float` or `Int` value into a `Quantity`
+value, and so should get compiled away entirely when using `elm make
+--optimize`.
 
 @docs Unitless, int, toInt, float, toFloat
 
