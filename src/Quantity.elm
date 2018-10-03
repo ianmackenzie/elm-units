@@ -455,7 +455,11 @@ bounds. Say you wanted to clamp an angle to be between +/-30 degrees:
 -}
 clamp : Quantity number units -> Quantity number units -> Quantity number units -> Quantity number units
 clamp (Quantity lower) (Quantity upper) (Quantity value) =
-    Quantity (Basics.clamp lower upper value)
+    if lower <= upper then
+        Quantity (Basics.clamp lower upper value)
+
+    else
+        Quantity (Basics.clamp upper lower value)
 
 
 {-| Square a quantity with some `units`, resulting in a new quantity in
