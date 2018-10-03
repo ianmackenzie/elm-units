@@ -524,6 +524,9 @@ round (Quantity value) =
 
 {-| Round a `Float`-valued quantity down to the nearest `Int`.
 
+    Quantity.floor (Pixels.pixels 2.9)
+    --> Pixels.pixels 2
+
     Quantity.floor (Pixels.pixels -2.1)
     --> Pixels.pixels -3
 
@@ -537,6 +540,9 @@ floor (Quantity value) =
 
     Quantity.ceiling (Pixels.pixels 1.2)
     --> Pixels.pixels 2
+
+    Quantity.ceiling (Pixels.pixels -2.1)
+    --> Pixels.pixels -2
 
 -}
 ceiling : Quantity Float units -> Quantity Int units
