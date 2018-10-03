@@ -37,6 +37,9 @@ You can also do rate-related calculations with `Power` values to compute
 
 ## Horsepower
 
+Who knew that there were not one, not two, but _three_ possible interpretations
+of "one horsepower"?
+
 @docs metricHorsepower, inMetricHorsepower, mechanicalHorsepower, inMechanicalHorsepower, electricalHorsepower, inElectricalHorsepower
 
 -}
