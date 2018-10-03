@@ -34,7 +34,7 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 -}
 
 import Length exposing (Meters)
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Cubed)
 
 
 {-| -}
