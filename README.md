@@ -412,7 +412,7 @@ at some point, but some brief guidelines in the meantime:
     from that branch.
   - Format code with [`elm-format`][8] 0.8.0.
   - Git commit messages should follow [the seven rules of a great Git commit
-    message], although I'm not strict about the 50 or 72 character rules.
+    message][9], although I'm not strict about the 50 or 72 character rules.
 
 ## License
 
@@ -426,3 +426,4 @@ at some point, but some brief guidelines in the meantime:
 [6]: https://en.wikipedia.org/wiki/International_System_of_Units
 [7]: https://github.com/ianmackenzie/elm-units/issues/6
 [8]: https://github.com/avh4/elm-format
+[9]: https://chris.beams.io/posts/git-commit/#seven-rules
