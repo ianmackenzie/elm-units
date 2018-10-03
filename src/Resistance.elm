@@ -5,6 +5,24 @@ module Resistance exposing
 
 {-| A `Resistance` value represents an electrical resistance in ohms.
 
+Note that since `Ohms` is defined as `Rate Volts Amperes` (voltage per unit
+current), you can construct a `Resistance` value using `Quantity.per`:
+
+    resistance =
+        voltage |> Quantity.per current
+
+You can also do rate-related calculations with `Resistance` values to compute
+`Voltage` or `Current`:
+
+    voltage =
+        resistance |> Quantity.times current
+
+    alsoVoltage =
+        current |> Quantity.at resistance
+
+    current =
+        voltage |> Quantity.at_ resistance
+
 @docs Resistance, Ohms
 
 @docs ohms, inOhms
