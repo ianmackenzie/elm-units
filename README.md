@@ -1,7 +1,5 @@
 # elm-units
 
-*Note*: This package has not yet been published!
-
 `elm-units` is useful if you want to store, pass around, convert between,
 compare, or do arithmetic on:
 
@@ -140,11 +138,14 @@ the final result in whatever units you want.
 
 ## Installation
 
-Once this package is published, you will be able to install it with
+Assuming you have [installed Elm](https://guide.elm-lang.org/install.html) and
+started a new project, you can install `elm-units` by running
 
 ```
 elm install ianmackenzie/elm-units
 ```
+
+in a command prompt inside your project directory.
 
 ## Usage
 
@@ -400,8 +401,7 @@ or posting on the [Elm Discourse forums][4] or the [Elm subreddit][5]. I'm
 
 ## API
 
-Full API documentation will be available on the Elm package web site once this
-package is published.
+[Full API documentation][10] is available.
 
 ## Contributing
 
@@ -429,3 +429,4 @@ at some point, but some brief guidelines in the meantime:
 [7]: https://github.com/ianmackenzie/elm-units/issues/6
 [8]: https://github.com/avh4/elm-format
 [9]: https://chris.beams.io/posts/git-commit/#seven-rules
+[10]: https://package.elm-lang.org/packages/ianmackenzie/elm-units/1.0.0/
