@@ -47,7 +47,7 @@ Angle.degrees : Float -> Angle
 Temperature.degreesFahrenheit : Float -> Temperature
 ```
 
-You can later convert _back_ to plain numeric values, also in any units you want
+You can later convert back to plain numeric values, also in any units you want
 (which do not have to be the same units used when initially constructing the
 value!):
 
