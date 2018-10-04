@@ -530,7 +530,10 @@ quantity in plain `units.
 -}
 cbrt : Quantity Float (Cubed units) -> Quantity Float units
 cbrt (Quantity value) =
-    Quantity (value ^ (1 /3))
+    if value >=0 then
+        Quantity (value ^ (1 /3))
+    else
+        Quantity -((-value) ^ (1 /3))
 
 
 ---------- ROUNDING ----------

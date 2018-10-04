@@ -1,9 +1,8 @@
 module Volume exposing
     ( Volume, CubicMeters
     , cubicMeters, inCubicMeters
-    , cubicMillimeters, inCubicMillimeters, cubicCentimeters, inCubicCentimeters
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
-    --, milliliter, liter, deciliter
+    , milliliters, inMilliliters, liters, inLiters, deciliters, inDeciliters
     --, usLiquidGallons, usDryGallons, imperialGallons
     --, usLiquidQuarts, usDryQuarts, imperialQuarts
     --, usLiquidPints, usDryPints, imperialPints
@@ -19,8 +18,7 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 ## Metric
 
 @docs cubicMeters, inCubicMeters
-@docs cubicMillimeters, inCubicMillimeters, cubicCentimeters, inCubicCentimeters
-@docs --@docs milliliters, inMilliliters, liters, etc
+@docs milliliters, inMilliliters, liters, inLiters, deciliters, inDeciliters
 
 
 ## Imperial
@@ -61,20 +59,6 @@ inCubicMeters (Quantity numCubicMeters) =
     numCubicMeters
 
 
-{-| Construct a volume from a number of cubic millimeters.
--}
-cubicMillimeters : Float -> Volume
-cubicMillimeters numCubicMillimeters =
-    cubicMeters (1.0e-9 * numCubicMillimeters)
-
-
-{-| Convert a volume to a number of cubic millimeters.
--}
-inCubicMillimeters : Volume -> Float
-inCubicMillimeters volume =
-    1.0e9 * inCubicMeters volume
-
-
 {-| Construct a volume from a number of cubic inches.
 -}
 cubicInches : Float -> Volume
@@ -87,20 +71,6 @@ cubicInches numCubicInches =
 inCubicInches : Volume -> Float
 inCubicInches volume =
     inCubicMeters volume / (0.0254 * 0.0254 * 0.0254)
-
-
-{-| Construct a volume from a number of cubic centimeters.
--}
-cubicCentimeters : Float -> Volume
-cubicCentimeters numCubicCentimeters =
-    cubicMeters (1.0e-6 * numCubicCentimeters)
-
-
-{-| Convert a volume to a number of cubic centimeters.
--}
-inCubicCentimeters : Volume -> Float
-inCubicCentimeters volume =
-    1.0e6 * inCubicMeters volume
 
 
 {-| Construct a volume from a number of cubic feet.
@@ -129,3 +99,20 @@ cubicYards numCubicYards =
 inCubicYards : Volume -> Float
 inCubicYards volume =
     inCubicMeters volume / (0.9144 * 0.9144 * 0.9144)
+
+
+{-| Construct a volume from a number of milliliters.
+-}
+milliliters : Float -> Volume
+milliliters numMilititers =
+    cubicMeters (1.0e-6 * numMilliliters)
+
+
+{-| Convert a volume to a number of milliliters.
+-}
+inMilliliters : Volume -> Float
+inMilliliters volume =
+    1.0e6 * inMilliliters volume
+
+
+
