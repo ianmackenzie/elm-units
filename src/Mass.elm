@@ -1,7 +1,8 @@
 module Mass exposing
     ( Mass, Kilograms
     , kilograms, inKilograms, grams, inGrams, metricTons, inMetricTons
-    , pounds, inPounds, ounces, inOunces, shortTons, inShortTons, longTons, inLongTons
+    , pounds, inPounds, ounces, inOunces, longTons, inLongTons
+    , shortTons, inShortTons
     )
 
 {-| A `Mass` represents a mass in kilograms, pounds, metric or imperial tons
@@ -17,7 +18,12 @@ etc. It is stored as a number of kilograms.
 
 ## Imperial
 
-@docs pounds, inPounds, ounces, inOunces, shortTons, inShortTons, longTons, inLongTons
+@docs pounds, inPounds, ounces, inOunces, longTons, inLongTons
+
+
+## U.S. customary
+
+@docs shortTons, inShortTons
 
 -}
 
@@ -94,10 +100,12 @@ inOunces mass =
     16 * inPounds mass
 
 
-{-| Construct a mass from a number of metric tons.
+{-| Construct a mass from a number of [metric tons][1].
 
     Mass.metricTons 1
     --> Mass.kilograms 1000
+
+[1]: https://en.wikipedia.org/wiki/Tonne
 
 -}
 metricTons : Float -> Mass
@@ -112,11 +120,13 @@ inMetricTons mass =
     0.001 * inKilograms mass
 
 
-{-| Construct a mass from a number of short tons. This is the 'ton' commonly
-used in the United States.
+{-| Construct a mass from a number of [short tons][1]. This is the 'ton'
+commonly used in the United States.
 
     Mass.shortTons 1
     --> Mass.pounds 2000
+
+[1]: https://en.wikipedia.org/wiki/Short_ton
 
 -}
 shortTons : Float -> Mass
@@ -131,11 +141,13 @@ inShortTons mass =
     inPounds mass / 2000
 
 
-{-| Construct a mass from a number of long tons. This is the 'ton' commonly
+{-| Construct a mass from a number of [long tons][1]. This is the 'ton' commonly
 used in the United Kingdom and British Commonwealth.
 
     Mass.longTons 1
     --> Mass.pounds 2240
+
+[1]: https://en.wikipedia.org/wiki/Long_ton
 
 -}
 longTons : Float -> Mass

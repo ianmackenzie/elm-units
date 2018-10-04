@@ -5,6 +5,24 @@ module Current exposing
 
 {-| A `Current` value represents an electrical current in amperes.
 
+Note that since `Amperes` is defined as `Rate Coulombs Seconds` (charge
+per unit time), you can construct a `Current` value using `Quantity.per`:
+
+    current =
+        charge |> Quantity.per duration
+
+You can also do rate-related calculations with `Current` values to compute
+`Charge` or `Duration`:
+
+    charge =
+        current |> Quantity.times duration
+
+    alsoCharge =
+        duration |> Quantity.at current
+
+    duration =
+        charge |> Quantity.at_ current
+
 @docs Current, Amperes
 
 @docs amperes, inAmperes, milliamperes, inMilliamperes

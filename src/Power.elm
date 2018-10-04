@@ -37,6 +37,10 @@ You can also do rate-related calculations with `Power` values to compute
 
 ## Horsepower
 
+Who knew that there were not one, not two, but _three_ possible interpretations
+of "one horsepower"? (Actually there are more than that, but these three
+seemed the most reasonable.)
+
 @docs metricHorsepower, inMetricHorsepower, mechanicalHorsepower, inMechanicalHorsepower, electricalHorsepower, inElectricalHorsepower
 
 -}
@@ -100,6 +104,9 @@ inMegawatts power =
 
 {-| Construct a `Power` value from an number of [metric horsepower][1].
 
+    Power.metricHorsepower 1
+    --> Power.watts 735.49875
+
 [1]: https://en.wikipedia.org/wiki/Horsepower#Metric_horsepower
 
 -}
@@ -117,6 +124,9 @@ inMetricHorsepower power =
 
 {-| Construct a `Power` value from an number of [mechanical horsepower][1].
 
+    Power.mechanicalHorsepower 1
+    --> Power.watts 745.6998715822702
+
 [1]: https://en.wikipedia.org/wiki/Horsepower#Mechanical_horsepower
 
 -}
@@ -133,6 +143,9 @@ inMechanicalHorsepower power =
 
 
 {-| Construct a `Power` value from an number of [electrical horsepower][1].
+
+    Power.electricalHorsepower 1
+    --> Power.watts 746
 
 [1]: https://en.wikipedia.org/wiki/Horsepower#Electrical_horsepower
 

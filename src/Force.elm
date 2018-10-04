@@ -7,6 +7,13 @@ module Force exposing
 {-| A `Force` value represents a force in newtons, pounds force etc. It is
 stored as a number of newtons.
 
+Note that since `Newtons` is defined as `Rate Joules Meters` (energy/work per
+unit length), you can do things like compute work as a product of force and
+distance:
+
+    work =
+        force |> Quantity.times length
+
 @docs Force, Newtons
 
 

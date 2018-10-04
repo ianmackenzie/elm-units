@@ -7,6 +7,25 @@ module Acceleration exposing
 feet per second squared or [gees][1]. It is stored as a number of meters per
 second squared.
 
+Note that since `MetersPerSecondSquared` is defined as `Rate MetersPerSecond
+Seconds` (change in speed per unit time), you can construct an `Acceleration`
+value using `Quantity.per`:
+
+    acceleration =
+        changeInSpeed |> Quantity.per duration
+
+You can also do rate-related calculations with `Acceleration` values to compute
+`Speed` or `Duration`:
+
+    changeInSpeed =
+        acceleration |> Quantity.times duration
+
+    alsoChangeInSpeed =
+        duration |> Quantity.at acceleration
+
+    duration =
+        changeInSpeed |> Quantity.at_ acceleration
+
 [1]: https://en.wikipedia.org/wiki/G-force#Unit_and_measurement
 
 @docs Acceleration, MetersPerSecondSquared
