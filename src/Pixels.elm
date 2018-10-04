@@ -11,10 +11,10 @@ it's very useful to be able to safely convert back and forth between (for
 example) [`Length`](Length) values in the real world and on-screen lengths in
 pixels. This module provides a standard `Pixels` units type and basic functions
 for constructing/converting values of type `Quantity number Pixels`, which
-allows you to do things like represent conversions between real-world and on-
-screen lengths as [rates of change][1]. This in turn means that all the normal
-`Quantity` functions can be used to convert between pixels and other units, or
-even do type-safe math directly on pixel values.
+allows you to do things like represent conversions between real-world and
+on-screen lengths as [rates of change][1]. This in turn means that all the
+normal `Quantity` functions can be used to convert between pixels and other
+units, or even do type-safe math directly on pixel values.
 
 [1]: Quantity#working-with-rates
 

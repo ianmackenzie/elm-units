@@ -4,10 +4,9 @@ module Quantity exposing
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
-    , round, floor, ceiling, truncate
+    , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort
     , per, times, at, at_, inverse
-    , map
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -39,7 +38,7 @@ composite units in a fairly flexible way.
 @docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
 
 
-# Rounding
+# `Int`/`Float` conversion
 
 These functions only really make sense for quantities in units like pixels,
 cents or game tiles where an `Int` number of units is meaningful. For quantities
@@ -47,7 +46,7 @@ like `Length` or `Duration`, it doesn't really make sense to round to an `Int`
 value since the underyling base unit is pretty arbitrary - should `round`ing a
 `Duration` give you an `Int` number of seconds, milliseconds, or something else?
 
-@docs round, floor, ceiling, truncate
+@docs round, floor, ceiling, truncate, toFloatQuantity
 
 
 # List functions
@@ -65,19 +64,14 @@ comparable types like `Int`, `Float`, `String` and tuples.
 @docs per, times, at, at_, inverse
 
 
-# Mapping
-
-@docs map
-
-
 # Unitless quantities
 
-It is sometimes be useful to be able to represent _unitless_ quantities,
-especially when working with generic code (in most other cases, it is likely
-simpler and easier to just use `Int` or `Float` values directly). All the
-conversions in this section simply wrap or unwrap a `Float` or `Int` value into
-a `Quantity` value, and so should get compiled away entirely when using `elm
-make --optimize`.
+It is sometimes useful to be able to represent _unitless_ quantities, especially
+when working with generic code (in most other cases, it is likely simpler and
+easier to just use `Int` or `Float` values directly). All the conversions in
+this section simply wrap or unwrap a `Float` or `Int` value into a `Quantity`
+value, and so should get compiled away entirely when using `elm make
+--optimize`.
 
 @docs Unitless, int, toInt, float, toFloat
 
@@ -109,9 +103,9 @@ type Quantity number units
 {-| Represents a units type that is the square of some other units type; for
 example, `Meters` is one units type (the units type of a `Length`) and `Squared
 Meters` is another (the units type of an `Area`). This is useful because some
-functions in this module (specifically [`product`](Quantity#product),
-[`squared`](Quantity#squared), and [`sqrt`](Quantity#sqrt)) "know" about the
-`Squared` type and how to work with it.
+functions in this module (specifically [`product`](#product),
+[`squared`](#squared), and [`sqrt`](#sqrt)) "know" about the `Squared` type and
+how to work with it.
 -}
 type Squared units
     = Squared units
@@ -128,10 +122,10 @@ type Cubed units
     = Cubed units
 
 
-{-| Represents a rate or quotient such as a speed (`Rate Meters Seconds`) or a
-pressure (`Rate Newtons SquareMeters`). As with `Squared`, there are several
-functions that "know" about the `Rate` type and how to work with it - see
-[Working with rates](Quantity#working-with-rates) for details.
+{-| Represents the units type of a rate or quotient such as a speed (`Rate
+Meters Seconds`) or a pressure (`Rate Newtons SquareMeters`). As with `Squared`,
+there are several functions that "know" about the `Rate` units type and how to
+work with it - see [Working with rates](#working-with-rates) for details.
 -}
 type Rate dependentUnits independentUnits
     = Rate dependentUnits independentUnits
@@ -375,8 +369,8 @@ minus (Quantity y) (Quantity x) =
 {-| Multiply two quantities with the same `units` together, resulting in a
 quantity in `Squared units`.
 
-This works for any units type (which is useful when used with [`sqrt`](Quantity#sqrt)!)
-but one special case is worth pointing out. The units type of an [`Area`](Area#Area)
+This works for any units type (which is useful when used with [`sqrt`](#sqrt)!)
+but one special case is worth pointing out. The units type of an [`Area`](Area)
 is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
 the product of two `Length`s does in fact give you an `Area`:
 
@@ -465,7 +459,11 @@ bounds. Say you wanted to clamp an angle to be between +/-30 degrees:
 -}
 clamp : Quantity number units -> Quantity number units -> Quantity number units -> Quantity number units
 clamp (Quantity lower) (Quantity upper) (Quantity value) =
-    Quantity (Basics.clamp lower upper value)
+    if lower <= upper then
+        Quantity (Basics.clamp lower upper value)
+
+    else
+        Quantity (Basics.clamp upper lower value)
 
 
 {-| Square a quantity with some `units`, resulting in a new quantity in
@@ -474,8 +472,8 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity.squared (Length.meters 5)
     --> Area.squareMeters 25
 
-(See the documentation of [`product`](Quantity#product) for an explanation of
-why a squared `Length` does in fact give you an `Area`.)
+(See the documentation of [`product`](#product) for an explanation of why a
+squared `Length` does in fact give you an `Area`.)
 
 -}
 squared : Quantity number units -> Quantity number (Squared units)
@@ -536,7 +534,7 @@ cbrt (Quantity value) =
         Quantity -((-value) ^ (1 /3))
 
 
----------- ROUNDING ----------
+---------- INT/FLOAT CONVERSIONS ----------
 
 
 {-| Round a `Float`-valued quantity to the nearest `Int`.
@@ -552,6 +550,9 @@ round (Quantity value) =
 
 {-| Round a `Float`-valued quantity down to the nearest `Int`.
 
+    Quantity.floor (Pixels.pixels 2.9)
+    --> Pixels.pixels 2
+
     Quantity.floor (Pixels.pixels -2.1)
     --> Pixels.pixels -3
 
@@ -565,6 +566,9 @@ floor (Quantity value) =
 
     Quantity.ceiling (Pixels.pixels 1.2)
     --> Pixels.pixels 2
+
+    Quantity.ceiling (Pixels.pixels -2.1)
+    --> Pixels.pixels -2
 
 -}
 ceiling : Quantity Float units -> Quantity Int units
@@ -581,6 +585,15 @@ ceiling (Quantity value) =
 truncate : Quantity Float units -> Quantity Int units
 truncate (Quantity value) =
     Quantity (Basics.truncate value)
+
+
+{-| Convert a `Quantity Int units` to a `Quantity Float units` with the same
+value. Useful when you have an `Int`-valued quantity and want to divide it by
+something, multiply it by a fractional value etc.
+-}
+toFloatQuantity : Quantity Int units -> Quantity Float units
+toFloatQuantity (Quantity value) =
+    Quantity (Basics.toFloat value)
 
 
 
@@ -811,19 +824,6 @@ inverse (Quantity rate) =
 
 
 
----------- MAPPING ----------
-
-
-{-| Transform a quantity by applying a function to the underlying value. This is
-primarily useful to convert an `Int`-valued quantity into a `Float`-valued one,
-using `Quantity.map toFloat`.
--}
-map : (number1 -> number2) -> Quantity number1 units -> Quantity number2 units
-map function (Quantity value) =
-    Quantity (function value)
-
-
-
 ---------- UNITLESS QUANTITIES ----------
 
 
@@ -857,6 +857,10 @@ float value =
 
 
 {-| Convert a `Quantity Float Unitless` value into a plain `Float`.
+
+If you're looking for a function to convert a `Quantity Int units` to `Quantity
+Float units`, check out [`toFloatQuantity`](#toFloatQuantity).
+
 -}
 toFloat : Quantity Float Unitless -> Float
 toFloat (Quantity value) =

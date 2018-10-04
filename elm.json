@@ -17,8 +17,10 @@
         "Mass",
         "Pixels",
         "Power",
+        "Pressure",
         "Quantity",
         "Resistance",
+        "Speed",
         "Temperature",
         "Voltage"
     ],

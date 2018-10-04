@@ -16,24 +16,51 @@ compare, or do arithmetic on:
   - Or even values in your own custom units, such as 'number of tiles' in a
     tile-based game
 
-It is aimed especially at engineering/scientific/technical appliations but is
+It is aimed especially at engineering/scientific/technical applications but is
 designed to be generic enough to work well for other fields such as games and
 finance. The core of the package consists of types like `Length`, `Duration`,
-`Temperature`, `Speed` and `Pixels`, and functions like
+`Temperature`, `Speed` and `Pixels`, which you can use to add some nice type
+safety to data types and function signatures:
 
 ```elm
-Length.meters : Float -> Length
-Length.feet : Float -> Length
-Duration.seconds : Float -> Duration
-Duration.milliseconds : Float -> Duration
+type alias Camera =
+    { fieldOfView : Angle
+    , shutterSpeed : Duration
+    , minimumOperatingTemperature : Temperature
+    }
 
-Length.inMeters : Length -> Float
-Length.inFeet : Length -> Float
-Duration.inSeconds : Duration -> Float
-Duration.inMilliseconds : Duration -> Float
+canOperateAt : Temperature -> Camera -> Bool
+canOperateAt temperature camera =
+    temperature
+        |> Temperature.greaterThan
+            camera.minimumOperatingTemperature
 ```
 
-You can use these functions to do simple unit conversions:
+You can construct values of these types from any units you want, using provided
+functions such as:
+
+```elm
+Length.feet : Float -> Length
+Length.meters :  Float -> Length
+Duration.seconds : Float -> Duration
+Angle.degrees : Float -> Angle
+Temperature.degreesFahrenheit : Float -> Temperature
+```
+
+You can later convert _back_ to plain numeric values, also in any units you want
+(which do not have to be the same units used when initially constructing the
+value!):
+
+```elm
+Length.inCentimeters : Length -> Float
+Length.inMiles : Length -> Float
+Duration.inHours : Duration -> Float
+Angle.inRadians : Angle -> Float
+Temperature.inDegreesCelsius : Temperature -> Float
+```
+
+This means that (among other things!) you can use these functions to do simple
+unit conversions:
 
 ```elm
 Duration.hours 3 |> Duration.inSeconds
@@ -51,83 +78,50 @@ Temperature.degreesCelsius 30
 ```
 
 Additionally, types like `Length` are actually of type `Quantity number units`
-(`Length` is `Quantity Float Meters`, for example), and there are several
-generic functions which let you work directly with any kind of `Quantity`
-values:
+(`Length` is `Quantity Float Meters`, for example, meaning that it is internally
+stored as a number of meters), and there are several generic functions which let
+you work directly with any kind of `Quantity` values:
 
 ```elm
+Length.feet 3
+    |> Quantity.lessThan (Length.meters 1)
+--> True
+
 Duration.hours 2
   |> Quantity.plus (Duration.minutes 30)
   |> Duration.inSeconds
 --> 9000
 
-Quantity.sort
-    [ Length.feet 1
-    , Length.inches 1
-    , Length.meters 1
-    ]
---> [ Length.inches 1
---> , Length.feet 1
---> , Length.meters 1
---> ]
+-- Some functions can actually convert between units!
+Quantity.product
+    (Length.centimeters 60)
+    (Length.centimeters 80)
+--> Area.squareMeters 0.48
 
 Quantity.sort
-    [ Duration.seconds 100
-    , Duration.minutes 1
-    , Duration.hours 0.1
+    [ Angle.radians 1
+    , Angle.degrees 10
+    , Angle.turns 0.5
     ]
---> [ Duration.minutes 1
---> , Duration.seconds 100
---> , Duration.hours 0.1
---> ]
-
--- How far do we go if we drive for 2 minutes
--- at 15 meters per second?
-Duration.minutes 2
-  |> Quantity.at (Speed.metersPerSecond 15)
-  |> Length.inKilometers
---> 1.8
+--> [ Angle.degrees 10 , Angle.radians 1 , Angle.turns 0.5 ]
 ```
 
-Perhaps most importantly, values like `Length`s and `Duration`s work very well
-as as record fields or function arguments, since they help ensure that the math
-will always work out correctly even if different parts of a codebase work in
-different units:
+Ultimately, what this does is let you pass around and manipulate `Length`,
+`Duration` or `Temperature` etc. values without having to worry about units.
+When you initially construct a `Length`, you need to specify what units you're
+using, but once that is done you can:
 
-```elm
-import Angle exposing (Angle)
-import Duration exposing (Duration)
-import Temperature exposing (Temperature)
+  - Store the length inside a data structure
+  - Pass it around between different functions
+  - Compare it to other lengths
+  - Add and subtract it to other lengths
+  - Multiply it by another length to get an area, or divide by a duration to
+    get a speed
 
-type alias Camera =
-    { fieldOfView : Angle
-    , shutterSpeed : Duration
-    , minimumOperatingTemperature : Temperature
-    }
-
-camera : Camera
-camera =
-    { fieldOfView = Angle.degrees 60
-    , shutterSpeed = Duration.milliseconds 2.5
-    , minimumOperatingTemperature =
-        Temperature.degreesCelsius -25
-    }
-
-canOperateAt : Temperature -> Camera -> Bool
-canOperateAt temperature camera =
-    temperature
-        |> Temperature.greaterThan
-            camera.minimumOperatingTemperature
-
-camera |> canOperateAt (Temperature.degreesFahrenheit -20)
---> False
-
-camera |> canOperateAt (Temperature.degreesFahrenheit -10)
---> True
-
-camera.fieldOfView |> Angle.inRadians
---> pi / 3
-```
+...and much more, all without having to care about units at all. All
+calculations will be done in an internally consistent way, and when you finally
+need to actually display a value on screen or encode to JSON, you can extract
+the final result in whatever units you want.
 
 ## Table of Contents
 
@@ -217,14 +211,22 @@ Quantity.product (Length.feet 2) (Length.inches 8)
 --> 96
 ```
 
-Special support is provided for calculations involving rates of change:
+Special support is provided for working with rates of change:
 
 ```elm
--- How long do we travel in 10 seconds at 100 km/h?
-Duration.seconds 10
-    |> Quantity.at (Speed.kilometersPerHour 100)
-    |> Length.inMeters
---> 277.77777777777777
+-- How far do we go if we drive for 2 minutes
+-- at 15 meters per second?
+
+-- Divide length by duration to get speed
+-- (equivalent to 'Speed.metersPerSecond 15')
+speed =
+    Length.meters 30 |> Quantity.per (Duration.seconds 2)
+
+-- Multiply duration by speed to get length (distance)
+Duration.minutes 2 -- duration
+  |> Quantity.at speed -- length per duration
+  |> Length.inKilometers -- gives us a length!
+--> 1.8
 
 -- How long will it take to travel 20 km
 -- if we're driving at 60 mph?
@@ -239,8 +241,8 @@ Length.miles 1
     |> Speed.inKilometersPerHour
 --> 96.56064
 
--- Reverse engineer the speed of light
--- from defined lengths/durations
+-- Reverse engineer the speed of light from defined
+-- lengths/durations ('one light year per year')
 speedOfLight =
     Length.lightYears 1
         |> Quantity.per (Duration.julianYears 1)
@@ -261,12 +263,12 @@ Note that the various functions above are not restricted to speed (length per
 unit time) - any units work:
 
 ```elm
-pixelsPerInch =
+pixelDensity =
     Pixels.pixels 96 |> Quantity.per (Length.inches 1)
 
-Length.centimeters 3
-    |> Quantity.at pixelsPerInch
-    |> Pixels.inPixels
+Length.centimeters 3 -- length
+    |> Quantity.at pixelDensity -- pixels per length
+    |> Pixels.inPixels -- gives us pixels!
 --> 113.38582677165354
 ```
 
@@ -301,7 +303,7 @@ for different kinds of multiplication:
   - [`Quantity.scaleBy`](Quantity#scaleBy) is used to multiply a quantity by
     a plain `Float` or `Int` scaling factor
   - [`Quantity.times`](Quantity#times) is used to multiply a rate of change by
-    an indepent quantity value to get a dependent quantity value; for example,
+    an independent quantity value to get a dependent quantity value; for example,
     multiplying a `Speed` by a `Duration` to get a `Length`, or a `Pressure` by
     an `Area` to get a `Force`
 
@@ -403,7 +405,16 @@ package is published.
 
 ## Contributing
 
-TODO
+Yes please! One of the best ways to contribute is to add a module for a new
+quantity type; see [issue #6][7] for details. I'll add a proper CONTRIBUTING.md
+at some point, but some brief guidelines in the meantime:
+
+  - Open a pull request by forking this repository, creating a new branch in
+    your fork, making all changes in that branch, then opening a pull request
+    from that branch.
+  - Format code with [`elm-format`][8] 0.8.0.
+  - Git commit messages should follow [the seven rules of a great Git commit
+    message][9], although I'm not strict about the 50 or 72 character rules.
 
 ## License
 
@@ -415,3 +426,6 @@ TODO
 [4]: https://discourse.elm-lang.org/
 [5]: https://www.reddit.com/r/elm/
 [6]: https://en.wikipedia.org/wiki/International_System_of_Units
+[7]: https://github.com/ianmackenzie/elm-units/issues/6
+[8]: https://github.com/avh4/elm-format
+[9]: https://chris.beams.io/posts/git-commit/#seven-rules
