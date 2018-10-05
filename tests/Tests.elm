@@ -30,6 +30,7 @@ import Speed exposing (..)
 import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
+import Volume exposing (..)
 
 
 equalityTest : String -> String -> ( Quantity Float units, Quantity Float units ) -> Test
@@ -301,5 +302,16 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Voltage" <|
             [ fuzzFloatToQuantityAndBack "volts" Voltage.volts Voltage.inVolts
+            ]
+        , Test.describe "Volume" <|
+            [ fuzzFloatToQuantityAndBack "cubicMeters" Volume.cubicMeters Volume.inCubicMeters
+            , fuzzFloatToQuantityAndBack "cubicInches" Volume.cubicInches Volume.inCubicInches
+            , fuzzFloatToQuantityAndBack "cubicFeet" Volume.cubicFeet Volume.inCubicFeet
+            , fuzzFloatToQuantityAndBack "cubicYards" Volume.cubicYards Volume.inCubicYards
+            , fuzzFloatToQuantityAndBack "milliliters" Volume.milliliters Volume.inMilliliters
+            , fuzzFloatToQuantityAndBack "liters" Volume.liters Volume.inLiters
+            , fuzzFloatToQuantityAndBack "usLiquidGallons" Volume.usLiquidGallons Volume.inUsLiquidGallons
+            , fuzzFloatToQuantityAndBack "usDryGallons" Volume.usDryGallons Volume.inUsDryGallons
+            , fuzzFloatToQuantityAndBack "imperialGallons" Volume.imperialGallons Volume.inImperialGallons
             ]
         ]
