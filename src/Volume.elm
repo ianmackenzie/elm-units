@@ -3,7 +3,7 @@ module Volume exposing
     , cubicMeters, inCubicMeters
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , milliliters, inMilliliters, liters, inLiters
-    --, usLiquidGallons, usDryGallons, imperialGallons
+    , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
     --, usLiquidQuarts, usDryQuarts, imperialQuarts
     --, usLiquidPints, usDryPints, imperialPints
     --, usFluidOunces, imperialFluidOunces
@@ -24,7 +24,7 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 ## Imperial
 
 @docs cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
---@docs usLiquidGallons, usDryGallons, imperialGallons
+@docs usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
 --@docs usLiquidQuarts, usDryQuarts, imperialQuarts
 --@docs usLiquidPints, usDryPints, imperialPints
 --@docs usFluidOunces, imperialFluidOunces
@@ -112,19 +112,60 @@ milliliters numMilliliters =
 -}
 inMilliliters : Volume -> Float
 inMilliliters volume =
-    1.0e6 * inMilliliters volume
+    1.0e6 * inCubicMeters volume
 
 
 {-| Construct a volume from a number of liters.
 -}
 liters : Float -> Volume
 liters numLiters =
-    cubicMeters (1.0e-6 * numLiters)
+    cubicMeters (0.001 * numLiters)
 
 
 {-| Convert a volume to a number of liters.
 -}
 inLiters : Volume -> Float
 inLiters volume =
-    1.0e6 * inLiters volume
+    1000 * inCubicMeters volume
 
+
+{-| Construct a volume from a number of usLiquidGallons.
+-}
+usLiquidGallons : Float -> Volume
+usLiquidGallons numUsLiquidGallons =
+    cubicMeters ( numUsLiquidGallons / 264.17220000000003 )
+
+
+{-| Convert a volume to a number of usLiquidGallons.
+-}
+inUsLiquidGallons : Volume -> Float
+inUsLiquidGallons volume =
+   264.17220000000003 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usDryGallons.
+-}
+usDryGallons : Float -> Volume
+usDryGallons numUsDryGallons =
+    cubicMeters (numUsDryGallons / 227.0208)
+
+
+{-| Convert a volume to a number of usDryGallons.
+-}
+inUsDryGallons : Volume -> Float
+inUsDryGallons volume =
+   227.0208 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of imperialGallons.
+-}
+imperialGallons : Float -> Volume
+imperialGallons numImperialGallons =
+    cubicMeters (numImperialGallons / 219.9688)
+
+
+{-| Convert a volume to a number of imperialGallons.
+-}
+inImperialGallons : Volume -> Float
+inImperialGallons volume =
+   219.9688 * inCubicMeters volume
