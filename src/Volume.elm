@@ -2,7 +2,7 @@ module Volume exposing
     ( Volume, CubicMeters
     , cubicMeters, inCubicMeters
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
-    , milliliters, inMilliliters, liters, inLiters, deciliters, inDeciliters
+    , milliliters, inMilliliters, liters, inLiters
     --, usLiquidGallons, usDryGallons, imperialGallons
     --, usLiquidQuarts, usDryQuarts, imperialQuarts
     --, usLiquidPints, usDryPints, imperialPints
@@ -18,16 +18,16 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 ## Metric
 
 @docs cubicMeters, inCubicMeters
-@docs milliliters, inMilliliters, liters, inLiters, deciliters, inDeciliters
+@docs milliliters, inMilliliters, liters, inLiters 
 
 
 ## Imperial
 
 @docs cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
-@docs --@docs usLiquidGallons, usDryGallons, imperialGallons
-@docs --@docs usLiquidQuarts, usDryQuarts, imperialQuarts
-@docs --@docs usLiquidPints, usDryPints, imperialPints
-@docs --@docs usFluidOunces, imperialFluidOunces
+--@docs usLiquidGallons, usDryGallons, imperialGallons
+--@docs usLiquidQuarts, usDryQuarts, imperialQuarts
+--@docs usLiquidPints, usDryPints, imperialPints
+--@docs usFluidOunces, imperialFluidOunces
 
 -}
 
@@ -104,7 +104,7 @@ inCubicYards volume =
 {-| Construct a volume from a number of milliliters.
 -}
 milliliters : Float -> Volume
-milliliters numMilititers =
+milliliters numMilliliters =
     cubicMeters (1.0e-6 * numMilliliters)
 
 
@@ -115,4 +115,16 @@ inMilliliters volume =
     1.0e6 * inMilliliters volume
 
 
+{-| Construct a volume from a number of liters.
+-}
+liters : Float -> Volume
+liters numLiters =
+    cubicMeters (1.0e-6 * numLiters)
+
+
+{-| Convert a volume to a number of liters.
+-}
+inLiters : Volume -> Float
+inLiters volume =
+    1.0e6 * inLiters volume
 
