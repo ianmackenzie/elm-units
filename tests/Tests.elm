@@ -7,6 +7,7 @@ module Tests exposing
     , speeds
     , temperatureDeltas
     , temperatures
+    , volumes
     )
 
 import Acceleration exposing (..)
@@ -186,6 +187,26 @@ temperatureDeltas =
         ]
 
 
+volumes : Test
+volumes =
+  equalPairs
+    "Volumes"
+    "m^3"
+    [ ( cubicInches (36 * 36 * 36)
+      , cubicYards 1
+      )
+    , ( usLiquidGallons 1
+      , usLiquidQuarts 4
+      )
+    , ( usDryGallons 1
+      , usDryQuarts 4
+      )
+    , ( imperialGallons 1
+      , imperialQuarts 4
+      )
+    ]
+
+
 conversionsToQuantityAndBack : Test
 conversionsToQuantityAndBack =
     Test.describe "Conversion to Quantity and back is (almost) identity" <|
@@ -313,5 +334,8 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "usLiquidGallons" Volume.usLiquidGallons Volume.inUsLiquidGallons
             , fuzzFloatToQuantityAndBack "usDryGallons" Volume.usDryGallons Volume.inUsDryGallons
             , fuzzFloatToQuantityAndBack "imperialGallons" Volume.imperialGallons Volume.inImperialGallons
+            , fuzzFloatToQuantityAndBack "usLiquidQuarts" Volume.usLiquidQuarts Volume.inUsLiquidQuarts
+            , fuzzFloatToQuantityAndBack "usDryQuarts" Volume.usDryQuarts Volume.inUsDryQuarts
+            , fuzzFloatToQuantityAndBack "imperialQuarts" Volume.imperialQuarts Volume.inImperialQuarts
             ]
         ]

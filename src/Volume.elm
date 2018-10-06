@@ -1,10 +1,10 @@
 module Volume exposing
     ( Volume, CubicMeters
     , cubicMeters, inCubicMeters
-    , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , milliliters, inMilliliters, liters, inLiters
+    , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
-    --, usLiquidQuarts, usDryQuarts, imperialQuarts
+    , usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
     --, usLiquidPints, usDryPints, imperialPints
     --, usFluidOunces, imperialFluidOunces
     )
@@ -18,21 +18,21 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 ## Metric
 
 @docs cubicMeters, inCubicMeters
-@docs milliliters, inMilliliters, liters, inLiters 
+@docs milliliters, inMilliliters, liters, inLiters
 
 
 ## Imperial
 
 @docs cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
 @docs usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
---@docs usLiquidQuarts, usDryQuarts, imperialQuarts
---@docs usLiquidPints, usDryPints, imperialPints
---@docs usFluidOunces, imperialFluidOunces
+@docs usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
+@docs --@docs usLiquidPints, usDryPints, imperialPints
+@docs --@docs usFluidOunces, imperialFluidOunces
 
 -}
 
 import Length exposing (Meters)
-import Quantity exposing (Quantity(..), Cubed)
+import Quantity exposing (Cubed, Quantity(..))
 
 
 {-| -}
@@ -133,14 +133,14 @@ inLiters volume =
 -}
 usLiquidGallons : Float -> Volume
 usLiquidGallons numUsLiquidGallons =
-    cubicMeters ( numUsLiquidGallons / 264.17220000000003 )
+    cubicMeters (numUsLiquidGallons / 264.17220000000003)
 
 
 {-| Convert a volume to a number of usLiquidGallons.
 -}
 inUsLiquidGallons : Volume -> Float
 inUsLiquidGallons volume =
-   264.17220000000003 * inCubicMeters volume
+    264.17220000000003 * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usDryGallons.
@@ -154,18 +154,60 @@ usDryGallons numUsDryGallons =
 -}
 inUsDryGallons : Volume -> Float
 inUsDryGallons volume =
-   227.0208 * inCubicMeters volume
+    227.0208 * inCubicMeters volume
 
 
 {-| Construct a volume from a number of imperialGallons.
 -}
 imperialGallons : Float -> Volume
 imperialGallons numImperialGallons =
-    cubicMeters (numImperialGallons / 219.9688)
+    cubicMeters (numImperialGallons / 219.969157)
 
 
 {-| Convert a volume to a number of imperialGallons.
 -}
 inImperialGallons : Volume -> Float
 inImperialGallons volume =
-   219.9688 * inCubicMeters volume
+    219.969157 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usLiquidQuarts.
+-}
+usLiquidQuarts : Float -> Volume
+usLiquidQuarts numUsLiquidQuarts =
+    cubicMeters ((numUsLiquidQuarts / 4) / 264.17220000000003)
+
+
+{-| Convert a volume to a number of usLiquidQuarts.
+-}
+inUsLiquidQuarts : Volume -> Float
+inUsLiquidQuarts volume =
+    4 * 264.17220000000003 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usDryQuarts.
+-}
+usDryQuarts : Float -> Volume
+usDryQuarts numUsDryQuarts =
+    cubicMeters ((numUsDryQuarts / 4) / 227.0208)
+
+
+{-| Convert a volume to a number of usDryQuarts.
+-}
+inUsDryQuarts : Volume -> Float
+inUsDryQuarts volume =
+    4 * 227.0208 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of imperialQuarts.
+-}
+imperialQuarts : Float -> Volume
+imperialQuarts numImperialQuarts =
+    cubicMeters ((numImperialQuarts / 4) / 219.969157)
+
+
+{-| Convert a volume to a number of imperialQuarts.
+-}
+inImperialQuarts : Volume -> Float
+inImperialQuarts volume =
+    4 * 219.969157 * inCubicMeters volume

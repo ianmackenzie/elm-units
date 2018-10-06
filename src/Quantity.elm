@@ -516,7 +516,7 @@ sqrt (Quantity value) =
 
 
 {-| Cube a quantity with some `units`, resulting in a new quantity in
-`Cubed units.
+`Cubed units`.
 -}
 cubed : Quantity number units -> Quantity number (Cubed units)
 cubed (Quantity value) =
@@ -524,14 +524,16 @@ cubed (Quantity value) =
 
 
 {-| Take a quantity in `Cubed units` and return the cube root of that
-quantity in plain `units.
+quantity in plain `units`.
 -}
 cbrt : Quantity Float (Cubed units) -> Quantity Float units
 cbrt (Quantity value) =
-    if value >=0 then
-        Quantity (value ^ (1 /3))
+    if value >= 0 then
+        Quantity (value ^ (1 / 3))
+
     else
-        Quantity -((-value) ^ (1 /3))
+        Quantity -(-value ^ (1 / 3))
+
 
 
 ---------- INT/FLOAT CONVERSIONS ----------
