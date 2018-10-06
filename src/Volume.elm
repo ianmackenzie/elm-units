@@ -6,7 +6,7 @@ module Volume exposing
     , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
     , usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
     , usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
-    --, usFluidOunces, imperialFluidOunces
+    , usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
     )
 
 {-| A `Volume` represents a volume in cubic meters, cubic feet, liters,
@@ -27,7 +27,7 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 @docs usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
 @docs usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
 @docs usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
---@docs usFluidOunces, imperialFluidOunces
+@docs usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
 
 -}
 
@@ -253,3 +253,31 @@ imperialPints numImperialPints =
 inImperialPints : Volume -> Float
 inImperialPints volume =
     8 * 219.969157 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usFluidOunces.
+-}
+usFluidOunces : Float -> Volume
+usFluidOunces numUsFluidOunces =
+    cubicMeters ((numUsFluidOunces / 128) / 264.17220000000003)
+
+
+{-| Convert a volume to a number of usFluidOunces.
+-}
+inUsFluidOunces : Volume -> Float
+inUsFluidOunces volume =
+    128 * 264.17220000000003 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of imperialFluidOunces.
+-}
+imperialFluidOunces : Float -> Volume
+imperialFluidOunces numImperialFluidOunces =
+    cubicMeters ((numImperialFluidOunces / 160) / 219.969157)
+
+
+{-| Convert a volume to a number of imperialFluidOunces.
+-}
+inImperialFluidOunces : Volume -> Float
+inImperialFluidOunces volume =
+    160 * 219.969157 * inCubicMeters volume

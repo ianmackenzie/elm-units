@@ -213,6 +213,12 @@ volumes =
     , ( imperialQuarts 1
       , imperialPints 2
       )
+    , ( usLiquidPints 1
+      , usFluidOunces 16
+      )
+    , ( imperialPints 1
+      , imperialFluidOunces 20
+      )
     ]
 
 
@@ -349,5 +355,7 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "usLiquidPints" Volume.usLiquidPints Volume.inUsLiquidPints
             , fuzzFloatToQuantityAndBack "usDryPints" Volume.usDryPints Volume.inUsDryPints
             , fuzzFloatToQuantityAndBack "imperialPints" Volume.imperialPints Volume.inImperialPints
+            , fuzzFloatToQuantityAndBack "usFluidOunces" Volume.usFluidOunces Volume.inUsFluidOunces
+            , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
             ]
         ]
