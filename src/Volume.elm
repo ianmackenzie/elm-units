@@ -5,7 +5,7 @@ module Volume exposing
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
     , usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
-    --, usLiquidPints, usDryPints, imperialPints
+    , usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
     --, usFluidOunces, imperialFluidOunces
     )
 
@@ -26,7 +26,7 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 @docs cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
 @docs usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
 @docs usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
---@docs usLiquidPints, usDryPints, imperialPints
+@docs usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
 --@docs usFluidOunces, imperialFluidOunces
 
 -}
@@ -211,3 +211,45 @@ imperialQuarts numImperialQuarts =
 inImperialQuarts : Volume -> Float
 inImperialQuarts volume =
     4 * 219.969157 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usLiquidPints.
+-}
+usLiquidPints : Float -> Volume
+usLiquidPints numUsLiquidPints =
+    cubicMeters ((numUsLiquidPints / 8) / 264.17220000000003)
+
+
+{-| Convert a volume to a number of usLiquidPints.
+-}
+inUsLiquidPints : Volume -> Float
+inUsLiquidPints volume =
+    8 * 264.17220000000003 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of usDryPints.
+-}
+usDryPints : Float -> Volume
+usDryPints numUsDryPints =
+    cubicMeters ((numUsDryPints / 8) / 227.0208)
+
+
+{-| Convert a volume to a number of usDryPints.
+-}
+inUsDryPints : Volume -> Float
+inUsDryPints volume =
+    8 * 227.0208 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of imperialPints.
+-}
+imperialPints : Float -> Volume
+imperialPints numImperialPints =
+    cubicMeters ((numImperialPints / 8) / 219.969157)
+
+
+{-| Convert a volume to a number of imperialPints.
+-}
+inImperialPints : Volume -> Float
+inImperialPints volume =
+    8 * 219.969157 * inCubicMeters volume

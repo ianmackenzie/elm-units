@@ -204,6 +204,15 @@ volumes =
     , ( imperialGallons 1
       , imperialQuarts 4
       )
+    , ( usLiquidQuarts 1
+      , usLiquidPints 2
+      )
+    , ( usDryQuarts 1
+      , usDryPints 2
+      )
+    , ( imperialQuarts 1
+      , imperialPints 2
+      )
     ]
 
 
@@ -337,5 +346,8 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "usLiquidQuarts" Volume.usLiquidQuarts Volume.inUsLiquidQuarts
             , fuzzFloatToQuantityAndBack "usDryQuarts" Volume.usDryQuarts Volume.inUsDryQuarts
             , fuzzFloatToQuantityAndBack "imperialQuarts" Volume.imperialQuarts Volume.inImperialQuarts
+            , fuzzFloatToQuantityAndBack "usLiquidPints" Volume.usLiquidPints Volume.inUsLiquidPints
+            , fuzzFloatToQuantityAndBack "usDryPints" Volume.usDryPints Volume.inUsDryPints
+            , fuzzFloatToQuantityAndBack "imperialPints" Volume.imperialPints Volume.inImperialPints
             ]
         ]
