@@ -26,8 +26,8 @@ US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic 
 @docs cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
 @docs usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
 @docs usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
-@docs --@docs usLiquidPints, usDryPints, imperialPints
-@docs --@docs usFluidOunces, imperialFluidOunces
+--@docs usLiquidPints, usDryPints, imperialPints
+--@docs usFluidOunces, imperialFluidOunces
 
 -}
 
