@@ -7,6 +7,7 @@ module Tests exposing
     , speeds
     , temperatureDeltas
     , temperatures
+    , volumes
     )
 
 import Acceleration exposing (..)
@@ -30,6 +31,7 @@ import Speed exposing (..)
 import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
+import Volume exposing (..)
 
 
 equalityTest : String -> String -> ( Quantity Float units, Quantity Float units ) -> Test
@@ -185,6 +187,47 @@ temperatureDeltas =
         ]
 
 
+volumes : Test
+volumes =
+  equalPairs
+    "Volumes"
+    "m^3"
+    [ ( cubicMeters 2
+      , usLiquidGallons (2 * 264.17220000000003)
+      )
+    , ( imperialGallons 219.969157
+      , usDryGallons 227.0208
+      )
+    , ( cubicInches (36 * 36 * 36)
+      , cubicYards 1
+      )
+    , ( usLiquidGallons 1
+      , usLiquidQuarts 4
+      )
+    , ( usDryGallons 1
+      , usDryQuarts 4
+      )
+    , ( imperialGallons 1
+      , imperialQuarts 4
+      )
+    , ( usLiquidQuarts 1
+      , usLiquidPints 2
+      )
+    , ( usDryQuarts 1
+      , usDryPints 2
+      )
+    , ( imperialQuarts 1
+      , imperialPints 2
+      )
+    , ( usLiquidPints 1
+      , usFluidOunces 16
+      )
+    , ( imperialPints 1
+      , imperialFluidOunces 20
+      )
+    ]
+
+
 conversionsToQuantityAndBack : Test
 conversionsToQuantityAndBack =
     Test.describe "Conversion to Quantity and back is (almost) identity" <|
@@ -301,5 +344,24 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Voltage" <|
             [ fuzzFloatToQuantityAndBack "volts" Voltage.volts Voltage.inVolts
+            ]
+        , Test.describe "Volume" <|
+            [ fuzzFloatToQuantityAndBack "cubicMeters" Volume.cubicMeters Volume.inCubicMeters
+            , fuzzFloatToQuantityAndBack "cubicInches" Volume.cubicInches Volume.inCubicInches
+            , fuzzFloatToQuantityAndBack "cubicFeet" Volume.cubicFeet Volume.inCubicFeet
+            , fuzzFloatToQuantityAndBack "cubicYards" Volume.cubicYards Volume.inCubicYards
+            , fuzzFloatToQuantityAndBack "milliliters" Volume.milliliters Volume.inMilliliters
+            , fuzzFloatToQuantityAndBack "liters" Volume.liters Volume.inLiters
+            , fuzzFloatToQuantityAndBack "usLiquidGallons" Volume.usLiquidGallons Volume.inUsLiquidGallons
+            , fuzzFloatToQuantityAndBack "usDryGallons" Volume.usDryGallons Volume.inUsDryGallons
+            , fuzzFloatToQuantityAndBack "imperialGallons" Volume.imperialGallons Volume.inImperialGallons
+            , fuzzFloatToQuantityAndBack "usLiquidQuarts" Volume.usLiquidQuarts Volume.inUsLiquidQuarts
+            , fuzzFloatToQuantityAndBack "usDryQuarts" Volume.usDryQuarts Volume.inUsDryQuarts
+            , fuzzFloatToQuantityAndBack "imperialQuarts" Volume.imperialQuarts Volume.inImperialQuarts
+            , fuzzFloatToQuantityAndBack "usLiquidPints" Volume.usLiquidPints Volume.inUsLiquidPints
+            , fuzzFloatToQuantityAndBack "usDryPints" Volume.usDryPints Volume.inUsDryPints
+            , fuzzFloatToQuantityAndBack "imperialPints" Volume.imperialPints Volume.inImperialPints
+            , fuzzFloatToQuantityAndBack "usFluidOunces" Volume.usFluidOunces Volume.inUsFluidOunces
+            , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
             ]
         ]
