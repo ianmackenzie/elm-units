@@ -9,8 +9,9 @@ module Volume exposing
     , usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
     )
 
-{-| A `Volume` represents a volume in cubic meters, cubic feet, liters,
-US liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic meters.
+{-| A `Volume` represents a volume in cubic meters, cubic feet, liters, US
+liquid gallons, imperial fluid ounces etc. It is stored as a number of cubic
+meters.
 
 @docs Volume, CubicMeters
 
