@@ -12,6 +12,7 @@ module Tests exposing
 
 import Acceleration exposing (..)
 import Angle exposing (..)
+import AngularSpeed exposing (..)
 import Area exposing (..)
 import Charge exposing (..)
 import Current exposing (..)
@@ -241,6 +242,9 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "degrees" Angle.degrees Angle.inDegrees
             , fuzzFloatToQuantityAndBack "turns" Angle.turns Angle.inTurns
             ]
+        --, Test.describe "AngularSpeed" <|
+        --    [
+        --    ]
         , Test.describe "Area" <|
             [ fuzzFloatToQuantityAndBack "squareMeters" Area.squareMeters Area.inSquareMeters
             , fuzzFloatToQuantityAndBack "squareMillimeters" Area.squareMillimeters Area.inSquareMillimeters

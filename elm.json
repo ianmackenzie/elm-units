@@ -7,6 +7,7 @@
     "exposed-modules": [
         "Acceleration",
         "Angle",
+        "AngularSpeed",
         "Area",
         "Charge",
         "Current",
