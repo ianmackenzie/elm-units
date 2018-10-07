@@ -159,154 +159,154 @@ inLiters volume =
     1000 * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usLiquidGallons.
+{-| Construct a volume from a number of U.S. liquid gallon.
 -}
 usLiquidGallons : Float -> Volume
 usLiquidGallons numUsLiquidGallons =
     cubicMeters (numUsLiquidGallons / usLiquidGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usLiquidGallons.
+{-| Convert a volume to a number of U.S. liquid gallons.
 -}
 inUsLiquidGallons : Volume -> Float
 inUsLiquidGallons volume =
     usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usDryGallons.
+{-| Construct a volume from a number of U.S. dry gallons.
 -}
 usDryGallons : Float -> Volume
 usDryGallons numUsDryGallons =
     cubicMeters (numUsDryGallons / usDryGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usDryGallons.
+{-| Convert a volume to a number of U.S. dry gallons.
 -}
 inUsDryGallons : Volume -> Float
 inUsDryGallons volume =
     usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of imperialGallons.
+{-| Construct a volume from a number of imperial gallons.
 -}
 imperialGallons : Float -> Volume
 imperialGallons numImperialGallons =
     cubicMeters (numImperialGallons / imperialGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of imperialGallons.
+{-| Convert a volume to a number of imperial gallons.
 -}
 inImperialGallons : Volume -> Float
 inImperialGallons volume =
     imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usLiquidQuarts.
+{-| Construct a volume from a number of U.S. liquid quarts.
 -}
 usLiquidQuarts : Float -> Volume
 usLiquidQuarts numUsLiquidQuarts =
     cubicMeters ((numUsLiquidQuarts / 4) / usLiquidGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usLiquidQuarts.
+{-| Convert a volume to a number of U.S. liquid quarts.
 -}
 inUsLiquidQuarts : Volume -> Float
 inUsLiquidQuarts volume =
     4 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usDryQuarts.
+{-| Construct a volume from a number of U.S. dry quarts.
 -}
 usDryQuarts : Float -> Volume
 usDryQuarts numUsDryQuarts =
     cubicMeters ((numUsDryQuarts / 4) / usDryGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usDryQuarts.
+{-| Convert a volume to a number of U.S. dry quarts.
 -}
 inUsDryQuarts : Volume -> Float
 inUsDryQuarts volume =
     4 * usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of imperialQuarts.
+{-| Construct a volume from a number of imperial quarts.
 -}
 imperialQuarts : Float -> Volume
 imperialQuarts numImperialQuarts =
     cubicMeters ((numImperialQuarts / 4) / imperialGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of imperialQuarts.
+{-| Convert a volume to a number of imperial quarts.
 -}
 inImperialQuarts : Volume -> Float
 inImperialQuarts volume =
     4 * imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usLiquidPints.
+{-| Construct a volume from a number of U.S. liquid pints.
 -}
 usLiquidPints : Float -> Volume
 usLiquidPints numUsLiquidPints =
     cubicMeters ((numUsLiquidPints / 8) / usLiquidGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usLiquidPints.
+{-| Convert a volume to a number of U.S. liquid pints.
 -}
 inUsLiquidPints : Volume -> Float
 inUsLiquidPints volume =
     8 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usDryPints.
+{-| Construct a volume from a number of U.S. dry pints.
 -}
 usDryPints : Float -> Volume
 usDryPints numUsDryPints =
     cubicMeters ((numUsDryPints / 8) / usDryGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usDryPints.
+{-| Convert a volume to a number of U.S. dry pints.
 -}
 inUsDryPints : Volume -> Float
 inUsDryPints volume =
     8 * usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of imperialPints.
+{-| Construct a volume from a number of imperial pints.
 -}
 imperialPints : Float -> Volume
 imperialPints numImperialPints =
     cubicMeters ((numImperialPints / 8) / imperialGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of imperialPints.
+{-| Convert a volume to a number of imperial pints.
 -}
 inImperialPints : Volume -> Float
 inImperialPints volume =
     8 * imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of usFluidOunces.
+{-| Construct a volume from a number of U.S. fluid ounces.
 -}
 usFluidOunces : Float -> Volume
 usFluidOunces numUsFluidOunces =
     cubicMeters ((numUsFluidOunces / 128) / usLiquidGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of usFluidOunces.
+{-| Convert a volume to a number of U.S. fluid ounces.
 -}
 inUsFluidOunces : Volume -> Float
 inUsFluidOunces volume =
     128 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
-{-| Construct a volume from a number of imperialFluidOunces.
+{-| Construct a volume from a number of imperial fluid ounces.
 -}
 imperialFluidOunces : Float -> Volume
 imperialFluidOunces numImperialFluidOunces =
     cubicMeters ((numImperialFluidOunces / 160) / imperialGallonsPerCubicMeter)
 
 
-{-| Convert a volume to a number of imperialFluidOunces.
+{-| Convert a volume to a number of imperial fluid ounces.
 -}
 inImperialFluidOunces : Volume -> Float
 inImperialFluidOunces volume =
