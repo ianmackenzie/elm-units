@@ -52,22 +52,22 @@ type alias Volume =
 
 {-| The number of US liquid gallons in a cubic meter.
 -}
-numUsLiquidGallonsInACubicMeter : Float
-numUsLiquidGallonsInACubicMeter =
+usLiquidGallonsPerCubicMeter : Float
+usLiquidGallonsPerCubicMeter =
     264.17220000000003
 
 
 {-| The number of US dry gallons in a cubic meter.
 -}
-numUsDryGallonsInACubicMeter : Float
-numUsDryGallonsInACubicMeter =
+usDryGallonsPerCubicMeter : Float
+usDryGallonsPerCubicMeter =
     227.0208
 
 
 {-| The number of imperial gallons in a cubic meter.
 -}
-numImperialGallonsInACubicMeter : Float
-numImperialGallonsInACubicMeter =
+imperialGallonsPerCubicMeter : Float
+imperialGallonsPerCubicMeter =
     219.969157
 
 
@@ -163,151 +163,151 @@ inLiters volume =
 -}
 usLiquidGallons : Float -> Volume
 usLiquidGallons numUsLiquidGallons =
-    cubicMeters (numUsLiquidGallons / numUsLiquidGallonsInACubicMeter)
+    cubicMeters (numUsLiquidGallons / usLiquidGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usLiquidGallons.
 -}
 inUsLiquidGallons : Volume -> Float
 inUsLiquidGallons volume =
-    numUsLiquidGallonsInACubicMeter * inCubicMeters volume
+    usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usDryGallons.
 -}
 usDryGallons : Float -> Volume
 usDryGallons numUsDryGallons =
-    cubicMeters (numUsDryGallons / numUsDryGallonsInACubicMeter)
+    cubicMeters (numUsDryGallons / usDryGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usDryGallons.
 -}
 inUsDryGallons : Volume -> Float
 inUsDryGallons volume =
-    numUsDryGallonsInACubicMeter * inCubicMeters volume
+    usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of imperialGallons.
 -}
 imperialGallons : Float -> Volume
 imperialGallons numImperialGallons =
-    cubicMeters (numImperialGallons / numImperialGallonsInACubicMeter)
+    cubicMeters (numImperialGallons / imperialGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of imperialGallons.
 -}
 inImperialGallons : Volume -> Float
 inImperialGallons volume =
-    numImperialGallonsInACubicMeter * inCubicMeters volume
+    imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usLiquidQuarts.
 -}
 usLiquidQuarts : Float -> Volume
 usLiquidQuarts numUsLiquidQuarts =
-    cubicMeters ((numUsLiquidQuarts / 4) / numUsLiquidGallonsInACubicMeter)
+    cubicMeters ((numUsLiquidQuarts / 4) / usLiquidGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usLiquidQuarts.
 -}
 inUsLiquidQuarts : Volume -> Float
 inUsLiquidQuarts volume =
-    4 * numUsLiquidGallonsInACubicMeter * inCubicMeters volume
+    4 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usDryQuarts.
 -}
 usDryQuarts : Float -> Volume
 usDryQuarts numUsDryQuarts =
-    cubicMeters ((numUsDryQuarts / 4) / numUsDryGallonsInACubicMeter)
+    cubicMeters ((numUsDryQuarts / 4) / usDryGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usDryQuarts.
 -}
 inUsDryQuarts : Volume -> Float
 inUsDryQuarts volume =
-    4 * numUsDryGallonsInACubicMeter * inCubicMeters volume
+    4 * usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of imperialQuarts.
 -}
 imperialQuarts : Float -> Volume
 imperialQuarts numImperialQuarts =
-    cubicMeters ((numImperialQuarts / 4) / numImperialGallonsInACubicMeter)
+    cubicMeters ((numImperialQuarts / 4) / imperialGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of imperialQuarts.
 -}
 inImperialQuarts : Volume -> Float
 inImperialQuarts volume =
-    4 * numImperialGallonsInACubicMeter * inCubicMeters volume
+    4 * imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usLiquidPints.
 -}
 usLiquidPints : Float -> Volume
 usLiquidPints numUsLiquidPints =
-    cubicMeters ((numUsLiquidPints / 8) / numUsLiquidGallonsInACubicMeter)
+    cubicMeters ((numUsLiquidPints / 8) / usLiquidGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usLiquidPints.
 -}
 inUsLiquidPints : Volume -> Float
 inUsLiquidPints volume =
-    8 * numUsLiquidGallonsInACubicMeter * inCubicMeters volume
+    8 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usDryPints.
 -}
 usDryPints : Float -> Volume
 usDryPints numUsDryPints =
-    cubicMeters ((numUsDryPints / 8) / numUsDryGallonsInACubicMeter)
+    cubicMeters ((numUsDryPints / 8) / usDryGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usDryPints.
 -}
 inUsDryPints : Volume -> Float
 inUsDryPints volume =
-    8 * numUsDryGallonsInACubicMeter * inCubicMeters volume
+    8 * usDryGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of imperialPints.
 -}
 imperialPints : Float -> Volume
 imperialPints numImperialPints =
-    cubicMeters ((numImperialPints / 8) / numImperialGallonsInACubicMeter)
+    cubicMeters ((numImperialPints / 8) / imperialGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of imperialPints.
 -}
 inImperialPints : Volume -> Float
 inImperialPints volume =
-    8 * numImperialGallonsInACubicMeter * inCubicMeters volume
+    8 * imperialGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of usFluidOunces.
 -}
 usFluidOunces : Float -> Volume
 usFluidOunces numUsFluidOunces =
-    cubicMeters ((numUsFluidOunces / 128) / numUsLiquidGallonsInACubicMeter)
+    cubicMeters ((numUsFluidOunces / 128) / usLiquidGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of usFluidOunces.
 -}
 inUsFluidOunces : Volume -> Float
 inUsFluidOunces volume =
-    128 * numUsLiquidGallonsInACubicMeter * inCubicMeters volume
+    128 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
 
 
 {-| Construct a volume from a number of imperialFluidOunces.
 -}
 imperialFluidOunces : Float -> Volume
 imperialFluidOunces numImperialFluidOunces =
-    cubicMeters ((numImperialFluidOunces / 160) / numImperialGallonsInACubicMeter)
+    cubicMeters ((numImperialFluidOunces / 160) / imperialGallonsPerCubicMeter)
 
 
 {-| Convert a volume to a number of imperialFluidOunces.
 -}
 inImperialFluidOunces : Volume -> Float
 inImperialFluidOunces volume =
-    160 * numImperialGallonsInACubicMeter * inCubicMeters volume
+    160 * imperialGallonsPerCubicMeter * inCubicMeters volume
