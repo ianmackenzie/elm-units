@@ -114,7 +114,7 @@ type Squared units
 {-| Represents a units type that is the cube of some other units type; for
 example, `Meters` is one units type (the units type of a `Length`) and `Cubed
 Meters` is another (the units type of an `Volume`). This is useful because some
-functions in this module (specifically [`cubed`](Quantity#cubed),
+functions in this module (specifically [`cubed`](Quantity#cubed)
 and [`cbrt`](Quantity#cbrt)) "know" about the
 `Cubed` type and how to work with it.
 -}
