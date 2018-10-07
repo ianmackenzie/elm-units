@@ -192,7 +192,13 @@ volumes =
   equalPairs
     "Volumes"
     "m^3"
-    [ ( cubicInches (36 * 36 * 36)
+    [ ( cubicMeters 2
+      , usLiquidGallons (2 * 264.17220000000003)
+      )
+    , ( imperialGallons 219.969157
+      , usDryGallons 227.0208
+      )
+    , ( cubicInches (36 * 36 * 36)
       , cubicYards 1
       )
     , ( usLiquidGallons 1
