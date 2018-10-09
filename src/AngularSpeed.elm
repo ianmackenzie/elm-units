@@ -1,6 +1,6 @@
 module AngularSpeed exposing
     ( AngularSpeed, RadiansPerSecond
-    --, radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
+    , radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
     --, turnsPerSecond, inTurnsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
     )
 
@@ -10,7 +10,7 @@ It is stored as a number of radians per second.
 
 @docs AngularSpeed, RadiansPerSecond
 
---@docs radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
+@docs radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
 --@docs turnsPerSecond, inTurnsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
 
 -}
@@ -42,3 +42,17 @@ radiansPerSecond numRadiansPerSecond =
 inRadiansPerSecond : AngularSpeed -> Float
 inRadiansPerSecond (Quantity numRadiansPerSecond) =
     numRadiansPerSecond
+
+
+{-| Construct an angular speed from a number of degrees per second.
+-}
+degreesPerSecond : Float -> AngularSpeed
+degreesPerSecond numDegreesPerSecond =
+    radiansPerSecond (pi/180 * numDegreesPerSecond)
+
+
+{-| Convert an angular speed to a number of degrees per second.
+-}
+inDegreesPerSecond : AngularSpeed -> Float
+inDegreesPerSecond angularSpeed =
+    inRadiansPerSecond angularSpeed / (pi/180)

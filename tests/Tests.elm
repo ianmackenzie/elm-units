@@ -242,9 +242,10 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "degrees" Angle.degrees Angle.inDegrees
             , fuzzFloatToQuantityAndBack "turns" Angle.turns Angle.inTurns
             ]
-        --, Test.describe "AngularSpeed" <|
-        --    [
-        --    ]
+        , Test.describe "AngularSpeed" <|
+            [ fuzzFloatToQuantityAndBack "radiansPerSecond" AngularSpeed.radiansPerSecond AngularSpeed.inRadiansPerSecond
+            , fuzzFloatToQuantityAndBack "degreesPerSecond" AngularSpeed.degreesPerSecond AngularSpeed.inDegreesPerSecond
+            ]
         , Test.describe "Area" <|
             [ fuzzFloatToQuantityAndBack "squareMeters" Area.squareMeters Area.inSquareMeters
             , fuzzFloatToQuantityAndBack "squareMillimeters" Area.squareMillimeters Area.inSquareMillimeters
