@@ -1,6 +1,6 @@
 module Capacitance exposing
     ( Capacitance, Farads
-    , farads, inFarads, picoFarads, inPicoFarads
+    , farads, inFarads, picofarads, inPicofarads
     )
 
 {-| A `Capacitance` value represents an electrical capacitance in farads.
@@ -21,7 +21,7 @@ You can also compute `Charge` and `Voltage` using `Capacitance`:
 
 @docs Capacitance, Farads
 
-@docs farads, inFarads, picoFarads, inPicoFarads
+@docs farads, inFarads, picofarads, inPicofarads
 
 -}
 
@@ -56,13 +56,13 @@ inFarads (Quantity numFarads) =
 
 {-| Construct capacitance from a number of picofarads.
 -}
-picoFarads : Float -> Capacitance
-picoFarads numPicoFarads =
-    farads (numPicoFarads * 1.0e-12)
+picofarads : Float -> Capacitance
+picofarads numPicofarads =
+    farads (numPicofarads * 1.0e-12)
 
 
 {-| Construct capacitance from a number of picofarads.
 -}
-inPicoFarads : Capacitance -> Float
-inPicoFarads capacitance =
+inPicofarads : Capacitance -> Float
+inPicofarads capacitance =
     inFarads capacitance / 1.0e-12
