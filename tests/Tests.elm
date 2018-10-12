@@ -213,7 +213,7 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Capacitance" <|
             [ fuzzFloatToQuantityAndBack "farads" Capacitance.farads Capacitance.inFarads
-            , fuzzFloatToQuantityAndBack "picoFarads" Capacitance.picoFarads Capacitance.inPicoFarads
+            , fuzzFloatToQuantityAndBack "picofarads" Capacitance.picofarads Capacitance.inPicofarads
             ]
         , Test.describe "Charge" <|
             [ fuzzFloatToQuantityAndBack "coulombs" Charge.coulombs Charge.inCoulombs
