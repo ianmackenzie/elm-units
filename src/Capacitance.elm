@@ -40,28 +40,28 @@ type alias Capacitance =
     Quantity Float Farads
 
 
-{-| Construct capacitance from number of farads.
+{-| Construct capacitance from a number of farads.
 -}
 farads : Float -> Capacitance
 farads numFarads =
     Quantity numFarads
 
 
-{-| Convert capacitance to number of farads
+{-| Convert capacitance to a number of farads.
 -}
 inFarads : Capacitance -> Float
 inFarads (Quantity numFarads) =
     numFarads
 
 
-{-| Construct capacitance from number of farads.
+{-| Construct capacitance from a number of picofarads.
 -}
 picoFarads : Float -> Capacitance
 picoFarads numPicoFarads =
     farads (numPicoFarads * 1.0e-12)
 
 
-{-| Construct capacitance from number of picofarads.
+{-| Construct capacitance from a number of picofarads.
 -}
 inPicoFarads : Capacitance -> Float
 inPicoFarads capacitance =
