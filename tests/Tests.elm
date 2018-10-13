@@ -213,6 +213,8 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Capacitance" <|
             [ fuzzFloatToQuantityAndBack "farads" Capacitance.farads Capacitance.inFarads
+            , fuzzFloatToQuantityAndBack "microfarads" Capacitance.microfarads Capacitance.inMicrofarads
+            , fuzzFloatToQuantityAndBack "nanofarads" Capacitance.nanofarads Capacitance.inNanofarads
             , fuzzFloatToQuantityAndBack "picofarads" Capacitance.picofarads Capacitance.inPicofarads
             ]
         , Test.describe "Charge" <|

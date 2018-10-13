@@ -1,6 +1,7 @@
 module Capacitance exposing
     ( Capacitance, Farads
     , farads, inFarads, picofarads, inPicofarads
+    , inMicrofarads, inNanofarads, microfarads, nanofarads
     )
 
 {-| A `Capacitance` value represents an electrical capacitance in farads.
@@ -54,6 +55,34 @@ inFarads (Quantity numFarads) =
     numFarads
 
 
+{-| Construct a capacitance from a number of microfarads.
+-}
+microfarads : Float -> Capacitance
+microfarads numMicrofarads =
+    farads (numMicrofarads * 1.0e-6)
+
+
+{-| Convert a capacitance to a number of microfarads
+-}
+inMicrofarads : Capacitance -> Float
+inMicrofarads capacitance =
+    inFarads capacitance / 1.0e-6
+
+
+{-| Construct a capacitance from a number of nanofarads
+-}
+nanofarads : Float -> Capacitance
+nanofarads numNanofarads =
+    farads (numNanofarads * 1.0e-9)
+
+
+{-| Convert a capacitance to a number of nanofarads
+-}
+inNanofarads : Capacitance -> Float
+inNanofarads capacitance =
+    inFarads capacitance / 1.0e-9
+
+
 {-| Construct capacitance from a number of picofarads.
 -}
 picofarads : Float -> Capacitance
@@ -61,7 +90,7 @@ picofarads numPicofarads =
     farads (numPicofarads * 1.0e-12)
 
 
-{-| Construct capacitance from a number of picofarads.
+{-| Convert a capacitance to a number of picofarads.
 -}
 inPicofarads : Capacitance -> Float
 inPicofarads capacitance =
