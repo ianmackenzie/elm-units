@@ -9,6 +9,24 @@ module AngularSpeed exposing
 degrees per second, turns (revolutions) per second and turns (revolutions) per minute.
 It is stored as a number of radians per second.
 
+Note that since `RadiansPerSecond` is defined as `Rate Radians Seconds` (angle per
+unit time), you can construct an `AngularSpeed` value using `Quantity.per`:
+
+    angularSpeed =
+        angle |> Quantity.per duration
+
+You can also do rate-related calculations with `AngularSpeed` values to compute
+`Angle` or `Duration`:
+
+    angle =
+        angularSpeed |> Quantity.times duration
+
+    alsoAngle =
+        duration |> Quantity.at angularSpeed
+
+    duration =
+        angle |> Quantity.at_ angularSpeed
+
 @docs AngularSpeed, RadiansPerSecond
 
 @docs radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
