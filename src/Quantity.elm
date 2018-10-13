@@ -1,9 +1,9 @@
 module Quantity exposing
     ( Quantity(..)
-    , Squared, Rate
+    , Squared, Cubed, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
+    , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort
     , per, times, at, at_, inverse
@@ -17,10 +17,10 @@ module Quantity exposing
 
 # Unit types
 
-The `Squared` and `Rate` units types allow you to build up and work with
+The `Squared`, `Cubed` and `Rate` units types allow you to build up and work with
 composite units in a fairly flexible way.
 
-@docs Squared, Rate
+@docs Squared, Cubed, Rate
 
 
 # Constants
@@ -35,7 +35,7 @@ composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt
+@docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
 
 
 # `Int`/`Float` conversion
@@ -109,6 +109,17 @@ how to work with it.
 -}
 type Squared units
     = Squared units
+
+
+{-| Represents a units type that is the cube of some other units type; for
+example, `Meters` is one units type (the units type of a `Length`) and `Cubed
+Meters` is another (the units type of an `Volume`). This is useful because some
+functions in this module (specifically [`cubed`](Quantity#cubed)
+and [`cbrt`](Quantity#cbrt)) "know" about the
+`Cubed` type and how to work with it.
+-}
+type Cubed units
+    = Cubed units
 
 
 {-| Represents the units type of a rate or quotient such as a speed (`Rate
@@ -502,6 +513,26 @@ This works because:
 sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
     Quantity (Basics.sqrt value)
+
+
+{-| Cube a quantity with some `units`, resulting in a new quantity in
+`Cubed units`.
+-}
+cubed : Quantity number units -> Quantity number (Cubed units)
+cubed (Quantity value) =
+    Quantity (value * value * value)
+
+
+{-| Take a quantity in `Cubed units` and return the cube root of that
+quantity in plain `units`.
+-}
+cbrt : Quantity Float (Cubed units) -> Quantity Float units
+cbrt (Quantity value) =
+    if value >= 0 then
+        Quantity (value ^ (1 / 3))
+
+    else
+        Quantity -(-value ^ (1 / 3))
 
 
 
