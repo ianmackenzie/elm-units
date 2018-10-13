@@ -1,5 +1,6 @@
 module Tests exposing
-    ( conversionsToQuantityAndBack
+    ( angularSpeeds
+    , conversionsToQuantityAndBack
     , durations
     , lengths
     , powers
@@ -95,6 +96,17 @@ speeds =
           )
         , ( lightYears 1 |> per (julianYears 1)
           , metersPerSecond 299792458
+          )
+        ]
+
+
+angularSpeeds : Test
+angularSpeeds =
+    equalPairs
+        "Angular Speeds"
+        "rad/s"
+        [ ( turnsPerSecond 1
+          , turnsPerMinute 60
           )
         ]
 
@@ -245,6 +257,8 @@ conversionsToQuantityAndBack =
         , Test.describe "AngularSpeed" <|
             [ fuzzFloatToQuantityAndBack "radiansPerSecond" AngularSpeed.radiansPerSecond AngularSpeed.inRadiansPerSecond
             , fuzzFloatToQuantityAndBack "degreesPerSecond" AngularSpeed.degreesPerSecond AngularSpeed.inDegreesPerSecond
+            , fuzzFloatToQuantityAndBack "turnsPerSecond" AngularSpeed.turnsPerSecond AngularSpeed.inTurnsPerSecond
+            , fuzzFloatToQuantityAndBack "turnsPerMinute" AngularSpeed.turnsPerMinute AngularSpeed.inTurnsPerMinute
             ]
         , Test.describe "Area" <|
             [ fuzzFloatToQuantityAndBack "squareMeters" Area.squareMeters Area.inSquareMeters

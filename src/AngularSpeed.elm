@@ -1,17 +1,26 @@
 module AngularSpeed exposing
     ( AngularSpeed, RadiansPerSecond
     , radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
-    --, turnsPerSecond, inTurnsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
+    , turnsPerSecond, inTurnsPerSecond, turnsPerMinute, inTurnsPerMinute
+    , revolutionsPerSecond, inRevolutionsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
     )
 
 {-| An `AngularSpeed` represents an acceleration in radians per second,
-degrees per second, turns per second and revolutions (turns) per minute.
+degrees per second, turns (revolutions) per second and turns (revolutions) per minute.
 It is stored as a number of radians per second.
 
 @docs AngularSpeed, RadiansPerSecond
 
 @docs radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
---@docs turnsPerSecond, inTurnsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
+@docs turnsPerSecond, inTurnsPerSecond, turnsPerMinute, inTurnsPerMinute
+
+
+# Aliases for `turns` as `revolutions`
+
+Elm core `Basics` uses `turns` in its [ Angle Conversions ](https://package.elm-lang.org/packages/elm-lang/core/latest/Basics#angle-conversions). To be consistant, our implementation is also in terms of `turns`,
+however since 'revolutions per minute' (RPM) is in common usage, we provide some aliases for more natural expression.
+
+@docs revolutionsPerSecond, inRevolutionsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
 
 -}
 
@@ -48,11 +57,71 @@ inRadiansPerSecond (Quantity numRadiansPerSecond) =
 -}
 degreesPerSecond : Float -> AngularSpeed
 degreesPerSecond numDegreesPerSecond =
-    radiansPerSecond (pi/180 * numDegreesPerSecond)
+    radiansPerSecond (pi / 180 * numDegreesPerSecond)
 
 
 {-| Convert an angular speed to a number of degrees per second.
 -}
 inDegreesPerSecond : AngularSpeed -> Float
 inDegreesPerSecond angularSpeed =
-    inRadiansPerSecond angularSpeed / (pi/180)
+    inRadiansPerSecond angularSpeed / (pi / 180)
+
+
+{-| Construct an angular speed from a number of turns per second.
+-}
+turnsPerSecond : Float -> AngularSpeed
+turnsPerSecond numTurnsPerSecond =
+    radiansPerSecond (2 * pi * numTurnsPerSecond)
+
+
+{-| Convert an angular speed to a number of turns per second.
+-}
+inTurnsPerSecond : AngularSpeed -> Float
+inTurnsPerSecond angularSpeed =
+    inRadiansPerSecond angularSpeed / (2 * pi)
+
+
+{-| Construct an angular speed from a number of turns per minute.
+-}
+turnsPerMinute : Float -> AngularSpeed
+turnsPerMinute numTurnsPerMinute =
+    radiansPerSecond ((2 * pi * numTurnsPerMinute) / 60)
+
+
+{-| Convert an angular speed to a number of turns per minute.
+-}
+inTurnsPerMinute : AngularSpeed -> Float
+inTurnsPerMinute angularSpeed =
+    inRadiansPerSecond angularSpeed / ((2 * pi) / 60)
+
+
+
+---------- FUNCTION ALIASES ----------
+
+
+{-| Alias for `turnsPerSecond`
+-}
+revolutionsPerSecond : Float -> AngularSpeed
+revolutionsPerSecond =
+    turnsPerSecond
+
+
+{-| Alias for `inTurnsPerSecond`
+-}
+inRevolutionsPerSecond : AngularSpeed -> Float
+inRevolutionsPerSecond =
+    inTurnsPerSecond
+
+
+{-| Alias for `turnsPerMinute`
+-}
+revolutionsPerMinute : Float -> AngularSpeed
+revolutionsPerMinute =
+    turnsPerMinute
+
+
+{-| Alias for `inTurnsPerMinute`
+-}
+inRevolutionsPerMinute : AngularSpeed -> Float
+inRevolutionsPerMinute =
+    inTurnsPerMinute
