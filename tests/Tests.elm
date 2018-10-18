@@ -14,6 +14,7 @@ module Tests exposing
 import Acceleration exposing (..)
 import Angle exposing (..)
 import Area exposing (..)
+import Capacitance exposing (..)
 import Charge exposing (..)
 import Current exposing (..)
 import Duration exposing (..)
@@ -271,6 +272,12 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "squareKilometers" Area.squareKilometers Area.inSquareKilometers
             , fuzzFloatToQuantityAndBack "acres" Area.acres Area.inAcres
             , fuzzFloatToQuantityAndBack "squareMiles" Area.squareMiles Area.inSquareMiles
+            ]
+        , Test.describe "Capacitance" <|
+            [ fuzzFloatToQuantityAndBack "farads" Capacitance.farads Capacitance.inFarads
+            , fuzzFloatToQuantityAndBack "microfarads" Capacitance.microfarads Capacitance.inMicrofarads
+            , fuzzFloatToQuantityAndBack "nanofarads" Capacitance.nanofarads Capacitance.inNanofarads
+            , fuzzFloatToQuantityAndBack "picofarads" Capacitance.picofarads Capacitance.inPicofarads
             ]
         , Test.describe "Charge" <|
             [ fuzzFloatToQuantityAndBack "coulombs" Charge.coulombs Charge.inCoulombs
