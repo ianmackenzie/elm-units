@@ -117,28 +117,28 @@ inTurnsPerMinute angularSpeed =
 ---------- FUNCTION ALIASES ----------
 
 
-{-| Alias for `turnsPerSecond`
+{-| Alias for `turnsPerSecond`.
 -}
 revolutionsPerSecond : Float -> AngularSpeed
 revolutionsPerSecond =
     turnsPerSecond
 
 
-{-| Alias for `inTurnsPerSecond`
+{-| Alias for `inTurnsPerSecond`.
 -}
 inRevolutionsPerSecond : AngularSpeed -> Float
 inRevolutionsPerSecond =
     inTurnsPerSecond
 
 
-{-| Alias for `turnsPerMinute`
+{-| Alias for `turnsPerMinute`.
 -}
 revolutionsPerMinute : Float -> AngularSpeed
 revolutionsPerMinute =
     turnsPerMinute
 
 
-{-| Alias for `inTurnsPerMinute`
+{-| Alias for `inTurnsPerMinute`.
 -}
 inRevolutionsPerMinute : AngularSpeed -> Float
 inRevolutionsPerMinute =
