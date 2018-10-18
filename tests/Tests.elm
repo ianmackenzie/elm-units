@@ -1,6 +1,7 @@
 module Tests exposing
     ( conversionsToQuantityAndBack
     , durations
+    , inductance
     , lengths
     , powers
     , pressures
@@ -20,6 +21,7 @@ import Energy exposing (..)
 import Expect exposing (Expectation)
 import Force exposing (..)
 import Fuzz exposing (Fuzzer)
+import Inductance exposing (..)
 import Length exposing (..)
 import Mass exposing (..)
 import Pixels exposing (..)
@@ -59,6 +61,23 @@ fuzzFloatToQuantityAndBack testName toQuantity fromQuantity =
     Test.fuzz (Fuzz.floatRange -10 10) testName <|
         \randomFloat ->
             Expect.within (Expect.Absolute 1.0e-12) randomFloat (randomFloat |> toQuantity |> fromQuantity)
+
+
+inductance : Test
+inductance =
+    equalPairs
+        "Inductance"
+        "H"
+        [ ( henries 1000
+          , kilohenries 1
+          )
+        , ( nanohenries 1000
+          , microhenries 1
+          )
+        , ( kilohenries 10
+          , millihenries 10000000
+          )
+        ]
 
 
 lengths : Test
@@ -189,43 +208,43 @@ temperatureDeltas =
 
 volumes : Test
 volumes =
-  equalPairs
-    "Volumes"
-    "m^3"
-    [ ( cubicMeters 2
-      , usLiquidGallons (2 * 264.17220000000003)
-      )
-    , ( imperialGallons 219.969157
-      , usDryGallons 227.0208
-      )
-    , ( cubicInches (36 * 36 * 36)
-      , cubicYards 1
-      )
-    , ( usLiquidGallons 1
-      , usLiquidQuarts 4
-      )
-    , ( usDryGallons 1
-      , usDryQuarts 4
-      )
-    , ( imperialGallons 1
-      , imperialQuarts 4
-      )
-    , ( usLiquidQuarts 1
-      , usLiquidPints 2
-      )
-    , ( usDryQuarts 1
-      , usDryPints 2
-      )
-    , ( imperialQuarts 1
-      , imperialPints 2
-      )
-    , ( usLiquidPints 1
-      , usFluidOunces 16
-      )
-    , ( imperialPints 1
-      , imperialFluidOunces 20
-      )
-    ]
+    equalPairs
+        "Volumes"
+        "m^3"
+        [ ( cubicMeters 2
+          , usLiquidGallons (2 * 264.17220000000003)
+          )
+        , ( imperialGallons 219.969157
+          , usDryGallons 227.0208
+          )
+        , ( cubicInches (36 * 36 * 36)
+          , cubicYards 1
+          )
+        , ( usLiquidGallons 1
+          , usLiquidQuarts 4
+          )
+        , ( usDryGallons 1
+          , usDryQuarts 4
+          )
+        , ( imperialGallons 1
+          , imperialQuarts 4
+          )
+        , ( usLiquidQuarts 1
+          , usLiquidPints 2
+          )
+        , ( usDryQuarts 1
+          , usDryPints 2
+          )
+        , ( imperialQuarts 1
+          , imperialPints 2
+          )
+        , ( usLiquidPints 1
+          , usFluidOunces 16
+          )
+        , ( imperialPints 1
+          , imperialFluidOunces 20
+          )
+        ]
 
 
 conversionsToQuantityAndBack : Test
@@ -283,6 +302,13 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "meganewtons" Force.meganewtons Force.inMeganewtons
             , fuzzFloatToQuantityAndBack "pounds" Force.pounds Force.inPounds
             , fuzzFloatToQuantityAndBack "kips" Force.kips Force.inKips
+            ]
+        , Test.describe "Inductance" <|
+            [ fuzzFloatToQuantityAndBack "henries" Inductance.henries Inductance.inHenries
+            , fuzzFloatToQuantityAndBack "millihenries" Inductance.millihenries Inductance.inMillihenries
+            , fuzzFloatToQuantityAndBack "microhenries" Inductance.microhenries Inductance.inMicrohenries
+            , fuzzFloatToQuantityAndBack "nanohenries" Inductance.nanohenries Inductance.inNanohenries
+            , fuzzFloatToQuantityAndBack "kilohenries" Inductance.kilohenries Inductance.inKilohenries
             ]
         , Test.describe "Length" <|
             [ fuzzFloatToQuantityAndBack "meters" Length.meters Length.inMeters
