@@ -1,7 +1,7 @@
 module Capacitance exposing
     ( Capacitance, Farads
-    , farads, inFarads, picofarads, inPicofarads
-    , inMicrofarads, inNanofarads, microfarads, nanofarads
+    , farads, inFarads
+    , picofarads, inPicofarads, nanofarads, inNanofarads, microfarads, inMicrofarads
     )
 
 {-| A `Capacitance` value represents an electrical capacitance in farads.
@@ -22,7 +22,8 @@ You can also compute `Charge` and `Voltage` using `Capacitance`:
 
 @docs Capacitance, Farads
 
-@docs farads, inFarads, picofarads, inPicofarads
+@docs farads, inFarads
+@docs picofarads, inPicofarads, nanofarads, inNanofarads, microfarads, inMicrofarads
 
 -}
 
