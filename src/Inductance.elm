@@ -1,14 +1,14 @@
 module Inductance exposing
     ( Inductance, Henries(..)
-    , henries, inHenries, millihenries, inMillihenries
-    , microhenries, inMicrohenries, nanohenries, inNanohenries, kilohenries, inKilohenries
+    , henries, inHenries
+    , nanohenries, inNanohenries, microhenries, inMicrohenries, millihenries, inMillihenries, kilohenries, inKilohenries
     )
 
 {-| A `Inductance` value represents an electrical inductance in henries.
 
 @docs Inductance, Henries
-@docs henries, inHenries, millihenries, inMillihenries
-@docs microhenries, inMicrohenries, nanohenries, inNanohenries, kilohenries, inKilohenries
+@docs henries, inHenries
+@docs nanohenries, inNanohenries, microhenries, inMicrohenries, millihenries, inMillihenries, kilohenries, inKilohenries
 
 -}
 
