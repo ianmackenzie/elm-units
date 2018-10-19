@@ -1,16 +1,16 @@
 module SubstanceAmount exposing
     ( SubstanceAmount, Moles
-    , moles, inMoles, micromoles, inMicromoles
-    , millimoles, inMillimoles, kilomoles, inKilomoles, megamoles, inMegamoles
-    , gigamoles, inGigamoles, picomoles, inPicomoles, nanomoles, inNanomoles
+    , moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles
+    , micromoles, inMicromoles, millimoles, inMillimoles, kilomoles, inKilomoles
+    , megamoles, inMegamoles, gigamoles, inGigamoles
     )
 
 {-| A `SubstanceAmount` value represents a substance amount in moles.
 
 @docs SubstanceAmount, Moles
-@docs moles, inMoles, micromoles, inMicromoles
-@docs millimoles, inMillimoles, kilomoles, inKilomoles, megamoles, inMegamoles
-@docs gigamoles, inGigamoles, picomoles, inPicomoles, nanomoles, inNanomoles
+@docs moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles
+@docs micromoles, inMicromoles, millimoles, inMillimoles, kilomoles, inKilomoles
+@docs megamoles, inMegamoles, gigamoles, inGigamoles
 
 -}
 
@@ -100,8 +100,8 @@ inMillimoles substanceAmount =
 {-| Construct a substance amount from a number of kilomoles.
 -}
 kilomoles : Float -> SubstanceAmount
-kilomoles numKiloMoles =
-    moles (numKiloMoles * 1.0e3)
+kilomoles numKilomoles =
+    moles (numKilomoles * 1.0e3)
 
 
 {-| Convert a substance amount to a number of kilomoles.

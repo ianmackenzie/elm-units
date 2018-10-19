@@ -7,6 +7,7 @@ module Tests exposing
     , powers
     , pressures
     , speeds
+    , substanceAmount
     , temperatureDeltas
     , temperatures
     , volumes
@@ -161,6 +162,32 @@ durations =
         "s"
         [ ( julianYears 1
           , days 365.25
+          )
+        ]
+
+
+substanceAmount : Test
+substanceAmount =
+    equalPairs
+        "SubstanceAmounts"
+        "ν"
+        [ ( millimoles 3
+          , micromoles 3000
+          )
+        , ( nanomoles 1000000
+          , millimoles 1
+          )
+        , ( moles 1
+          , millimoles 1000
+          )
+        , ( moles 2000
+          , kilomoles 2
+          )
+        , ( kilomoles 1000
+          , megamoles 1
+          )
+        , ( megamoles 1000
+          , gigamoles 1
           )
         ]
 
