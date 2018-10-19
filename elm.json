@@ -24,6 +24,7 @@
         "Quantity",
         "Resistance",
         "Speed",
+        "SubstanceAmount",
         "Temperature",
         "Voltage",
         "Volume"

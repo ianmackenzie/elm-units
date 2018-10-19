@@ -33,6 +33,7 @@ import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
 import Resistance exposing (..)
 import Speed exposing (..)
+import SubstanceAmount exposing (..)
 import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
@@ -389,6 +390,16 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "feetPerSecond" Speed.feetPerSecond Speed.inFeetPerSecond
             , fuzzFloatToQuantityAndBack "kilometersPerHour" Speed.kilometersPerHour Speed.inKilometersPerHour
             , fuzzFloatToQuantityAndBack "milesPerHour" Speed.milesPerHour Speed.inMilesPerHour
+            ]
+        , Test.describe "SubstanceAmount" <|
+            [ fuzzFloatToQuantityAndBack "moles" SubstanceAmount.moles SubstanceAmount.inMoles
+            , fuzzFloatToQuantityAndBack "picomoles" SubstanceAmount.picomoles SubstanceAmount.inPicomoles
+            , fuzzFloatToQuantityAndBack "nanomoles" SubstanceAmount.nanomoles SubstanceAmount.inNanomoles
+            , fuzzFloatToQuantityAndBack "micromoles" SubstanceAmount.micromoles SubstanceAmount.inMicromoles
+            , fuzzFloatToQuantityAndBack "millimoles" SubstanceAmount.millimoles SubstanceAmount.inMillimoles
+            , fuzzFloatToQuantityAndBack "kilomoles" SubstanceAmount.kilomoles SubstanceAmount.inKilomoles
+            , fuzzFloatToQuantityAndBack "megamoles" SubstanceAmount.megamoles SubstanceAmount.inMegamoles
+            , fuzzFloatToQuantityAndBack "gigamoles" SubstanceAmount.gigamoles SubstanceAmount.inGigamoles
             ]
         , Test.describe "Temperature" <|
             [ fuzzFloatToQuantityAndBack "celsiusDegrees" Temperature.celsiusDegrees Temperature.inCelsiusDegrees
