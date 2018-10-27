@@ -1,5 +1,6 @@
 module Tests exposing
-    ( angularSpeeds
+    ( angularAccelerations
+    , angularSpeeds
     , conversionsToQuantityAndBack
     , durations
     , inductance
@@ -15,6 +16,7 @@ module Tests exposing
 
 import Acceleration exposing (..)
 import Angle exposing (..)
+import AngularAcceleration exposing (..)
 import AngularSpeed exposing (..)
 import Area exposing (..)
 import Capacitance exposing (..)
@@ -118,6 +120,17 @@ speeds =
           )
         , ( lightYears 1 |> per (julianYears 1)
           , metersPerSecond 299792458
+          )
+        ]
+
+
+angularAccelerations : Test
+angularAccelerations =
+    equalPairs
+        "Angular Accelerations"
+        "rad/s"
+        [ ( degreesPerSecondSquared 360
+          , turnsPerSecondSquared 1
           )
         ]
 
@@ -301,6 +314,11 @@ conversionsToQuantityAndBack =
             [ fuzzFloatToQuantityAndBack "radians" Angle.radians Angle.inRadians
             , fuzzFloatToQuantityAndBack "degrees" Angle.degrees Angle.inDegrees
             , fuzzFloatToQuantityAndBack "turns" Angle.turns Angle.inTurns
+            ]
+        , Test.describe "AngularAcceleration" <|
+            [ fuzzFloatToQuantityAndBack "radiansPerSecondSquared" AngularAcceleration.radiansPerSecondSquared AngularAcceleration.inRadiansPerSecondSquared
+            , fuzzFloatToQuantityAndBack "degreesPerSecondSquared" AngularAcceleration.degreesPerSecondSquared AngularAcceleration.inDegreesPerSecondSquared
+            , fuzzFloatToQuantityAndBack "turnsPerSecondSquared" AngularAcceleration.turnsPerSecondSquared AngularAcceleration.inTurnsPerSecondSquared
             ]
         , Test.describe "AngularSpeed" <|
             [ fuzzFloatToQuantityAndBack "radiansPerSecond" AngularSpeed.radiansPerSecond AngularSpeed.inRadiansPerSecond

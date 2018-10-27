@@ -31,6 +31,7 @@ You can also do rate-related calculations with `AngularAcceleration` values to c
 
 @docs radiansPerSecondSquared, inRadiansPerSecondSquared, degreesPerSecondSquared, inDegreesPerSecondSquared
 @docs turnsPerSecondSquared, inTurnsPerSecondSquared
+
 -}
 
 import Angle exposing (Radians)
