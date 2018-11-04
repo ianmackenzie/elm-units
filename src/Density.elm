@@ -1,7 +1,7 @@
 module Density exposing
     ( Density, KilogramsPerCubicMeter
     , kilogramsPerCubicMeter, inKilogramsPerCubicMeter, gramsPerCubicCentimeter, inGramsPerCubicCentimeter
-    , poundsPerCubicInch, inPoundsPerCubicInch --, poundsPerCubicFoot, inPoundsPerCubicFoot
+    , poundsPerCubicInch, inPoundsPerCubicInch, poundsPerCubicFoot, inPoundsPerCubicFoot
     )
 
 {-| A `Density` value represents a density in grams per cubic centimeter, pounds per cubic inch, etc.
@@ -39,9 +39,9 @@ You can also do rate-related calculations with `Density` values to compute
 
 -}
 
-import Volume exposing (CubicMeters)
 import Mass exposing (Kilograms)
 import Quantity exposing (Quantity(..), Rate)
+import Volume exposing (CubicMeters)
 
 
 {-| -}
@@ -72,23 +72,22 @@ inKilogramsPerCubicMeter (Quantity numKilogramsPerCubicMeter) =
 -}
 gramsPerCubicCentimeter : Float -> Density
 gramsPerCubicCentimeter numGramsPerCubicCentimeter =
-    kilogramsPerCubicMeter ( 1000 * numGramsPerCubicCentimeter)
+    kilogramsPerCubicMeter (1000 * numGramsPerCubicCentimeter)
 
 
 {-| Convert a density to a number of grams per cubic centimeter.
 -}
 inGramsPerCubicCentimeter : Density -> Float
 inGramsPerCubicCentimeter density =
-    inGramsPerCubicCentimeter density / 1000
+    inKilogramsPerCubicMeter density / 1000
 
 
 {-| Construct a density from a number of pounds per cubic inch.
 -}
 poundsPerCubicInch : Float -> Density
 poundsPerCubicInch numPoundsPerCubicInch =
-    kilogramsPerCubicMeter ( 0.45359237 / (0.0254 * 0.0254 * 0.0254) * numPoundsPerCubicInch)
+    kilogramsPerCubicMeter (0.45359237 / (0.0254 * 0.0254 * 0.0254) * numPoundsPerCubicInch)
 
--- 0.45359237 / 0.00001638706 = 27679.9114667
 
 {-| Convert a density to a number of pounds per cubic inch.
 -}
@@ -97,3 +96,15 @@ inPoundsPerCubicInch density =
     inKilogramsPerCubicMeter density / (0.45359237 / (0.0254 * 0.0254 * 0.0254))
 
 
+{-| Construct a density from a number of pounds per cubic foot.
+-}
+poundsPerCubicFoot : Float -> Density
+poundsPerCubicFoot numPoundsPerCubicFoot =
+    kilogramsPerCubicMeter (0.45359237 / (0.3048 * 0.3048 * 0.3048) * numPoundsPerCubicFoot)
+
+
+{-| Convert a density to a number of pounds per cubic foot.
+-}
+inPoundsPerCubicFoot : Density -> Float
+inPoundsPerCubicFoot density =
+    inKilogramsPerCubicMeter density / (0.45359237 / (0.3048 * 0.3048 * 0.3048))
