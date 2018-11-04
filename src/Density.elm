@@ -1,9 +1,10 @@
 module Density exposing
     ( Density, KilogramsPerCubicMeter
-    --, units tbc 
+    , kilogramsPerCubicMeter, inKilogramsPerCubicMeter, gramsPerCubicCentimeter, inGramsPerCubicCentimeter
+    , poundsPerCubicInch, inPoundsPerCubicInch --, poundsPerCubicFoot, inPoundsPerCubicFoot
     )
 
-{-| A `Density` value represents a density in .... etc.
+{-| A `Density` value represents a density in grams per cubic centimeter, pounds per cubic inch, etc.
 It is stored as a number of kilograms per cubic meter.
 
 Note that since `KilogramsPerCubicMeter` is defined as `Rate Kilograms CubicMeters` (mass per
@@ -24,11 +25,17 @@ You can also do rate-related calculations with `Density` values to compute
     volume =
         mass |> Quantity.at_ density
 
-[1]: https://en.wikipedia.org/wiki/Density
-
 @docs Density, KilogramsPerCubicMeter
 
-@docs TODO
+
+## Metric
+
+@docs kilogramsPerCubicMeter, inKilogramsPerCubicMeter, gramsPerCubicCentimeter, inGramsPerCubicCentimeter
+
+
+## Imperial
+
+@docs poundsPerCubicInch, inPoundsPerCubicInch, poundsPerCubicFoot, inPoundsPerCubicFoot
 
 -}
 
@@ -59,3 +66,34 @@ kilogramsPerCubicMeter numKilogramsPerCubicMeter =
 inKilogramsPerCubicMeter : Density -> Float
 inKilogramsPerCubicMeter (Quantity numKilogramsPerCubicMeter) =
     numKilogramsPerCubicMeter
+
+
+{-| Construct a density from a number of grams per cubic centimeter.
+-}
+gramsPerCubicCentimeter : Float -> Density
+gramsPerCubicCentimeter numGramsPerCubicCentimeter =
+    kilogramsPerCubicMeter ( 1000 * numGramsPerCubicCentimeter)
+
+
+{-| Convert a density to a number of grams per cubic centimeter.
+-}
+inGramsPerCubicCentimeter : Density -> Float
+inGramsPerCubicCentimeter density =
+    inGramsPerCubicCentimeter density / 1000
+
+
+{-| Construct a density from a number of pounds per cubic inch.
+-}
+poundsPerCubicInch : Float -> Density
+poundsPerCubicInch numPoundsPerCubicInch =
+    kilogramsPerCubicMeter ( 0.45359237 / (0.0254 * 0.0254 * 0.0254) * numPoundsPerCubicInch)
+
+-- 0.45359237 / 0.00001638706 = 27679.9114667
+
+{-| Convert a density to a number of pounds per cubic inch.
+-}
+inPoundsPerCubicInch : Density -> Float
+inPoundsPerCubicInch density =
+    inKilogramsPerCubicMeter density / (0.45359237 / (0.0254 * 0.0254 * 0.0254))
+
+
