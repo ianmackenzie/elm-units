@@ -2,6 +2,7 @@ module Tests exposing
     ( angularAccelerations
     , angularSpeeds
     , conversionsToQuantityAndBack
+    , densities
     , durations
     , inductance
     , lengths
@@ -22,6 +23,7 @@ import Area exposing (..)
 import Capacitance exposing (..)
 import Charge exposing (..)
 import Current exposing (..)
+import Density exposing (..)
 import Duration exposing (..)
 import Energy exposing (..)
 import Expect exposing (Expectation)
@@ -164,6 +166,16 @@ pressures =
         "Pa"
         [ ( atmospheres 1
           , kilopascals 101.325
+          )
+        ]
+
+densities : Test
+densities =
+    equalPairs
+        "Densities"
+        "kg/m^3"
+        [ ( gramsPerCubicCentimeter 1
+          , kilogramsPerCubicMeter 1000
           )
         ]
 
@@ -352,6 +364,12 @@ conversionsToQuantityAndBack =
         , Test.describe "Current" <|
             [ fuzzFloatToQuantityAndBack "ampere" Current.amperes Current.inAmperes
             , fuzzFloatToQuantityAndBack "milliampere" Current.milliamperes Current.inMilliamperes
+            ]
+        , Test.describe "Density" <|
+            [ fuzzFloatToQuantityAndBack "kilogramsPerCubicMeter" Density.kilogramsPerCubicMeter Density.inKilogramsPerCubicMeter
+            , fuzzFloatToQuantityAndBack "gramsPerCubicCentimeter" Density.gramsPerCubicCentimeter Density.inGramsPerCubicCentimeter
+            , fuzzFloatToQuantityAndBack "poundsPerCubicInch" Density.poundsPerCubicInch Density.inPoundsPerCubicInch
+            , fuzzFloatToQuantityAndBack "poundsPerCubicFoot" Density.poundsPerCubicFoot Density.inPoundsPerCubicFoot
             ]
         , Test.describe "Duration" <|
             [ fuzzFloatToQuantityAndBack "seconds" Duration.seconds Duration.inSeconds
