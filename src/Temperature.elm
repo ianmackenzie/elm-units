@@ -233,14 +233,16 @@ greaterThan (Temperature y) (Temperature x) =
     x > y
 
 
-{-| Check if one temperature is less than or equal to another.
+{-| Check if one temperature is less than or equal to another. Note the
+[argument order](/#argument-order)!
 -}
 lessThanOrEqualTo : Temperature -> Temperature -> Bool
 lessThanOrEqualTo (Temperature y) (Temperature x) =
     x <= y
 
 
-{-| Check if one temperature is greater than or equal to another.
+{-| Check if one temperature is greater than or equal to another. Note the
+[argument order](/#argument-order)!
 -}
 greaterThanOrEqualTo : Temperature -> Temperature -> Bool
 greaterThanOrEqualTo (Temperature y) (Temperature x) =

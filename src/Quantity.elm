@@ -221,14 +221,16 @@ greaterThan (Quantity y) (Quantity x) =
     x > y
 
 
-{-| Check if one quantity is less than or equal to another.
+{-| Check if one quantity is less than or equal to another. Note the [argument
+order](/#argument-order)!
 -}
 lessThanOrEqualTo : Quantity number units -> Quantity number units -> Bool
 lessThanOrEqualTo (Quantity y) (Quantity x) =
     x <= y
 
 
-{-| Check if one quantity is greater than or equal to another.
+{-| Check if one quantity is greater than or equal to another. Note the
+[argument order](/#argument-order)!
 -}
 greaterThanOrEqualTo : Quantity number units -> Quantity number units -> Bool
 greaterThanOrEqualTo (Quantity y) (Quantity x) =
