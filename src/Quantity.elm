@@ -2,7 +2,7 @@ module Quantity exposing
     ( Quantity(..)
     , Squared, Cubed, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
-    , lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
+    , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort
@@ -30,7 +30,7 @@ composite units in a fairly flexible way.
 
 # Comparison
 
-@docs lessThan, greaterThan, compare, equalWithin, max, min, isNaN, isInfinite
+@docs lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
 
 
 # Arithmetic
@@ -219,6 +219,20 @@ lessThan (Quantity y) (Quantity x) =
 greaterThan : Quantity number units -> Quantity number units -> Bool
 greaterThan (Quantity y) (Quantity x) =
     x > y
+
+
+{-| Check if one quantity is less than or equal to another.
+-}
+lessThanOrEqualTo : Quantity number units -> Quantity number units -> Bool
+lessThanOrEqualTo (Quantity y) (Quantity x) =
+    x <= y
+
+
+{-| Check if one quantity is greater than or equal to another.
+-}
+greaterThanOrEqualTo : Quantity number units -> Quantity number units -> Bool
+greaterThanOrEqualTo (Quantity y) (Quantity x) =
+    x >= y
 
 
 {-| Compare two quantities, returning an [`Order`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Order)
