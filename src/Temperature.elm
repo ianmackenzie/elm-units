@@ -4,7 +4,7 @@ module Temperature exposing
     , celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, min, max
     , plus, minus, clamp
-    , minimum, maximum, sort
+    , minimum, maximum, sort, sortBy
     )
 
 {-| Unlike other modules in `elm-units`, this module contains two different
@@ -54,7 +54,7 @@ actual temperature.
 
 # List functions
 
-@docs minimum, maximum, sort
+@docs minimum, maximum, sort, sortBy
 
 -}
 
@@ -450,3 +450,31 @@ maximum temperatures =
 sort : List Temperature -> List Temperature
 sort temperatures =
     List.sortBy inKelvins temperatures
+
+
+{-| Sort an arbitrary list of values by a derived `Temperature`. If you had
+
+    rooms =
+        [ ( "Lobby", Temperature.degreesCelsius 21 )
+        , ( "Locker room", Temperature.degreesCelsius 17 )
+        , ( "Rink", Temperature.degreesCelsius -4 )
+        , ( "Sauna", Temperature.degreesCelsius 82 )
+        ]
+
+then you could sort by temperature with
+
+    Temperature.sortBy Tuple.second rooms
+    --> [ ( "Rink", Temperature.degreesCelsius -4 )
+    --> , ( "Locker room", Temperature.degreesCelsius 17 )
+    --> , ( "Lobby", Temperature.degreesCelsius 21 )
+    --> , ( "Sauna", Temperature.degreesCelsius 82 )
+    --> ]
+
+-}
+sortBy : (a -> Temperature) -> List a -> List a
+sortBy toTemperature list =
+    let
+        comparator first second =
+            compare (toTemperature first) (toTemperature second)
+    in
+    List.sortWith comparator list

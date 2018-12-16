@@ -5,7 +5,7 @@ module Quantity exposing
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
     , round, floor, ceiling, truncate, toFloatQuantity
-    , sum, minimum, maximum, sort
+    , sum, minimum, maximum, sort, sortBy
     , per, times, at, at_, inverse
     , Unitless, int, toInt, float, toFloat
     )
@@ -56,7 +56,7 @@ module. They're necessary because the built-in `List.sum` only supports `List
 Int` and `List Float`, and `minimum`/`maximum`/`sort` only support built-in
 comparable types like `Int`, `Float`, `String` and tuples.
 
-@docs sum, minimum, maximum, sort
+@docs sum, minimum, maximum, sort, sortBy
 
 
 # Working with rates
@@ -699,6 +699,40 @@ unwrap (Quantity value) =
 sort : List (Quantity number units) -> List (Quantity number units)
 sort quantities =
     List.sortBy unwrap quantities
+
+
+{-| Sort an arbitrary list of values by a derived `Quantity`. If you had
+
+    people =
+        [ { name = "Bob", height = Length.meters 1.6 }
+        , { name = "Charlie", height = Length.meters 2.0 }
+        , { name = "Alice", height = Length.meters 1.8 }
+        ]
+
+then you could sort by name with
+
+    List.sortBy .name people
+    --> [ { name = "Alice", height = Length.meters 1.8 }
+    --> , { name = "Bob", height = Length.meters 1.6 }
+    --> , { name = "Charlie", height = Length.meters 2.0 }
+    --> ]
+
+(nothing new there!), and sort by height with
+
+    Quantity.sortBy .height people
+    --> [ { name = "Bob", height = Length.meters 1.6 }
+    --> , { name = "Alice", height = Length.meters 1.8 }
+    --> , { name = "Charlie", height = Length.meters 2.0 }
+    --> ]
+
+-}
+sortBy : (a -> Quantity number units) -> List a -> List a
+sortBy toQuantity list =
+    let
+        comparator first second =
+            compare (toQuantity first) (toQuantity second)
+    in
+    List.sortWith comparator list
 
 
 
