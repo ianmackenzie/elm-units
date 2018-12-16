@@ -3,7 +3,7 @@ module Quantity exposing
     , Squared, Cubed, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
+    , negate, plus, minus, product, quotient, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort, sortBy
     , per, times, at, at_, inverse
@@ -35,7 +35,7 @@ composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, plus, minus, product, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt
+@docs negate, plus, minus, product, quotient, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
 
 
 # `Int`/`Float` conversion
@@ -407,6 +407,21 @@ product (Quantity x) (Quantity y) =
     Quantity (x * y)
 
 
+{-| Divide a quantity in `Squared units` (perhaps produced by
+[`product`](#product)) by a quantity in plain `units`, resulting in another
+quantity in plain `units`. For example, if I have a strip of material one foot
+wide and I want one square meter of it, how long of a piece do I need?
+
+    Quantity.quotient (Area.squareMeters 1) (Length.feet 1)
+        |> Length.inInches
+    --> 129.17
+
+-}
+quotient : Quantity Float (Squared units) -> Quantity Float units -> Quantity Float units
+quotient (Quantity x) (Quantity y) =
+    Quantity (x / y)
+
+
 {-| Find the ratio of two quantities with the same units.
 
     Quantity.ratio (Length.miles 1) (Length.yards 1)
@@ -549,6 +564,51 @@ cbrt (Quantity value) =
 
     else
         Quantity -(-value ^ (1 / 3))
+
+
+{-| Interpolate from the first quantity to the second, based on a parameter that
+ranges from zero to one. Passing a parameter value of zero will return the start
+value and passing a parameter value of one will return the end value.
+
+    fiveMeters =
+        Length.meters 5
+
+    tenMeters =
+        Length.meters 10
+
+    Quantity.interpolateFrom fiveMeters tenMeters 0
+    --> Length.meters 5
+
+    Quantity.interpolateFrom fiveMeters tenMeters 1
+    --> Length.meters 10
+
+    Quantity.interpolateFrom fiveMeters tenMeters 0.6
+    --> Length.meters 8
+
+The end value can be less than the start value:
+
+    Quantity.interpolateFrom tenMeters fiveMeters 0.1
+    --> Length.meters 9.5
+
+Parameter values less than zero or greater than one can be used to extrapolate:
+
+    Quantity.interpolateFrom fiveMeters tenMeters 1.5
+    --> Length.meters 12.5
+
+    Quantity.interpolateFrom fiveMeters tenMeters -0.5
+    --> Length.meters 2.5
+
+    Quantity.interpolateFrom tenMeters fiveMeters -0.2
+    --> Length.meters 11
+
+-}
+interpolateFrom : Quantity Float units -> Quantity Float units -> Float -> Quantity Float units
+interpolateFrom (Quantity start) (Quantity end) parameter =
+    if parameter <= 0.5 then
+        Quantity (start + parameter * (end - start))
+
+    else
+        Quantity (end + (1 - parameter) * (start - end))
 
 
 
