@@ -213,7 +213,7 @@ lessThan (Temperature y) (Temperature x) =
     x < y
 
 
-{-| Check if one temperature is less than another. Note the [argument order](/#argument-order)!
+{-| Check if one temperature is greater than another. Note the [argument order](/#argument-order)!
 
     roomTemperature =
         Temperature.degreesCelsius 21
