@@ -2,7 +2,7 @@ module Temperature exposing
     ( Temperature, Delta, CelsiusDegrees
     , degreesCelsius, inDegreesCelsius, degreesFahrenheit, inDegreesFahrenheit, kelvins, inKelvins, absoluteZero
     , celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
-    , lessThan, greaterThan, compare, equalWithin, min, max
+    , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, min, max
     , plus, minus, clamp
     , minimum, maximum, sort
     )
@@ -44,7 +44,7 @@ actual temperature.
 
 # Comparison
 
-@docs lessThan, greaterThan, compare, equalWithin, min, max
+@docs lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, min, max
 
 
 # Arithmetic
@@ -231,6 +231,20 @@ lessThan (Temperature y) (Temperature x) =
 greaterThan : Temperature -> Temperature -> Bool
 greaterThan (Temperature y) (Temperature x) =
     x > y
+
+
+{-| Check if one temperature is less than or equal to another.
+-}
+lessThanOrEqualTo : Temperature -> Temperature -> Bool
+lessThanOrEqualTo (Temperature y) (Temperature x) =
+    x <= y
+
+
+{-| Check if one temperature is greater than or equal to another.
+-}
+greaterThanOrEqualTo : Temperature -> Temperature -> Bool
+greaterThanOrEqualTo (Temperature y) (Temperature x) =
+    x >= y
 
 
 {-| Compare two temperatures, returning an [`Order`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Order)
