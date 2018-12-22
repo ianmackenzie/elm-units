@@ -3,10 +3,10 @@ module Quantity exposing
     , Squared, Cubed, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, plus, minus, product, quotient, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
+    , negate, plus, minus, times, over, over_, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort, sortBy
-    , per, times, at, at_, inverse
+    , per, at, at_, inverse
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -35,7 +35,7 @@ composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, plus, minus, product, quotient, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
+@docs negate, plus, minus, times, over, over_, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
 
 
 # `Int`/`Float` conversion
@@ -61,7 +61,7 @@ comparable types like `Int`, `Float`, `String` and tuples.
 
 # Working with rates
 
-@docs per, times, at, at_, inverse
+@docs per, at, at_, inverse
 
 
 # Unitless quantities
@@ -103,12 +103,14 @@ type Quantity number units
 {-| Represents a units type that is the square of some other units type; for
 example, `Meters` is one units type (the units type of a `Length`) and `Squared
 Meters` is another (the units type of an `Area`). This is useful because some
-functions in this module (specifically [`product`](#product),
-[`squared`](#squared), and [`sqrt`](#sqrt)) "know" about the `Squared` type and
-how to work with it.
+functions in this module (specifically [`squared`](#squared) and [`sqrt`](#sqrt))
+"know" about the `Squared` type and how to work with it.
+
+This is a special case of the [`Product`](#Product) units type.
+
 -}
-type Squared units
-    = Squared units
+type alias Squared units =
+    Product units units
 
 
 {-| Represents a units type that is the cube of some other units type; for
@@ -117,9 +119,20 @@ Meters` is another (the units type of an `Volume`). This is useful because some
 functions in this module (specifically [`cubed`](Quantity#cubed)
 and [`cbrt`](Quantity#cbrt)) "know" about the
 `Cubed` type and how to work with it.
+
+This is a special case of the [`Product`](#Product) units type.
+
 -}
-type Cubed units
-    = Cubed units
+type alias Cubed units =
+    Product (Product units units) units
+
+
+{-| Represents a units type that is the product of two other units types. This
+is a more general form of `Squared` or `Cubed`. See [`product`](#product),
+[`over`](#over) and [`over_`](#over_) for how it can be used.
+-}
+type Product units1 units2
+    = Product units1 units2
 
 
 {-| Represents the units type of a rate or quotient such as a speed (`Rate
@@ -390,35 +403,39 @@ but one special case is worth pointing out. The units type of an [`Area`](Area)
 is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
 the product of two `Length`s does in fact give you an `Area`:
 
-    Quantity.product
-        (Length.meters 2)
-        (Length.centimeters 40)
-    --> Area.squareMeters 0.8
-
     -- This is the definition of an acre, I kid you not 😈
-    Quantity.product (Length.feet 66) (Length.feet 660)
+    Length.feet 66 |> Quantity.times (Length.feet 660)
     --> Area.acres 1
 
 Note that there are [other forms of multiplication](/#multiplication)!
 
 -}
-product : Quantity number units -> Quantity number units -> Quantity number (Squared units)
-product (Quantity x) (Quantity y) =
+times : Quantity number units2 -> Quantity number units1 -> Quantity number (Product units1 units2)
+times (Quantity y) (Quantity x) =
     Quantity (x * y)
 
 
-{-| Divide a quantity in `Squared units` (perhaps produced by
-[`product`](#product)) by a quantity in plain `units`, resulting in another
-quantity in plain `units`. For example, if I have a strip of material one foot
-wide and I want one square meter of it, how long of a piece do I need?
+{-| Divide a quantity in `Product units1 units2` (perhaps produced by
+[`product`](#product) or [`squared`](#squared)) by a quantity in `units2`,
+resulting in another quantity in `units1`. For example, if I have a strip of
+material one foot wide and I want one square meter of it, how long of a piece do
+I need?
 
-    Quantity.quotient (Area.squareMeters 1) (Length.feet 1)
+    Area.squareMeters 1 |> Quantity.over (Length.feet 1)
         |> Length.inInches
     --> 129.17
 
 -}
-quotient : Quantity Float (Squared units) -> Quantity Float units -> Quantity Float units
-quotient (Quantity x) (Quantity y) =
+over : Quantity Float (Product units1 units2) -> Quantity Float units2 -> Quantity Float units1
+over (Quantity x) (Quantity y) =
+    Quantity (x / y)
+
+
+{-| Divide a quantity in `Product units1 units2` by a quantity in `units1`,
+resulting in another quantity in `units2`.
+-}
+over_ : Quantity Float (Product units1 units2) -> Quantity Float units1 -> Quantity Float units2
+over_ (Quantity x) (Quantity y) =
     Quantity (x / y)
 
 
@@ -836,31 +853,16 @@ per (Quantity independentValue) (Quantity dependentValue) =
 {-| Multiply a rate of change by an independent quantity (the denominator in
 the rate) to get a total value:
 
-    -- Pressure is force per area
-    pressure =
-        Pressure.kilopascals 10
-
-    area =
-        Area.squareMeters 3
-
-    pressure |> Quantity.times area
-    --> Force.newtons 30000
-
-Note that there are [other forms of multiplication](/#multiplication)!
-
--}
-times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
-times (Quantity independentValue) (Quantity rate) =
-    Quantity (rate * independentValue)
-
-
-{-| Same as `times` but with the argument order flipped, which may read better
-in some cases:
-
     Duration.minutes 30
         |> Quantity.at
             (Speed.kilometersPerHour 100)
     --> Length.kilometers 50
+
+    -- Pressure is force per area
+    Area.squareMeters 3
+        |> Quantity.at
+            (Pressure.kilopascals 10)
+    --> Force.newtons 30000
 
 Can be useful to define conversion functions from one unit to another, since
 if you define a `rate` then `Quantity.at rate` will give you a conversion
@@ -889,17 +891,17 @@ at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-{-| Given a rate and a _dependent_ value, determine the necessary amount of the
-_independent_ value:
+{-| Given a rate and a _dependent_ quantity, determine the necessary amount of
+the _independent_ quantity:
 
     Length.kilometers 75
         |> Quantity.at_
             (Speed.kilometersPerHour 100)
     --> Duration.minutes 45
 
-Where `times` and `at` perform multiplication, `at_` performs division - you
-multiply a speed by a duration to get a distance, but you divide a distance by
-a speed to get a duration.
+Where `at` performs multiplication, `at_` performs division - you multiply a
+speed by a duration to get a distance, but you divide a distance by a speed to
+get a duration.
 
 Similar to `at`, `at_` can be used to define an _inverse_ conversion function:
 
