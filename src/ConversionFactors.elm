@@ -1,7 +1,8 @@
 module ConversionFactors exposing (usLiquidGallonsPerCubicMeter, usDryGallonsPerCubicMeter)
 
 {-| `ConversionFactors` contains constants that are used in converting
-from one standard unit of measurement to another. Unless otherwise stated, the given values are sourced from
+from one standard unit of measurement to another.
+Unless otherwise stated, the given values are sourced from
 (Frink language units)[https://frinklang.org/frinkdata/units.txt]
 
 
@@ -12,6 +13,7 @@ from one standard unit of measurement to another. Unless otherwise stated, the g
 -}
 
 ---------- SOURCE CONSTANTS ----------
+---------- LENGTHS ----------
 
 
 {-| The number of centimeters in an inch.
@@ -19,13 +21,6 @@ from one standard unit of measurement to another. Unless otherwise stated, the g
 centimetersPerInch : Float
 centimetersPerInch =
     2.54
-
-
-{-| The number cubic inches in a US liquid gallon.
--}
-cubicInchesPerUsLiquidGallon : Float
-cubicInchesPerUsLiquidGallon =
-    231
 
 
 {-| The number of centimeters in a meter.
@@ -36,11 +31,46 @@ centimetersPerMeter =
 
 
 
+----------VOLUMES ----------
+
+
+{-| The number cubic inches in a US liquid gallon.
+-}
+cubicInchesPerUsLiquidGallon : Float
+cubicInchesPerUsLiquidGallon =
+    231
+
+
+{-| The number cubic inches in a bushel.
+(Rounded from 8 inch high cylinder with 18.5 inch diameter)
+-}
+cubicInchesPerBushel : Float
+cubicInchesPerBushel =
+    2150.42
+
+
+{-| The number of bushels in a peck.
+0.25
+-}
+pecksPerBushel : Float
+pecksPerBushel =
+    1 / 4
+
+
+{-| The number of US dry gallons in a peck.
+0.5
+-}
+usDryGallonsPerPeck : Float
+usDryGallonsPerPeck =
+    1 / 2
+
+
+
 ---------- DERIVED CONSTANTS ----------
 
 
 {-| The number of meters per inch.
-100
+0.0254
 -}
 metersPerInch : Float
 metersPerInch =
@@ -56,10 +86,11 @@ usLiquidGallonsPerCubicMeter =
 
 
 {-| The number of US dry gallons in a cubic meter.
+227.02074606721402
 -}
 usDryGallonsPerCubicMeter : Float
 usDryGallonsPerCubicMeter =
-    227.0208
+    (1 / (cubicInchesPerBushel * metersPerInch * metersPerInch * metersPerInch)) / pecksPerBushel / usDryGallonsPerPeck
 
 
 {-| The number of imperial gallons in a cubic meter.
