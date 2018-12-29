@@ -29,6 +29,7 @@ is stored as a number of meters.
 
 -}
 
+import ConversionFactors exposing (metersPerInch)
 import Quantity exposing (Quantity(..))
 
 
@@ -127,14 +128,14 @@ inThou length =
 -}
 inches : Float -> Length
 inches numInches =
-    meters (0.0254 * numInches)
+    meters (metersPerInch * numInches)
 
 
 {-| Convert a length to a number of inches.
 -}
 inInches : Length -> Float
 inInches length =
-    inMeters length / 0.0254
+    inMeters length / metersPerInch
 
 
 {-| Construct a length from a number of centimeters.

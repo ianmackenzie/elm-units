@@ -1,15 +1,9 @@
-module ConversionFactors exposing (usLiquidGallonsPerCubicMeter, usDryGallonsPerCubicMeter)
+module ConversionFactors exposing (metersPerInch, usLiquidGallonsPerCubicMeter, usDryGallonsPerCubicMeter)
 
 {-| `ConversionFactors` contains constants that are used in converting
 from one standard unit of measurement to another.
 Unless otherwise stated, the given values are sourced from
 (Frink language units)[https://frinklang.org/frinkdata/units.txt]
-
-
-## Imperial
-
-@docs usLiquidGallonsPerCubicMeter, usDryGallonsPerCubicMeter
-
 -}
 
 ---------- SOURCE CONSTANTS ----------
