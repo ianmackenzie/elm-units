@@ -3,7 +3,7 @@ module Quantity exposing
     , Squared, Cubed, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, plus, minus, times, over, over_, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
+    , negate, plus, minus, multiplyBy, divideBy, divideBy_, ratio, scaleBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort, sortBy
     , per, at, at_, inverse
@@ -35,7 +35,7 @@ composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, plus, minus, times, over, over_, ratio, scaleBy, divideBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
+@docs negate, plus, minus, multiplyBy, divideBy, divideBy_, ratio, scaleBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
 
 
 # `Int`/`Float` conversion
@@ -128,8 +128,8 @@ type alias Cubed units =
 
 
 {-| Represents a units type that is the product of two other units types. This
-is a more general form of `Squared` or `Cubed`. See [`product`](#product),
-[`over`](#over) and [`over_`](#over_) for how it can be used.
+is a more general form of `Squared` or `Cubed`. See [`multiplyBy`](#product),
+[`divideBy`](#divideBy) and [`divideBy_`](#divideBy_) for how it can be used.
 -}
 type Product units1 units2
     = Product units1 units2
@@ -404,14 +404,14 @@ is `SquareMeters`, which is a type alias for `Squared Meters`. This means that
 the product of two `Length`s does in fact give you an `Area`:
 
     -- This is the definition of an acre, I kid you not 😈
-    Length.feet 66 |> Quantity.times (Length.feet 660)
+    Length.feet 66 |> Quantity.multiplyBy (Length.feet 660)
     --> Area.acres 1
 
 Note that there are [other forms of multiplication](/#multiplication)!
 
 -}
-times : Quantity number units2 -> Quantity number units1 -> Quantity number (Product units1 units2)
-times (Quantity y) (Quantity x) =
+multiplyBy : Quantity number units2 -> Quantity number units1 -> Quantity number (Product units1 units2)
+multiplyBy (Quantity y) (Quantity x) =
     Quantity (x * y)
 
 
@@ -421,21 +421,21 @@ resulting in another quantity in `units1`. For example, if I have a strip of
 material one foot wide and I want one square meter of it, how long of a piece do
 I need?
 
-    Area.squareMeters 1 |> Quantity.over (Length.feet 1)
+    Area.squareMeters 1 |> Quantity.divideBy (Length.feet 1)
         |> Length.inInches
     --> 129.17
 
 -}
-over : Quantity Float (Product units1 units2) -> Quantity Float units2 -> Quantity Float units1
-over (Quantity x) (Quantity y) =
+divideBy : Quantity Float (Product units1 units2) -> Quantity Float units2 -> Quantity Float units1
+divideBy (Quantity x) (Quantity y) =
     Quantity (x / y)
 
 
 {-| Divide a quantity in `Product units1 units2` by a quantity in `units1`,
 resulting in another quantity in `units2`.
 -}
-over_ : Quantity Float (Product units1 units2) -> Quantity Float units1 -> Quantity Float units2
-over_ (Quantity x) (Quantity y) =
+divideBy_ : Quantity Float (Product units1 units2) -> Quantity Float units1 -> Quantity Float units2
+divideBy_ (Quantity x) (Quantity y) =
     Quantity (x / y)
 
 
@@ -461,17 +461,6 @@ Note that there are [other forms of multiplication](/#multiplication)!
 scaleBy : number -> Quantity number units -> Quantity number units
 scaleBy scale (Quantity value) =
     Quantity (scale * value)
-
-
-{-| Divide a `Quantity` by a `Float`.
-
-    Quantity.divideBy 2 (Duration.hours 1)
-    --> Duration.minutes 30
-
--}
-divideBy : Float -> Quantity Float units -> Quantity Float units
-divideBy divisor (Quantity value) =
-    Quantity (value / divisor)
 
 
 {-| Get the absolute value of a quantity.
