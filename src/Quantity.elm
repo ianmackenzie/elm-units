@@ -842,16 +842,31 @@ per (Quantity independentValue) (Quantity dependentValue) =
 {-| Multiply a rate of change by an independent quantity (the denominator in
 the rate) to get a total value:
 
+    -- Pressure is force per area
+    pressure =
+        Pressure.kilopascals 10
+
+    area =
+        Area.squareMeters 3
+
+    pressure |> Quantity.times area
+    --> Force.newtons 30000
+
+Note that there are [other forms of multiplication](/#multiplication)!
+
+-}
+times : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
+times (Quantity independentValue) (Quantity rate) =
+    Quantity (rate * independentValue)
+
+
+{-| Same as `times` but with the argument order flipped, which may read better
+in some cases:
+
     Duration.minutes 30
         |> Quantity.at
             (Speed.kilometersPerHour 100)
     --> Length.kilometers 50
-
-    -- Pressure is force per area
-    Area.squareMeters 3
-        |> Quantity.at
-            (Pressure.kilopascals 10)
-    --> Force.newtons 30000
 
 Can be useful to define conversion functions from one unit to another, since
 if you define a `rate` then `Quantity.at rate` will give you a conversion
