@@ -903,9 +903,9 @@ necessary amount of the _independent_ quantity:
             (Speed.kilometersPerHour 100)
     --> Duration.minutes 45
 
-Where `at` performs multiplication, `at_` performs division - you multiply a
-speed by a duration to get a distance, but you divide a distance by a speed to
-get a duration.
+Where `times` and `at` perform multiplication, `at_` performs division - you
+multiply a speed by a duration to get a distance, but you divide a distance by a
+speed to get a duration.
 
 Similar to `at`, `at_` can be used to define an _inverse_ conversion function:
 
