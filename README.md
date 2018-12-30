@@ -91,9 +91,9 @@ Duration.hours 2
 --> 9000
 
 -- Some functions can actually convert between units!
-Quantity.product
-    (Length.centimeters 60)
-    (Length.centimeters 80)
+Length.centimeters 60
+    |> Quantity.multiplyBy
+        (Length.centimeters 80)
 --> Area.squareMeters 0.48
 
 Quantity.sort
@@ -163,6 +163,9 @@ To take code that currently uses raw `Float` values and convert it to using
     JSON etc.), use a function such as `Duration.inMillliseconds`,
     `Angle.inRadians` or `Temperature.inDegreesCelsius` to extract the value in
     whatever units you want.
+  - Where you do math with `Float` values, switch to using `Quantity` functions
+    like `Quantity.plus`, `Quantity.greaterThan`. If this becomes impractical,
+    there are [other approaches](#custom-functions).
 
 ### The `Quantity` Type
 
@@ -206,7 +209,8 @@ Quantity.sum [ Angle.radians pi, Angle.degrees 45 ]
 
 -- Area of a triangle with base of 2 feet and
 -- height of 8 inches
-Quantity.product (Length.feet 2) (Length.inches 8)
+Length.feet 2
+    |> Quantity.multiplyBy (Length.inches 8)
     |> Quantity.scaleBy 0.5
     |> Area.inSquareInches
 --> 96
@@ -292,26 +296,44 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 --> [ Length.feet 3, Length.meters 1 ]
 ```
 
-#### Multiplication
+#### Multiplication and division
 
 There are actually three different multiplication functions in `elm-units`, used
-for different kinds of multiplication:
+in different contexts:
 
-  - [`Quantity.product`](Quantity#product) is used to multiply two quantities
-    with the same `units` together, resulting in a quantity in `Squared units`;
-    this can be used to multiply two lengths together to get an area, for
-    example
   - [`Quantity.scaleBy`](Quantity#scaleBy) is used to multiply a quantity by
-    a plain `Float` or `Int` scaling factor
-  - [`Quantity.times`](Quantity#times) is used to multiply a rate of change by
-    an independent quantity value to get a dependent quantity value; for example,
-    multiplying a `Speed` by a `Duration` to get a `Length`, or a `Pressure` by
-    an `Area` to get a `Force`
+    a plain `Float` or `Int` scaling factor.
+  - [`Quantity.times`](Quantity#times) and [`Quantity.at`](Quantity#at) are used
+    to multiply a rate of change by an independent quantity value to get a
+    dependent quantity value; for example, multiplying a `Speed` by a `Duration`
+    to get a `Length`, or a `Pressure` by an `Area` to get a `Force`.
+  - [`Quantity.multiplyBy`](Quantity#product) can be used to multiply two
+    arbitrary quantities together; this can be used to multiply two lengths
+    together to get an area, an area by a length to get a volume, or a mass by
+    an acceleration to get a force.
+
+There are two kinds of division:
+
+  - [`Quantity.at_`] divides a dependent quantity value by a rate of change to
+    get an independent value; for example, divide a `Length` by a `Speed` to
+    get a `Duration` (the time needed to travel the given length if going at
+    the given speed).
+  - [`Quantity.divideBy`](Quantity#divideBy) and [`Quantity.divideBy_`](Quantity#divideBy_)
+    are used to 'undo' a product formed by by `Quantity.multiplyBy` by 'dividing
+    out' one of its terms. For example, if you have a `Volume`, you can use
+    `divideBy` to divide by a `Length` to get an `Area` (divide the volume of
+    a lake by its average depth to get its surface area), or `divideBy_` to
+    divide by an `Area` to get a `Length` (divide the volume of a lake by its
+    surface area to get its average depth).
+
+(If you want to divide by a `Float` value `x`, you can use `scaleBy` with `1/x`
+instead.)
 
 #### Argument order
 
-Note that `Quantity.minus`, `Quantity.lessThan` and `Quantity.greaterThan` (and
-their `Temperature` equivalents) "take the second argument first"; for example,
+Note that `Quantity.minus`, `Quantity.multiplyBy`, `Quantity.divideBy`,
+`Quantity.divideBy_`, `Quantity.lessThan` and `Quantity.greaterThan` (and their
+`Temperature` equivalents) all "take the second argument first"; for example,
 
 ```elm
 Quantity.lessThan x y
