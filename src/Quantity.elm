@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, plus, minus, multiplyBy, divideBy, divideBy_, ratio, scaleBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort, sortBy
-    , per, at, at_, inverse
+    , per, times, at, at_, inverse
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -61,7 +61,7 @@ comparable types like `Int`, `Float`, `String` and tuples.
 
 # Working with rates
 
-@docs per, at, at_, inverse
+@docs per, times, at, at_, inverse
 
 
 # Unitless quantities
