@@ -29,7 +29,7 @@ is stored as a number of meters.
 
 -}
 
-import ConversionFactors exposing (metersPerInch)
+import Constants
 import Quantity exposing (Quantity(..))
 
 
@@ -128,14 +128,14 @@ inThou length =
 -}
 inches : Float -> Length
 inches numInches =
-    meters (metersPerInch * numInches)
+    meters (Constants.inch * numInches)
 
 
 {-| Convert a length to a number of inches.
 -}
 inInches : Length -> Float
 inInches length =
-    inMeters length / metersPerInch
+    inMeters length / Constants.inch
 
 
 {-| Construct a length from a number of centimeters.
@@ -156,14 +156,14 @@ inCentimeters length =
 -}
 feet : Float -> Length
 feet numFeet =
-    meters (0.3048 * numFeet)
+    meters (Constants.foot * numFeet)
 
 
 {-| Convert a length to a number of feet.
 -}
 inFeet : Length -> Float
 inFeet length =
-    inMeters length / 0.3048
+    inMeters length / Constants.foot
 
 
 {-| Construct a length from a number of yards.
