@@ -895,8 +895,8 @@ at (Quantity rate) (Quantity independentValue) =
     Quantity (rate * independentValue)
 
 
-{-| Given a rate and a _dependent_ quantity, determine the necessary amount of
-the _independent_ quantity:
+{-| Given a rate and a _dependent_ quantity (total value), determine the
+necessary amount of the _independent_ quantity:
 
     Length.kilometers 75
         |> Quantity.at_
