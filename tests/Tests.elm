@@ -343,6 +343,20 @@ multiplication =
               , Force.newtons 98.0665
               )
             ]
+        , equalPairs
+            "Energies"
+            "J"
+            [ ( Force.newtons 5 |> Quantity.multiplyBy (Length.meters 4)
+              , Energy.joules 20
+              )
+            , ( Mass.kilograms 1
+                    |> Quantity.multiplyBy
+                        (Acceleration.metersPerSecondSquared 2)
+                    |> Quantity.multiplyBy
+                        (Length.meters 3)
+              , Energy.joules 6
+              )
+            ]
         ]
 
 
