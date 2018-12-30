@@ -426,16 +426,16 @@ I need?
     --> 129.17
 
 -}
-divideBy : Quantity Float (Product units1 units2) -> Quantity Float units2 -> Quantity Float units1
-divideBy (Quantity x) (Quantity y) =
+divideBy : Quantity Float units2 -> Quantity Float (Product units1 units2) -> Quantity Float units1
+divideBy (Quantity y) (Quantity x) =
     Quantity (x / y)
 
 
 {-| Divide a quantity in `Product units1 units2` by a quantity in `units1`,
 resulting in another quantity in `units2`.
 -}
-divideBy_ : Quantity Float (Product units1 units2) -> Quantity Float units1 -> Quantity Float units2
-divideBy_ (Quantity x) (Quantity y) =
+divideBy_ : Quantity Float units1 -> Quantity Float (Product units1 units2) -> Quantity Float units2
+divideBy_ (Quantity y) (Quantity x) =
     Quantity (x / y)
 
 
