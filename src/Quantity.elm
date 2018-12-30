@@ -1,6 +1,6 @@
 module Quantity exposing
     ( Quantity(..)
-    , Product, Squared, Cubed, Rate
+    , Squared, Cubed, Product, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, plus, minus, multiplyBy, divideBy, divideBy_, ratio, scaleBy, abs, clamp, squared, sqrt, cubed, cbrt, interpolateFrom
@@ -20,7 +20,7 @@ module Quantity exposing
 The `Squared`, `Cubed` and `Rate` units types allow you to build up and work with
 composite units in a fairly flexible way.
 
-@docs Product, Squared, Cubed, Rate
+@docs Squared, Cubed, Product, Rate
 
 
 # Constants
