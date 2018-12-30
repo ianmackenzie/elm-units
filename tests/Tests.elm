@@ -3,9 +3,11 @@ module Tests exposing
     , angularSpeeds
     , conversionsToQuantityAndBack
     , densities
+    , division
     , durations
     , inductance
     , lengths
+    , multiplication
     , powers
     , pressures
     , speeds
@@ -312,6 +314,64 @@ volumes =
         , ( imperialPints 1
           , imperialFluidOunces 20
           )
+        ]
+
+
+multiplication : Test
+multiplication =
+    Test.describe "Multiplication"
+        [ equalPairs
+            "Areas"
+            "m^2"
+            [ ( Length.feet 66 |> Quantity.multiplyBy (Length.feet 660)
+              , Area.acres 1
+              )
+            ]
+        , equalPairs
+            "Volumes"
+            "m^3"
+            [ ( Area.squareMeters 1
+                    |> Quantity.multiplyBy
+                        (Length.centimeters 1)
+              , Volume.liters 10
+              )
+            ]
+        , equalPairs
+            "Forces"
+            "N"
+            [ ( Mass.kilograms 10 |> Quantity.multiplyBy (Acceleration.gees 1)
+              , Force.newtons 98.0665
+              )
+            ]
+        ]
+
+
+division : Test
+division =
+    Test.describe "Division"
+        [ equalPairs
+            "Area / length"
+            "m"
+            [ ( Area.squareKilometers 1 |> Quantity.divideBy (Length.meters 100)
+              , Length.kilometers 10
+              )
+            ]
+        , equalPairs
+            "Volume / length"
+            "m^2"
+            [ ( Volume.liters 10 |> Quantity.divideBy (Length.centimeters 10)
+              , Area.squareCentimeters 1000
+              )
+            ]
+        , equalPairs
+            "Volume / area"
+            "m"
+            [ ( Volume.cubicMeters 1.0e7
+                    |> Quantity.divideBy_
+                        (Area.squareKilometers 1)
+              , Length.meters 10
+              )
+            ]
         ]
 
 
