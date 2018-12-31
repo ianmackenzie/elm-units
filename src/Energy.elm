@@ -7,7 +7,7 @@ module Energy exposing
 kilowatt hours etc. It is stored as a number of joules.
 
 Note that since `Joules` is defined as `Product Newtons Meters`, you can compute
-force directly as a product of force and distance:
+energy directly as a product of force and distance:
 
     Force.newtons 5
         |> Quantity.multiplyBy
