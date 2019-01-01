@@ -9,9 +9,7 @@ kilowatt hours etc. It is stored as a number of joules.
 Note that since `Joules` is defined as `Product Newtons Meters`, you can compute
 energy directly as a product of force and distance:
 
-    Force.newtons 5
-        |> Quantity.multiplyBy
-            (Length.meters 4)
+    Force.newtons 5 |> Quantity.times (Length.meters 4)
     --> Energy.joules 20
 
 @docs Energy, Joules
