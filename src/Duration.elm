@@ -29,7 +29,8 @@ type alias Duration =
 
 
 {-| Find the elapsed time from a start time to an end time. For example,
-assuming that `nineAM` and `fivePM` are two `Time.Posix` values on the same day:
+assuming that `nineAM` and `fivePM` are two [`Time.Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+values on the same day:
 
     Duration.from nineAM fivePM
     --> Duration.hours 8
