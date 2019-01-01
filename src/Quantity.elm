@@ -684,7 +684,7 @@ toFloatQuantity (Quantity value) =
 ---------- LIST FUNCTIONS ----------
 
 
-{-| Find the sum of a list of quanties.
+{-| Find the sum of a list of quantities.
 
     Quantity.sum
         [ Length.meters 1
