@@ -106,7 +106,7 @@ Meters` is another (the units type of an `Area`). This is useful because some
 functions in this module (specifically [`squared`](#squared) and [`sqrt`](#sqrt))
 "know" about the `Squared` type and how to work with it.
 
-This is a special case of the [`Product`](#Product) units type.
+This is a special case of the `Product` units type.
 
 -}
 type alias Squared units =
@@ -120,7 +120,7 @@ functions in this module (specifically [`cubed`](Quantity#cubed)
 and [`cbrt`](Quantity#cbrt)) "know" about the
 `Cubed` type and how to work with it.
 
-This is a special case of the [`Product`](#Product) units type.
+This is a special case of the `Product` units type.
 
 -}
 type alias Cubed units =
