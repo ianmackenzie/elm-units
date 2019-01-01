@@ -532,16 +532,16 @@ worked on _any_ quantity type (length, speed, force...) as
         -> Quantity Float units
         -> Quantity Float units
     hypotenuse x y =
-        Quantity.sqrt <|
-            Quantity.sum
-                [ Quantity.squared x
-                , Quantity.squared y
-                ]
+        Quantity.sqrt
+            (Quantity.squared x
+                |> Quantity.plus
+                    (Quantity.squared y)
+            )
 
 This works because:
 
   - The `x` and `y` arguments are both in `units`
-  - So each list item is in `Squared units`
+  - So each squared item is in `Squared units`
   - So the sum is also in `Squared units`
   - And calling `sqrt` on something in `Squared units` returns a value back in
     `units`
