@@ -331,9 +331,9 @@ instead.)
 
 #### Argument order
 
-Note that `Quantity.minus`, `Quantity.multiplyBy`, `Quantity.divideBy`,
-`Quantity.divideBy_`, `Quantity.lessThan` and `Quantity.greaterThan` (and their
-`Temperature` equivalents) all "take the second argument first"; for example,
+Note that functions like `Quantity.minus` and `Quantity.lessThan` (and their
+`Temperature` equivalents) that mimic binary operators like `-` and `<` all
+"take the second argument first"; for example,
 
 ```elm
 Quantity.lessThan x y
