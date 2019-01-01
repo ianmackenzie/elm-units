@@ -17,6 +17,8 @@ current), you can do rate-related calculations with `Voltage` values to compute
     alsoPower =
         current |> Quantity.at voltage
 
+
+    -- I = P / V
     current =
         power |> Quantity.at_ voltage
 
