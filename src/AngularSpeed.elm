@@ -19,7 +19,7 @@ You can also do rate-related calculations with `AngularSpeed` values to compute
 `Angle` or `Duration`:
 
     angle =
-        angularSpeed |> Quantity.times duration
+        angularSpeed |> Quantity.for duration
 
     alsoAngle =
         duration |> Quantity.at angularSpeed

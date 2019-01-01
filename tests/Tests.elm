@@ -3,17 +3,17 @@ module Tests exposing
     , angularSpeeds
     , conversionsToQuantityAndBack
     , densities
-    , division
     , durations
     , inductance
     , lengths
-    , multiplication
+    , over
     , powers
     , pressures
     , speeds
     , substanceAmount
     , temperatureDeltas
     , temperatures
+    , times
     , volumes
     )
 
@@ -317,63 +317,59 @@ volumes =
         ]
 
 
-multiplication : Test
-multiplication =
-    Test.describe "Multiplication"
+times : Test
+times =
+    Test.describe "times"
         [ equalPairs
             "Areas"
             "m^2"
-            [ ( Length.feet 66 |> Quantity.multiplyBy (Length.feet 660)
+            [ ( Length.feet 66 |> Quantity.times (Length.feet 660)
               , Area.acres 1
               )
             ]
         , equalPairs
             "Volumes"
             "m^3"
-            [ ( Area.squareMeters 1
-                    |> Quantity.multiplyBy
-                        (Length.centimeters 1)
+            [ ( Area.squareMeters 1 |> Quantity.times (Length.centimeters 1)
               , Volume.liters 10
               )
             ]
         , equalPairs
             "Forces"
             "N"
-            [ ( Mass.kilograms 10 |> Quantity.multiplyBy (Acceleration.gees 1)
+            [ ( Mass.kilograms 10 |> Quantity.times (Acceleration.gees 1)
               , Force.newtons 98.0665
               )
             ]
         , equalPairs
             "Energies"
             "J"
-            [ ( Force.newtons 5 |> Quantity.multiplyBy (Length.meters 4)
+            [ ( Force.newtons 5 |> Quantity.times (Length.meters 4)
               , Energy.joules 20
               )
             , ( Mass.kilograms 1
-                    |> Quantity.multiplyBy
-                        (Acceleration.metersPerSecondSquared 2)
-                    |> Quantity.multiplyBy
-                        (Length.meters 3)
+                    |> Quantity.times (Acceleration.metersPerSecondSquared 2)
+                    |> Quantity.times (Length.meters 3)
               , Energy.joules 6
               )
             ]
         ]
 
 
-division : Test
-division =
-    Test.describe "Division"
+over : Test
+over =
+    Test.describe "over"
         [ equalPairs
             "Area / length"
             "m"
-            [ ( Area.squareKilometers 1 |> Quantity.divideBy (Length.meters 100)
+            [ ( Area.squareKilometers 1 |> Quantity.over (Length.meters 100)
               , Length.kilometers 10
               )
             ]
         , equalPairs
             "Volume / length"
             "m^2"
-            [ ( Volume.liters 10 |> Quantity.divideBy (Length.centimeters 10)
+            [ ( Volume.liters 10 |> Quantity.over (Length.centimeters 10)
               , Area.squareCentimeters 1000
               )
             ]
@@ -381,7 +377,7 @@ division =
             "Volume / area"
             "m"
             [ ( Volume.cubicMeters 1.0e7
-                    |> Quantity.divideBy_
+                    |> Quantity.over_
                         (Area.squareKilometers 1)
               , Length.meters 10
               )

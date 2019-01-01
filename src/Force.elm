@@ -17,7 +17,7 @@ acceleration:
     acceleration =
         Acceleration.metersPerSecondSquared 2
 
-    mass |> Quantity.multiplyBy acceleration
+    mass |> Quantity.times acceleration
     --> Force.newtons 20
 
 @docs Force, Newtons

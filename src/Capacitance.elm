@@ -15,7 +15,7 @@ you can construct a `Capacitance` value using `Quantity.per`:
 You can also compute `Charge` and `Voltage` using `Capacitance`:
 
     charge =
-        capacitance |> Quantity.times voltage
+        voltage |> Quantity.at capacitance
 
     voltage =
         charge |> Quantity.at_ capacitance

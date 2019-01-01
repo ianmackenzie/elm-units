@@ -10,14 +10,14 @@ etc. It is stored as a number of square meters.
 
 Note that you can construct an `Area` value directly using the functions in this
 module, but it also works to call [`Quantity.squared`](Quantity#squared) on a
-`Length` or [`Quantity.product`](Quantity#product) on a pair of `Length`s. The
+`Length` or [`Quantity.times`](Quantity#times) on a pair of `Length`s. The
 following are all equivalent:
 
     Area.squareFeet 100
 
     Quantity.squared (Length.feet 10)
 
-    Quantity.product (Length.feet 25) (Length.feet 4)
+    Length.feet 25 |> Quantity.times (Length.feet 4)
 
 @docs Area, SquareMeters
 

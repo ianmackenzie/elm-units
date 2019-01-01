@@ -18,7 +18,7 @@ You can also do rate-related calculations with `Acceleration` values to compute
 `Speed` or `Duration`:
 
     changeInSpeed =
-        acceleration |> Quantity.times duration
+        acceleration |> Quantity.for duration
 
     alsoChangeInSpeed =
         duration |> Quantity.at acceleration

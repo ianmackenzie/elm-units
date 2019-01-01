@@ -17,7 +17,7 @@ You can also do rate-related calculations with `Power` values to compute
 `Energy` or `Duration`:
 
     energy =
-        power |> Quantity.times duration
+        power |> Quantity.for duration
 
     alsoEnergy =
         duration |> Quantity.at power

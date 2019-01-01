@@ -19,7 +19,7 @@ You can also do rate-related calculations with `AngularAcceleration` values to c
 `AngularSpeed` or `Duration`:
 
     changeInAngularSpeed =
-        angularAcceleration |> Quantity.times duration
+        angularAcceleration |> Quantity.for duration
 
     alsoChangeInAngularSpeed =
         duration |> Quantity.at angularAcceleration

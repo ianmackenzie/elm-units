@@ -15,7 +15,7 @@ You can also do rate-related calculations with `Current` values to compute
 `Charge` or `Duration`:
 
     charge =
-        current |> Quantity.times duration
+        current |> Quantity.for duration
 
     alsoCharge =
         duration |> Quantity.at current

@@ -17,9 +17,6 @@ You can also do rate-related calculations with `Density` values to compute
 `Mass` or `Volume`:
 
     mass =
-        density |> Quantity.times volume
-
-    alsoMass =
         volume |> Quantity.at density
 
     volume =
