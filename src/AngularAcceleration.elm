@@ -15,8 +15,8 @@ Seconds` (change in angular speed per unit time), you can construct an
     angularAcceleration =
         changeInAngularSpeed |> Quantity.per duration
 
-You can also do rate-related calculations with `AngularAcceleration` values to compute
-`AngularSpeed` or `Duration`:
+You can also do rate-related calculations with `AngularAcceleration` values to
+compute `AngularSpeed` or `Duration`:
 
     changeInAngularSpeed =
         angularAcceleration |> Quantity.for duration

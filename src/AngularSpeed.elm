@@ -5,12 +5,12 @@ module AngularSpeed exposing
     , revolutionsPerSecond, inRevolutionsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
     )
 
-{-| An `AngularSpeed` represents an acceleration in radians per second,
-degrees per second, turns (revolutions) per second and turns (revolutions) per minute.
+{-| An `AngularSpeed` represents an acceleration in radians per second, degrees
+per second, turns (revolutions) per second and turns (revolutions) per minute.
 It is stored as a number of radians per second.
 
-Note that since `RadiansPerSecond` is defined as `Rate Radians Seconds` (angle per
-unit time), you can construct an `AngularSpeed` value using `Quantity.per`:
+Note that since `RadiansPerSecond` is defined as `Rate Radians Seconds` (angle
+per unit time), you can construct an `AngularSpeed` value using `Quantity.per`:
 
     angularSpeed =
         angle |> Quantity.per duration
@@ -35,8 +35,9 @@ You can also do rate-related calculations with `AngularSpeed` values to compute
 
 # Aliases for `turns` as `revolutions`
 
-Elm core `Basics` uses `turns` in its [ Angle Conversions ](https://package.elm-lang.org/packages/elm-lang/core/latest/Basics#angle-conversions). To be consistant, our implementation is also in terms of `turns`,
-however since 'revolutions per minute' (RPM) is in common usage, we provide some aliases for more natural expression.
+The Elm core `Basics` module uses `turns` in its [Angle Conversions](https://package.elm-lang.org/packages/elm-lang/core/latest/Basics#angle-conversions).
+To be consistant, this module also uses `turns`, however since 'revolutions per
+minute' (RPM) is in common usage, several aliases are provided.
 
 @docs revolutionsPerSecond, inRevolutionsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
 
