@@ -4,13 +4,13 @@ module AngularAcceleration exposing
     , turnsPerSecondSquared, inTurnsPerSecondSquared
     )
 
-{-| An `AngularAcceleration` represents an acceleration in radians per second squared,
-degrees per second squared, and turns per second squared.
-It is stored as a number of radians per second squared.
+{-| An `AngularAcceleration` represents an angular acceleration in radians per
+second squared, degrees per second squared, and turns per second squared. It is
+stored as a number of radians per second squared.
 
-Note that since `RadiansPerSecondSquared` is defined as `Rate RadiansPerSecond Seconds`
-(change in angular speed per unit time), you can construct an `AngularAcceleration`
-value using `Quantity.per`:
+Note that since `RadiansPerSecondSquared` is defined as `Rate RadiansPerSecond
+Seconds` (change in angular speed per unit time), you can construct an
+`AngularAcceleration` value using `Quantity.per`:
 
     angularAcceleration =
         changeInAngularSpeed |> Quantity.per duration
