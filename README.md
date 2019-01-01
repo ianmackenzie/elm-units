@@ -92,7 +92,7 @@ Duration.hours 2
 
 -- Some functions can actually convert between units!
 Length.centimeters 60
-    |> Quantity.multiplyBy
+    |> Quantity.times
         (Length.centimeters 80)
 --> Area.squareMeters 0.48
 
@@ -121,17 +121,19 @@ calculations will be done in an internally consistent way, and when you finally
 need to actually display a value on screen or encode to JSON, you can extract
 the final result in whatever units you want.
 
-## Table of Contents
+## Table of contents
 
   - [Installation](#installation)
   - [Usage](#usage)
     - [Fundamentals](#fundamentals)
-    - [The `Quantity` Type](#the-quantity-type)
-    - [Arithmetic and Comparison](#arithmetic-and-comparison)
-    - [Custom Functions](#custom-functions)
-    - [Custom Units](#custom-units)
-    - [Understanding Quantity Types](#understanding-quantity-types)
-  - [Getting Help](#getting-help)
+    - [The `Quantity` type](#the-quantity-type)
+    - [Basic arithmetic and comparison](#basic-arithmetic-and-comparison)
+    - [Multiplication and division](#multiplication-and-division)
+    - [Argument order](#argument-order)
+    - [Custom functions](#custom-functions)
+    - [Custom units](#custom-units)
+    - [Understanding quantity types](#understanding-quantity-types)
+  - [Getting help](#getting-help)
   - [API](#api)
   - [Contributing](#contributing)
   - [License](#license)
@@ -164,10 +166,10 @@ To take code that currently uses raw `Float` values and convert it to using
     `Angle.inRadians` or `Temperature.inDegreesCelsius` to extract the value in
     whatever units you want.
   - Where you do math with `Float` values, switch to using `Quantity` functions
-    like `Quantity.plus`, `Quantity.greaterThan`. If this becomes impractical,
+    like `Quantity.plus` or `Quantity.greaterThan`. If this becomes impractical,
     there are [other approaches](#custom-functions).
 
-### The `Quantity` Type
+### The `Quantity` type
 
 All values produced by this package (with the exception of `Temperature`, which
 is a bit of a special case) are actually values of type `Quantity`, defined as
@@ -191,7 +193,7 @@ detail.
 Having a common `Quantity` type means that it is possible to define generic
 arithmetic and comparison operations that work on any kind of quantity; read on!
 
-### Arithmetic and Comparison
+### Basic arithmetic and comparison
 
 You can do basic math with `Quantity` values:
 
@@ -202,32 +204,76 @@ Length.feet 6
     |> Length.inMeters
 --> 1.9050000000000002
 
+Duration.hours 1
+  |> Quantity.minus (Duration.minutes 15)
+  |> Duration.inMinutes
+--> 45
+
 -- pi radians plus 45 degrees is 5/8 of a full turn
 Quantity.sum [ Angle.radians pi, Angle.degrees 45 ]
     |> Angle.inTurns
 --> 0.625
+```
 
+`Quantity` values can be compared/sorted:
+
+```elm
+Length.meters 1 |> Quantity.greaterThan (Length.feet 3)
+--> True
+
+Quantity.compare (Length.meters 1) (Length.feet 3)
+--> GT
+
+Quantity.max (Length.meters 1) (Length.feet 3)
+--> Length.meters 1
+
+Quantity.maximum [ Length.meters 1, Length.feet 3 ]
+--> Just (Length.meters 1)
+
+Quantity.sort [ Length.meters 1, Length.feet 3 ]
+--> [ Length.feet 3, Length.meters 1 ]
+```
+
+### Multiplication and division
+
+There are actually three different 'families' of multiplication and division
+functions in the `Quantity` module, used in different contexts:
+
+  - `multiplyBy` and `divideBy` are used to multiply (scale) or divide a
+    `Quantity` by a plain `Int` or `Float`
+  - `times`, `over` and `over_` are used to work with quantities that are
+    products of other quantities (multiply a `Length` by another `Length` to get
+    an `Area`, multiply an `Area` by a `Length` to get a `Volume`, multiply a
+    `Mass` by an `Acceleration` to get a `Force`, divide a `Volume` by an `Area`
+    to get a `Length`, divide a `Force` by a `Mass` to get an `Acceleration`)
+  - `per`, `at`, `at_` and `for` are used to work with rates of change (divide
+    `Length` by `Duration` to get `Speed`, multiply `Speed` by `Duration` to get
+    `Length`, divide `Length` by `Speed` to get `Duration`)
+
+For example, to calculate the area of a triangle, we might use `times` to
+multiply together the base and height of the triangle, then use `multiplyBy` to
+scale by 0.5:
+
+```elm
 -- Area of a triangle with base of 2 feet and
 -- height of 8 inches
 Length.feet 2
-    |> Quantity.multiplyBy (Length.inches 8)
-    |> Quantity.scaleBy 0.5
+    |> Quantity.times (Length.inches 8)
+    |> Quantity.multiplyBy 0.5
     |> Area.inSquareInches
 --> 96
 ```
 
-Special support is provided for working with rates of change:
+Comprehensive support is provided for working with rates of change:
 
 ```elm
--- How far do we go if we drive for 2 minutes
--- at 15 meters per second?
-
--- Divide length by duration to get speed
--- (equivalent to 'Speed.metersPerSecond 15')
+-- How fast are we going if we travel 30 meters in
+-- 2 seconds?
 speed =
     Length.meters 30 |> Quantity.per (Duration.seconds 2)
 
--- Multiply duration by speed to get length (distance)
+-- How far do we go if we travel for 2 minutes
+-- at that speed?
 Duration.minutes 2 -- duration
   |> Quantity.at speed -- length per duration
   |> Length.inKilometers -- gives us a length!
@@ -247,7 +293,8 @@ Length.miles 1
 --> 96.56064
 
 -- Reverse engineer the speed of light from defined
--- lengths/durations ('one light year per year')
+-- lengths/durations (the speed of light is 'one light
+-- year per year')
 speedOfLight =
     Length.lightYears 1
         |> Quantity.per (Duration.julianYears 1)
@@ -277,59 +324,7 @@ Length.centimeters 3 -- length
 --> 113.38582677165354
 ```
 
-Finally, `Quantity` values can be compared/sorted:
-
-```elm
-Length.meters 1 |> Quantity.greaterThan (Length.feet 3)
---> True
-
-Quantity.compare (Length.meters 1) (Length.feet 3)
---> GT
-
-Quantity.max (Length.meters 1) (Length.feet 3)
---> Length.meters 1
-
-Quantity.maximum [ Length.meters 1, Length.feet 3 ]
---> Just (Length.meters 1)
-
-Quantity.sort [ Length.meters 1, Length.feet 3 ]
---> [ Length.feet 3, Length.meters 1 ]
-```
-
-#### Multiplication and division
-
-There are actually three different multiplication functions in `elm-units`, used
-in different contexts:
-
-  - [`Quantity.scaleBy`](Quantity#scaleBy) is used to multiply a quantity by
-    a plain `Float` or `Int` scaling factor.
-  - [`Quantity.times`](Quantity#times) and [`Quantity.at`](Quantity#at) are used
-    to multiply a rate of change by an independent quantity value to get a
-    dependent quantity value; for example, multiplying a `Speed` by a `Duration`
-    to get a `Length`, or a `Pressure` by an `Area` to get a `Force`.
-  - [`Quantity.multiplyBy`](Quantity#product) can be used to multiply two
-    arbitrary quantities together; this can be used to multiply two lengths
-    together to get an area, an area by a length to get a volume, or a mass by
-    an acceleration to get a force.
-
-There are two kinds of division:
-
-  - [`Quantity.at_`] divides a dependent quantity value by a rate of change to
-    get an independent value; for example, divide a `Length` by a `Speed` to
-    get a `Duration` (the time needed to travel the given length if going at
-    the given speed).
-  - [`Quantity.divideBy`](Quantity#divideBy) and [`Quantity.divideBy_`](Quantity#divideBy_)
-    are used to 'undo' a product formed by by `Quantity.multiplyBy` by 'dividing
-    out' one of its terms. For example, if you have a `Volume`, you can use
-    `divideBy` to divide by a `Length` to get an `Area` (divide the volume of
-    a lake by its average depth to get its surface area), or `divideBy_` to
-    divide by an `Area` to get a `Length` (divide the volume of a lake by its
-    surface area to get its average depth).
-
-(If you want to divide by a `Float` value `x`, you can use `scaleBy` with `1/x`
-instead.)
-
-#### Argument order
+### Argument order
 
 Note that functions like `Quantity.minus` and `Quantity.lessThan` (and their
 `Temperature` equivalents) that mimic binary operators like `-` and `<` all
@@ -398,7 +393,7 @@ kineticEnergy (Mass.tonnes 1.5) (Speed.milesPerHour 60)
 `elm-units` defines many standard unit types, but you can easily define your
 own! See [CustomUnits][1] for an example.
 
-### Understanding Quantity Types
+### Understanding quantity types
 
 The same quantity type can often be expressed in multiple different ways. Take
 the `Volume` type as an example. It is an alias for
