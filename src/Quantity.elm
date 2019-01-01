@@ -17,8 +17,8 @@ module Quantity exposing
 
 # Unit types
 
-The `Squared`, `Cubed` and `Rate` units types allow you to build up and work with
-composite units in a fairly flexible way.
+The `Squared`, `Cubed`, `Product` and `Rate` units types allow you to build up
+and work with composite units in a fairly flexible way.
 
 @docs Squared, Cubed, Product, Rate
 
