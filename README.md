@@ -401,19 +401,37 @@ own! See [CustomUnits][1] for an example.
 ### Understanding Quantity Types
 
 The same quantity type can often be expressed in multiple different ways. Take
-the `Speed` type as an example. It is an alias for
+the `Volume` type as an example. It is an alias for
 
 ```elm
-Quantity Float MetersPerSecond
+Quantity Float CubicMeters
 ```
 
-but expanding the `MetersPerSecond` type alias, this is equivalent to
+but expanding the `CubicMeters` type alias, this is equivalent to
 
 ```elm
-Quantity Float (Rate Meters Seconds)
+Quantity Float (Cubed Meters)
 ```
 
-and you may see any one of these three forms pop up in error messages.
+which expands further to
+
+```elm
+Quantity Float (Product (Product Meters Meters) Meters)
+```
+
+which could also be written as
+
+```elm
+Quantity Float (Product (Squared Meters) Meters)
+```
+
+or even
+
+```elm
+Quantity Float (Product SquareMeters Meters)
+```
+
+and you may see any one of these forms pop up in compiler error messages.
 
 ## Getting Help
 
