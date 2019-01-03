@@ -243,13 +243,16 @@ functions in the `Quantity` module, used in different contexts:
   - `multiplyBy` and `divideBy` are used to multiply (scale) or divide a
     `Quantity` by a plain `Int` or `Float`
   - `times`, `over` and `over_` are used to work with quantities that are
-    products of other quantities (multiply a `Length` by another `Length` to get
-    an `Area`, multiply an `Area` by a `Length` to get a `Volume`, multiply a
-    `Mass` by an `Acceleration` to get a `Force`, divide a `Volume` by an `Area`
-    to get a `Length`, divide a `Force` by a `Mass` to get an `Acceleration`)
-  - `per`, `at`, `at_` and `for` are used to work with rates of change (divide
-    `Length` by `Duration` to get `Speed`, multiply `Speed` by `Duration` to get
-    `Length`, divide `Length` by `Speed` to get `Duration`)
+    products of other quantities:
+    - multiply a `Length` by another `Length` to get an `Area`
+    - multiply an `Area` by a `Length` to get a `Volume`
+    - multiply a `Mass` by an `Acceleration` to get a `Force`
+    - divide a `Volume` by an `Area` to get a `Length`
+    - divide a `Force` by a `Mass` to get an `Acceleration`
+  - `per`, `at`, `at_` and `for` are used to work with rates of change:
+    - divide `Length` by `Duration` to get `Speed`
+    - multiply `Speed` by `Duration` to get `Length`
+    - divide `Length` by `Speed` to get `Duration`
   - And one bonus fourth function: `ratio`, used to divide two quantities with
     the same units to get a plain `Float` value
 
