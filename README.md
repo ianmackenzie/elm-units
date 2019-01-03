@@ -464,7 +464,7 @@ at some point, but some brief guidelines in the meantime:
   - Open a pull request by forking this repository, creating a new branch in
     your fork, making all changes in that branch, then opening a pull request
     from that branch.
-  - Format code with [`elm-format`][8] 0.8.0.
+  - Format code with [`elm-format`][8] 0.8.1.
   - Git commit messages should follow [the seven rules of a great Git commit
     message][9], although I'm not strict about the 50 or 72 character rules.
 
