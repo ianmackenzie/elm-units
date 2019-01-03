@@ -369,7 +369,7 @@ over =
         , equalPairs
             "Volume / length"
             "m^2"
-            [ ( Volume.liters 10 |> Quantity.over (Length.centimeters 10)
+            [ ( Volume.liters 10 |> Quantity.over_ (Length.centimeters 10)
               , Area.squareCentimeters 1000
               )
             ]
@@ -377,7 +377,7 @@ over =
             "Volume / area"
             "m"
             [ ( Volume.cubicMeters 1.0e7
-                    |> Quantity.over_
+                    |> Quantity.over
                         (Area.squareKilometers 1)
               , Length.meters 10
               )

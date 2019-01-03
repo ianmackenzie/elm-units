@@ -432,36 +432,36 @@ times (Quantity y) (Quantity x) =
     Quantity (x * y)
 
 
-{-| Divide a quantity in `Product units1 units2` by a quantity in `units2`,
-resulting in another quantity in `units1`. For example, the units type of a
+{-| Divide a quantity in `Product units1 units2` by a quantity in `units1`,
+resulting in another quantity in `units2`. For example, the units type of a
 `Force` is `Product Kilograms MetersPerSecondSquared` (mass times acceleration),
-so we could divide a force by a desired acceleration to determine how much mass
-could be accelerated at that rate:
-
-    Force.newtons 100
-        |> Quantity.over
-            (Acceleration.metersPerSecondSquared 5)
-    --> Mass.kilograms 20
-
-Note that there are [other forms of division](/#multiplication-and-division)!
-
--}
-over : Quantity Float units2 -> Quantity Float (Product units1 units2) -> Quantity Float units1
-over (Quantity y) (Quantity x) =
-    Quantity (x / y)
-
-
-{-| Just like `over` but divide by a quantity in `units1`, resulting in another
-quantity in `units2`. For example, we could divide a force by a given mass to
-determine how fast that mass would be accelerated by the given force:
+so we could divide a force by a given mass to determine how fast that mass would
+be accelerated by the given force:
 
     Force.newtons 100
         |> Quantity.over
             (Mass.kilograms 50)
     --> Acceleration.metersPerSecondSquared 2
 
+Note that there are [other forms of division](/#multiplication-and-division)!
+
 -}
-over_ : Quantity Float units1 -> Quantity Float (Product units1 units2) -> Quantity Float units2
+over : Quantity Float units1 -> Quantity Float (Product units1 units2) -> Quantity Float units2
+over (Quantity y) (Quantity x) =
+    Quantity (x / y)
+
+
+{-| Just like `over` but divide by a quantity in `units2`, resulting in another
+quantity in `units1`. For example, we could divide a force by a desired
+acceleration to determine how much mass could be accelerated at that rate:
+
+    Force.newtons 100
+        |> Quantity.over_
+            (Acceleration.metersPerSecondSquared 5)
+    --> Mass.kilograms 20
+
+-}
+over_ : Quantity Float units2 -> Quantity Float (Product units1 units2) -> Quantity Float units1
 over_ (Quantity y) (Quantity x) =
     Quantity (x / y)
 
