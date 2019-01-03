@@ -282,10 +282,10 @@ volumes =
         "Volumes"
         "m^3"
         [ ( cubicMeters 2
-          , usLiquidGallons (2 * 264.17220000000003)
+          , usLiquidGallons (2 * 264.17205235814845)
           )
-        , ( imperialGallons 219.969157
-          , usDryGallons 227.0208
+        , ( imperialGallons 219.96924829908778
+          , usDryGallons 227.02074606721396
           )
         , ( cubicInches (36 * 36 * 36)
           , cubicYards 1
