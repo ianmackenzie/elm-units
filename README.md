@@ -91,6 +91,7 @@ Duration.hours 2
 --> 9000
 
 -- Some functions can actually convert between units!
+-- Multiplying two Length values gives you an Area
 Length.centimeters 60
     |> Quantity.times
         (Length.centimeters 80)
