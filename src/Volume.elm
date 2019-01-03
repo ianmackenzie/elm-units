@@ -54,21 +54,21 @@ type alias Volume =
 -}
 usLiquidGallonsPerCubicMeter : Float
 usLiquidGallonsPerCubicMeter =
-    264.17220000000003
+    264.17205235814845
 
 
 {-| The number of US dry gallons in a cubic meter.
 -}
 usDryGallonsPerCubicMeter : Float
 usDryGallonsPerCubicMeter =
-    227.0208
+    227.02074606721396
 
 
 {-| The number of imperial gallons in a cubic meter.
 -}
 imperialGallonsPerCubicMeter : Float
 imperialGallonsPerCubicMeter =
-    219.969157
+    219.96924829908778
 
 
 
