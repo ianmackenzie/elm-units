@@ -333,7 +333,7 @@ Length.centimeters 3 -- length
 ### Argument order
 
 Note that functions like `Quantity.minus` and `Quantity.lessThan` (and their
-`Temperature` equivalents) that mimic binary operators like `-` and `<` all
+`Temperature` equivalents) that mimic binary operators like `-` and `<` usually
 "take the second argument first"; for example,
 
 ```elm
@@ -367,6 +367,17 @@ instead of
 
 which is what you would get if `Quantity.minus` took arguments in the 'normal'
 order.
+
+One exception to this rule is `Quantity.ratio`, which takes its arguments in
+'normal' order since it is not expected to be used as part of a pipeline or
+otherwise partially applied; it is expected to be used (and reads most
+naturally) as
+
+```elm
+Quantity.ratio x y
+```
+
+which _does_ mean `x / y`.
 
 ### Custom Functions
 
