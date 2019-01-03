@@ -249,6 +249,8 @@ functions in the `Quantity` module, used in different contexts:
   - `per`, `at`, `at_` and `for` are used to work with rates of change (divide
     `Length` by `Duration` to get `Speed`, multiply `Speed` by `Duration` to get
     `Length`, divide `Length` by `Speed` to get `Duration`)
+  - And one bonus fourth function: `ratio`, used to divide two quantities with
+    the same units to get a plain `Float` value
 
 For example, to calculate the area of a triangle, we might use `times` to
 multiply together the base and height of the triangle, then use `multiplyBy` to
