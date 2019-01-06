@@ -33,7 +33,7 @@ You can also do rate-related calculations with `AngularSpeed` values to compute
 @docs turnsPerSecond, inTurnsPerSecond, turnsPerMinute, inTurnsPerMinute
 
 
-# Aliases for `turns` as `revolutions`
+## Aliases for `turns` as `revolutions`
 
 The Elm core `Basics` module uses `turns` in its [Angle Conversions](https://package.elm-lang.org/packages/elm-lang/core/latest/Basics#angle-conversions).
 To be consistent, this module also uses `turns`, however since 'revolutions per
