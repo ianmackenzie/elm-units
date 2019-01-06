@@ -6,8 +6,8 @@ module Capacitance exposing
 
 {-| A `Capacitance` value represents an electrical capacitance in farads.
 
-Note that since `Capacitance` is defined as `Rate Coulombs Volts` (charge per voltage),
-you can construct a `Capacitance` value using `Quantity.per`:
+Note that since `Capacitance` is defined as `Rate Coulombs Volts` (charge per
+voltage), you can construct a `Capacitance` value using `Quantity.per`:
 
     capacitance =
         charge |> Quantity.per voltage
@@ -15,7 +15,7 @@ you can construct a `Capacitance` value using `Quantity.per`:
 You can also compute `Charge` and `Voltage` using `Capacitance`:
 
     charge =
-        capacitance |> Quantity.times voltage
+        voltage |> Quantity.at capacitance
 
     voltage =
         charge |> Quantity.at_ capacitance

@@ -7,12 +7,18 @@ module Force exposing
 {-| A `Force` value represents a force in newtons, pounds force etc. It is
 stored as a number of newtons.
 
-Note that since `Newtons` is defined as `Rate Joules Meters` (energy/work per
-unit length), you can do things like compute work as a product of force and
-distance:
+Note that since `Newtons` is defined as `Product Kilograms
+MetersPerSecondSquared`, you can compute force directly as a product of mass and
+acceleration:
 
-    work =
-        force |> Quantity.times length
+    mass =
+        Mass.kilograms 10
+
+    acceleration =
+        Acceleration.metersPerSecondSquared 2
+
+    mass |> Quantity.times acceleration
+    --> Force.newtons 20
 
 @docs Force, Newtons
 
@@ -28,14 +34,14 @@ distance:
 
 -}
 
-import Energy exposing (Joules)
-import Length exposing (Meters)
-import Quantity exposing (Quantity(..), Rate)
+import Acceleration exposing (MetersPerSecondSquared)
+import Mass exposing (Kilograms)
+import Quantity exposing (Product, Quantity(..))
 
 
 {-| -}
 type alias Newtons =
-    Rate Joules Meters
+    Product Kilograms MetersPerSecondSquared
 
 
 {-| -}
