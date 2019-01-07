@@ -343,10 +343,10 @@ order](/#argument-order)!
 
     -- 25 degrees Celsius is 77 degrees Fahrenheit
     start =
-        Temperature.celsius 25
+        Temperature.degreesCelsius 25
 
     end =
-        Temperature.fahrenheit 80
+        Temperature.degreesFahrenheit 80
 
     end |> Temperature.minus start
     --> Temperature.fahrenheitDegrees 3
