@@ -1,5 +1,7 @@
 # elm-units
 
+_Release notes for 2.0 are [here](https://github.com/ianmackenzie/elm-units/releases/tag/2.0.0)._
+
 `elm-units` is useful if you want to store, pass around, convert between,
 compare, or do arithmetic on:
 
