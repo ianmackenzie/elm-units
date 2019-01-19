@@ -23,13 +23,17 @@ foot : Float
 foot =
     12 * inch
 
+
 yard : Float
 yard =
     3 * foot
 
+
 mile : Float
 mile =
     5280 * foot
+
+
 
 ---------- VOLUMES ----------
 
