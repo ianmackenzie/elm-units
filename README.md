@@ -483,4 +483,4 @@ at some point, but some brief guidelines in the meantime:
 [7]: https://github.com/ianmackenzie/elm-units/issues/6
 [8]: https://github.com/avh4/elm-format
 [9]: https://chris.beams.io/posts/git-commit/#seven-rules
-[10]: https://package.elm-lang.org/packages/ianmackenzie/elm-units/1.0.0/
+[10]: https://package.elm-lang.org/packages/ianmackenzie/elm-units/latest
