@@ -110,7 +110,7 @@ inMillimeters length =
 -}
 thou : Float -> Length
 thou numThou =
-    meters (0.0000254 * numThou)
+    meters (Constants.inch * 0.001 * numThou)
 
 
 {-| Convert a length to a number of thou (thousandths of an inch).
@@ -121,7 +121,7 @@ thou numThou =
 -}
 inThou : Length -> Float
 inThou length =
-    inMeters length / 0.0000254
+    inMeters length / (Constants.inch * 0.001)
 
 
 {-| Construct a length from a number of inches.
@@ -142,7 +142,7 @@ inInches length =
 -}
 centimeters : Float -> Length
 centimeters numCentimeters =
-    meters (0.01 * numCentimeters)
+    meters (Constants.centimeter * numCentimeters)
 
 
 {-| Convert a length to a number of centimeters.
@@ -170,14 +170,14 @@ inFeet length =
 -}
 yards : Float -> Length
 yards numYards =
-    meters (0.9144 * numYards)
+    meters (Constants.yard * numYards)
 
 
 {-| Convert a length to a number of yards.
 -}
 inYards : Length -> Float
 inYards length =
-    inMeters length / 0.9144
+    inMeters length / Constants.yard
 
 
 {-| Construct a length from a number of kilometers.
@@ -198,14 +198,14 @@ inKilometers length =
 -}
 miles : Float -> Length
 miles numMiles =
-    meters (1609.344 * numMiles)
+    meters (Constants.mile * numMiles)
 
 
 {-| Convert a length to a number of miles.
 -}
 inMiles : Length -> Float
 inMiles length =
-    inMeters length / 1609.344
+    inMeters length / Constants.mile
 
 
 {-| Construct a length from a number of [astronomical units][au] (AU). One AU is
