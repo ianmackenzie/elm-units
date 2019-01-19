@@ -34,6 +34,7 @@ following are all equivalent:
 
 -}
 
+import Constants
 import Length exposing (Meters)
 import Quantity exposing (Quantity(..), Squared)
 
@@ -80,14 +81,14 @@ inSquareMillimeters area =
 -}
 squareInches : Float -> Area
 squareInches numSquareInches =
-    squareMeters (0.0254 * 0.0254 * numSquareInches)
+    squareMeters (Constants.inch * Constants.inch * numSquareInches)
 
 
 {-| Convert an area to a number of square inches.
 -}
 inSquareInches : Area -> Float
 inSquareInches area =
-    inSquareMeters area / (0.0254 * 0.0254)
+    inSquareMeters area / (Constants.inch * Constants.inch)
 
 
 {-| Construct an area from a number of square centimeters.

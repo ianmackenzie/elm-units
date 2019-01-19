@@ -32,6 +32,7 @@ meters.
 
 -}
 
+import Constants
 import Length exposing (Meters)
 import Quantity exposing (Cubed, Quantity(..))
 
@@ -93,42 +94,42 @@ inCubicMeters (Quantity numCubicMeters) =
 -}
 cubicInches : Float -> Volume
 cubicInches numCubicInches =
-    cubicMeters (0.0254 * 0.0254 * 0.0254 * numCubicInches)
+    cubicMeters (Constants.cubicInch * numCubicInches)
 
 
 {-| Convert a volume to a number of cubic inches.
 -}
 inCubicInches : Volume -> Float
 inCubicInches volume =
-    inCubicMeters volume / (0.0254 * 0.0254 * 0.0254)
+    inCubicMeters volume / Constants.cubicInch
 
 
 {-| Construct a volume from a number of cubic feet.
 -}
 cubicFeet : Float -> Volume
 cubicFeet numCubicFeet =
-    cubicMeters (0.3048 * 0.3048 * 0.3048 * numCubicFeet)
+    cubicMeters (Constants.cubicFoot * numCubicFeet)
 
 
 {-| Convert a volume to a number of cubic feet.
 -}
 inCubicFeet : Volume -> Float
 inCubicFeet volume =
-    inCubicMeters volume / (0.3048 * 0.3048 * 0.3048)
+    inCubicMeters volume / Constants.cubicFoot
 
 
 {-| Construct a volume from a number of cubic yards.
 -}
 cubicYards : Float -> Volume
 cubicYards numCubicYards =
-    cubicMeters (0.9144 * 0.9144 * 0.9144 * numCubicYards)
+    cubicMeters (Constants.cubicYard * numCubicYards)
 
 
 {-| Convert a volume to a number of cubic yards.
 -}
 inCubicYards : Volume -> Float
 inCubicYards volume =
-    inCubicMeters volume / (0.9144 * 0.9144 * 0.9144)
+    inCubicMeters volume / Constants.cubicYard
 
 
 {-| Construct a volume from a number of milliliters.

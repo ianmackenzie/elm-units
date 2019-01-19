@@ -1,4 +1,4 @@
-module Constants exposing (bushel, centimeter, cubicInch, cubicMeter, foot, imperialGallon, inch, liter, meter, mile, peck, usLiquidGallon, usLiquidQuart, yard)
+module Constants exposing (bushel, centimeter, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, usLiquidGallon, usLiquidQuart, yard)
 
 -- Sourced from National Institute of Standards and Technology (NIST) unless otherwise specified.
 ---------- LENGTHS ----------
@@ -60,6 +60,16 @@ imperialGallon =
 cubicInch : Float
 cubicInch =
     inch * inch * inch
+
+
+cubicFoot : Float
+cubicFoot =
+    foot * foot * foot
+
+
+cubicYard : Float
+cubicYard =
+    yard * yard * yard
 
 
 usLiquidGallon : Float
