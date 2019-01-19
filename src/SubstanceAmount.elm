@@ -5,7 +5,9 @@ module SubstanceAmount exposing
     , megamoles, inMegamoles, gigamoles, inGigamoles
     )
 
-{-| A `SubstanceAmount` value represents a substance amount in moles.
+{-| A `SubstanceAmount` value represents a substance amount in [moles][1].
+
+[1]: https://en.wikipedia.org/wiki/Mole_(unit)
 
 @docs SubstanceAmount, Moles
 @docs moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles

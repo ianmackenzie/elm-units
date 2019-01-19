@@ -12,11 +12,9 @@ current), you can do rate-related calculations with `Voltage` values to compute
 
     -- elm-units version of 'P = V * I'
     power =
-        voltage |> Quantity.times current
-
-    alsoPower =
         current |> Quantity.at voltage
 
+    -- I = P / V
     current =
         power |> Quantity.at_ voltage
 

@@ -4,11 +4,12 @@ module Density exposing
     , poundsPerCubicInch, inPoundsPerCubicInch, poundsPerCubicFoot, inPoundsPerCubicFoot
     )
 
-{-| A `Density` value represents a density in grams per cubic centimeter, pounds per cubic inch, etc.
-It is stored as a number of kilograms per cubic meter.
+{-| A `Density` value represents a density in grams per cubic centimeter, pounds
+per cubic inch, etc. It is stored as a number of kilograms per cubic meter.
 
-Note that since `KilogramsPerCubicMeter` is defined as `Rate Kilograms CubicMeters` (mass per
-unit volume), you can construct a `Density` value using `Quantity.per`:
+Note that since `KilogramsPerCubicMeter` is defined as `Rate Kilograms
+CubicMeters` (mass per unit volume), you can construct a `Density` value using
+`Quantity.per`:
 
     density =
         mass |> Quantity.per volume
@@ -17,9 +18,6 @@ You can also do rate-related calculations with `Density` values to compute
 `Mass` or `Volume`:
 
     mass =
-        density |> Quantity.times volume
-
-    alsoMass =
         volume |> Quantity.at density
 
     volume =

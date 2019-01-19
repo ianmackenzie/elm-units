@@ -6,12 +6,14 @@ module Tests exposing
     , durations
     , inductance
     , lengths
+    , over
     , powers
     , pressures
     , speeds
     , substanceAmount
     , temperatureDeltas
     , temperatures
+    , times
     , volumes
     )
 
@@ -312,6 +314,74 @@ volumes =
         , ( imperialPints 1
           , imperialFluidOunces 20
           )
+        ]
+
+
+times : Test
+times =
+    Test.describe "times"
+        [ equalPairs
+            "Areas"
+            "m^2"
+            [ ( Length.feet 66 |> Quantity.times (Length.feet 660)
+              , Area.acres 1
+              )
+            ]
+        , equalPairs
+            "Volumes"
+            "m^3"
+            [ ( Area.squareMeters 1 |> Quantity.times (Length.centimeters 1)
+              , Volume.liters 10
+              )
+            ]
+        , equalPairs
+            "Forces"
+            "N"
+            [ ( Mass.kilograms 10 |> Quantity.times (Acceleration.gees 1)
+              , Force.newtons 98.0665
+              )
+            ]
+        , equalPairs
+            "Energies"
+            "J"
+            [ ( Force.newtons 5 |> Quantity.times (Length.meters 4)
+              , Energy.joules 20
+              )
+            , ( Mass.kilograms 1
+                    |> Quantity.times (Acceleration.metersPerSecondSquared 2)
+                    |> Quantity.times (Length.meters 3)
+              , Energy.joules 6
+              )
+            ]
+        ]
+
+
+over : Test
+over =
+    Test.describe "over"
+        [ equalPairs
+            "Area / length"
+            "m"
+            [ ( Area.squareKilometers 1 |> Quantity.over (Length.meters 100)
+              , Length.kilometers 10
+              )
+            ]
+        , equalPairs
+            "Volume / length"
+            "m^2"
+            [ ( Volume.liters 10 |> Quantity.over_ (Length.centimeters 10)
+              , Area.squareCentimeters 1000
+              )
+            ]
+        , equalPairs
+            "Volume / area"
+            "m"
+            [ ( Volume.cubicMeters 1.0e7
+                    |> Quantity.over
+                        (Area.squareKilometers 1)
+              , Length.meters 10
+              )
+            ]
         ]
 
 

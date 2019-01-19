@@ -15,9 +15,6 @@ You can also do rate-related calculations with `Resistance` values to compute
 `Voltage` or `Current`:
 
     voltage =
-        resistance |> Quantity.times current
-
-    alsoVoltage =
         current |> Quantity.at resistance
 
     current =

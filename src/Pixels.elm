@@ -149,8 +149,10 @@ squarePixels numSquarePixels =
 
 {-| Convert an on-screen area to a number of square pixels.
 
-    Quantity.product (pixels 1920) (pixels 1080)
-        |> inSquarePixels
+    area =
+        pixels 1920 |> Quantity.times (pixels 1080)
+
+    area |> inSquarePixels
     --> 2073600
 
 -}
