@@ -1,4 +1,4 @@
-module Constants exposing (bushel, centimeter, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, usLiquidGallon, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, centimeter, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usLiquidGallon, usLiquidQuart, yard)
 
 -- Sourced from National Institute of Standards and Technology (NIST) unless otherwise specified.
 ---------- LENGTHS ----------
@@ -32,6 +32,35 @@ yard =
 mile : Float
 mile =
     5280 * foot
+
+
+
+---------- AREAS ----------
+
+
+squareInch : Float
+squareInch =
+    inch * inch
+
+
+squareFoot : Float
+squareFoot =
+    foot * foot
+
+
+squareYard : Float
+squareYard =
+    yard * yard
+
+
+squareMile : Float
+squareMile =
+    mile * mile
+
+
+acre : Float
+acre =
+    43560 * squareFoot
 
 
 

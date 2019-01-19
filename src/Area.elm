@@ -81,14 +81,14 @@ inSquareMillimeters area =
 -}
 squareInches : Float -> Area
 squareInches numSquareInches =
-    squareMeters (Constants.inch * Constants.inch * numSquareInches)
+    squareMeters (Constants.squareInch * numSquareInches)
 
 
 {-| Convert an area to a number of square inches.
 -}
 inSquareInches : Area -> Float
 inSquareInches area =
-    inSquareMeters area / (Constants.inch * Constants.inch)
+    inSquareMeters area / Constants.squareInch
 
 
 {-| Construct an area from a number of square centimeters.
@@ -109,28 +109,28 @@ inSquareCentimeters area =
 -}
 squareFeet : Float -> Area
 squareFeet numSquareFeet =
-    squareMeters (0.3048 * 0.3048 * numSquareFeet)
+    squareMeters (Constants.squareFoot * numSquareFeet)
 
 
 {-| Convert an area to a number of square feet.
 -}
 inSquareFeet : Area -> Float
 inSquareFeet area =
-    inSquareMeters area / (0.3048 * 0.3048)
+    inSquareMeters area / Constants.squareFoot
 
 
 {-| Construct an area from a number of square yards.
 -}
 squareYards : Float -> Area
 squareYards numSquareYards =
-    squareMeters (0.9144 * 0.9144 * numSquareYards)
+    squareMeters (Constants.squareYard * numSquareYards)
 
 
 {-| Convert an area to a number of square yards.
 -}
 inSquareYards : Area -> Float
 inSquareYards area =
-    inSquareMeters area / (0.9144 * 0.9144)
+    inSquareMeters area / Constants.squareYard
 
 
 {-| Construct an area from a number of hectares.
@@ -165,25 +165,25 @@ inSquareKilometers area =
 -}
 acres : Float -> Area
 acres numAcres =
-    squareMeters (4046.8564224 * numAcres)
+    squareMeters (Constants.acre * numAcres)
 
 
 {-| Convert an area to a number of acres.
 -}
 inAcres : Area -> Float
 inAcres area =
-    inSquareMeters area / 4046.8564224
+    inSquareMeters area / Constants.acre
 
 
 {-| Construct an area from a number of square miles.
 -}
 squareMiles : Float -> Area
 squareMiles numSquareMiles =
-    squareMeters (1609.344 * 1609.344 * numSquareMiles)
+    squareMeters (Constants.squareMile * numSquareMiles)
 
 
 {-| Convert an area to a number of square miles.
 -}
 inSquareMiles : Area -> Float
 inSquareMiles area =
-    inSquareMeters area / (1609.344 * 1609.344)
+    inSquareMeters area / Constants.squareMile
