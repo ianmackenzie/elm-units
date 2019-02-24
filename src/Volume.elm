@@ -51,13 +51,6 @@ type alias Volume =
 ---------- CONVERSION FACTOR CONSTANTS  -----------
 
 
-{-| The number of US dry gallons in a cubic meter.
--}
-usDryGallonsPerCubicMeter : Float
-usDryGallonsPerCubicMeter =
-    227.02074606721396
-
-
 {-| The number of imperial gallons in a cubic meter.
 -}
 imperialGallonsPerCubicMeter : Float
@@ -171,14 +164,14 @@ inUsLiquidGallons volume =
 -}
 usDryGallons : Float -> Volume
 usDryGallons numUsDryGallons =
-    cubicMeters (numUsDryGallons / usDryGallonsPerCubicMeter)
+    cubicMeters (numUsDryGallons * Constants.usDryGallon)
 
 
 {-| Convert a volume to a number of U.S. dry gallons.
 -}
 inUsDryGallons : Volume -> Float
 inUsDryGallons volume =
-    usDryGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usDryGallon
 
 
 {-| Construct a volume from a number of imperial gallons.
@@ -213,14 +206,14 @@ inUsLiquidQuarts volume =
 -}
 usDryQuarts : Float -> Volume
 usDryQuarts numUsDryQuarts =
-    cubicMeters ((numUsDryQuarts / 4) / usDryGallonsPerCubicMeter)
+    cubicMeters (numUsDryQuarts * Constants.usDryQuart)
 
 
 {-| Convert a volume to a number of U.S. dry quarts.
 -}
 inUsDryQuarts : Volume -> Float
 inUsDryQuarts volume =
-    4 * usDryGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usDryQuart
 
 
 {-| Construct a volume from a number of imperial quarts.
@@ -255,14 +248,14 @@ inUsLiquidPints volume =
 -}
 usDryPints : Float -> Volume
 usDryPints numUsDryPints =
-    cubicMeters ((numUsDryPints / 8) / usDryGallonsPerCubicMeter)
+    cubicMeters (numUsDryPints * Constants.usDryPint)
 
 
 {-| Convert a volume to a number of U.S. dry pints.
 -}
 inUsDryPints : Volume -> Float
 inUsDryPints volume =
-    8 * usDryGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usDryPint
 
 
 {-| Construct a volume from a number of imperial pints.
