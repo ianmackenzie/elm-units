@@ -1,4 +1,4 @@
-module Constants exposing (acre, bushel, centimeter, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usLiquidGallon, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
 
 -- Sourced from National Institute of Standards and Technology (NIST) unless otherwise specified.
 ---------- LENGTHS ----------
@@ -7,11 +7,6 @@ module Constants exposing (acre, bushel, centimeter, cubicFoot, cubicInch, cubic
 meter : Float
 meter =
     1.0
-
-
-centimeter : Float
-centimeter =
-    0.01 * meter
 
 
 inch : Float
@@ -101,6 +96,16 @@ cubicYard =
     yard * yard * yard
 
 
+usDryGallon : Float
+usDryGallon =
+    4 * usLiquidQuart
+
+
+usDryQuart : Float
+usDryQuart =
+    67.2006 * cubicInch
+
+
 usLiquidGallon : Float
 usLiquidGallon =
     231 * cubicInch
@@ -108,7 +113,17 @@ usLiquidGallon =
 
 usLiquidQuart : Float
 usLiquidQuart =
-    0.25 * usLiquidGallon
+    usLiquidGallon / 4
+
+
+usLiquidPint : Float
+usLiquidPint =
+    usLiquidQuart / 2
+
+
+usFluidOunce : Float
+usFluidOunce =
+    usLiquidPint / 16
 
 
 bushel : Float

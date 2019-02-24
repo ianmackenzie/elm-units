@@ -51,13 +51,6 @@ type alias Volume =
 ---------- CONVERSION FACTOR CONSTANTS  -----------
 
 
-{-| The number of US liquid gallons in a cubic meter.
--}
-usLiquidGallonsPerCubicMeter : Float
-usLiquidGallonsPerCubicMeter =
-    264.17205235814845
-
-
 {-| The number of US dry gallons in a cubic meter.
 -}
 usDryGallonsPerCubicMeter : Float
@@ -164,14 +157,14 @@ inLiters volume =
 -}
 usLiquidGallons : Float -> Volume
 usLiquidGallons numUsLiquidGallons =
-    cubicMeters (numUsLiquidGallons / usLiquidGallonsPerCubicMeter)
+    cubicMeters (numUsLiquidGallons * Constants.usLiquidGallon)
 
 
 {-| Convert a volume to a number of U.S. liquid gallons.
 -}
 inUsLiquidGallons : Volume -> Float
 inUsLiquidGallons volume =
-    usLiquidGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usLiquidGallon
 
 
 {-| Construct a volume from a number of U.S. dry gallons.
@@ -206,14 +199,14 @@ inImperialGallons volume =
 -}
 usLiquidQuarts : Float -> Volume
 usLiquidQuarts numUsLiquidQuarts =
-    cubicMeters ((numUsLiquidQuarts / 4) / usLiquidGallonsPerCubicMeter)
+    cubicMeters (numUsLiquidQuarts * Constants.usLiquidQuart)
 
 
 {-| Convert a volume to a number of U.S. liquid quarts.
 -}
 inUsLiquidQuarts : Volume -> Float
 inUsLiquidQuarts volume =
-    4 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usLiquidQuart
 
 
 {-| Construct a volume from a number of U.S. dry quarts.
@@ -248,14 +241,14 @@ inImperialQuarts volume =
 -}
 usLiquidPints : Float -> Volume
 usLiquidPints numUsLiquidPints =
-    cubicMeters ((numUsLiquidPints / 8) / usLiquidGallonsPerCubicMeter)
+    cubicMeters (numUsLiquidPints * Constants.usLiquidPint)
 
 
 {-| Convert a volume to a number of U.S. liquid pints.
 -}
 inUsLiquidPints : Volume -> Float
 inUsLiquidPints volume =
-    8 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usLiquidPint
 
 
 {-| Construct a volume from a number of U.S. dry pints.
@@ -290,14 +283,14 @@ inImperialPints volume =
 -}
 usFluidOunces : Float -> Volume
 usFluidOunces numUsFluidOunces =
-    cubicMeters ((numUsFluidOunces / 128) / usLiquidGallonsPerCubicMeter)
+    cubicMeters (numUsFluidOunces * Constants.usFluidOunce)
 
 
 {-| Convert a volume to a number of U.S. fluid ounces.
 -}
 inUsFluidOunces : Volume -> Float
 inUsFluidOunces volume =
-    128 * usLiquidGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.usFluidOunce
 
 
 {-| Construct a volume from a number of imperial fluid ounces.

@@ -142,7 +142,7 @@ inInches length =
 -}
 centimeters : Float -> Length
 centimeters numCentimeters =
-    meters (Constants.centimeter * numCentimeters)
+    meters (0.01 * numCentimeters)
 
 
 {-| Convert a length to a number of centimeters.
