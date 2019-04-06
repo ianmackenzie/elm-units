@@ -6,6 +6,7 @@ module Tests exposing
     , durations
     , inductance
     , lengths
+    , masses
     , over
     , powers
     , pressures
@@ -168,6 +169,23 @@ pressures =
         "Pa"
         [ ( atmospheres 1
           , kilopascals 101.325
+          )
+        ]
+
+
+masses : Test
+masses =
+    equalPairs
+        "Masses"
+        "kg"
+        [ ( grams 1
+          , kilograms 0.001
+          )
+        , ( ounces 1
+          , Mass.pounds 0.0625
+          )
+        , ( Mass.pounds 1
+          , kilograms 0.45359237
           )
         ]
 
