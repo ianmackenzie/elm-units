@@ -27,6 +27,7 @@ etc. It is stored as a number of kilograms.
 
 -}
 
+import Constants
 import Quantity exposing (Quantity(..), Rate)
 
 
@@ -72,21 +73,21 @@ inGrams mass =
 -}
 pounds : Float -> Mass
 pounds numPounds =
-    kilograms (0.45359237 * numPounds)
+    kilograms (Constants.pound * numPounds)
 
 
 {-| Convert a mass to a number of pounds.
 -}
 inPounds : Mass -> Float
 inPounds mass =
-    inKilograms mass / 0.45359237
+    inKilograms mass / Constants.pound
 
 
 {-| Construct a mass from a number of ounces.
 -}
 ounces : Float -> Mass
 ounces numOunces =
-    pounds (0.0625 * numOunces)
+    kilograms (Constants.ounce * numOunces)
 
 
 {-| Convert a mass to a number of ounces.
@@ -97,7 +98,7 @@ ounces numOunces =
 -}
 inOunces : Mass -> Float
 inOunces mass =
-    16 * inPounds mass
+    inKilograms mass / Constants.ounce
 
 
 {-| Construct a mass from a number of [metric tons][1].

@@ -1,4 +1,4 @@
-module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, ounce, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
 
 {-| All conversion factors sourced from [National Institute of Standards and Technology (NIST)][1]
 unless otherwise specified.
@@ -177,3 +177,8 @@ kilogram =
 pound : Float
 pound =
     0.45359237 * kilogram
+
+
+ounce : Float
+ounce =
+    pound / 16
