@@ -133,7 +133,7 @@ usDryGallon =
 
 usDryQuart : Float
 usDryQuart =
-    67.2006 * cubicInch
+    67.200625 * cubicInch
 
 
 usDryPint : Float

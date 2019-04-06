@@ -293,10 +293,9 @@ volumes =
         , ( usLiquidGallons 1
           , usLiquidQuarts 4
           )
-
-        --, ( usDryGallons 1
-        --  , usDryQuarts 4
-        --  )
+        , ( usDryGallons 1
+          , usDryQuarts 4
+          )
         , ( imperialGallons 1
           , imperialQuarts 4
           )
