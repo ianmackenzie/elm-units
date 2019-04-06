@@ -48,17 +48,6 @@ type alias Volume =
 
 
 
----------- CONVERSION FACTOR CONSTANTS  -----------
-
-
-{-| The number of imperial gallons in a cubic meter.
--}
-imperialGallonsPerCubicMeter : Float
-imperialGallonsPerCubicMeter =
-    219.96924829908778
-
-
-
 ---------- CONVERSIONS -----------
 
 
@@ -178,14 +167,14 @@ inUsDryGallons volume =
 -}
 imperialGallons : Float -> Volume
 imperialGallons numImperialGallons =
-    cubicMeters (numImperialGallons / imperialGallonsPerCubicMeter)
+    cubicMeters (numImperialGallons * Constants.imperialGallon)
 
 
 {-| Convert a volume to a number of imperial gallons.
 -}
 inImperialGallons : Volume -> Float
 inImperialGallons volume =
-    imperialGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.imperialGallon
 
 
 {-| Construct a volume from a number of U.S. liquid quarts.
@@ -220,14 +209,14 @@ inUsDryQuarts volume =
 -}
 imperialQuarts : Float -> Volume
 imperialQuarts numImperialQuarts =
-    cubicMeters ((numImperialQuarts / 4) / imperialGallonsPerCubicMeter)
+    cubicMeters (numImperialQuarts * Constants.imperialQuart)
 
 
 {-| Convert a volume to a number of imperial quarts.
 -}
 inImperialQuarts : Volume -> Float
 inImperialQuarts volume =
-    4 * imperialGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.imperialQuart
 
 
 {-| Construct a volume from a number of U.S. liquid pints.
@@ -262,14 +251,14 @@ inUsDryPints volume =
 -}
 imperialPints : Float -> Volume
 imperialPints numImperialPints =
-    cubicMeters ((numImperialPints / 8) / imperialGallonsPerCubicMeter)
+    cubicMeters (numImperialPints * Constants.imperialPint)
 
 
 {-| Convert a volume to a number of imperial pints.
 -}
 inImperialPints : Volume -> Float
 inImperialPints volume =
-    8 * imperialGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.imperialPint
 
 
 {-| Construct a volume from a number of U.S. fluid ounces.
@@ -290,11 +279,11 @@ inUsFluidOunces volume =
 -}
 imperialFluidOunces : Float -> Volume
 imperialFluidOunces numImperialFluidOunces =
-    cubicMeters ((numImperialFluidOunces / 160) / imperialGallonsPerCubicMeter)
+    cubicMeters (numImperialFluidOunces * Constants.imperialFluidOunce)
 
 
 {-| Convert a volume to a number of imperial fluid ounces.
 -}
 inImperialFluidOunces : Volume -> Float
 inImperialFluidOunces volume =
-    160 * imperialGallonsPerCubicMeter * inCubicMeters volume
+    inCubicMeters volume / Constants.imperialFluidOunce

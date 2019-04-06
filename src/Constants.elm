@@ -1,4 +1,4 @@
-module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialGallon, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
 
 -- Sourced from National Institute of Standards and Technology (NIST) unless otherwise specified.
 ---------- LENGTHS ----------
@@ -79,6 +79,21 @@ liter =
 imperialGallon : Float
 imperialGallon =
     4.54609 * liter
+
+
+imperialQuart : Float
+imperialQuart =
+    imperialGallon / 4
+
+
+imperialPint : Float
+imperialPint =
+    imperialQuart / 2
+
+
+imperialFluidOunce : Float
+imperialFluidOunce =
+    imperialPint / 20
 
 
 cubicInch : Float
