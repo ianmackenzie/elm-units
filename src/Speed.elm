@@ -66,14 +66,14 @@ inMetersPerSecond (Quantity numMetersPerSecond) =
 -}
 feetPerSecond : Float -> Speed
 feetPerSecond numFeetPerSecond =
-    metersPerSecond (Constant.foot * numFeetPerSecond)
+    metersPerSecond (Constants.foot * numFeetPerSecond)
 
 
 {-| Convert a speed to a number of feet per second.
 -}
 inFeetPerSecond : Speed -> Float
 inFeetPerSecond speed =
-    inMetersPerSecond speed / Constant.foot
+    inMetersPerSecond speed / Constants.foot
 
 
 {-| Construct a speed from a number of kilometers per hour.
@@ -94,11 +94,11 @@ inKilometersPerHour speed =
 -}
 milesPerHour : Float -> Speed
 milesPerHour numMilesPerHour =
-    metersPerSecond (numMilesPerHour * Constant.mile / 3600)
+    metersPerSecond (numMilesPerHour * Constants.mile / 3600)
 
 
 {-| Convert a speed to a number of miles per hour.
 -}
 inMilesPerHour : Speed -> Float
 inMilesPerHour speed =
-    (3600 / Constant.mile) * inMetersPerSecond speed
+    (3600 / Constants.mile) * inMetersPerSecond speed
