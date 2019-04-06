@@ -47,10 +47,6 @@ type alias Volume =
     Quantity Float CubicMeters
 
 
-
----------- CONVERSIONS -----------
-
-
 {-| Construct a volume from a number of cubic meters.
 -}
 cubicMeters : Float -> Volume
