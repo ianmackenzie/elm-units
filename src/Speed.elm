@@ -32,6 +32,7 @@ You can also do rate-related calculations with `Speed` values to compute
 
 -}
 
+import Constants
 import Duration exposing (Seconds)
 import Length exposing (Meters)
 import Quantity exposing (Quantity(..), Rate)
@@ -65,14 +66,14 @@ inMetersPerSecond (Quantity numMetersPerSecond) =
 -}
 feetPerSecond : Float -> Speed
 feetPerSecond numFeetPerSecond =
-    metersPerSecond (0.3048 * numFeetPerSecond)
+    metersPerSecond (Constant.foot * numFeetPerSecond)
 
 
 {-| Convert a speed to a number of feet per second.
 -}
 inFeetPerSecond : Speed -> Float
 inFeetPerSecond speed =
-    inMetersPerSecond speed / 0.3048
+    inMetersPerSecond speed / Constant.foot
 
 
 {-| Construct a speed from a number of kilometers per hour.
@@ -93,11 +94,11 @@ inKilometersPerHour speed =
 -}
 milesPerHour : Float -> Speed
 milesPerHour numMilesPerHour =
-    metersPerSecond (numMilesPerHour * 1609.344 / 3600)
+    metersPerSecond (numMilesPerHour * Constant.mile / 3600)
 
 
 {-| Convert a speed to a number of miles per hour.
 -}
 inMilesPerHour : Speed -> Float
 inMilesPerHour speed =
-    (3600 / 1609.344) * inMetersPerSecond speed
+    (3600 / Constant.mile) * inMetersPerSecond speed
