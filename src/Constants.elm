@@ -1,4 +1,4 @@
-module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, ounce, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, day, foot, hour, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, ounce, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, week, yard)
 
 {-| All conversion factors sourced from [National Institute of Standards and Technology (NIST)][1]
 unless otherwise specified.
@@ -182,3 +182,32 @@ pound =
 ounce : Float
 ounce =
     pound / 16
+
+
+
+---------- UNITS OF DURATION (in seconds) ----------
+
+
+second : Float
+second =
+    1
+
+
+minute : Float
+minute =
+    60 * second
+
+
+hour : Float
+hour =
+    60 * minute
+
+
+day : Float
+day =
+    24 * hour
+
+
+week : Float
+week =
+    7 * day

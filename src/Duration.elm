@@ -14,6 +14,7 @@ value). It is stored as a number of seconds.
 
 -}
 
+import Constants
 import Quantity exposing (Quantity(..))
 import Time
 
@@ -115,7 +116,7 @@ inMinutes duration =
 -}
 hours : Float -> Duration
 hours numHours =
-    seconds (3600 * numHours)
+    seconds (Constants.hour * numHours)
 
 
 {-| Convert a `Duration` to a value in hours.
@@ -126,7 +127,7 @@ hours numHours =
 -}
 inHours : Duration -> Float
 inHours duration =
-    inSeconds duration / 3600
+    inSeconds duration / Constants.hour
 
 
 {-| Construct a `Duration` from a given number of days. A day is defined as
@@ -140,7 +141,7 @@ or any added/removed daylight savings hours.
 -}
 days : Float -> Duration
 days numDays =
-    seconds (86400 * numDays)
+    seconds (Constants.day * numDays)
 
 
 {-| Convert a `Duration` to a value in days.
@@ -151,7 +152,7 @@ days numDays =
 -}
 inDays : Duration -> Float
 inDays duration =
-    inSeconds duration / 86400
+    inSeconds duration / Constants.day
 
 
 {-| Construct a `Duration` from a given number of weeks.
@@ -162,7 +163,7 @@ inDays duration =
 -}
 weeks : Float -> Duration
 weeks numWeeks =
-    seconds (604800 * numWeeks)
+    seconds (Constants.week * numWeeks)
 
 
 {-| Convert a `Duration` to a value in weeks.
@@ -173,7 +174,7 @@ weeks numWeeks =
 -}
 inWeeks : Duration -> Float
 inWeeks duration =
-    inSeconds duration / 604800
+    inSeconds duration / Constants.week
 
 
 {-| Construct a `Duration` from a given number of [Julian years][julian_year].
