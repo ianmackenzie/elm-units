@@ -85,25 +85,25 @@ inGramsPerCubicCentimeter density =
 -}
 poundsPerCubicInch : Float -> Density
 poundsPerCubicInch numPoundsPerCubicInch =
-    kilogramsPerCubicMeter (0.45359237 / Constants.cubicInch * numPoundsPerCubicInch)
+    kilogramsPerCubicMeter (Constants.pound / Constants.cubicInch * numPoundsPerCubicInch)
 
 
 {-| Convert a density to a number of pounds per cubic inch.
 -}
 inPoundsPerCubicInch : Density -> Float
 inPoundsPerCubicInch density =
-    inKilogramsPerCubicMeter density / (0.45359237 / Constants.cubicInch)
+    inKilogramsPerCubicMeter density / (Constants.pound / Constants.cubicInch)
 
 
 {-| Construct a density from a number of pounds per cubic foot.
 -}
 poundsPerCubicFoot : Float -> Density
 poundsPerCubicFoot numPoundsPerCubicFoot =
-    kilogramsPerCubicMeter (0.45359237 / Constants.cubicFoot * numPoundsPerCubicFoot)
+    kilogramsPerCubicMeter (Constants.pound / Constants.cubicFoot * numPoundsPerCubicFoot)
 
 
 {-| Convert a density to a number of pounds per cubic foot.
 -}
 inPoundsPerCubicFoot : Density -> Float
 inPoundsPerCubicFoot density =
-    inKilogramsPerCubicMeter density / (0.45359237 / Constants.cubicFoot)
+    inKilogramsPerCubicMeter density / (Constants.pound / Constants.cubicFoot)

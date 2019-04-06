@@ -1,7 +1,13 @@
-module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, peck, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, foot, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, yard)
 
--- Sourced from National Institute of Standards and Technology (NIST) unless otherwise specified.
----------- LENGTHS ----------
+{-| All conversion factors sourced from [National Institute of Standards and Technology (NIST)][1]
+unless otherwise specified.
+
+[1]: https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks/handbook-44
+
+-}
+
+---------- UNITS OF LENGTH (in meters)  ----------
 
 
 meter : Float
@@ -30,7 +36,7 @@ mile =
 
 
 
----------- AREAS ----------
+---------- UNITS OF AREA (in squared meters) ----------
 
 
 squareInch : Float
@@ -59,7 +65,7 @@ acre =
 
 
 
----------- VOLUMES ----------
+---------- UNITS OF VOLUME (in cubic meters) ----------
 
 
 cubicMeter : Float
@@ -72,11 +78,11 @@ liter =
     0.001 * cubicMeter
 
 
-{-| Sourced from [UK Weights and Measures Act][1]. One imperial gallon is equal to
+{-| Sourced from [UK Weights and Measures Act][2]. One imperial gallon is equal to
 4.54609 cubic decimeters (formerly defined as the volume of one kilogram
 of pure water under standard conditions, now equal to 1 liter.
 
-[1]: https://www.legislation.gov.uk/ukpga/1985/72#tgp10-tbl10-tbd1-tr22
+[2]: https://www.legislation.gov.uk/ukpga/1985/72#tgp10-tbl10-tbd1-tr22
 
 -}
 imperialGallon : Float
@@ -157,3 +163,17 @@ usDryQuart =
 usDryPint : Float
 usDryPint =
     usDryQuart / 2
+
+
+
+---------- UNITS OF  MASS (in kilograms) ----------
+
+
+kilogram : Float
+kilogram =
+    1
+
+
+pound : Float
+pound =
+    0.45359237 * kilogram
