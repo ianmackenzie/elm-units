@@ -37,6 +37,7 @@ You can also do rate-related calculations with `Density` values to compute
 
 -}
 
+import Constants
 import Mass exposing (Kilograms)
 import Quantity exposing (Quantity(..), Rate)
 import Volume exposing (CubicMeters)
@@ -84,25 +85,25 @@ inGramsPerCubicCentimeter density =
 -}
 poundsPerCubicInch : Float -> Density
 poundsPerCubicInch numPoundsPerCubicInch =
-    kilogramsPerCubicMeter (0.45359237 / (0.0254 * 0.0254 * 0.0254) * numPoundsPerCubicInch)
+    kilogramsPerCubicMeter (Constants.pound / Constants.cubicInch * numPoundsPerCubicInch)
 
 
 {-| Convert a density to a number of pounds per cubic inch.
 -}
 inPoundsPerCubicInch : Density -> Float
 inPoundsPerCubicInch density =
-    inKilogramsPerCubicMeter density / (0.45359237 / (0.0254 * 0.0254 * 0.0254))
+    inKilogramsPerCubicMeter density / (Constants.pound / Constants.cubicInch)
 
 
 {-| Construct a density from a number of pounds per cubic foot.
 -}
 poundsPerCubicFoot : Float -> Density
 poundsPerCubicFoot numPoundsPerCubicFoot =
-    kilogramsPerCubicMeter (0.45359237 / (0.3048 * 0.3048 * 0.3048) * numPoundsPerCubicFoot)
+    kilogramsPerCubicMeter (Constants.pound / Constants.cubicFoot * numPoundsPerCubicFoot)
 
 
 {-| Convert a density to a number of pounds per cubic foot.
 -}
 inPoundsPerCubicFoot : Density -> Float
 inPoundsPerCubicFoot density =
-    inKilogramsPerCubicMeter density / (0.45359237 / (0.3048 * 0.3048 * 0.3048))
+    inKilogramsPerCubicMeter density / (Constants.pound / Constants.cubicFoot)

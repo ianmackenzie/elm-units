@@ -29,6 +29,7 @@ is stored as a number of meters.
 
 -}
 
+import Constants
 import Quantity exposing (Quantity(..))
 
 
@@ -109,7 +110,7 @@ inMillimeters length =
 -}
 thou : Float -> Length
 thou numThou =
-    meters (0.0000254 * numThou)
+    meters (Constants.inch * 0.001 * numThou)
 
 
 {-| Convert a length to a number of thou (thousandths of an inch).
@@ -120,21 +121,21 @@ thou numThou =
 -}
 inThou : Length -> Float
 inThou length =
-    inMeters length / 0.0000254
+    inMeters length / (Constants.inch * 0.001)
 
 
 {-| Construct a length from a number of inches.
 -}
 inches : Float -> Length
 inches numInches =
-    meters (0.0254 * numInches)
+    meters (Constants.inch * numInches)
 
 
 {-| Convert a length to a number of inches.
 -}
 inInches : Length -> Float
 inInches length =
-    inMeters length / 0.0254
+    inMeters length / Constants.inch
 
 
 {-| Construct a length from a number of centimeters.
@@ -155,28 +156,28 @@ inCentimeters length =
 -}
 feet : Float -> Length
 feet numFeet =
-    meters (0.3048 * numFeet)
+    meters (Constants.foot * numFeet)
 
 
 {-| Convert a length to a number of feet.
 -}
 inFeet : Length -> Float
 inFeet length =
-    inMeters length / 0.3048
+    inMeters length / Constants.foot
 
 
 {-| Construct a length from a number of yards.
 -}
 yards : Float -> Length
 yards numYards =
-    meters (0.9144 * numYards)
+    meters (Constants.yard * numYards)
 
 
 {-| Convert a length to a number of yards.
 -}
 inYards : Length -> Float
 inYards length =
-    inMeters length / 0.9144
+    inMeters length / Constants.yard
 
 
 {-| Construct a length from a number of kilometers.
@@ -197,14 +198,14 @@ inKilometers length =
 -}
 miles : Float -> Length
 miles numMiles =
-    meters (1609.344 * numMiles)
+    meters (Constants.mile * numMiles)
 
 
 {-| Convert a length to a number of miles.
 -}
 inMiles : Length -> Float
 inMiles length =
-    inMeters length / 1609.344
+    inMeters length / Constants.mile
 
 
 {-| Construct a length from a number of [astronomical units][au] (AU). One AU is

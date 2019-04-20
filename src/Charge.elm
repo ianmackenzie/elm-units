@@ -12,6 +12,7 @@ hours. It is stored as a number of coulombs.
 
 -}
 
+import Constants
 import Quantity exposing (Quantity(..))
 
 
@@ -43,25 +44,25 @@ inCoulombs (Quantity numCoulombs) =
 -}
 ampereHours : Float -> Charge
 ampereHours numAmpereHours =
-    coulombs (3600 * numAmpereHours)
+    coulombs (Constants.hour * numAmpereHours)
 
 
 {-| Convert a charge to a number of ampere hours.
 -}
 inAmpereHours : Charge -> Float
 inAmpereHours charge =
-    inCoulombs charge / 3600
+    inCoulombs charge / Constants.hour
 
 
 {-| Construct a charge from a number of milliampere hours.
 -}
 milliampereHours : Float -> Charge
 milliampereHours numMilliampereHours =
-    coulombs (3.6 * numMilliampereHours)
+    coulombs (Constants.hour * numMilliampereHours / 1000)
 
 
 {-| Convert a charge to a number of milliampere hours.
 -}
 inMilliampereHours : Charge -> Float
 inMilliampereHours charge =
-    inCoulombs charge / 3.6
+    inCoulombs charge * 1000 / Constants.hour

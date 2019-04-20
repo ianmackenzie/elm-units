@@ -34,6 +34,7 @@ You can also do rate-related calculations with `Acceleration` values to compute
 
 -}
 
+import Constants
 import Duration exposing (Seconds)
 import Length exposing (Meters)
 import Quantity exposing (Quantity(..), Rate)
@@ -68,14 +69,14 @@ inMetersPerSecondSquared (Quantity numMetersPerSecondSquared) =
 -}
 feetPerSecondSquared : Float -> Acceleration
 feetPerSecondSquared numFeetPerSecondSquared =
-    metersPerSecondSquared (0.3048 * numFeetPerSecondSquared)
+    metersPerSecondSquared (Constants.foot * numFeetPerSecondSquared)
 
 
 {-| Convert an acceleration to a number of feet per second squared.
 -}
 inFeetPerSecondSquared : Acceleration -> Float
 inFeetPerSecondSquared acceleration =
-    inMetersPerSecondSquared acceleration / 0.3048
+    inMetersPerSecondSquared acceleration / Constants.foot
 
 
 {-| Construct an acceleration from a number of [gees][1]. One gee is equal to
