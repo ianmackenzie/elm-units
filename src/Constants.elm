@@ -80,7 +80,7 @@ liter =
 
 {-| Sourced from [UK Weights and Measures Act][1]. One imperial gallon is equal to
 4.54609 cubic decimeters (formerly defined as the volume of one kilogram
-of pure water under standard conditions, now equal to 1 liter.
+of pure water under standard conditions, now equal to 1 liter).
 
 [1]: https://www.legislation.gov.uk/ukpga/1985/72#tgp10-tbl10-tbd1-tr22
 
