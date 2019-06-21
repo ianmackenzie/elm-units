@@ -467,6 +467,7 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "hours" Duration.hours Duration.inHours
             , fuzzFloatToQuantityAndBack "days" Duration.days Duration.inDays
             , fuzzFloatToQuantityAndBack "weeks" Duration.weeks Duration.inWeeks
+            , fuzzFloatToQuantityAndBack "months" Duration.months Duration.inMonths
             , fuzzFloatToQuantityAndBack "julianYears" Duration.julianYears Duration.inJulianYears
             ]
         , Test.describe "Energy" <|

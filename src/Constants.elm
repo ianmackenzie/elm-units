@@ -1,4 +1,4 @@
-module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, day, foot, hour, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, ounce, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, week, yard)
+module Constants exposing (acre, bushel, cubicFoot, cubicInch, cubicMeter, cubicYard, day, foot, hour, imperialFluidOunce, imperialGallon, imperialPint, imperialQuart, inch, liter, meter, mile, month, ounce, peck, pound, squareFoot, squareInch, squareMile, squareYard, usDryGallon, usDryPint, usDryQuart, usFluidOunce, usLiquidGallon, usLiquidPint, usLiquidQuart, week, yard)
 
 {-| All conversion factors sourced from [National Institute of Standards and Technology (NIST)][1]
 unless otherwise specified.
@@ -211,3 +211,8 @@ day =
 week : Float
 week =
     7 * day
+
+
+month : Float
+month =
+    2629746 * second

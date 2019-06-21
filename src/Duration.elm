@@ -1,6 +1,7 @@
 module Duration exposing
     ( Duration, Seconds
     , from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+    , inMonths, months
     )
 
 {-| A `Duration` refers to an elapsed time in seconds, milliseconds, hours etc.,
@@ -175,6 +176,28 @@ weeks numWeeks =
 inWeeks : Duration -> Float
 inWeeks duration =
     inSeconds duration / Constants.week
+
+
+{-| Construct a `Duration` from a given number of months.
+
+    Duration.months 2
+    --> Duration.days 60.87375
+
+-}
+months : Float -> Duration
+months numMonths =
+    seconds (Constants.month * numMonths)
+
+
+{-| Convert a `Duration` to a value in months.
+
+    Duration.days 31 |> Duration.inMonths
+    --> 1.0185014066
+
+-}
+inMonths : Duration -> Float
+inMonths duration =
+    inSeconds duration / Constants.month
 
 
 {-| Construct a `Duration` from a given number of [Julian years][julian_year].
