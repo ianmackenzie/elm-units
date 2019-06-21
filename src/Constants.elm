@@ -215,7 +215,7 @@ week =
 
 month : Float
 month =
-    2629746 * second
+    year / 12
 
 
 year : Float
