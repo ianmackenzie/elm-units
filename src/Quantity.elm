@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, abs, plus, minus, multiplyBy, divideBy, squared, sqrt, cubed, cbrt
     , times, over, over_
     , per, at, at_, for, inverse
-    , ratio, clamp, interpolateFrom, midpoint
+    , ratio, clamp, interpolateFrom, midpoint, range
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, sort, sortBy
     , Unitless, int, toInt, float, toFloat
@@ -52,7 +52,7 @@ and work with composite units in a fairly flexible way.
 
 ## Miscellaneous
 
-@docs ratio, clamp, interpolateFrom, midpoint
+@docs ratio, clamp, interpolateFrom, midpoint, range
 
 
 # `Int`/`Float` conversion
@@ -671,6 +671,96 @@ interpolateFrom (Quantity start) (Quantity end) parameter =
 midpoint : Quantity Float units -> Quantity Float units -> Quantity Float units
 midpoint (Quantity x) (Quantity y) =
     Quantity (x + 0.5 * (y - x))
+
+
+{-| Construct a range of evenly-spaced values given a `start` value, an `end`
+value and the number of `steps` to take from the start to the end. The first
+value in the returned list will be equal to `start` and the last value will be
+equal to `end`. Note that the number of returned values will be one greater than
+the number of steps!
+
+    Quantity.range
+        { start = Length.meters 2
+        , end = Length.meters 3
+        , steps = 5
+        }
+    --> [ Length.centimeters 200
+    --> , Length.centimeters 220
+    --> , Length.centimeters 240
+    --> , Length.centimeters 260
+    --> , Length.centimeters 280
+    --> , Length.centimeters 300
+    --> ]
+
+The start and end values can be in either order:
+
+    Quantity.range
+        { start = Duration.hours 1
+        , end = Quantity.zero
+        , steps = 4
+        }
+    --> [ Duration.minutes 60
+    --> , Duration.minutes 45
+    --> , Duration.minutes 30
+    --> , Duration.minutes 15
+    --> , Duration.minutes 0
+    --> ]
+
+Passing a negative or zero `steps` value will result in an empty list being
+returned.
+
+If you need finer control over what values get generated, try combining
+`interpolateFrom` with the various functions in the
+[`elm-1d-parameter`](https://package.elm-lang.org/packages/ianmackenzie/elm-1d-parameter/latest/)
+package. For example:
+
+    -- Same as using Quantity.range
+    Parameter1d.steps 4 <|
+        Quantity.interpolateFrom
+            (Length.meters 2)
+            (Length.meters 3)
+    --> [ Length.centimeters 200
+    --> , Length.centimeters 225
+    --> , Length.centimeters 250
+    --> , Length.centimeters 275
+    --> , Length.centimeters 300
+    --> ]
+
+    -- Omit the last value
+    Parameter1d.leading 4 <|
+        Quantity.interpolateFrom
+            (Length.meters 2)
+            (Length.meters 3)
+    --> [ Length.centimeters 200
+    --> , Length.centimeters 225
+    --> , Length.centimeters 250
+    --> , Length.centimeters 275
+    --> ]
+
+-}
+range : { start : Quantity Float units, end : Quantity Float units, steps : Int } -> List (Quantity Float units)
+range { start, end, steps } =
+    if steps > 0 then
+        rangeHelp start end steps (Basics.toFloat steps) []
+
+    else
+        []
+
+
+rangeHelp : Quantity Float units -> Quantity Float units -> Int -> Float -> List (Quantity Float units) -> List (Quantity Float units)
+rangeHelp start end i steps accumulatedValues =
+    let
+        value =
+            interpolateFrom start end (Basics.toFloat i / steps)
+
+        updatedValues =
+            value :: accumulatedValues
+    in
+    if i == 0 then
+        updatedValues
+
+    else
+        rangeHelp start end (i - 1) steps updatedValues
 
 
 
