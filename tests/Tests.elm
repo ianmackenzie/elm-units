@@ -4,6 +4,8 @@ module Tests exposing
     , conversionsToQuantityAndBack
     , densities
     , durations
+    , fromDmsNegative
+    , fromDmsPositive
     , inductance
     , lengths
     , masses
@@ -15,11 +17,13 @@ module Tests exposing
     , temperatureDeltas
     , temperatures
     , times
+    , toDmsProducesValidValues
+    , toDmsReconstructsAngle
     , volumes
     )
 
 import Acceleration exposing (..)
-import Angle exposing (..)
+import Angle
 import AngularAcceleration exposing (..)
 import AngularSpeed exposing (..)
 import Area exposing (..)
@@ -580,3 +584,106 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
             ]
         ]
+
+
+fromDmsPositive : Test
+fromDmsPositive =
+    Test.fuzz3
+        (Fuzz.intRange 0 1000)
+        (Fuzz.intRange 0 59)
+        (Fuzz.floatRange 0 60)
+        "toDms works for positive angles"
+        (\numDegrees numMinutes numSeconds ->
+            let
+                angle1 =
+                    Angle.fromDms
+                        { sign = Angle.Positive
+                        , degrees = numDegrees
+                        , minutes = numMinutes
+                        , seconds = numSeconds
+                        }
+
+                angle2 =
+                    Quantity.sum
+                        [ Angle.degrees (toFloat numDegrees)
+                        , Angle.minutes (toFloat numMinutes)
+                        , Angle.seconds numSeconds
+                        ]
+            in
+            Expect.within (Expect.Absolute 1.0e-12)
+                (Angle.inRadians angle1)
+                (Angle.inRadians angle2)
+        )
+
+
+fromDmsNegative : Test
+fromDmsNegative =
+    Test.fuzz3
+        (Fuzz.intRange 0 1000)
+        (Fuzz.intRange 0 59)
+        (Fuzz.floatRange 0 60)
+        "toDms works for negative angles"
+        (\numDegrees numMinutes numSeconds ->
+            let
+                angle1 =
+                    Angle.fromDms
+                        { sign = Angle.Negative
+                        , degrees = numDegrees
+                        , minutes = numMinutes
+                        , seconds = numSeconds
+                        }
+
+                angle2 =
+                    Quantity.negate <|
+                        Quantity.sum
+                            [ Angle.degrees (toFloat numDegrees)
+                            , Angle.minutes (toFloat numMinutes)
+                            , Angle.seconds numSeconds
+                            ]
+            in
+            Expect.within (Expect.Absolute 1.0e-12)
+                (Angle.inRadians angle1)
+                (Angle.inRadians angle2)
+        )
+
+
+toDmsReconstructsAngle : Test
+toDmsReconstructsAngle =
+    Test.fuzz (Fuzz.map Angle.degrees (Fuzz.floatRange 0 1000))
+        "toDms reconstructs angles properly"
+        (\originalAngle ->
+            let
+                { degrees, minutes, seconds } =
+                    Angle.toDms originalAngle
+
+                reconstructedAngle =
+                    Quantity.sum
+                        [ Angle.degrees (toFloat degrees)
+                        , Angle.minutes (toFloat minutes)
+                        , Angle.seconds seconds
+                        ]
+            in
+            Expect.within (Expect.Absolute 1.0e-12)
+                (Angle.inRadians originalAngle)
+                (Angle.inRadians reconstructedAngle)
+        )
+
+
+toDmsProducesValidValues : Test
+toDmsProducesValidValues =
+    Test.fuzz (Fuzz.map Angle.degrees (Fuzz.floatRange 0 1000))
+        "toDms only produces values in the valid range"
+        (\angle ->
+            let
+                dms =
+                    Angle.toDms angle
+            in
+            dms
+                |> Expect.all
+                    [ .degrees >> Expect.atLeast 0
+                    , .minutes >> Expect.atLeast 0
+                    , .minutes >> Expect.lessThan 60
+                    , .seconds >> Expect.atLeast 0
+                    , .seconds >> Expect.lessThan 60
+                    ]
+        )

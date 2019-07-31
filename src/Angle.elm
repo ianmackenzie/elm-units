@@ -1,6 +1,8 @@
 module Angle exposing
     ( Angle, Radians
     , radians, inRadians, degrees, inDegrees, turns, inTurns
+    , minutes, inMinutes, seconds, inSeconds
+    , Sign(..), fromDms, toDms
     , sin, cos, tan, asin, acos, atan, atan2
     )
 
@@ -10,9 +12,22 @@ as a number of radians.
 @docs Angle, Radians
 
 
-## Conversions
+## Common units
 
 @docs radians, inRadians, degrees, inDegrees, turns, inTurns
+
+
+## Minutes and seconds
+
+Angles are sometimes measured in degrees, minutes, and seconds, where 1 minute =
+1/60th of a degree and 1 second = 1/60th of a minute.
+
+@docs minutes, inMinutes, seconds, inSeconds
+
+Degrees, minutes and seconds are often used together, so a couple of special
+functions are provided to convert to and from combinations of those units.
+
+@docs Sign, fromDms, toDms
 
 
 ## Trigonometry
@@ -26,7 +41,7 @@ these functions instead of [the corresponding ones in core][1].
 
 -}
 
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), zero)
 
 
 {-| -}
@@ -95,6 +110,187 @@ turns numTurns =
 inTurns : Angle -> Float
 inTurns angle =
     inRadians angle / (2 * pi)
+
+
+{-| Construct an angle from a number of minutes.
+
+    Angle.minutes 30
+    --> Angle.degrees 0.5
+
+-}
+minutes : Float -> Angle
+minutes numMinutes =
+    degrees (numMinutes / 60)
+
+
+{-| Convert an angle to a number of minutes.
+
+    Angle.degrees 2 |> Angle.inMinutes
+    --> 120
+
+-}
+inMinutes : Angle -> Float
+inMinutes angle =
+    60 * inDegrees angle
+
+
+{-| Construct an angle from a number of seconds.
+
+    Angle.seconds 120
+    --> Angle.minutes 2
+
+-}
+seconds : Float -> Angle
+seconds numSeconds =
+    degrees (numSeconds / 3600)
+
+
+{-| Convert an angle to a number of seconds.
+
+    Angle.degrees 0.1 |> Angle.inSeconds
+    --> 360
+
+-}
+inSeconds : Angle -> Float
+inSeconds angle =
+    3600 * inDegrees angle
+
+
+{-| The sign of an angle given in degrees, minutes and seconds.
+-}
+type Sign
+    = Positive
+    | Negative
+
+
+{-| Construct an angle given its sign and its degree, minute and second
+components. The signs of `degrees`, `minutes` and `seconds` will be ignored
+(their absolute values will be used). Note that only `seconds` may be
+fractional! In general `minutes` and `seconds` should each be less than 60, but
+this is not enforced.
+
+    Angle.fromDms
+        { sign = Angle.Positive
+        , degrees = 45
+        , minutes = 30
+        , seconds = 36
+        }
+    --> Angle.degrees 45.51
+
+    Angle.fromDms
+        { sign = Angle.Negative
+        , degrees = 2
+        , minutes = 15
+        , seconds = 0
+        }
+    --> Angle.degrees -2.25
+
+-}
+fromDms : { sign : Sign, degrees : Int, minutes : Int, seconds : Float } -> Angle
+fromDms given =
+    let
+        absDegrees =
+            toFloat (abs given.degrees)
+                + (toFloat (abs given.minutes) / 60)
+                + (abs given.seconds / 3600)
+    in
+    case given.sign of
+        Positive ->
+            degrees absDegrees
+
+        Negative ->
+            degrees -absDegrees
+
+
+{-| Convert an angle to a number of degrees, minutes and seconds, along with its
+sign. The `degrees`, `minutes` and `seconds` values will all be non-negative,
+and both `minutes` and `seconds` will be less than 60.
+
+    Angle.toDms (Angle.degrees 1.5)
+    --> { sign = Angle.Positive
+    --> , degrees = 1
+    --> , minutes = 30
+    --> , seconds = 0
+    --> }
+
+    Angle.toDms (Angle.degrees -0.751)
+    --> { sign = Angle.Negative
+    --> , degrees = 0
+    --> , minutes = 45
+    --> , seconds = 3.6
+    --> }
+
+You could use this to write a string-conversion function for angles, something
+like:
+
+    angleString angle =
+        let
+            { sign, degrees, minutes, seconds } =
+                Angle.toDms angle
+
+            signString =
+                case sign of
+                    Angle.Positive ->
+                        ""
+
+                    Angle.Negative ->
+                        "-"
+        in
+        String.concat
+            [ signString
+            , String.fromInt degrees
+            , "° "
+            , String.fromInt minutes
+            , "′ "
+            , Round.round 3 seconds
+            , "″"
+            ]
+
+(Here we're using the
+[myrho/elm-round](https://package.elm-lang.org/packages/myrho/elm-round/latest/)
+package to control the number of decimal places used when displaying the number
+of seconds.)
+
+-}
+toDms : Angle -> { sign : Sign, degrees : Int, minutes : Int, seconds : Float }
+toDms angle =
+    let
+        signedDegrees =
+            inDegrees angle
+
+        sign =
+            if signedDegrees >= 0 then
+                Positive
+
+            else
+                Negative
+
+        numDegrees =
+            abs signedDegrees
+
+        integerDegrees =
+            floor numDegrees
+
+        fractionalDegrees =
+            numDegrees - toFloat integerDegrees
+
+        numMinutes =
+            fractionalDegrees * 60
+
+        integerMinutes =
+            floor numMinutes
+
+        fractionalMinutes =
+            numMinutes - toFloat integerMinutes
+
+        numSeconds =
+            fractionalMinutes * 60
+    in
+    { sign = sign
+    , degrees = integerDegrees
+    , minutes = integerMinutes
+    , seconds = numSeconds
+    }
 
 
 {-| -}
