@@ -25,6 +25,7 @@
         "Pressure",
         "Quantity",
         "Resistance",
+        "SolidAngle",
         "Speed",
         "SubstanceAmount",
         "Temperature",

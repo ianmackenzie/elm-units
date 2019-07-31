@@ -12,6 +12,7 @@ module Tests exposing
     , over
     , powers
     , pressures
+    , solidAngles
     , speeds
     , substanceAmount
     , temperatureDeltas
@@ -44,6 +45,7 @@ import Power exposing (..)
 import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
 import Resistance exposing (..)
+import SolidAngle
 import Speed exposing (..)
 import SubstanceAmount exposing (..)
 import Temperature exposing (Temperature)
@@ -583,6 +585,11 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "usFluidOunces" Volume.usFluidOunces Volume.inUsFluidOunces
             , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
             ]
+        , Test.describe "SolidAngle" <|
+            [ fuzzFloatToQuantityAndBack "steradians" SolidAngle.steradians SolidAngle.inSteradians
+            , fuzzFloatToQuantityAndBack "spats" SolidAngle.spats SolidAngle.inSpats
+            , fuzzFloatToQuantityAndBack "squareDegrees" SolidAngle.squareDegrees SolidAngle.inSquareDegrees
+            ]
         ]
 
 
@@ -687,3 +694,17 @@ toDmsProducesValidValues =
                     , .seconds >> Expect.lessThan 60
                     ]
         )
+
+
+solidAngles : Test
+solidAngles =
+    equalPairs
+        "SolidAngles"
+        "sr"
+        [ ( SolidAngle.spats 1
+          , SolidAngle.steradians (4 * pi)
+          )
+        , ( SolidAngle.squareDegrees 1
+          , SolidAngle.steradians ((pi / 180) ^ 2)
+          )
+        ]
