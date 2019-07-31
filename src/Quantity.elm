@@ -3,7 +3,7 @@ module Quantity exposing
     , Squared, Cubed, Product, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, abs, plus, minus, multiplyBy, divideBy, squared, sqrt, cubed, cbrt
+    , negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
     , times, over, over_
     , per, at, at_, for, inverse
     , ratio, clamp, interpolateFrom, midpoint, range
@@ -37,7 +37,7 @@ and work with composite units in a fairly flexible way.
 
 # Arithmetic
 
-@docs negate, abs, plus, minus, multiplyBy, divideBy, squared, sqrt, cubed, cbrt
+@docs negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
 
 
 ## Working with products
@@ -501,6 +501,28 @@ Note that there are [other forms of division](/#multiplication-and-division)!
 divideBy : Float -> Quantity Float units -> Quantity Float units
 divideBy divisor (Quantity value) =
     Quantity (value / divisor)
+
+
+{-| Convenient shorthand for `Quantity.multiplyBy 2`.
+
+    Quantity.twice (Duration.minutes 30)
+    --> Duration.hours 1
+
+-}
+twice : Quantity number units -> Quantity number units
+twice (Quantity value) =
+    Quantity (2 * value)
+
+
+{-| Convenient shorthand for `Quantity.multiplyBy 0.5`.
+
+    Quantity.half (Length.meters 1)
+    --> Length.centimeters 50
+
+-}
+half : Quantity Float units -> Quantity Float units
+half (Quantity value) =
+    Quantity (0.5 * value)
 
 
 {-| Get the absolute value of a quantity.
