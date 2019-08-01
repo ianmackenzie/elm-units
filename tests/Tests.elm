@@ -6,8 +6,10 @@ module Tests exposing
     , durations
     , fromDmsNegative
     , fromDmsPositive
+    , illuminances
     , inductance
     , lengths
+    , luminances
     , masses
     , over
     , powers
@@ -37,8 +39,12 @@ import Energy exposing (..)
 import Expect exposing (Expectation)
 import Force exposing (..)
 import Fuzz exposing (Fuzzer)
+import Illuminance
 import Inductance exposing (..)
 import Length exposing (..)
+import Luminance
+import LuminousFlux
+import LuminousIntensity
 import Mass exposing (..)
 import Pixels exposing (..)
 import Power exposing (..)
@@ -590,6 +596,20 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "spats" SolidAngle.spats SolidAngle.inSpats
             , fuzzFloatToQuantityAndBack "squareDegrees" SolidAngle.squareDegrees SolidAngle.inSquareDegrees
             ]
+        , Test.describe "LuminousFlux" <|
+            [ fuzzFloatToQuantityAndBack "lumens" LuminousFlux.lumens LuminousFlux.inLumens
+            ]
+        , Test.describe "Illuminance" <|
+            [ fuzzFloatToQuantityAndBack "lux" Illuminance.lux Illuminance.inLux
+            , fuzzFloatToQuantityAndBack "footCandles" Illuminance.footCandles Illuminance.inFootCandles
+            ]
+        , Test.describe "LuminousIntensity" <|
+            [ fuzzFloatToQuantityAndBack "candelas" LuminousIntensity.candelas LuminousIntensity.inCandelas
+            ]
+        , Test.describe "Luminance" <|
+            [ fuzzFloatToQuantityAndBack "nits" Luminance.nits Luminance.inNits
+            , fuzzFloatToQuantityAndBack "footLambers" Luminance.footLamberts Luminance.inFootLamberts
+            ]
         ]
 
 
@@ -706,5 +726,31 @@ solidAngles =
           )
         , ( SolidAngle.squareDegrees 1
           , SolidAngle.steradians ((pi / 180) ^ 2)
+          )
+        ]
+
+
+luminances : Test
+luminances =
+    equalPairs
+        "Luminance"
+        "nt"
+        [ ( Luminance.footLamberts 1
+          , LuminousIntensity.candelas (1 / pi)
+                |> Quantity.per (Area.squareFeet 1)
+          )
+        , ( Luminance.nits 1
+          , LuminousIntensity.candelas 1 |> Quantity.per (Area.squareMeters 1)
+          )
+        ]
+
+
+illuminances : Test
+illuminances =
+    equalPairs
+        "Illuminance"
+        "lx"
+        [ ( Illuminance.footCandles 1
+          , LuminousFlux.lumens 1 |> Quantity.per (Area.squareFeet 1)
           )
         ]
