@@ -20,6 +20,7 @@
         "Inductance",
         "Length",
         "LuminousFlux",
+        "LuminousIntensity",
         "Mass",
         "Pixels",
         "Power",
