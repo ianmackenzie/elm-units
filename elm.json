@@ -17,6 +17,7 @@
         "Duration",
         "Energy",
         "Force",
+        "Illuminance",
         "Inductance",
         "Length",
         "LuminousFlux",
