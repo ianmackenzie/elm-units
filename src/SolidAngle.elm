@@ -81,7 +81,7 @@ inSpats solidAngle =
 {-| Construct a solid angle from a number of [square
 degrees](https://en.wikipedia.org/wiki/Square_degree). One square degree is,
 roughly speaking, the solid angle of a square on the surface of a sphere where
-the square is one degree wide and one degree tall when viewed from the center of
+the square is one degree wide and one degree tall as viewed from the center of
 the sphere.
 
     SolidAngle.squareDegrees 100
