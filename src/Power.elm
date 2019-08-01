@@ -30,7 +30,7 @@ You can also do rate-related calculations with `Power` values to compute
 @docs Power, Watts
 
 
-## Watts
+## Metric
 
 @docs watts, inWatts, kilowatts, inKilowatts, megawatts, inMegawatts
 

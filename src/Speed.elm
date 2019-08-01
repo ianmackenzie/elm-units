@@ -1,7 +1,7 @@
 module Speed exposing
     ( Speed, MetersPerSecond
-    , metersPerSecond, inMetersPerSecond, feetPerSecond, inFeetPerSecond
-    , kilometersPerHour, inKilometersPerHour, milesPerHour, inMilesPerHour
+    , metersPerSecond, inMetersPerSecond, kilometersPerHour, inKilometersPerHour
+    , feetPerSecond, inFeetPerSecond, milesPerHour, inMilesPerHour
     )
 
 {-| A `Speed` value represents a speed in meters per second, miles per hour etc.
@@ -27,8 +27,15 @@ You can also do rate-related calculations with `Speed` values to compute
 
 @docs Speed, MetersPerSecond
 
-@docs metersPerSecond, inMetersPerSecond, feetPerSecond, inFeetPerSecond
-@docs kilometersPerHour, inKilometersPerHour, milesPerHour, inMilesPerHour
+
+## Metric
+
+@docs metersPerSecond, inMetersPerSecond, kilometersPerHour, inKilometersPerHour
+
+
+## Imperial
+
+@docs feetPerSecond, inFeetPerSecond, milesPerHour, inMilesPerHour
 
 -}
 

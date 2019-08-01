@@ -29,6 +29,9 @@ compute `AngularSpeed` or `Duration`:
 
 @docs AngularAcceleration, RadiansPerSecondSquared
 
+
+## Conversions
+
 @docs radiansPerSecondSquared, inRadiansPerSecondSquared, degreesPerSecondSquared, inDegreesPerSecondSquared
 @docs turnsPerSecondSquared, inTurnsPerSecondSquared
 

@@ -10,6 +10,10 @@ module SubstanceAmount exposing
 [1]: https://en.wikipedia.org/wiki/Mole_(unit)
 
 @docs SubstanceAmount, Moles
+
+
+## Conversions
+
 @docs moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles
 @docs micromoles, inMicromoles, millimoles, inMillimoles, kilomoles, inKilomoles
 @docs megamoles, inMegamoles, gigamoles, inGigamoles

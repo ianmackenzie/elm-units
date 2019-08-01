@@ -22,6 +22,9 @@ You can also compute `Charge` and `Voltage` using `Capacitance`:
 
 @docs Capacitance, Farads
 
+
+## Conversions
+
 @docs farads, inFarads
 @docs picofarads, inPicofarads, nanofarads, inNanofarads, microfarads, inMicrofarads
 

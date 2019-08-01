@@ -29,6 +29,9 @@ You can also do rate-related calculations with `AngularSpeed` values to compute
 
 @docs AngularSpeed, RadiansPerSecond
 
+
+## Conversions
+
 @docs radiansPerSecond, inRadiansPerSecond, degreesPerSecond, inDegreesPerSecond
 @docs turnsPerSecond, inTurnsPerSecond, turnsPerMinute, inTurnsPerMinute
 

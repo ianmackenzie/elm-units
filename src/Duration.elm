@@ -10,6 +10,9 @@ value). It is stored as a number of seconds.
 
 @docs Duration, Seconds
 
+
+## Conversions
+
 @docs from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
 
 -}

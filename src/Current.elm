@@ -25,6 +25,9 @@ You can also do rate-related calculations with `Current` values to compute
 
 @docs Current, Amperes
 
+
+## Conversions
+
 @docs amperes, inAmperes, milliamperes, inMilliamperes
 
 -}
