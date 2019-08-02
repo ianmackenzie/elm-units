@@ -56,7 +56,7 @@ steradians numSteradians =
     Quantity numSteradians
 
 
-{-| Convert an angle to a number of radians.
+{-| Convert a solid angle to a number of steradians.
 -}
 inSteradians : SolidAngle -> Float
 inSteradians (Quantity numSteradians) =
