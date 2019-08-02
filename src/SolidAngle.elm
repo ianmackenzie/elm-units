@@ -49,8 +49,7 @@ type alias SolidAngle =
     Quantity Float Steradians
 
 
-{-| Construct a solid angle from a number of
-[steradians](https://en.wikipedia.org/wiki/Steradian).
+{-| Construct a solid angle from a number of steradians.
 -}
 steradians : Float -> SolidAngle
 steradians numSteradians =
