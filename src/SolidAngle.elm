@@ -83,8 +83,8 @@ spats numSpats =
 
 {-| Convert a solid angle to a number of spats.
 
-    SolidAngle.steradians pi |> SolidAngle.inSpats
-    --> 0.25
+    SolidAngle.steradians (2 * pi) |> SolidAngle.inSpats
+    --> 0.5
 
 -}
 inSpats : SolidAngle -> Float
