@@ -120,8 +120,8 @@ inSquareDegrees solidAngle =
 
 {-| Find the solid angle of a cone with a given tip angle (the angle between two
 opposite sides of the cone, _not_ the half-angle from the axis of the cone to
-one of its sides). A one degree cone has a solid angle of approximately π/4
-square degrees, similar to how a circle of diameter 1 has an area of π/4:
+its side). A 1 degree cone has a solid angle of approximately π/4 square
+degrees, similar to how a circle of diameter 1 has an area of π/4:
 
     SolidAngle.conical (Angle.degrees 1)
         |> SolidAngle.inSquareDegrees

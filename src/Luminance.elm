@@ -6,11 +6,11 @@ module Luminance exposing
 {-| [Luminance][wp-luminance] is [luminous intensity](LuminousIntensity) per
 unit area or equivalently [illuminance](Illuminance) per [solid
 angle](SolidAngle), and is measured in [nits][wp-nits] (or, to use standard SI
-terminology, candelas per square meter). Luminance is often used to describe the
-brightness of a particular surface as viewed from a particular direction; for
-example, a computer monitor might be described as having a brightness of 300
-nits (but that would likely only be true when viewing straight on instead of at
-an angle).
+terminology, candelas per square meter - the two terms are equivalent).
+Luminance is often used to describe the brightness of a particular surface as
+viewed from a particular direction; for example, a computer monitor might be
+described as having a brightness of 300 nits (but that would likely only be true
+when viewing straight on instead of at an angle).
 
 [wp-luminance]: https://en.wikipedia.org/wiki/Luminance
 [wp-nits]: https://en.wikipedia.org/wiki/Candela_per_square_metre

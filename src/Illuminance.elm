@@ -10,7 +10,7 @@ surface: [luminous flux](LuminousFlux) per unit area. It is measured in
 Illuminance is useful as a measure of how brightly a surface is lit. For
 example, on an overcast day, outside surfaces have an illuminance of
 approximately 1000 lux; inside an office might be more like 400 lux and under a
-full moon might be 0.2 lux.
+full moon might be only 0.2 lux.
 
 [wp-illuminance]: https://en.wikipedia.org/wiki/Illuminance
 [wp-lux]: https://en.wikipedia.org/wiki/Lux>

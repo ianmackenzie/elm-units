@@ -2,8 +2,11 @@ module LuminousFlux exposing (Lumens, LuminousFlux, lumens, inLumens)
 
 {-| A `LuminousFlux` value represents the total amount of light emitted by a
 light source. You can think of it as roughly "photons per second", although
-[it's a bit more complicated than that][wp-luminous-flux]. Luminous flux is
-stored in [lumens][wp-lumen].
+[it's a bit more complicated than that][wp-luminous-flux].
+
+Luminous flux is stored in [lumens][wp-lumen]. It's often used to describe the
+total output of a light bulb; for example, a 50 watt incandescent bulb and a 6
+watt LED bulb might each have an output of 400 lumens.
 
 [wp-luminous-flux]: https://en.wikipedia.org/wiki/Luminous_flux
 [wp-lumen]: https://en.wikipedia.org/wiki/Lumen_(unit)
