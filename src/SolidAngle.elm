@@ -5,13 +5,21 @@ module SolidAngle exposing
     )
 
 {-| [Solid angle](https://en.wikipedia.org/wiki/Solid_angle) is a tricky concept
-to explain, but roughly speaking solid angle is for 3D what angle is for 2D.
-Where angle can be thought of as a fraction of a circle (there are 2π radians in
-a circle, and π/2 radians covers a quarter of the circle), solid angle can be
-thought of as a fraction of sphere (there are 4π steradians in a sphere, and π
-steradians covers a quarter of the surface of a sphere). Solid angle can be used
-to measure three-dimensional field of view. It is stored as a number of
+to explain, but roughly speaking solid angle is for 3D what angle is for 2D. It
+can be used to measure three-dimensional field of view and is stored in
 [steradians](https://en.wikipedia.org/wiki/Steradian).
+
+2D angle can be thought of as how much circumference of the unit circle is
+covered. The unit circle (circle of radius 1) has a circumference of 2π, and an
+angle in radians corresponds to the corresponding amount of circumference
+covered. So an angle of 2π radians covers the entire circumference of the
+circle, π radians covers half the circle, π/2 radians covers a quarter, etc.
+
+Similarly, 3D solid angle can be thought of as how much surface area of the unit
+sphere is covered. The unit sphere has surface area of 4π, and a solid angle in
+steradians corresponds to the corresponding amount of surface area covered. So a
+solid angle of 4π steradians covers the entire sphere, 2π steradians covers half
+the sphere (one hemisphere), etc.
 
 @docs SolidAngle, Steradians
 
