@@ -1,6 +1,7 @@
 module SolidAngle exposing
     ( SolidAngle, Steradians
     , steradians, inSteradians, spats, inSpats, squareDegrees, inSquareDegrees
+    , conical, pyramidal
     )
 
 {-| [Solid angle](https://en.wikipedia.org/wiki/Solid_angle) is a tricky concept
@@ -19,8 +20,14 @@ to measure three-dimensional field of view. It is stored as a number of
 
 @docs steradians, inSteradians, spats, inSpats, squareDegrees, inSquareDegrees
 
+
+## Computation
+
+@docs conical, pyramidal
+
 -}
 
+import Angle exposing (Angle)
 import Quantity exposing (Quantity(..), zero)
 
 
@@ -102,3 +109,86 @@ squareDegrees numSquareDegrees =
 inSquareDegrees : SolidAngle -> Float
 inSquareDegrees solidAngle =
     inSteradians solidAngle / ((pi / 180) ^ 2)
+
+
+{-| Find the solid angle of a cone with a given tip angle (the angle between two
+opposite sides of the cone, _not_ the half-angle from the axis of the cone to
+one of its sides). A one degree cone has a solid angle of approximately π/4
+square degrees, similar to how a circle of diameter 1 has an area of π/4:
+
+    SolidAngle.conical (Angle.degrees 1)
+        |> SolidAngle.inSquareDegrees
+    --> 0.78539318
+
+    pi / 4
+    --> 0.78539816
+
+A cone with a tip angle of 180 degrees is just a hemisphere:
+
+    SolidAngle.conical (Angle.degrees 180)
+    --> SolidAngle.spats 0.5
+
+"Inside out" cones are also supported, up to 360 degrees (a full sphere):
+
+    SolidAngle.conical (Angle.degrees 270)
+    --> SolidAngle.spats 0.85355
+
+    SolidAngle.conical (Angle.degrees 360)
+    --> SolidAngle.spats 1
+
+-}
+conical : Angle -> SolidAngle
+conical angle =
+    let
+        halfAngle =
+            Quantity.half angle
+    in
+    steradians (2 * pi * (1 - Angle.cos halfAngle))
+
+
+{-| Find the solid angle of a rectangular pyramid given the angles between the
+two pairs of sides. A 1 degree by 1 degree pyramid has a solid angle of almost
+exactly 1 square degree:
+
+    SolidAngle.pyramidal
+        (Angle.degrees 1)
+        (Angle.degrees 1)
+    --> SolidAngle.squareDegrees 0.9999746
+
+In general, the solid angle of a pyramid that is _n_ degrees wide by _m_ degrees
+tall is (for relatively small values of _n_ and _m_) approximately _nm_ square
+degrees:
+
+    SolidAngle.pyramidal
+        (Angle.degrees 10)
+        (Angle.degrees 10)
+    --> SolidAngle.squareDegrees 99.7474
+
+    SolidAngle.pyramidal
+        (Angle.degrees 60)
+        (Angle.degrees 30)
+    --> SolidAngle.squareDegrees 1704.08
+
+A pyramid that is 180 degrees by 180 degrees covers an entire hemisphere:
+
+    SolidAngle.pyramidal
+        (Angle.degrees 180)
+        (Angle.degrees 180)
+    --> SolidAngle.spats 0.5
+
+"Inside out" pyramids greater than 180 degrees are not supported and will be
+treated as the corresponding "normal" pyramid (an angle of 240 degrees will be
+treated as 120 degrees, an angle of 330 degrees will be treated as 30 degrees,
+etc.).
+
+-}
+pyramidal : Angle -> Angle -> SolidAngle
+pyramidal theta phi =
+    let
+        halfTheta =
+            Quantity.half theta
+
+        halfPhi =
+            Quantity.half phi
+    in
+    steradians (4 * asin (Angle.sin halfTheta * Angle.sin halfPhi))
