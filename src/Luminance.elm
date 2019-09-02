@@ -10,10 +10,12 @@ terminology, candelas per square meter - the two terms are equivalent).
 Luminance is often used to describe the brightness of a particular surface as
 viewed from a particular direction; for example, a computer monitor might be
 described as having a brightness of 300 nits (but that would likely only be true
-when viewing straight on instead of at an angle).
+when viewing straight on instead of at an angle). See [here][wp-luminance-values]
+for some common approximate luminance values.
 
 [wp-luminance]: https://en.wikipedia.org/wiki/Luminance
 [wp-nits]: https://en.wikipedia.org/wiki/Candela_per_square_metre
+[wp-luminance-values]: https://en.wikipedia.org/wiki/Orders_of_magnitude_(luminance)
 
 @docs Luminance, Nits
 
