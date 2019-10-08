@@ -46,6 +46,7 @@ import Luminance
 import LuminousFlux
 import LuminousIntensity
 import Mass exposing (..)
+import Molarity exposing (..)
 import Pixels exposing (..)
 import Power exposing (..)
 import Pressure exposing (..)
@@ -524,6 +525,13 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "metricTons" Mass.metricTons Mass.inMetricTons
             , fuzzFloatToQuantityAndBack "shortTons" Mass.shortTons Mass.inShortTons
             , fuzzFloatToQuantityAndBack "longTons" Mass.longTons Mass.inLongTons
+            ]
+        , Test.describe "Molarity" <|
+            [ fuzzFloatToQuantityAndBack "molesPerCubicMeter" Molarity.molesPerCubicMeter Molarity.inMolesPerCubicMeter
+            , fuzzFloatToQuantityAndBack "decimolesPerLiter" Molarity.decimolesPerLiter Molarity.inDecimolesPerLiter
+            , fuzzFloatToQuantityAndBack "centimolesPerLiter" Molarity.centimolesPerLiter Molarity.inCentimolesPerLiter
+            , fuzzFloatToQuantityAndBack "millimolesPerLiter" Molarity.millimolesPerLiter Molarity.inMillimolesPerLiter
+            , fuzzFloatToQuantityAndBack "micromolesPerLiter" Molarity.micromolesPerLiter Molarity.inMicromolesPerLiter
             ]
         , Test.describe "Pixels" <|
             [ fuzzFloatToQuantityAndBack "pixels" Pixels.pixels Pixels.inPixels
