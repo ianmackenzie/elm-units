@@ -58,6 +58,7 @@ import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
 import Volume exposing (..)
+import VolumetricFlow exposing (..)
 
 
 equalityTest : String -> String -> ( Quantity Float units, Quantity Float units ) -> Test
@@ -590,6 +591,13 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "imperialPints" Volume.imperialPints Volume.inImperialPints
             , fuzzFloatToQuantityAndBack "usFluidOunces" Volume.usFluidOunces Volume.inUsFluidOunces
             , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
+            ]
+        , Test.describe "VolumetricFlow" <|
+            [ fuzzFloatToQuantityAndBack "cubicMetersPerSecond" VolumetricFlow.cubicMetersPerSecond VolumetricFlow.inCubicMetersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicFeetPerSecond" VolumetricFlow.cubicFeetPerSecond VolumetricFlow.inCubicFeetPerSecond
+            , fuzzFloatToQuantityAndBack "imperialGallonsPerMinute" VolumetricFlow.imperialGallonsPerMinute VolumetricFlow.inImperialGallonsPerMinute
+            , fuzzFloatToQuantityAndBack "usLiquidGallonsPerMinute" VolumetricFlow.usLiquidGallonsPerMinute VolumetricFlow.inUsLiquidGallonsPerMinute
+            , fuzzFloatToQuantityAndBack "usDryGallonsPerMinute" VolumetricFlow.usDryGallonsPerMinute VolumetricFlow.inUsDryGallonsPerMinute
             ]
         , Test.describe "SolidAngle" <|
             [ fuzzFloatToQuantityAndBack "steradians" SolidAngle.steradians SolidAngle.inSteradians
