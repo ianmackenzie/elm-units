@@ -230,7 +230,13 @@ substanceAmount =
     equalPairs
         "SubstanceAmounts"
         "ν"
-        [ ( millimoles 3
+        [ ( nanomoles 20
+          , picomoles 20000
+          )
+        , ( nanomoles 7000
+          , micromoles 7
+          )
+        , ( millimoles 3
           , micromoles 3000
           )
         , ( nanomoles 1000000
