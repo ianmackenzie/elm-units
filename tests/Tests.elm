@@ -242,8 +242,17 @@ substanceAmount =
         , ( nanomoles 1000000
           , millimoles 1
           )
+        , ( centimoles 600
+          , decimoles 60
+          )
         , ( moles 1
           , millimoles 1000
+          )
+        , ( moles 4
+          , centimoles 400
+          )
+        , ( moles 2
+          , decimoles 20
           )
         , ( moles 2000
           , kilomoles 2
@@ -575,6 +584,8 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "nanomoles" SubstanceAmount.nanomoles SubstanceAmount.inNanomoles
             , fuzzFloatToQuantityAndBack "micromoles" SubstanceAmount.micromoles SubstanceAmount.inMicromoles
             , fuzzFloatToQuantityAndBack "millimoles" SubstanceAmount.millimoles SubstanceAmount.inMillimoles
+            , fuzzFloatToQuantityAndBack "centimoles" SubstanceAmount.centimoles SubstanceAmount.inCentimoles
+            , fuzzFloatToQuantityAndBack "decimoles" SubstanceAmount.decimoles SubstanceAmount.inDecimoles
             , fuzzFloatToQuantityAndBack "kilomoles" SubstanceAmount.kilomoles SubstanceAmount.inKilomoles
             , fuzzFloatToQuantityAndBack "megamoles" SubstanceAmount.megamoles SubstanceAmount.inMegamoles
             , fuzzFloatToQuantityAndBack "gigamoles" SubstanceAmount.gigamoles SubstanceAmount.inGigamoles
