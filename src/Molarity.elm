@@ -7,14 +7,15 @@ module Molarity exposing
     , micromolesPerLiter, inMicromolesPerLiter
     )
 
-{-| A `Molarity` value represents a concentration in mole per cubic meter, decimoles per liter, etc.
-It is stored in number of mole per cubic meter.
+{-| A `Molarity` value represents a concentration of substance in moles per
+cubic meter, moles per liter, millimoles per liter etc. It is stored as a number
+of moles per cubic meter.
 
-An SI unit, mole per cubic meter (mol/m3), `Molarity` is an amount of substance divided by the volume of the mixture.
-
-_Note: A liter is equal to a cubic decimeter._
-
-Section 8.6.5 in Chapter 8 of the [NIST Guide to the SI](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-8) does notes that the term molarity is consider obsolete. The initial decision to use `Molarity` as the module name was due to the verbosity of "amount-of-substance concentration".
+Note that the [NIST Guide to the
+SI](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-8)
+states that the term "molarity" is consider obsolete, but it appears to still be
+in common use and is far less verbose than the NIST suggestion of
+"amount-of-substance concentration".
 
 @docs Molarity, MolesPerCubicMeter
 @docs molesPerCubicMeter, inMolesPerCubicMeter
