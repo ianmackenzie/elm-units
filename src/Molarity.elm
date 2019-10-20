@@ -26,6 +26,7 @@ in common use and is far less verbose than the NIST suggestion of
 
 -}
 
+import Constants
 import Quantity exposing (Quantity(..), Rate)
 import SubstanceAmount exposing (Moles)
 import Volume exposing (CubicMeters)
@@ -39,6 +40,28 @@ type alias MolesPerCubicMeter =
 {-| -}
 type alias Molarity =
     Quantity Float MolesPerCubicMeter
+
+
+
+---------- CONSTANTS ----------
+
+
+{-| One mole per liter, in moles per cubic meter
+-}
+oneMolePerLiter : Float
+oneMolePerLiter =
+    Constants.mole / Constants.liter
+
+
+{-| One decimole per liter, in moles per cubic meter
+-}
+oneDecimolePerLiter : Float
+oneDecimolePerLiter =
+    0.1 * Constants.mole / Constants.liter
+
+
+
+---------- FUNCTIONS ----------
 
 
 {-| Construct a molarity from a number of moles per cubic meter.
@@ -59,14 +82,14 @@ inMolesPerCubicMeter (Quantity numMolesPerCubicMeter) =
 -}
 decimolesPerLiter : Float -> Molarity
 decimolesPerLiter numDecimolesPerLiter =
-    molesPerCubicMeter (10 * numDecimolesPerLiter)
+    molesPerCubicMeter (numDecimolesPerLiter * oneDecimolePerLiter)
 
 
 {-| Convert a molarity to a number of decimoles per liter.
 -}
 inDecimolesPerLiter : Molarity -> Float
-inDecimolesPerLiter (Quantity numMolesPerCubicMeter) =
-    numMolesPerCubicMeter / 10
+inDecimolesPerLiter molarity =
+    inMolesPerCubicMeter molarity / oneDecimolePerLiter
 
 
 {-| Construct a molarity from a number of centimoles per liter.
