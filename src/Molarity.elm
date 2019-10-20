@@ -1,6 +1,7 @@
 module Molarity exposing
     ( Molarity, MolesPerCubicMeter
     , molesPerCubicMeter, inMolesPerCubicMeter
+    , molesPerLiter, inMolesPerLiter
     , decimolesPerLiter, inDecimolesPerLiter
     , centimolesPerLiter, inCentimolesPerLiter
     , millimolesPerLiter, inMillimolesPerLiter
@@ -19,6 +20,7 @@ in common use and is far less verbose than the NIST suggestion of
 
 @docs Molarity, MolesPerCubicMeter
 @docs molesPerCubicMeter, inMolesPerCubicMeter
+@docs molesPerLiter, inMolesPerLiter
 @docs decimolesPerLiter, inDecimolesPerLiter
 @docs centimolesPerLiter, inCentimolesPerLiter
 @docs millimolesPerLiter, inMillimolesPerLiter
@@ -76,6 +78,20 @@ molesPerCubicMeter numMolesPerCubicMeter =
 inMolesPerCubicMeter : Molarity -> Float
 inMolesPerCubicMeter (Quantity numMolesPerCubicMeter) =
     numMolesPerCubicMeter
+
+
+{-| Construct a molarity from a number of moles per liter.
+-}
+molesPerLiter : Float -> Molarity
+molesPerLiter numMolesPerLiter =
+    molesPerCubicMeter (numMolesPerLiter * oneMolePerLiter)
+
+
+{-| Convert a molarity to a number of moles per liter.
+-}
+inMolesPerLiter : Molarity -> Float
+inMolesPerLiter molarity =
+    inMolesPerCubicMeter molarity / oneMolePerLiter
 
 
 {-| Construct a molarity from a number of decimoles per liter.
