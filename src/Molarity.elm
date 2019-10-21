@@ -14,8 +14,8 @@ of moles per cubic meter.
 
 Note that the [NIST Guide to the
 SI](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-8)
-states that the term "molarity" is consider obsolete, but it appears to still be
-in common use and is far less verbose than the NIST suggestion of
+states that the term "molarity" is considered obsolete, but it appears to still
+be in common use and is far less verbose than the alternative NIST suggestion of
 "amount-of-substance concentration".
 
 @docs Molarity, MolesPerCubicMeter
