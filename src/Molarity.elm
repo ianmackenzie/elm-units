@@ -18,6 +18,22 @@ states that the term "molarity" is considered obsolete, but it appears to still
 be in common use and is far less verbose than the alternative NIST suggestion of
 "amount-of-substance concentration".
 
+Since the units of `Molarity` are defined to be `Rate Moles CubicMeters` (amount
+of substance per unit volume), you can construct a `Molarity` value using
+`Quantity.per`:
+
+    molarity =
+        substanceAmount |> Quantity.per volume
+
+You can also do rate-related calculations with `Molarity` values to compute
+`SubstanceAmount` or `Volume`:
+
+    substanceAmount =
+        volume |> Quantity.at molarity
+
+    volume =
+        substanceAmount |> Quantity.at_ molarity
+
 @docs Molarity, MolesPerCubicMeter
 @docs molesPerCubicMeter, inMolesPerCubicMeter
 @docs molesPerLiter, inMolesPerLiter
