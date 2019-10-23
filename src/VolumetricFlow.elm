@@ -52,6 +52,19 @@ type alias VolumetricFlow =
     Quantity Float CubicMetersPerSecond
 
 
+
+----- CONSTANTS -----
+
+
+oneUsLiquidGallonPerMinute : Float
+oneUsLiquidGallonPerMinute =
+    Constants.usLiquidGallon / Constants.minute
+
+
+
+----- CONVERSIONS -----
+
+
 {-| Construct a volumetric flow from a number of cubic meters per second.
 -}
 cubicMetersPerSecond : Float -> VolumetricFlow
@@ -126,14 +139,15 @@ inImperialGallonsPerMinute volumetricFlow =
 -}
 usLiquidGallonsPerMinute : Float -> VolumetricFlow
 usLiquidGallonsPerMinute numUsLiquidGallonsPerMinute =
-    cubicMetersPerSecond (Constants.usLiquidGallon * numUsLiquidGallonsPerMinute * 60)
+    cubicMetersPerSecond
+        (numUsLiquidGallonsPerMinute * oneUsLiquidGallonPerMinute)
 
 
 {-| Convert a volumetric flow to a number of US liquid gallons per minute.
 -}
 inUsLiquidGallonsPerMinute : VolumetricFlow -> Float
 inUsLiquidGallonsPerMinute volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / Constants.usLiquidGallon / 60
+    inCubicMetersPerSecond volumetricFlow / oneUsLiquidGallonPerMinute
 
 
 {-| Construct a volumetric flow from a number of US dry gallons per minute.
