@@ -17,10 +17,12 @@ module Constants exposing
     , liter
     , meter
     , mile
+    , minute
     , mole
     , ounce
     , peck
     , pound
+    , second
     , squareFoot
     , squareInch
     , squareMile
