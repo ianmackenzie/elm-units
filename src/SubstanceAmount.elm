@@ -1,8 +1,9 @@
 module SubstanceAmount exposing
     ( SubstanceAmount, Moles
     , moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles
-    , micromoles, inMicromoles, millimoles, inMillimoles, kilomoles, inKilomoles
-    , megamoles, inMegamoles, gigamoles, inGigamoles
+    , micromoles, inMicromoles, millimoles, inMillimoles
+    , centimoles, inCentimoles, decimoles, inDecimoles
+    , kilomoles, inKilomoles, megamoles, inMegamoles, gigamoles, inGigamoles
     )
 
 {-| A `SubstanceAmount` value represents a substance amount in [moles][1].
@@ -15,8 +16,9 @@ module SubstanceAmount exposing
 ## Conversions
 
 @docs moles, inMoles, picomoles, inPicomoles, nanomoles, inNanomoles
-@docs micromoles, inMicromoles, millimoles, inMillimoles, kilomoles, inKilomoles
-@docs megamoles, inMegamoles, gigamoles, inGigamoles
+@docs micromoles, inMicromoles, millimoles, inMillimoles
+@docs centimoles, inCentimoles, decimoles, inDecimoles
+@docs kilomoles, inKilomoles, megamoles, inMegamoles, gigamoles, inGigamoles
 
 -}
 
@@ -101,6 +103,34 @@ millimoles numMillimoles =
 inMillimoles : SubstanceAmount -> Float
 inMillimoles substanceAmount =
     inMoles substanceAmount / 1.0e-3
+
+
+{-| Construct a substance amount from a number of centimoles.
+-}
+centimoles : Float -> SubstanceAmount
+centimoles numCentimoles =
+    moles (numCentimoles * 1.0e-2)
+
+
+{-| Convert a substance amount to a number of centimoles.
+-}
+inCentimoles : SubstanceAmount -> Float
+inCentimoles substanceAmount =
+    inMoles substanceAmount / 1.0e-2
+
+
+{-| Construct a substance amount from a number of decimoles.
+-}
+decimoles : Float -> SubstanceAmount
+decimoles numDecimoles =
+    moles (numDecimoles * 1.0e-1)
+
+
+{-| Convert a substance amount to a number of decimoles.
+-}
+inDecimoles : SubstanceAmount -> Float
+inDecimoles substanceAmount =
+    inMoles substanceAmount / 1.0e-1
 
 
 {-| Construct a substance amount from a number of kilomoles.
