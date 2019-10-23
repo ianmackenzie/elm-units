@@ -34,7 +34,8 @@
         "SubstanceAmount",
         "Temperature",
         "Voltage",
-        "Volume"
+        "Volume",
+        "VolumetricFlow"
     ],
     "elm-version": "0.19.0 <= v < 0.20.0",
     "dependencies": {
