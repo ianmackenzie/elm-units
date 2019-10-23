@@ -15,6 +15,11 @@ meter =
     1.0
 
 
+centimeter : Float
+centimeter =
+    1.0e-2
+
+
 inch : Float
 inch =
     0.0254 * meter
@@ -76,6 +81,11 @@ cubicMeter =
 liter : Float
 liter =
     0.001 * cubicMeter
+
+
+cubicCentimeter : Float
+cubicCentimeter =
+    centimeter * centimeter * centimeter
 
 
 {-| Sourced from [UK Weights and Measures Act][1]. One imperial gallon is equal to
