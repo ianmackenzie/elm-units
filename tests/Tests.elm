@@ -46,6 +46,7 @@ import Luminance
 import LuminousFlux
 import LuminousIntensity
 import Mass exposing (..)
+import Molarity exposing (..)
 import Pixels exposing (..)
 import Power exposing (..)
 import Pressure exposing (..)
@@ -229,14 +230,29 @@ substanceAmount =
     equalPairs
         "SubstanceAmounts"
         "ν"
-        [ ( millimoles 3
+        [ ( nanomoles 20
+          , picomoles 20000
+          )
+        , ( nanomoles 7000
+          , micromoles 7
+          )
+        , ( millimoles 3
           , micromoles 3000
           )
         , ( nanomoles 1000000
           , millimoles 1
           )
+        , ( centimoles 600
+          , decimoles 60
+          )
         , ( moles 1
           , millimoles 1000
+          )
+        , ( moles 4
+          , centimoles 400
+          )
+        , ( moles 2
+          , decimoles 20
           )
         , ( moles 2000
           , kilomoles 2
@@ -525,6 +541,13 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "shortTons" Mass.shortTons Mass.inShortTons
             , fuzzFloatToQuantityAndBack "longTons" Mass.longTons Mass.inLongTons
             ]
+        , Test.describe "Molarity" <|
+            [ fuzzFloatToQuantityAndBack "molesPerCubicMeter" Molarity.molesPerCubicMeter Molarity.inMolesPerCubicMeter
+            , fuzzFloatToQuantityAndBack "decimolesPerLiter" Molarity.decimolesPerLiter Molarity.inDecimolesPerLiter
+            , fuzzFloatToQuantityAndBack "centimolesPerLiter" Molarity.centimolesPerLiter Molarity.inCentimolesPerLiter
+            , fuzzFloatToQuantityAndBack "millimolesPerLiter" Molarity.millimolesPerLiter Molarity.inMillimolesPerLiter
+            , fuzzFloatToQuantityAndBack "micromolesPerLiter" Molarity.micromolesPerLiter Molarity.inMicromolesPerLiter
+            ]
         , Test.describe "Pixels" <|
             [ fuzzFloatToQuantityAndBack "pixels" Pixels.pixels Pixels.inPixels
             , fuzzFloatToQuantityAndBack "pixelsPerSecond" Pixels.pixelsPerSecond Pixels.inPixelsPerSecond
@@ -561,6 +584,8 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "nanomoles" SubstanceAmount.nanomoles SubstanceAmount.inNanomoles
             , fuzzFloatToQuantityAndBack "micromoles" SubstanceAmount.micromoles SubstanceAmount.inMicromoles
             , fuzzFloatToQuantityAndBack "millimoles" SubstanceAmount.millimoles SubstanceAmount.inMillimoles
+            , fuzzFloatToQuantityAndBack "centimoles" SubstanceAmount.centimoles SubstanceAmount.inCentimoles
+            , fuzzFloatToQuantityAndBack "decimoles" SubstanceAmount.decimoles SubstanceAmount.inDecimoles
             , fuzzFloatToQuantityAndBack "kilomoles" SubstanceAmount.kilomoles SubstanceAmount.inKilomoles
             , fuzzFloatToQuantityAndBack "megamoles" SubstanceAmount.megamoles SubstanceAmount.inMegamoles
             , fuzzFloatToQuantityAndBack "gigamoles" SubstanceAmount.gigamoles SubstanceAmount.inGigamoles
