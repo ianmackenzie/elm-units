@@ -1,6 +1,7 @@
 module Constants exposing
     ( acre
     , bushel
+    , cubicCentimeter
     , cubicFoot
     , cubicInch
     , cubicMeter
