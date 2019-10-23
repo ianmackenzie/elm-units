@@ -23,6 +23,7 @@ module Tests exposing
     , toDmsProducesValidValues
     , toDmsReconstructsAngle
     , volumes
+    , volumetricFlows
     )
 
 import Acceleration exposing (..)
@@ -785,5 +786,22 @@ illuminances =
         "lx"
         [ ( Illuminance.footCandles 1
           , LuminousFlux.lumens 1 |> Quantity.per (Area.squareFeet 1)
+          )
+        ]
+
+
+volumetricFlows : Test
+volumetricFlows =
+    equalPairs
+        "VolumetricFlow"
+        "m^3/s"
+        [ ( VolumetricFlow.litersPerSecond 1
+          , Volume.liters 1 |> Quantity.per (Duration.seconds 1)
+          )
+        , ( VolumetricFlow.usLiquidGallonsPerMinute 1
+          , Volume.usLiquidGallons 1 |> Quantity.per (Duration.minutes 1)
+          )
+        , ( VolumetricFlow.usDryGallonsPerMinute 1
+          , Volume.usDryGallons 1 |> Quantity.per (Duration.minutes 1)
           )
         ]
