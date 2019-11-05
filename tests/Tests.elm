@@ -621,6 +621,9 @@ conversionsToQuantityAndBack =
         , Test.describe "VolumetricFlow" <|
             [ fuzzFloatToQuantityAndBack "cubicMetersPerSecond" VolumetricFlow.cubicMetersPerSecond VolumetricFlow.inCubicMetersPerSecond
             , fuzzFloatToQuantityAndBack "cubicFeetPerSecond" VolumetricFlow.cubicFeetPerSecond VolumetricFlow.inCubicFeetPerSecond
+            , fuzzFloatToQuantityAndBack "litersPerSecond" VolumetricFlow.litersPerSecond VolumetricFlow.inLitersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicCentimetersPerSecond" VolumetricFlow.cubicCentimetersPerSecond VolumetricFlow.inCubicCentimetersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicFeetPerSecond" VolumetricFlow.cubicFeetPerSecond VolumetricFlow.inCubicFeetPerSecond
             , fuzzFloatToQuantityAndBack "imperialGallonsPerMinute" VolumetricFlow.imperialGallonsPerMinute VolumetricFlow.inImperialGallonsPerMinute
             , fuzzFloatToQuantityAndBack "usLiquidGallonsPerMinute" VolumetricFlow.usLiquidGallonsPerMinute VolumetricFlow.inUsLiquidGallonsPerMinute
             , fuzzFloatToQuantityAndBack "usDryGallonsPerMinute" VolumetricFlow.usDryGallonsPerMinute VolumetricFlow.inUsDryGallonsPerMinute

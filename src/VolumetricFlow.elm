@@ -56,9 +56,39 @@ type alias VolumetricFlow =
 ----- CONSTANTS -----
 
 
+oneCubicMeterPerSecond : Float
+oneCubicMeterPerSecond =
+    Constants.cubicMeter / Constants.second
+
+
 oneUsLiquidGallonPerMinute : Float
 oneUsLiquidGallonPerMinute =
     Constants.usLiquidGallon / Constants.minute
+
+
+oneUsDryGallonPerMinute : Float
+oneUsDryGallonPerMinute =
+    Constants.usDryGallon / Constants.minute
+
+
+oneLiterPerSecond : Float
+oneLiterPerSecond =
+    Constants.liter / Constants.second
+
+
+cubicCentimetersPerSecond : Float
+cubicCentimetersPerSecond =
+    Constants.cubicCentimeter / Constants.second
+
+
+oneCubicFootPerSecond : Float
+oneCubicFootPerSecond =
+    Constants.cubicFoot / Constants.second
+
+
+oneImperialGallonPerMinute : Float
+oneImperialGallonPerMinute =
+    Constants.imperialGallon / Constants.minute
 
 
 
@@ -83,14 +113,14 @@ inCubicMetersPerSecond (Quantity numCubicMetersPerSecond) =
 -}
 litersPerSecond : Float -> VolumetricFlow
 litersPerSecond numLitersPerSecond =
-    cubicMetersPerSecond (Constants.liter * numLitersPerSecond)
+    cubicMetersPerSecond (oneLiterPerSecond * numLitersPerSecond)
 
 
 {-| Convert a volumetric flow to a number of liters per second.
 -}
 inLitersPerSecond : VolumetricFlow -> Float
 inLitersPerSecond volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / Constants.liter
+    inCubicMetersPerSecond volumetricFlow / oneLiterPerSecond
 
 
 {-| Construct a volumetric flow from a number of cubic centimeters per second.
@@ -104,35 +134,35 @@ cubicCentimetersPerSecond numCubicCentietersPerSecond =
 -}
 inCubicCentimetersPerSecond : VolumetricFlow -> Float
 inCubicCentimetersPerSecond volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / 1.0e-3
+    inCubicMetersPerSecond volumetricFlow / oneCubicMeterPerSecond
 
 
 {-| Construct a volumetric flow from a number of cubic feet per second.
 -}
 cubicFeetPerSecond : Float -> VolumetricFlow
 cubicFeetPerSecond numCubicFeetPerSecond =
-    cubicMetersPerSecond (Constants.cubicFoot * numCubicFeetPerSecond)
+    cubicMetersPerSecond (oneCubicFootPerSecond * numCubicFeetPerSecond)
 
 
 {-| Convert a volumetric flow to a number of cubic feet per second.
 -}
 inCubicFeetPerSecond : VolumetricFlow -> Float
 inCubicFeetPerSecond volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / Constants.cubicFoot
+    inCubicMetersPerSecond volumetricFlow / oneCubicFootPerSecond
 
 
 {-| Construct a volumetric flow from a number of Imperial gallons per minute.
 -}
 imperialGallonsPerMinute : Float -> VolumetricFlow
 imperialGallonsPerMinute numImperialGallonsPerMinute =
-    cubicMetersPerSecond (Constants.imperialGallon * numImperialGallonsPerMinute * 60)
+    cubicMetersPerSecond (oneImperialGallonPerMinute * numImperialGallonsPerMinute)
 
 
 {-| Convert a volumetric flow to a number of Imperial gallons per minute.
 -}
 inImperialGallonsPerMinute : VolumetricFlow -> Float
 inImperialGallonsPerMinute volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / Constants.imperialGallon / 60
+    inCubicMetersPerSecond volumetricFlow / oneImperialGallonPerMinute
 
 
 {-| Construct a volumetric flow from a number of US liquid gallons per minute.
@@ -154,11 +184,11 @@ inUsLiquidGallonsPerMinute volumetricFlow =
 -}
 usDryGallonsPerMinute : Float -> VolumetricFlow
 usDryGallonsPerMinute numUsDryGallonsPerMinute =
-    cubicMetersPerSecond (Constants.usDryGallon * numUsDryGallonsPerMinute * 60)
+    cubicMetersPerSecond (oneUsDryGallonPerMinute * numUsDryGallonsPerMinute)
 
 
 {-| Convert a volumetric flow to a number of US dry gallons per minute.
 -}
 inUsDryGallonsPerMinute : VolumetricFlow -> Float
 inUsDryGallonsPerMinute volumetricFlow =
-    inCubicMetersPerSecond volumetricFlow / Constants.usDryGallon / 60
+    inCubicMetersPerSecond volumetricFlow / oneUsDryGallonPerMinute
