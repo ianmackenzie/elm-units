@@ -62,6 +62,11 @@ cents or game tiles where an `Int` number of units is meaningful. For quantities
 like `Length` or `Duration`, it doesn't really make sense to round to an `Int`
 value since the underyling base unit is pretty arbitrary - should `round`ing a
 `Duration` give you an `Int` number of seconds, milliseconds, or something else?
+(The actual behavior is that quantities will generally get rounded to the
+nearest SI base unit, since that is how they are stored internally - for
+example, `Length` values will get rounded to the nearest meter regardless of
+whether they were constructed from a number of meters, centimeters, inches or
+light years.)
 
 @docs round, floor, ceiling, truncate, toFloatQuantity
 
@@ -789,7 +794,8 @@ rangeHelp start end i steps accumulatedValues =
 ---------- INT/FLOAT CONVERSIONS ----------
 
 
-{-| Round a `Float`-valued quantity to the nearest `Int`.
+{-| Round a `Float`-valued quantity to the nearest `Int`. Note that [this may
+not do what you expect](#-int-float-conversion).
 
     Quantity.round (Pixels.pixels 3.5)
     --> Pixels.pixels 4
@@ -800,7 +806,8 @@ round (Quantity value) =
     Quantity (Basics.round value)
 
 
-{-| Round a `Float`-valued quantity down to the nearest `Int`.
+{-| Round a `Float`-valued quantity down to the nearest `Int`. Note that [this
+may not do what you expect](#-int-float-conversion).
 
     Quantity.floor (Pixels.pixels 2.9)
     --> Pixels.pixels 2
@@ -814,7 +821,8 @@ floor (Quantity value) =
     Quantity (Basics.floor value)
 
 
-{-| Round a `Float`-valued quantity up to the nearest `Int`.
+{-| Round a `Float`-valued quantity up to the nearest `Int`. Note that [this may
+not do what you expect](#-int-float-conversion).
 
     Quantity.ceiling (Pixels.pixels 1.2)
     --> Pixels.pixels 2
@@ -828,7 +836,8 @@ ceiling (Quantity value) =
     Quantity (Basics.ceiling value)
 
 
-{-| Round a `Float`-valued quantity towards zero.
+{-| Round a `Float`-valued quantity towards zero. Note that [this may not do
+what you expect](#-int-float-conversion).
 
     Quantity.truncate (Pixels.pixels -2.8)
     --> Pixels.pixels -2
