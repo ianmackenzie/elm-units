@@ -23,6 +23,7 @@ module Tests exposing
     , toDmsProducesValidValues
     , toDmsReconstructsAngle
     , volumes
+    , volumetricFlows
     )
 
 import Acceleration exposing (..)
@@ -59,6 +60,7 @@ import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Voltage exposing (..)
 import Volume exposing (..)
+import VolumetricFlow exposing (..)
 
 
 equalityTest : String -> String -> ( Quantity Float units, Quantity Float units ) -> Test
@@ -616,6 +618,16 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "usFluidOunces" Volume.usFluidOunces Volume.inUsFluidOunces
             , fuzzFloatToQuantityAndBack "imperialFluidOunces" Volume.imperialFluidOunces Volume.inImperialFluidOunces
             ]
+        , Test.describe "VolumetricFlow" <|
+            [ fuzzFloatToQuantityAndBack "cubicMetersPerSecond" VolumetricFlow.cubicMetersPerSecond VolumetricFlow.inCubicMetersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicFeetPerSecond" VolumetricFlow.cubicFeetPerSecond VolumetricFlow.inCubicFeetPerSecond
+            , fuzzFloatToQuantityAndBack "litersPerSecond" VolumetricFlow.litersPerSecond VolumetricFlow.inLitersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicCentimetersPerSecond" VolumetricFlow.cubicCentimetersPerSecond VolumetricFlow.inCubicCentimetersPerSecond
+            , fuzzFloatToQuantityAndBack "cubicFeetPerSecond" VolumetricFlow.cubicFeetPerSecond VolumetricFlow.inCubicFeetPerSecond
+            , fuzzFloatToQuantityAndBack "imperialGallonsPerMinute" VolumetricFlow.imperialGallonsPerMinute VolumetricFlow.inImperialGallonsPerMinute
+            , fuzzFloatToQuantityAndBack "usLiquidGallonsPerMinute" VolumetricFlow.usLiquidGallonsPerMinute VolumetricFlow.inUsLiquidGallonsPerMinute
+            , fuzzFloatToQuantityAndBack "usDryGallonsPerMinute" VolumetricFlow.usDryGallonsPerMinute VolumetricFlow.inUsDryGallonsPerMinute
+            ]
         , Test.describe "SolidAngle" <|
             [ fuzzFloatToQuantityAndBack "steradians" SolidAngle.steradians SolidAngle.inSteradians
             , fuzzFloatToQuantityAndBack "spats" SolidAngle.spats SolidAngle.inSpats
@@ -777,5 +789,22 @@ illuminances =
         "lx"
         [ ( Illuminance.footCandles 1
           , LuminousFlux.lumens 1 |> Quantity.per (Area.squareFeet 1)
+          )
+        ]
+
+
+volumetricFlows : Test
+volumetricFlows =
+    equalPairs
+        "VolumetricFlow"
+        "m^3/s"
+        [ ( VolumetricFlow.litersPerSecond 1
+          , Volume.liters 1 |> Quantity.per (Duration.seconds 1)
+          )
+        , ( VolumetricFlow.usLiquidGallonsPerMinute 1
+          , Volume.usLiquidGallons 1 |> Quantity.per (Duration.minutes 1)
+          )
+        , ( VolumetricFlow.usDryGallonsPerMinute 1
+          , Volume.usDryGallons 1 |> Quantity.per (Duration.minutes 1)
           )
         ]

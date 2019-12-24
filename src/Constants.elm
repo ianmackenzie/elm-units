@@ -1,6 +1,7 @@
 module Constants exposing
     ( acre
     , bushel
+    , cubicCentimeter
     , cubicFoot
     , cubicInch
     , cubicMeter
@@ -16,10 +17,12 @@ module Constants exposing
     , liter
     , meter
     , mile
+    , minute
     , mole
     , ounce
     , peck
     , pound
+    , second
     , squareFoot
     , squareInch
     , squareMile
@@ -48,6 +51,11 @@ unless otherwise specified.
 meter : Float
 meter =
     1.0
+
+
+centimeter : Float
+centimeter =
+    1.0e-2
 
 
 inch : Float
@@ -111,6 +119,11 @@ cubicMeter =
 liter : Float
 liter =
     0.001 * cubicMeter
+
+
+cubicCentimeter : Float
+cubicCentimeter =
+    centimeter * centimeter * centimeter
 
 
 {-| Sourced from [UK Weights and Measures Act][1]. One imperial gallon is equal to
