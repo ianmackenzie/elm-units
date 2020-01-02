@@ -783,7 +783,7 @@ illuminances =
         ]
 
 
-quantityPairs : List ( Length, Duration )
+quantityPairs : List { length : Length, duration : Duration }
 quantityPairs =
     [ { length = Length.feet 1, duration = Duration.seconds 1 }
     , { length = Length.meters 1, duration = Duration.hours 1 }
