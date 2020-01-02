@@ -798,12 +798,12 @@ minimumBy =
             \() ->
                 Quantity.minimumBy .length quantityPairs
                     |> Expect.equal
-                        { length = Length.centimeters 1, duration = Duration.minutes 1 }
+                        (Just { length = Length.centimeters 1, duration = Duration.minutes 1 })
         , Test.test "Minimum by duration" <|
             \() ->
                 Quantity.minimumBy .duration quantityPairs
                     |> Expect.equal
-                        { length = Length.feet 1, duration = Duration.seconds 1 }
+                        (Just { length = Length.feet 1, duration = Duration.seconds 1 })
         ]
 
 
@@ -814,10 +814,10 @@ maximumBy =
             \() ->
                 Quantity.maximumBy .length quantityPairs
                     |> Expect.equal
-                        { length = Length.meters 1, duration = Duration.hours 1 }
+                        (Just { length = Length.meters 1, duration = Duration.hours 1 })
         , Test.test "Maximum by duration" <|
             \() ->
                 Quantity.maximumBy .duration quantityPairs
                     |> Expect.equal
-                        { length = Length.meters 1, duration = Duration.hours 1 }
+                        (Just { length = Length.meters 1, duration = Duration.hours 1 })
         ]
