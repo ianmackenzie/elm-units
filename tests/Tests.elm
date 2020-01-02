@@ -11,6 +11,8 @@ module Tests exposing
     , lengths
     , luminances
     , masses
+    , maximumBy
+    , minimumBy
     , over
     , powers
     , pressures
@@ -778,4 +780,44 @@ illuminances =
         [ ( Illuminance.footCandles 1
           , LuminousFlux.lumens 1 |> Quantity.per (Area.squareFeet 1)
           )
+        ]
+
+
+quantityPairs : List ( Length, Duration )
+quantityPairs =
+    [ { length = Length.feet 1, duration = Duration.seconds 1 }
+    , { length = Length.meters 1, duration = Duration.hours 1 }
+    , { length = Length.centimeters 1, duration = Duration.minutes 1 }
+    ]
+
+
+minimumBy : Test
+minimumBy =
+    Test.describe "minimumBy"
+        [ Test.test "Minimum by length" <|
+            \() ->
+                Quantity.minimumBy .length quantityPairs
+                    |> Expect.equal
+                        { length = Length.centimeters 1, duration = Duration.minutes 1 }
+        , Test.test "Minimum by duration" <|
+            \() ->
+                Quantity.minimumBy .duration quantityPairs
+                    |> Expect.equal
+                        { length = Length.feet 1, duration = Duration.seconds 1 }
+        ]
+
+
+maximumBy : Test
+maximumBy =
+    Test.describe "maximumBy"
+        [ Test.test "Maximum by length" <|
+            \() ->
+                Quantity.maximumBy .length quantityPairs
+                    |> Expect.equal
+                        { length = Length.meters 1, duration = Duration.hours 1 }
+        , Test.test "Maximum by duration" <|
+            \() ->
+                Quantity.maximumBy .duration quantityPairs
+                    |> Expect.equal
+                        { length = Length.meters 1, duration = Duration.hours 1 }
         ]

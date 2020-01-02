@@ -8,7 +8,7 @@ module Quantity exposing
     , per, at, at_, for, inverse
     , ratio, clamp, interpolateFrom, midpoint, range
     , round, floor, ceiling, truncate, toFloatQuantity
-    , sum, minimum, maximum, sort, sortBy
+    , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
     , Unitless, int, toInt, float, toFloat
     )
 
@@ -74,11 +74,13 @@ light years.)
 # List functions
 
 These functions act just like the corresponding functions in the built-in `List`
-module. They're necessary because the built-in `List.sum` only supports `List
-Int` and `List Float`, and `minimum`/`maximum`/`sort` only support built-in
-comparable types like `Int`, `Float`, `String` and tuples.
+module (or, int the case of `minimumBy` and `maximumBy`, the `List.Extra` module
+from `elm-community/list-extra`). They're necessary because the built-in
+`List.sum` only supports `List Int` and `List Float`, and the remaining
+functions only support built-in `comparable` types like `Int`, `Float`, `String`
+and tuples.
 
-@docs sum, minimum, maximum, sort, sortBy
+@docs sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
 
 
 # Unitless quantities
@@ -919,6 +921,100 @@ maximum quantities =
 
         first :: rest ->
             Just (List.foldl max first rest)
+
+
+{-| Find the 'minimum' item in a list as measured by some derived `Quantity`:
+
+    people =
+        [ { name = "Bob", height = Length.meters 1.6 }
+        , { name = "Charlie", height = Length.meters 2.0 }
+        , { name = "Alice", height = Length.meters 1.8 }
+        ]
+
+    Quantity.minimumBy .height people
+    --> Just { name = "Bob", height = Length.meters 1.6 }
+
+If the list is empty, returns `Nothing`. If multiple items in the list are tied,
+then the first one is returned.
+
+-}
+minimumBy : (a -> Quantity number units) -> List a -> Maybe a
+minimumBy toQuantity quantities =
+    case quantities of
+        [] ->
+            Nothing
+
+        firstItem :: rest ->
+            let
+                (Quantity firstValue) =
+                    toQuantity firstItem
+            in
+            Just (minimumByHelp toQuantity firstItem firstValue rest)
+
+
+minimumByHelp : (a -> Quantity number units) -> a -> number -> List a -> a
+minimumByHelp toQuantity currentItem currentValue quantities =
+    case quantities of
+        [] ->
+            currentItem
+
+        item :: rest ->
+            let
+                (Quantity value) =
+                    toQuantity item
+            in
+            if value < currentValue then
+                minimumByHelp toQuantity item value rest
+
+            else
+                minimumByHelp toQuantity currentItem currentValue rest
+
+
+{-| Find the 'maximum' item in a list as measured by some derived `Quantity`:
+
+    people =
+        [ { name = "Bob", height = Length.meters 1.6 }
+        , { name = "Charlie", height = Length.meters 2.0 }
+        , { name = "Alice", height = Length.meters 1.8 }
+        ]
+
+    Quantity.maximumBy .height people
+    --> Just { name = "Charlie", height = Length.meters 2.0 }
+
+If the list is empty, returns `Nothing`. If multiple items in the list are tied,
+then the first one is returned.
+
+-}
+maximumBy : (a -> Quantity number units) -> List a -> Maybe a
+maximumBy toQuantity quantities =
+    case quantities of
+        [] ->
+            Nothing
+
+        firstItem :: rest ->
+            let
+                (Quantity firstValue) =
+                    toQuantity firstItem
+            in
+            Just (maximumByHelp toQuantity firstItem firstValue rest)
+
+
+maximumByHelp : (a -> Quantity number units) -> a -> number -> List a -> a
+maximumByHelp toQuantity currentItem currentValue quantities =
+    case quantities of
+        [] ->
+            currentItem
+
+        item :: rest ->
+            let
+                (Quantity value) =
+                    toQuantity item
+            in
+            if value > currentValue then
+                maximumByHelp toQuantity item value rest
+
+            else
+                maximumByHelp toQuantity currentItem currentValue rest
 
 
 unwrap : Quantity number units -> number
