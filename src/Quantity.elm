@@ -6,7 +6,7 @@ module Quantity exposing
     , negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
     , times, over, over_
     , per, at, at_, for, inverse
-    , ratio, clamp, interpolateFrom, midpoint, range
+    , ratio, clamp, interpolateFrom, midpoint, range, in_
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
     , Unitless, int, toInt, float, toFloat
@@ -52,7 +52,7 @@ and work with composite units in a fairly flexible way.
 
 ## Miscellaneous
 
-@docs ratio, clamp, interpolateFrom, midpoint, range
+@docs ratio, clamp, interpolateFrom, midpoint, range, in_
 
 
 # `Int`/`Float` conversion
@@ -774,6 +774,45 @@ range { start, end, steps } =
 
     else
         []
+
+
+{-| Generalized units conversion function that lets you convert to many kinds of
+units not directly supported by `elm-units`. The first argument is a function
+that constructs a value of the desired unit type, and the second is the quantity
+to convert. For example,
+
+    Speed.metersPerSecond 5
+        |> Speed.inFeetPerSecond
+    --> 16.4042
+
+is equivalent to
+
+    Speed.metersPerSecond 5
+        |> Quantity.in_ Speed.feetPerSecond
+    --> 16.4042
+
+More interestingly, if you wanted to get speed in some weirder unit like
+millimeters per minute (not directly supported by `elm-units`), you could do
+
+    Speed.metersPerSecond 5
+        |> Quantity.in_
+            (Length.millimeters
+                >> Quantity.per (Duration.minutes 1)
+            )
+    --> 300000
+
+Internally,
+
+    Quantity.in_ someUnits someQuantity
+
+is simply implemented as
+
+    Quantity.ratio someQuantity (someUnits 1)
+
+-}
+in_ : (Float -> Quantity Float units) -> Quantity Float units -> Float
+in_ units quantity =
+    ratio quantity (units 1)
 
 
 rangeHelp : Quantity Float units -> Quantity Float units -> Int -> Float -> List (Quantity Float units) -> List (Quantity Float units)
