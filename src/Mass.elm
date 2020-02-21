@@ -3,6 +3,7 @@ module Mass exposing
     , kilograms, inKilograms, grams, inGrams, metricTons, inMetricTons
     , pounds, inPounds, ounces, inOunces, longTons, inLongTons
     , shortTons, inShortTons
+    , kilogram, gram, metricTon, pound, ounce, longTon, shortTon
     )
 
 {-| A `Mass` represents a mass in kilograms, pounds, metric or imperial tons
@@ -24,6 +25,14 @@ etc. It is stored as a number of kilograms.
 ## U.S. customary
 
 @docs shortTons, inShortTons
+
+
+## Constants
+
+Shorthand for `Mass.kilograms 1`, `Mass.shortTons 1` etc. Can be convenient to
+use with [`Quantity.per`](Quantity#per).
+
+@docs kilogram, gram, metricTon, pound, ounce, longTon, shortTon
 
 -}
 
@@ -161,3 +170,45 @@ longTons numLongTons =
 inLongTons : Mass -> Float
 inLongTons mass =
     inPounds mass / 2240
+
+
+{-| -}
+kilogram : Mass
+kilogram =
+    kilograms 1
+
+
+{-| -}
+gram : Mass
+gram =
+    grams 1
+
+
+{-| -}
+metricTon : Mass
+metricTon =
+    metricTons 1
+
+
+{-| -}
+pound : Mass
+pound =
+    pounds 1
+
+
+{-| -}
+ounce : Mass
+ounce =
+    ounces 1
+
+
+{-| -}
+longTon : Mass
+longTon =
+    longTons 1
+
+
+{-| -}
+shortTon : Mass
+shortTon =
+    shortTons 1

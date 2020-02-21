@@ -4,6 +4,7 @@ module Angle exposing
     , minutes, inMinutes, seconds, inSeconds
     , Sign(..), fromDms, toDms
     , sin, cos, tan, asin, acos, atan, atan2
+    , radian, degree, turn, minute, second
     )
 
 {-| An `Angle` represents an angle in degrees, radians, or turns. It is stored
@@ -38,6 +39,14 @@ these functions instead of [the corresponding ones in core][1].
 [1]: https://package.elm-lang.org/packages/elm/core/latest/Basics#trigonometry
 
 @docs sin, cos, tan, asin, acos, atan, atan2
+
+
+## Constants
+
+Shorthand for `Angle.radians 1`, `Angle.degrees 1` etc. Can be convenient to use
+with [`Quantity.per`](Quantity#per).
+
+@docs radian, degree, turn, minute, second
 
 -}
 
@@ -333,3 +342,33 @@ atan x =
 atan2 : Quantity Float units -> Quantity Float units -> Angle
 atan2 (Quantity y) (Quantity x) =
     Quantity (Basics.atan2 y x)
+
+
+{-| -}
+radian : Angle
+radian =
+    radians 1
+
+
+{-| -}
+degree : Angle
+degree =
+    degrees 1
+
+
+{-| -}
+turn : Angle
+turn =
+    turns 1
+
+
+{-| -}
+minute : Angle
+minute =
+    minutes 1
+
+
+{-| -}
+second : Angle
+second =
+    seconds 1

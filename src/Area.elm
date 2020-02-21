@@ -3,6 +3,8 @@ module Area exposing
     , squareMeters, inSquareMeters
     , squareMillimeters, inSquareMillimeters, squareCentimeters, inSquareCentimeters, hectares, inHectares, squareKilometers, inSquareKilometers
     , squareInches, inSquareInches, squareFeet, inSquareFeet, squareYards, inSquareYards, acres, inAcres, squareMiles, inSquareMiles
+    , squareMeter, squareMillimeter, squareCentimeter, hectare, squareKilometer
+    , squareInch, squareFoot, squareYard, acre, squareMile
     )
 
 {-| An `Area` represents an area in square meters, square feet, acres, hectares
@@ -31,6 +33,15 @@ following are all equivalent:
 ## Imperial
 
 @docs squareInches, inSquareInches, squareFeet, inSquareFeet, squareYards, inSquareYards, acres, inAcres, squareMiles, inSquareMiles
+
+
+## Constants
+
+Shorthand for `Area.squareMeters 1`, `Area.acres 1` etc. Can be convenient to
+use with [`Quantity.per`](Quantity#per).
+
+@docs squareMeter, squareMillimeter, squareCentimeter, hectare, squareKilometer
+@docs squareInch, squareFoot, squareYard, acre, squareMile
 
 -}
 
@@ -187,3 +198,63 @@ squareMiles numSquareMiles =
 inSquareMiles : Area -> Float
 inSquareMiles area =
     inSquareMeters area / Constants.squareMile
+
+
+{-| -}
+squareMeter : Area
+squareMeter =
+    squareMeters 1
+
+
+{-| -}
+squareMillimeter : Area
+squareMillimeter =
+    squareMillimeters 1
+
+
+{-| -}
+squareCentimeter : Area
+squareCentimeter =
+    squareCentimeters 1
+
+
+{-| -}
+hectare : Area
+hectare =
+    hectares 1
+
+
+{-| -}
+squareKilometer : Area
+squareKilometer =
+    squareKilometers 1
+
+
+{-| -}
+squareInch : Area
+squareInch =
+    squareInches 1
+
+
+{-| -}
+squareFoot : Area
+squareFoot =
+    squareFeet 1
+
+
+{-| -}
+squareYard : Area
+squareYard =
+    squareYards 1
+
+
+{-| -}
+acre : Area
+acre =
+    acres 1
+
+
+{-| -}
+squareMile : Area
+squareMile =
+    squareMiles 1

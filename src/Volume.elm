@@ -7,6 +7,12 @@ module Volume exposing
     , usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
     , usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
     , usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
+    , cubicMeter, milliliter, liter
+    , cubicInch, cubicFoot, cubicYard
+    , usLiquidGallon, usDryGallon, imperialGallon
+    , usLiquidQuart, usDryQuart, imperialQuart
+    , usLiquidPint, usDryPint, imperialPint
+    , usFluidOunce, imperialFluidOunce
     )
 
 {-| A `Volume` represents a volume in cubic meters, cubic feet, liters, US
@@ -29,6 +35,19 @@ meters.
 @docs usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
 @docs usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
 @docs usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
+
+
+## Constants
+
+Shorthand for `Volume.cubicMeters 1`, `Volume.imperialGallons 1` etc. Can be
+convenient to use with [`Quantity.per`](Quantity#per).
+
+@docs cubicMeter, milliliter, liter
+@docs cubicInch, cubicFoot, cubicYard
+@docs usLiquidGallon, usDryGallon, imperialGallon
+@docs usLiquidQuart, usDryQuart, imperialQuart
+@docs usLiquidPint, usDryPint, imperialPint
+@docs usFluidOunce, imperialFluidOunce
 
 -}
 
@@ -283,3 +302,105 @@ imperialFluidOunces numImperialFluidOunces =
 inImperialFluidOunces : Volume -> Float
 inImperialFluidOunces volume =
     inCubicMeters volume / Constants.imperialFluidOunce
+
+
+{-| -}
+cubicMeter : Volume
+cubicMeter =
+    cubicMeters 1
+
+
+{-| -}
+milliliter : Volume
+milliliter =
+    milliliters 1
+
+
+{-| -}
+liter : Volume
+liter =
+    liters 1
+
+
+{-| -}
+cubicInch : Volume
+cubicInch =
+    cubicInches 1
+
+
+{-| -}
+cubicFoot : Volume
+cubicFoot =
+    cubicFeet 1
+
+
+{-| -}
+cubicYard : Volume
+cubicYard =
+    cubicYards 1
+
+
+{-| -}
+usLiquidGallon : Volume
+usLiquidGallon =
+    usLiquidGallons 1
+
+
+{-| -}
+usDryGallon : Volume
+usDryGallon =
+    usDryGallons 1
+
+
+{-| -}
+imperialGallon : Volume
+imperialGallon =
+    imperialGallons 1
+
+
+{-| -}
+usLiquidQuart : Volume
+usLiquidQuart =
+    usLiquidQuarts 1
+
+
+{-| -}
+usDryQuart : Volume
+usDryQuart =
+    usDryQuarts 1
+
+
+{-| -}
+imperialQuart : Volume
+imperialQuart =
+    imperialQuarts 1
+
+
+{-| -}
+usLiquidPint : Volume
+usLiquidPint =
+    usLiquidPints 1
+
+
+{-| -}
+usDryPint : Volume
+usDryPint =
+    usDryPints 1
+
+
+{-| -}
+imperialPint : Volume
+imperialPint =
+    imperialPints 1
+
+
+{-| -}
+usFluidOunce : Volume
+usFluidOunce =
+    usFluidOunces 1
+
+
+{-| -}
+imperialFluidOunce : Volume
+imperialFluidOunce =
+    imperialFluidOunces 1

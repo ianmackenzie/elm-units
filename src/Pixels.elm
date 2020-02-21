@@ -1,6 +1,6 @@
 module Pixels exposing
     ( Pixels, PixelsPerSecond, PixelsPerSecondSquared, SquarePixels
-    , pixels, inPixels
+    , pixels, inPixels, pixel
     , pixelsPerSecond, inPixelsPerSecond
     , pixelsPerSecondSquared, inPixelsPerSecondSquared
     , squarePixels, inSquarePixels
@@ -20,7 +20,7 @@ units, or even do type-safe math directly on pixel values.
 
 @docs Pixels, PixelsPerSecond, PixelsPerSecondSquared, SquarePixels
 
-@docs pixels, inPixels
+@docs pixels, inPixels, pixel
 
 @docs pixelsPerSecond, inPixelsPerSecond
 
@@ -96,6 +96,14 @@ pixels numPixels =
 inPixels : Quantity number Pixels -> number
 inPixels (Quantity numPixels) =
     numPixels
+
+
+{-| Shorthand for `Pixels.pixels 1`. Can be convenient to use with
+[`Quantity.per`](Quantity#per).
+-}
+pixel : Quantity number Pixels
+pixel =
+    pixels 1
 
 
 {-| Construct an on-screen speed from a number of pixels per second.

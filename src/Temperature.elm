@@ -2,6 +2,7 @@ module Temperature exposing
     ( Temperature, Delta, CelsiusDegrees
     , degreesCelsius, inDegreesCelsius, degreesFahrenheit, inDegreesFahrenheit, kelvins, inKelvins, absoluteZero
     , celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
+    , celsiusDegree, fahrenheitDegree
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, min, max
     , plus, minus, clamp
     , minimum, maximum, sort, sortBy
@@ -40,6 +41,14 @@ this module uses (for example) `celsiusDegrees` to indicate a temperature delta
 actual temperature.
 
 @docs celsiusDegrees, inCelsiusDegrees, fahrenheitDegrees, inFahrenheitDegrees
+
+
+## Constants
+
+Shorthand for `Temperature.celsiusDegrees 1` and `Temperature.fahrenheitDegrees
+1`. Can be convenient to use with [`Quantity.per`](Quantity#per).
+
+@docs celsiusDegree, fahrenheitDegree
 
 
 # Comparison
@@ -187,6 +196,18 @@ fahrenheitDegrees numFahrenheitDegrees =
 inFahrenheitDegrees : Delta -> Float
 inFahrenheitDegrees quantity =
     inCelsiusDegrees quantity * 1.8
+
+
+{-| -}
+celsiusDegree : Delta
+celsiusDegree =
+    celsiusDegrees 1
+
+
+{-| -}
+fahrenheitDegree : Delta
+fahrenheitDegree =
+    fahrenheitDegrees 1
 
 
 

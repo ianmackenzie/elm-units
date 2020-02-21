@@ -1,6 +1,7 @@
 module Duration exposing
     ( Duration, Seconds
     , from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+    , second, millisecond, minute, hour, day, week, julianYear
     )
 
 {-| A `Duration` refers to an elapsed time in seconds, milliseconds, hours etc.,
@@ -14,6 +15,14 @@ value). It is stored as a number of seconds.
 ## Conversions
 
 @docs from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+
+
+## Constants
+
+Shorthand for `Duration.seconds 1`, `Duration.hours 1` etc. Can be convenient to
+use with [`Quantity.per`](Quantity#per).
+
+@docs second, millisecond, minute, hour, day, week, julianYear
 
 -}
 
@@ -208,3 +217,45 @@ julianYears numJulianYears =
 inJulianYears : Duration -> Float
 inJulianYears duration =
     inSeconds duration / 31557600
+
+
+{-| -}
+second : Duration
+second =
+    seconds 1
+
+
+{-| -}
+millisecond : Duration
+millisecond =
+    milliseconds 1
+
+
+{-| -}
+minute : Duration
+minute =
+    minutes 1
+
+
+{-| -}
+hour : Duration
+hour =
+    hours 1
+
+
+{-| -}
+day : Duration
+day =
+    days 1
+
+
+{-| -}
+week : Duration
+week =
+    weeks 1
+
+
+{-| -}
+julianYear : Duration
+julianYear =
+    julianYears 1

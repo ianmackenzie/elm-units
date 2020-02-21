@@ -4,6 +4,9 @@ module Length exposing
     , microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
     , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
     , astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
+    , meter, micron, millimeter, centimeter, kilometer
+    , inch, foot, yard, mile
+    , astronomicalUnit, parsec, lightYear
     )
 
 {-| A `Length` represents a length in meters, feet, centimeters, miles etc. It
@@ -26,6 +29,19 @@ is stored as a number of meters.
 ## Astronomical
 
 @docs astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
+
+
+## Constants
+
+Shorthand for `Length.meters 1`, `Length.feet 1` etc. Can be convenient to use
+with [`Quantity.per`](Quantity#per).
+
+Note that `thou` is omitted since it doesn't have separate singular and plural
+forms.
+
+@docs meter, micron, millimeter, centimeter, kilometer
+@docs inch, foot, yard, mile
+@docs astronomicalUnit, parsec, lightYear
 
 -}
 
@@ -256,3 +272,75 @@ lightYears numLightYears =
 inLightYears : Length -> Float
 inLightYears length =
     inMeters length / 9460730472580800
+
+
+{-| -}
+meter : Length
+meter =
+    meters 1
+
+
+{-| -}
+micron : Length
+micron =
+    microns 1
+
+
+{-| -}
+millimeter : Length
+millimeter =
+    millimeters 1
+
+
+{-| -}
+centimeter : Length
+centimeter =
+    centimeters 1
+
+
+{-| -}
+kilometer : Length
+kilometer =
+    kilometers 1
+
+
+{-| -}
+inch : Length
+inch =
+    inches 1
+
+
+{-| -}
+foot : Length
+foot =
+    feet 1
+
+
+{-| -}
+yard : Length
+yard =
+    yards 1
+
+
+{-| -}
+mile : Length
+mile =
+    miles 1
+
+
+{-| -}
+astronomicalUnit : Length
+astronomicalUnit =
+    astronomicalUnits 1
+
+
+{-| -}
+parsec : Length
+parsec =
+    parsecs 1
+
+
+{-| -}
+lightYear : Length
+lightYear =
+    lightYears 1
