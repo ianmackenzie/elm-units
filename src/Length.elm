@@ -3,6 +3,7 @@ module Length exposing
     , meters, inMeters
     , microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
     , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
+    , cssPixels, inCssPixels, points, inPoints, picas, inPicas
     , astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
     , meter, micron, millimeter, centimeter, kilometer
     , inch, foot, yard, mile
@@ -24,6 +25,11 @@ is stored as a number of meters.
 ## Imperial
 
 @docs thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
+
+
+## CSS and typography
+
+@docs cssPixels, inCssPixels, points, inPoints, picas, inPicas
 
 
 ## Astronomical
@@ -222,6 +228,68 @@ miles numMiles =
 inMiles : Length -> Float
 inMiles length =
     inMeters length / Constants.mile
+
+
+{-| Construct a length from a number of [CSS pixels](https://drafts.csswg.org/css-values-3/#absolute-lengths),
+defined as 1/96 of an inch.
+
+Note the difference between this function and [`Pixels.pixels`](Pixels#pixels).
+`Length.cssPixels 1` is equivalent to `Length.inches (1 / 96)` or
+approximately `Length.millimeters 0.264583`; it returns a length in _real world_
+units equal to the (nominal) physical size of one CSS pixel.
+
+In contrast, `Pixels.pixels 1` simply returns an abstract "1 pixel" value. You
+can think of `Length.cssPixels 1` as a shorthand for
+
+    Pixels.pixels 1
+        |> Quantity.at_
+            (Pixels.pixels 96
+                |> Quantity.per (Length.inches 1)
+            )
+
+That is, `Length.cssPixels 1` is the size of 1 pixel at a resolution of 96 DPI.
+
+-}
+cssPixels : Float -> Length
+cssPixels numCssPixels =
+    meters (Constants.cssPixel * numCssPixels)
+
+
+{-| Convert a length to a number of CSS pixels.
+-}
+inCssPixels : Length -> Float
+inCssPixels length =
+    inMeters length / Constants.cssPixel
+
+
+{-| Construct a length from a number of [points](https://en.wikipedia.org/wiki/Point_%28typography%29),
+defined as 1/72 of an inch.
+-}
+points : Float -> Length
+points numPoints =
+    meters (Constants.point * numPoints)
+
+
+{-| Convert a length to a number of points.
+-}
+inPoints : Length -> Float
+inPoints length =
+    inMeters length / Constants.point
+
+
+{-| Construct a length from a number of [picas](https://en.wikipedia.org/wiki/Pica_%28typography%29),
+defined as 1/6 of an inch.
+-}
+picas : Float -> Length
+picas numPicas =
+    meters (Constants.pica * numPicas)
+
+
+{-| Convert a length to a number of picas.
+-}
+inPicas : Length -> Float
+inPicas length =
+    inMeters length / Constants.pica
 
 
 {-| Construct a length from a number of [astronomical units][au] (AU). One AU is

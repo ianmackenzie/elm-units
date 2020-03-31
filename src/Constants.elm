@@ -1,6 +1,7 @@
 module Constants exposing
     ( acre
     , bushel
+    , cssPixel
     , cubicFoot
     , cubicInch
     , cubicMeter
@@ -19,6 +20,8 @@ module Constants exposing
     , mole
     , ounce
     , peck
+    , pica
+    , point
     , pound
     , squareFoot
     , squareInch
@@ -68,6 +71,21 @@ yard =
 mile : Float
 mile =
     5280 * foot
+
+
+cssPixel : Float
+cssPixel =
+    inch / 96
+
+
+point : Float
+point =
+    inch / 72
+
+
+pica : Float
+pica =
+    inch / 6
 
 
 

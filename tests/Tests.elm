@@ -124,6 +124,15 @@ lengths =
         , ( meters 1
           , microns 1.0e6
           )
+        , ( cssPixels 1
+          , inches (1 / 96)
+          )
+        , ( points 1
+          , inches (1 / 72)
+          )
+        , ( picas 1
+          , inches (1 / 6)
+          )
         ]
 
 
@@ -533,6 +542,9 @@ conversionsToQuantityAndBack =
             , fuzzFloatToQuantityAndBack "astronomicalUnits" Length.astronomicalUnits Length.inAstronomicalUnits
             , fuzzFloatToQuantityAndBack "parsecs" Length.parsecs Length.inParsecs
             , fuzzFloatToQuantityAndBack "lightYears" Length.lightYears Length.inLightYears
+            , fuzzFloatToQuantityAndBack "cssPixels" Length.cssPixels Length.inCssPixels
+            , fuzzFloatToQuantityAndBack "points" Length.points Length.inPoints
+            , fuzzFloatToQuantityAndBack "picas" Length.picas Length.inPicas
             ]
         , Test.describe "Mass" <|
             [ fuzzFloatToQuantityAndBack "kilograms" Mass.kilograms Mass.inKilograms
