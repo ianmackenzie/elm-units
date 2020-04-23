@@ -1,14 +1,13 @@
 module Length exposing
     ( Length, Meters
     , meters, inMeters
-    , inAngstroms, nanometers, inNanometers, microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
+    , angstroms, inAngstroms, nanometers, inNanometers, microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
     , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
     , cssPixels, inCssPixels, points, inPoints, picas, inPicas
     , astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
-    , meter, micron, millimeter, centimeter, kilometer
+    , meter, angstrom, nanometer, micron, millimeter, centimeter, kilometer
     , inch, foot, yard, mile
     , astronomicalUnit, parsec, lightYear
-    , angstrom, angstroms, nanometer
     )
 
 {-| A `Length` represents a length in meters, feet, centimeters, miles etc. It
@@ -20,7 +19,7 @@ is stored as a number of meters.
 ## Metric
 
 @docs meters, inMeters
-@docs angtroms, inAngstroms, nanometers, inNanometers, microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
+@docs angstroms, inAngstroms, nanometers, inNanometers, microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
 
 
 ## Imperial
@@ -46,7 +45,7 @@ with [`Quantity.per`](Quantity#per).
 Note that `thou` is omitted since it doesn't have separate singular and plural
 forms.
 
-@docs meter, micron, millimeter, centimeter, kilometer
+@docs meter, angstrom, nanometer, micron, millimeter, centimeter, kilometer
 @docs inch, foot, yard, mile
 @docs astronomicalUnit, parsec, lightYear
 
