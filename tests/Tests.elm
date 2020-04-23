@@ -124,6 +124,12 @@ lengths =
         , ( meters 1
           , microns 1.0e6
           )
+        , ( angstroms 2.0e10
+          , meters 2
+          )
+        , ( nanometers 1
+          , angstroms 10
+          )
         , ( cssPixels 1
           , inches (1 / 96)
           )
