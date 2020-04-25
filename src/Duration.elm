@@ -1,6 +1,8 @@
 module Duration exposing
     ( Duration, Seconds
-    , from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+    , seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+    , from
+    , addTo, subtractFrom
     , second, millisecond, minute, hour, day, week, julianYear
     )
 
@@ -14,7 +16,22 @@ value). It is stored as a number of seconds.
 
 ## Conversions
 
-@docs from, seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+@docs seconds, inSeconds, milliseconds, inMilliseconds, minutes, inMinutes, hours, inHours, days, inDays, weeks, inWeeks, julianYears, inJulianYears
+
+
+## Working with `Time.Posix` values
+
+@docs from
+
+
+### Offsetting
+
+`addTo` and `subtractFrom` can be used to offset a [`Time.Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+value by a given `Duration`. However, note that `Time.Posix` values are stored
+as an integer number of milliseconds, so the offset amount will be rounded to
+the nearest number of milliseconds.
+
+@docs addTo, subtractFrom
 
 
 ## Constants
@@ -217,6 +234,39 @@ julianYears numJulianYears =
 inJulianYears : Duration -> Float
 inJulianYears duration =
     inSeconds duration / 31557600
+
+
+{-| Offset a [`Time.Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+value forwards in time by a given `Duration`:
+
+    -- Assuming that 'now' is a Time.Posix value obtained
+    -- from Time.now
+    threeHoursFromNow =
+        Duration.addTo now (Duration.hours 3)
+
+-}
+addTo : Time.Posix -> Duration -> Time.Posix
+addTo time duration =
+    Time.millisToPosix
+        (Time.posixToMillis time + round (inMilliseconds duration))
+
+
+{-| Offset a [`Time.Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
+value backwards in time by a given `Duration`:
+
+    -- Assuming that 'now' is a Time.Posix value obtained
+    -- from Time.now
+    fiveMinutesAgo =
+        Duration.subtractFrom now (Duration.minutes 5)
+
+`Duration.subtractFrom time duration` is equivalent to `Duration.addTo time
+(Quantity.negate duration)`.
+
+-}
+subtractFrom : Time.Posix -> Duration -> Time.Posix
+subtractFrom time duration =
+    Time.millisToPosix
+        (Time.posixToMillis time - round (inMilliseconds duration))
 
 
 {-| -}

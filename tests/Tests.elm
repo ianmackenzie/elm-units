@@ -21,6 +21,7 @@ module Tests exposing
     , substanceAmount
     , temperatureDeltas
     , temperatures
+    , timeOffset
     , times
     , toDmsProducesValidValues
     , toDmsReconstructsAngle
@@ -59,6 +60,7 @@ import Speed exposing (..)
 import SubstanceAmount exposing (..)
 import Temperature exposing (Temperature)
 import Test exposing (Test)
+import Time
 import Voltage exposing (..)
 import Volume exposing (..)
 
@@ -838,4 +840,46 @@ maximumBy =
                 Quantity.maximumBy .duration quantityPairs
                     |> Expect.equal
                         (Just { length = Length.meters 1, duration = Duration.hours 1 })
+        ]
+
+
+timeFuzzer : Fuzzer Time.Posix
+timeFuzzer =
+    Fuzz.map (abs >> Time.millisToPosix) Fuzz.int
+
+
+durationFuzzer : Fuzzer Duration
+durationFuzzer =
+    Fuzz.map Duration.seconds Fuzz.float
+
+
+timeOffset : Test
+timeOffset =
+    Test.describe "timeOffset"
+        [ Test.fuzz2
+            timeFuzzer
+            durationFuzzer
+            "addTo"
+            (\time offset ->
+                let
+                    offsetTime =
+                        Duration.addTo time offset
+                in
+                Duration.from time offsetTime
+                    |> Duration.inMilliseconds
+                    |> Expect.within (Expect.Absolute 1) (Duration.inMilliseconds offset)
+            )
+        , Test.fuzz2
+            timeFuzzer
+            durationFuzzer
+            "subtractFrom"
+            (\time offset ->
+                let
+                    offsetTime =
+                        Duration.subtractFrom time offset
+                in
+                Duration.from offsetTime time
+                    |> Duration.inMilliseconds
+                    |> Expect.within (Expect.Absolute 1) (Duration.inMilliseconds offset)
+            )
         ]
