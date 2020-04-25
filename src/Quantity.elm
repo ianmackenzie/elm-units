@@ -6,6 +6,7 @@ module Quantity exposing
     , negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
     , times, over, over_
     , per, at, at_, for, inverse
+    , modBy, fractionalModBy, remainderBy, fractionalRemainderBy
     , ratio, clamp, interpolateFrom, midpoint, range, in_
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
@@ -48,6 +49,27 @@ and work with composite units in a fairly flexible way.
 ## Working with rates
 
 @docs per, at, at_, for, inverse
+
+
+## Modular arithmetic
+
+`modBy` and `remainderBy` behave just like the [`modBy`](https://package.elm-lang.org/packages/elm/core/latest/Basics#modBy)
+and [`remainderBy`](https://package.elm-lang.org/packages/elm/core/latest/Basics#remainderBy)
+functions from Elm's built-in `Basics` module, but work on `Quantity` values
+instead of raw `Int`s. `fractionalModBy` and `fractionalRemainderBy` have the
+same behaviour but extended to `Float`-valued quantities.
+
+    import Pixels exposing (pixels)
+    import Length exposing (meters, centimeters)
+
+    Quantity.modBy (pixels 4) (pixels 11)
+    --> pixels 3
+
+    Quantity.fractionalModBy (meters 0.5)
+        (centimeters 162.3)
+    --> centimeters 12.3
+
+@docs modBy, fractionalModBy, remainderBy, fractionalRemainderBy
 
 
 ## Miscellaneous
@@ -644,6 +666,30 @@ cbrt (Quantity value) =
 
     else
         Quantity -(-value ^ (1 / 3))
+
+
+{-| -}
+modBy : Quantity Int units -> Quantity Int units -> Quantity Int units
+modBy (Quantity modulus) (Quantity value) =
+    Quantity (Basics.modBy modulus value)
+
+
+{-| -}
+fractionalModBy : Quantity Float units -> Quantity Float units -> Quantity Float units
+fractionalModBy (Quantity modulus) (Quantity value) =
+    Quantity (value - modulus * Basics.toFloat (Basics.floor (value / modulus)))
+
+
+{-| -}
+remainderBy : Quantity Int units -> Quantity Int units -> Quantity Int units
+remainderBy (Quantity modulus) (Quantity value) =
+    Quantity (Basics.remainderBy modulus value)
+
+
+{-| -}
+fractionalRemainderBy : Quantity Float units -> Quantity Float units -> Quantity Float units
+fractionalRemainderBy (Quantity modulus) (Quantity value) =
+    Quantity (value - modulus * Basics.toFloat (Basics.truncate (value / modulus)))
 
 
 {-| Interpolate from the first quantity to the second, based on a parameter that

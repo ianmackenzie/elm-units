@@ -4,6 +4,8 @@ module Tests exposing
     , conversionsToQuantityAndBack
     , densities
     , durations
+    , fractionalModBy
+    , fractionalRemainderBy
     , fromDmsNegative
     , fromDmsPositive
     , illuminances
@@ -54,6 +56,7 @@ import Pixels exposing (..)
 import Power exposing (..)
 import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
+import Random
 import Resistance exposing (..)
 import SolidAngle
 import Speed exposing (..)
@@ -883,3 +886,48 @@ timeOffset =
                     |> Expect.within (Expect.Absolute 1) (Duration.inMilliseconds offset)
             )
         ]
+
+
+modulusFuzzer : Fuzzer Int
+modulusFuzzer =
+    Fuzz.oneOf
+        [ Fuzz.intRange 1 Random.maxInt
+        , Fuzz.intRange (Random.minInt + 1) -1
+        ]
+
+
+valueFuzzer : Fuzzer Int
+valueFuzzer =
+    Fuzz.intRange (Random.minInt + 1) Random.maxInt
+
+
+fractionalModBy : Test
+fractionalModBy =
+    Test.fuzz2
+        modulusFuzzer
+        valueFuzzer
+        "fractionalModBy"
+        (\modulus value ->
+            let
+                (Quantity result) =
+                    Quantity.fractionalModBy (Quantity (toFloat modulus))
+                        (Quantity (toFloat value))
+            in
+            result |> Expect.within (Expect.Absolute 0.0) (toFloat (modBy modulus value))
+        )
+
+
+fractionalRemainderBy : Test
+fractionalRemainderBy =
+    Test.fuzz2
+        modulusFuzzer
+        valueFuzzer
+        "fractionalRemainderBy"
+        (\modulus value ->
+            let
+                (Quantity result) =
+                    Quantity.fractionalRemainderBy (Quantity (toFloat modulus))
+                        (Quantity (toFloat value))
+            in
+            result |> Expect.within (Expect.Absolute 0.0) (toFloat (remainderBy modulus value))
+        )
