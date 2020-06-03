@@ -5,8 +5,8 @@ module AngularSpeed exposing
     , revolutionsPerSecond, inRevolutionsPerSecond, revolutionsPerMinute, inRevolutionsPerMinute
     )
 
-{-| An `AngularSpeed` represents an acceleration in radians per second, degrees
-per second, turns (revolutions) per second and turns (revolutions) per minute.
+{-| An `AngularSpeed` represents a rotation rate in radians per second, degrees
+per second, turns (revolutions) per second or turns (revolutions) per minute.
 It is stored as a number of radians per second.
 
 Note that since `RadiansPerSecond` is defined as `Rate Radians Seconds` (angle
