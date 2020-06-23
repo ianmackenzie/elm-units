@@ -658,7 +658,7 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Luminance" <|
             [ fuzzFloatToQuantityAndBack "nits" Luminance.nits Luminance.inNits
-            , fuzzFloatToQuantityAndBack "footLambers" Luminance.footLamberts Luminance.inFootLamberts
+            , fuzzFloatToQuantityAndBack "footLamberts" Luminance.footLamberts Luminance.inFootLamberts
             ]
         ]
 
