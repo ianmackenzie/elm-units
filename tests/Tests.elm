@@ -52,7 +52,7 @@ import LuminousFlux
 import LuminousIntensity
 import Mass exposing (..)
 import Molarity exposing (..)
-import Pixels exposing (..)
+import Pixels
 import Power exposing (..)
 import Pressure exposing (..)
 import Quantity exposing (Quantity(..), at, at_, minus, per, plus, times)
