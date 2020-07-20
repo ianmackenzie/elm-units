@@ -4,6 +4,7 @@ module Angle exposing
     , minutes, inMinutes, seconds, inSeconds
     , Sign(..), fromDms, toDms
     , sin, cos, tan, asin, acos, atan, atan2
+    , normalize
     , radian, degree, turn, minute, second
     )
 
@@ -39,6 +40,11 @@ these functions instead of [the corresponding ones in core][1].
 [1]: https://package.elm-lang.org/packages/elm/core/latest/Basics#trigonometry
 
 @docs sin, cos, tan, asin, acos, atan, atan2
+
+
+## Normalization
+
+@docs normalize
 
 
 ## Constants
@@ -342,6 +348,30 @@ atan x =
 atan2 : Quantity Float units -> Quantity Float units -> Angle
 atan2 (Quantity y) (Quantity x) =
     Quantity (Basics.atan2 y x)
+
+
+{-| Convert an arbitrary angle to the equivalent angle in the range -180 to 180
+degrees (-π to π radians), by adding or subtracting some multiple of 360
+degrees (2π radians) if necessary.
+
+    Angle.normalize (Angle.degrees 45)
+    --> Angle.degrees 45
+
+    Angle.normalize (Angle.degrees 270)
+    --> Angle.degrees -90
+
+    Angle.normalize (Angle.degrees 370)
+    --> Angle.degrees 10
+
+    Angle.normalize (Angle.degrees 181)
+    --> Angle.degrees -179
+
+-}
+normalize : Angle -> Angle
+normalize (Quantity angle) =
+    Quantity <|
+        clamp -pi pi <|
+            (angle - 2 * pi * toFloat (round (angle / (2 * pi))))
 
 
 {-| -}

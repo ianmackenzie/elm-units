@@ -1,5 +1,6 @@
 module Tests exposing
-    ( angularAccelerations
+    ( angleNormalization
+    , angularAccelerations
     , angularSpeeds
     , conversionsToQuantityAndBack
     , densities
@@ -931,3 +932,27 @@ fractionalRemainderBy =
             in
             result |> Expect.within (Expect.Absolute 0.0) (toFloat (remainderBy modulus value))
         )
+
+
+angleNormalization : Test
+angleNormalization =
+    let
+        angleFuzzer =
+            Fuzz.map Angle.degrees (Fuzz.floatRange -10000 10000)
+    in
+    Test.describe "Angle.normalize"
+        [ Test.fuzz angleFuzzer "Returns value in the correct range" <|
+            \angle ->
+                Angle.normalize angle
+                    |> Quantity.abs
+                    |> Angle.inRadians
+                    |> Expect.atMost pi
+        , Test.fuzz angleFuzzer "Cosine is equal to the original angle" <|
+            \angle ->
+                Angle.cos (Angle.normalize angle)
+                    |> Expect.within (Expect.Absolute 1.0e-12) (Angle.cos angle)
+        , Test.fuzz angleFuzzer "Sine is equal to the original angle" <|
+            \angle ->
+                Angle.sin (Angle.normalize angle)
+                    |> Expect.within (Expect.Absolute 1.0e-12) (Angle.sin angle)
+        ]
