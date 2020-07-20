@@ -11,6 +11,7 @@ module Quantity exposing
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
     , Unitless, int, toInt, float, toFloat
+    , unsafe, unwrap
     )
 
 {-|
@@ -115,6 +116,15 @@ value, and so should get compiled away entirely when using `elm make
 --optimize`.
 
 @docs Unitless, int, toInt, float, toFloat
+
+
+# Unsafe conversions
+
+These functions are equivalent to directly constructing or unwrapping `Quantity`
+values, and generally shouldn't be used outside of some specialized situations
+that can come up when authoring packages that use `elm-units`.
+
+@docs unsafe, unwrap
 
 -}
 
@@ -1102,11 +1112,6 @@ maximumByHelp toQuantity currentItem currentValue quantities =
                 maximumByHelp toQuantity currentItem currentValue rest
 
 
-unwrap : Quantity number units -> number
-unwrap (Quantity value) =
-    value
-
-
 {-| Sort a list of quantities.
 
     Quantity.sort
@@ -1336,4 +1341,16 @@ Float units`, check out [`toFloatQuantity`](#toFloatQuantity).
 -}
 toFloat : Quantity Float Unitless -> Float
 toFloat (Quantity value) =
+    value
+
+
+{-| -}
+unsafe : number -> Quantity number units
+unsafe value =
+    Quantity value
+
+
+{-| -}
+unwrap : Quantity number units -> number
+unwrap (Quantity value) =
     value
