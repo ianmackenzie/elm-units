@@ -3,7 +3,7 @@
     "name": "ianmackenzie/elm-units",
     "summary": "Simple, safe and convenient unit types and conversions for Elm",
     "license": "BSD-3-Clause",
-    "version": "2.6.0",
+    "version": "2.7.0",
     "exposed-modules": [
         "Acceleration",
         "Angle",
