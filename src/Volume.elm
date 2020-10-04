@@ -1,6 +1,6 @@
 module Volume exposing
     ( Volume, CubicMeters
-    , cubicMeters, inCubicMeters
+    , cubicMeters, inCubicMeters, cubicCentimeters, inCubicCentimeters
     , milliliters, inMilliliters, liters, inLiters
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
@@ -78,6 +78,20 @@ cubicMeters numCubicMeters =
 inCubicMeters : Volume -> Float
 inCubicMeters (Quantity numCubicMeters) =
     numCubicMeters
+
+
+{-| Construct a volume from a number of cubic centimeters.
+-}
+cubicCentimeters : Float -> Volume
+cubicCentimeters numCubicCentimeters =
+    milliliters numCubicCentimeters
+
+
+{-| Convert a volume to a number of cubic centimeters.
+-}
+inCubicCentimeters : Volume -> Float
+inCubicCentimeters numCubicCentimeters =
+    inMilliliters numCubicCentimeters
 
 
 {-| Construct a volume from a number of cubic inches.
