@@ -90,8 +90,8 @@ cubicCentimeters numCubicCentimeters =
 {-| Convert a volume to a number of cubic centimeters.
 -}
 inCubicCentimeters : Volume -> Float
-inCubicCentimeters numCubicCentimeters =
-    inMilliliters numCubicCentimeters
+inCubicCentimeters volume =
+    inMilliliters volume
 
 
 {-| Construct a volume from a number of cubic inches.
