@@ -383,6 +383,9 @@ volumes =
         , ( imperialPints 1
           , imperialFluidOunces 20
           )
+        , ( cubicCentimeters 1
+          , milliliters 1
+          )
         ]
 
 
@@ -625,6 +628,7 @@ conversionsToQuantityAndBack =
             ]
         , Test.describe "Volume" <|
             [ fuzzFloatToQuantityAndBack "cubicMeters" Volume.cubicMeters Volume.inCubicMeters
+            , fuzzFloatToQuantityAndBack "cubicCentimeters" Volume.cubicCentimeters Volume.inCubicCentimeters
             , fuzzFloatToQuantityAndBack "cubicInches" Volume.cubicInches Volume.inCubicInches
             , fuzzFloatToQuantityAndBack "cubicFeet" Volume.cubicFeet Volume.inCubicFeet
             , fuzzFloatToQuantityAndBack "cubicYards" Volume.cubicYards Volume.inCubicYards
