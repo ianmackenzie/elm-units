@@ -1,13 +1,13 @@
 module Volume exposing
     ( Volume, CubicMeters
-    , cubicMeters, inCubicMeters, cubicCentimeters, inCubicCentimeters
-    , milliliters, inMilliliters, liters, inLiters
+    , cubicMeters, inCubicMeters
+    , milliliters, inMilliliters, liters, inLiters, cubicCentimeters, inCubicCentimeters
     , cubicInches, inCubicInches, cubicFeet, inCubicFeet, cubicYards, inCubicYards
     , usLiquidGallons, inUsLiquidGallons, usDryGallons, inUsDryGallons, imperialGallons, inImperialGallons
     , usLiquidQuarts, inUsLiquidQuarts, usDryQuarts, inUsDryQuarts, imperialQuarts, inImperialQuarts
     , usLiquidPints, inUsLiquidPints, usDryPints, inUsDryPints, imperialPints, inImperialPints
     , usFluidOunces, inUsFluidOunces, imperialFluidOunces, inImperialFluidOunces
-    , cubicMeter, milliliter, liter
+    , cubicMeter, milliliter, liter, cubicCentimeter
     , cubicInch, cubicFoot, cubicYard
     , usLiquidGallon, usDryGallon, imperialGallon
     , usLiquidQuart, usDryQuart, imperialQuart
@@ -25,7 +25,7 @@ meters.
 ## Metric
 
 @docs cubicMeters, inCubicMeters
-@docs milliliters, inMilliliters, liters, inLiters
+@docs milliliters, inMilliliters, liters, inLiters, cubicCentimeters, inCubicCentimeters
 
 
 ## Imperial
@@ -42,7 +42,7 @@ meters.
 Shorthand for `Volume.cubicMeters 1`, `Volume.imperialGallons 1` etc. Can be
 convenient to use with [`Quantity.per`](Quantity#per).
 
-@docs cubicMeter, milliliter, liter
+@docs cubicMeter, milliliter, liter, cubicCentimeter
 @docs cubicInch, cubicFoot, cubicYard
 @docs usLiquidGallon, usDryGallon, imperialGallon
 @docs usLiquidQuart, usDryQuart, imperialQuart
