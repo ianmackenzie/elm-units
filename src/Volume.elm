@@ -80,20 +80,6 @@ inCubicMeters (Quantity numCubicMeters) =
     numCubicMeters
 
 
-{-| Construct a volume from a number of cubic centimeters.
--}
-cubicCentimeters : Float -> Volume
-cubicCentimeters numCubicCentimeters =
-    milliliters numCubicCentimeters
-
-
-{-| Convert a volume to a number of cubic centimeters.
--}
-inCubicCentimeters : Volume -> Float
-inCubicCentimeters volume =
-    inMilliliters volume
-
-
 {-| Construct a volume from a number of cubic inches.
 -}
 cubicInches : Float -> Volume
@@ -148,6 +134,23 @@ milliliters numMilliliters =
 inMilliliters : Volume -> Float
 inMilliliters volume =
     1.0e6 * inCubicMeters volume
+
+
+{-| Construct a volume from a number of cubic centimeters.
+Alias for `milliliters`.
+
+-}
+cubicCentimeters : Float -> Volume
+cubicCentimeters numCubicCentimeters =
+    milliliters numCubicCentimeters
+
+
+{-| Convert a volume to a number of cubic centimeters.
+Alias for `inMilliliters`.
+-}
+inCubicCentimeters : Volume -> Float
+inCubicCentimeters volume =
+    inMilliliters volume
 
 
 {-| Construct a volume from a number of liters.
