@@ -138,7 +138,6 @@ inMilliliters volume =
 
 {-| Construct a volume from a number of cubic centimeters.
 Alias for `milliliters`.
-
 -}
 cubicCentimeters : Float -> Volume
 cubicCentimeters numCubicCentimeters =
@@ -330,6 +329,12 @@ cubicMeter =
 {-| -}
 milliliter : Volume
 milliliter =
+    milliliters 1
+
+
+{-| -}
+cubicCentimeter : Volume
+cubicCentimeter =
     milliliters 1
 
 
