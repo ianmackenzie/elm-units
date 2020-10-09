@@ -344,14 +344,14 @@ approximately equal to the average distance of the Earth from the Sun.
 -}
 astronomicalUnits : Float -> Length
 astronomicalUnits numAstronomicalUnits =
-    meters (149597870700 * numAstronomicalUnits)
+    meters (Constants.astronomicalUnit * numAstronomicalUnits)
 
 
 {-| Convert a length to a number of astronomical units.
 -}
 inAstronomicalUnits : Length -> Float
 inAstronomicalUnits length =
-    inMeters length / 149597870700
+    inMeters length / Constants.astronomicalUnit
 
 
 {-| Construct a length from a number of [parsecs][parsec].
@@ -361,14 +361,14 @@ inAstronomicalUnits length =
 -}
 parsecs : Float -> Length
 parsecs numParsecs =
-    astronomicalUnits (numParsecs * 648000 / pi)
+    meters (numParsecs * Constants.parsec)
 
 
 {-| Convert a length to a number of parsecs.
 -}
 inParsecs : Length -> Float
 inParsecs length =
-    inAstronomicalUnits length * pi / 648000
+    inMeters length / Constants.parsec
 
 
 {-| Construct a length from a number of light years. One light year is the
@@ -376,14 +376,14 @@ distance traveled when moving at the speed of light for one [Julian year](Durati
 -}
 lightYears : Float -> Length
 lightYears numLightYears =
-    meters (9460730472580800 * numLightYears)
+    meters (Constants.lightYear * numLightYears)
 
 
 {-| Convert a length to a number of light years.
 -}
 inLightYears : Length -> Float
 inLightYears length =
-    inMeters length / 9460730472580800
+    inMeters length / Constants.lightYear
 
 
 {-| -}

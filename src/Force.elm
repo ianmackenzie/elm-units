@@ -35,6 +35,7 @@ acceleration:
 -}
 
 import Acceleration exposing (MetersPerSecondSquared)
+import Constants
 import Mass exposing (Kilograms)
 import Quantity exposing (Product, Quantity(..))
 
@@ -100,14 +101,14 @@ the force required to accelerate one [pound mass][1] at a rate of [one gee][2].
 -}
 pounds : Float -> Force
 pounds numPounds =
-    newtons (4.4482216152605 * numPounds)
+    newtons (Constants.poundForce * numPounds)
 
 
 {-| Convert a force value to a number of pounds force.
 -}
 inPounds : Force -> Float
 inPounds force =
-    inNewtons force / 4.4482216152605
+    inNewtons force / Constants.poundForce
 
 
 {-| Construct a force value from a number of kips (kilopounds force).

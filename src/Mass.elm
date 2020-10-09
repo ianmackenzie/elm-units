@@ -141,14 +141,14 @@ commonly used in the United States.
 -}
 shortTons : Float -> Mass
 shortTons numShortTons =
-    pounds (2000 * numShortTons)
+    kilograms (Constants.shortTon * numShortTons)
 
 
 {-| Convert a mass to a number of short tons.
 -}
 inShortTons : Mass -> Float
 inShortTons mass =
-    inPounds mass / 2000
+    inKilograms mass / Constants.shortTon
 
 
 {-| Construct a mass from a number of [long tons][1]. This is the 'ton' commonly
@@ -162,14 +162,14 @@ used in the United Kingdom and British Commonwealth.
 -}
 longTons : Float -> Mass
 longTons numLongTons =
-    pounds (2240 * numLongTons)
+    kilograms (Constants.longTon * numLongTons)
 
 
 {-| Convert a mass to a number of long tons.
 -}
 inLongTons : Mass -> Float
 inLongTons mass =
-    inPounds mass / 2240
+    inKilograms mass / Constants.longTon
 
 
 {-| -}

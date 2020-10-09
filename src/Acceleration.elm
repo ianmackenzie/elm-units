@@ -105,11 +105,11 @@ inFeetPerSecondSquared acceleration =
 -}
 gees : Float -> Acceleration
 gees numGees =
-    metersPerSecondSquared (9.80665 * numGees)
+    metersPerSecondSquared (Constants.gee * numGees)
 
 
 {-| Convert an acceleration to a number of gees.
 -}
 inGees : Acceleration -> Float
 inGees acceleration =
-    inMetersPerSecondSquared acceleration / 9.80665
+    inMetersPerSecondSquared acceleration / Constants.gee
