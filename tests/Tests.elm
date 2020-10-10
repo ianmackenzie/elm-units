@@ -16,7 +16,9 @@ module Tests exposing
     , masses
     , maximumBy
     , minimumBy
+    , negativeInfinity
     , over
+    , positiveInfinity
     , powers
     , pressures
     , solidAngles
@@ -960,3 +962,21 @@ angleNormalization =
                 Angle.sin (Angle.normalize angle)
                     |> Expect.within (Expect.Absolute 1.0e-12) (Angle.sin angle)
         ]
+
+
+positiveInfinity : Test
+positiveInfinity =
+    Test.fuzz Fuzz.float "Quantity.positiveInfinity" <|
+        \value ->
+            Quantity.positiveInfinity
+                |> Quantity.greaterThan (Quantity value)
+                |> Expect.true "positiveInfinity must be greater than any finite value"
+
+
+negativeInfinity : Test
+negativeInfinity =
+    Test.fuzz Fuzz.float "Quantity.negativeInfinity" <|
+        \value ->
+            Quantity.negativeInfinity
+                |> Quantity.lessThan (Quantity value)
+                |> Expect.true "negativeInfinity must be less than any finite value"
