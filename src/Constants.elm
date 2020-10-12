@@ -352,12 +352,12 @@ electricalHorsepower =
 
 mechanicalHorsepower: Float
 mechanicalHorsepower =
-    550 * 0.3048 * 4.4482216152605 * watt
+    33000 * foot * poundForce / minute
 
 
 metricHorsepower: Float
 metricHorsepower =
-    735.49875 * watt
+    75 * kilogram * gee * meter / second
 
 
 watt : Float
