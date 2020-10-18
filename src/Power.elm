@@ -45,6 +45,7 @@ seemed the most reasonable.)
 
 -}
 
+import Constants
 import Duration exposing (Seconds)
 import Energy exposing (Joules)
 import Quantity exposing (Quantity(..), Rate)
@@ -112,14 +113,14 @@ inMegawatts power =
 -}
 metricHorsepower : Float -> Power
 metricHorsepower numMetricHorsepower =
-    watts (735.49875 * numMetricHorsepower)
+    watts (Constants.metricHorsepower * numMetricHorsepower)
 
 
 {-| Convert a `Power` value to a number of metric horsepower.
 -}
 inMetricHorsepower : Power -> Float
 inMetricHorsepower power =
-    inWatts power / 735.49875
+    inWatts power / Constants.metricHorsepower
 
 
 {-| Construct a `Power` value from an number of [mechanical horsepower][1].
@@ -132,14 +133,14 @@ inMetricHorsepower power =
 -}
 mechanicalHorsepower : Float -> Power
 mechanicalHorsepower numMechanicalHorsepower =
-    watts (numMechanicalHorsepower * 550 * 0.3048 * 4.4482216152605)
+    watts (numMechanicalHorsepower * Constants.mechanicalHorsepower)
 
 
 {-| Convert a `Power` value to a number of mechanical horsepower.
 -}
 inMechanicalHorsepower : Power -> Float
 inMechanicalHorsepower power =
-    inWatts power / (550 * 0.3048 * 4.4482216152605)
+    inWatts power / Constants.mechanicalHorsepower
 
 
 {-| Construct a `Power` value from an number of [electrical horsepower][1].
@@ -152,11 +153,11 @@ inMechanicalHorsepower power =
 -}
 electricalHorsepower : Float -> Power
 electricalHorsepower numElectricalHorsepower =
-    watts (746 * numElectricalHorsepower)
+    watts (Constants.electricalHorsepower * numElectricalHorsepower)
 
 
 {-| Convert a `Power` value to a number of electrical horsepower.
 -}
 inElectricalHorsepower : Power -> Float
 inElectricalHorsepower power =
-    inWatts power / 746
+    inWatts power / Constants.electricalHorsepower

@@ -1,5 +1,7 @@
 module Constants exposing
     ( acre
+    , astronomicalUnit
+    , atmosphere
     , bushel
     , cssPixel
     , cubicFoot
@@ -7,22 +9,34 @@ module Constants exposing
     , cubicMeter
     , cubicYard
     , day
+    , electricalHorsepower
     , foot
+    , gee
     , hour
     , imperialFluidOunce
     , imperialGallon
     , imperialPint
     , imperialQuart
     , inch
+    , julianYear
+    , lightYear
     , liter
+    , longTon
+    , mechanicalHorsepower
     , meter
+    , metricHorsepower
     , mile
     , mole
+    , newton
     , ounce
+    , parsec
+    , pascal
     , peck
     , pica
     , point
     , pound
+    , poundForce
+    , shortTon
     , squareFoot
     , squareInch
     , squareMile
@@ -34,6 +48,7 @@ module Constants exposing
     , usLiquidGallon
     , usLiquidPint
     , usLiquidQuart
+    , watt
     , week
     , yard
     )
@@ -46,6 +61,21 @@ unless otherwise specified.
 -}
 
 ---------- UNITS OF LENGTH (in meters)  ----------
+
+
+astronomicalUnit : Float
+astronomicalUnit =
+    149597870700 * meter
+
+
+lightYear : Float
+lightYear =
+    9460730472580800 * meter
+
+
+parsec : Float
+parsec =
+    (648000 / pi) * astronomicalUnit
 
 
 meter : Float
@@ -222,6 +252,16 @@ usDryPint =
 ---------- UNITS OF  MASS (in kilograms) ----------
 
 
+longTon : Float
+longTon =
+    2240 * pound
+
+
+shortTon : Float
+shortTon =
+    2000 * pound
+
+
 kilogram : Float
 kilogram =
     1
@@ -266,6 +306,11 @@ week =
     7 * day
 
 
+julianYear : Float
+julianYear =
+    365.25 * day
+
+
 
 ---------- UNITS OF SUBSTANCE AMOUNT (in moles) ----------
 
@@ -273,3 +318,64 @@ week =
 mole : Float
 mole =
     1
+
+
+
+---------- UNITS OF ACELERATION (in meters per second squared) ----------
+
+
+gee : Float
+gee =
+    9.80665 * meter / (second * second)
+
+
+
+---------- UNITS OF FORCE (in newtons) ----------
+
+
+poundForce : Float
+poundForce =
+    4.4482216152605 * newton
+
+
+newton : Float
+newton =
+    kilogram * meter / (second * second)
+
+
+
+---------- UNITS OF POWER (in watts) ----------
+
+
+electricalHorsepower : Float
+electricalHorsepower =
+    746 * watt
+
+
+mechanicalHorsepower : Float
+mechanicalHorsepower =
+    33000 * foot * poundForce / minute
+
+
+metricHorsepower : Float
+metricHorsepower =
+    75 * kilogram * gee * meter / second
+
+
+watt : Float
+watt =
+    newton * meter / second
+
+
+
+---------- UNITS OF PRESSURE (in pascals) ----------
+
+
+atmosphere : Float
+atmosphere =
+    101325 * pascal
+
+
+pascal : Float
+pascal =
+    newton / (meter * meter)

@@ -45,6 +45,7 @@ You can also do rate-related calculations with `Pressure` values to compute
 -}
 
 import Area exposing (SquareMeters)
+import Constants
 import Force exposing (Newtons)
 import Quantity exposing (Quantity(..), Rate)
 
@@ -122,11 +123,11 @@ inPoundsPerSquareInch pressure =
 -}
 atmospheres : Float -> Pressure
 atmospheres numAtmospheres =
-    pascals (101325 * numAtmospheres)
+    pascals (Constants.atmosphere * numAtmospheres)
 
 
 {-| Convert a pressure to a number of atmospheres.
 -}
 inAtmospheres : Pressure -> Float
 inAtmospheres pressure =
-    inPascals pressure / 101325
+    inPascals pressure / Constants.atmosphere

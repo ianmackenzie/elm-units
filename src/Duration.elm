@@ -222,7 +222,7 @@ of a [light year](Length#lightYears).
 -}
 julianYears : Float -> Duration
 julianYears numJulianYears =
-    seconds (31557600 * numJulianYears)
+    seconds (Constants.julianYear * numJulianYears)
 
 
 {-| Convert a `Duration` to a value in Julian years.
@@ -233,7 +233,7 @@ julianYears numJulianYears =
 -}
 inJulianYears : Duration -> Float
 inJulianYears duration =
-    inSeconds duration / 31557600
+    inSeconds duration / Constants.julianYear
 
 
 {-| Offset a [`Time.Posix`](https://package.elm-lang.org/packages/elm/time/latest/Time#Posix)
