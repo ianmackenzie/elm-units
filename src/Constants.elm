@@ -69,12 +69,12 @@ astronomicalUnit =
 
 
 lightYear : Float
-lightYear = 
+lightYear =
     9460730472580800 * meter
 
 
 parsec : Float
-parsec = 
+parsec =
     (648000 / pi) * astronomicalUnit
 
 
@@ -305,6 +305,7 @@ week : Float
 week =
     7 * day
 
+
 julianYear : Float
 julianYear =
     365.25 * day
@@ -325,7 +326,7 @@ mole =
 
 gee : Float
 gee =
-    9.80665 * meter / (second*second)
+    9.80665 * meter / (second * second)
 
 
 
@@ -336,26 +337,27 @@ poundForce : Float
 poundForce =
     4.4482216152605 * newton
 
+
 newton : Float
 newton =
-    kilogram * meter / (second*second)
+    kilogram * meter / (second * second)
 
 
 
 ---------- UNITS OF POWER (in watts) ----------
 
 
-electricalHorsepower: Float
+electricalHorsepower : Float
 electricalHorsepower =
     746 * watt
 
 
-mechanicalHorsepower: Float
+mechanicalHorsepower : Float
 mechanicalHorsepower =
     33000 * foot * poundForce / minute
 
 
-metricHorsepower: Float
+metricHorsepower : Float
 metricHorsepower =
     75 * kilogram * gee * meter / second
 
