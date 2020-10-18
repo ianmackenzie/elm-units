@@ -364,7 +364,7 @@ metricHorsepower =
 
 watt : Float
 watt =
-    kilogram * meter * meter / (second * second * second)
+    newton * meter / second
 
 
 
