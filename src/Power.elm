@@ -44,6 +44,7 @@ seemed the most reasonable.)
 @docs metricHorsepower, inMetricHorsepower, mechanicalHorsepower, inMechanicalHorsepower, electricalHorsepower, inElectricalHorsepower
 
 -}
+
 import Constants
 import Duration exposing (Seconds)
 import Energy exposing (Joules)
@@ -139,7 +140,7 @@ mechanicalHorsepower numMechanicalHorsepower =
 -}
 inMechanicalHorsepower : Power -> Float
 inMechanicalHorsepower power =
-    inWatts power / (Constants.mechanicalHorsepower)
+    inWatts power / Constants.mechanicalHorsepower
 
 
 {-| Construct a `Power` value from an number of [electrical horsepower][1].
