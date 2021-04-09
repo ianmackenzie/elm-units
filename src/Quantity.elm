@@ -4,7 +4,7 @@ module Quantity exposing
     , zero, infinity, positiveInfinity, negativeInfinity
     , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
     , negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
-    , times, over, over_
+    , times, timesUnitless, over, over_, overUnitless
     , per, at, at_, for, inverse
     , modBy, fractionalModBy, remainderBy, fractionalRemainderBy
     , ratio, clamp, interpolateFrom, midpoint, range, in_
@@ -44,7 +44,7 @@ and work with composite units in a fairly flexible way.
 
 ## Working with products
 
-@docs times, over, over_
+@docs times, timesUnitless, over, over_, overUnitless
 
 
 ## Working with rates
@@ -471,6 +471,34 @@ times (Quantity y) (Quantity x) =
     Quantity (x * y)
 
 
+{-| If you use [`times`](#times) to multiply one quantity by another [unitless](#Unitless)
+quantity, for example
+
+    quantity |> Quantity.times unitlessQuantity
+
+then the result you'll get will have units type `Product units Unitless`. But
+this is silly and not super useful, since the product of `units` and `Unitless`
+should really just be `units`. That's what `timesUnitless` does - it's a special
+case of `times` for when you're multiplying by another unitless quantity, that
+leaves the units alone.
+
+You can think of `timesUnitless` as shorthand for `toFloat` and `multiplyBy`;
+for `Float`-valued quantities,
+
+    quantity |> Quantity.timesUnitless unitlessQuantity
+
+is equivalent to
+
+    quantity
+        |> Quantity.multiplyBy
+            (Quantity.toFloat unitlessQuantity)
+
+-}
+timesUnitless : Quantity number Unitless -> Quantity number units -> Quantity number units
+timesUnitless (Quantity y) (Quantity x) =
+    Quantity (x * y)
+
+
 {-| Divide a quantity in `Product units1 units2` by a quantity in `units1`,
 resulting in another quantity in `units2`. For example, the units type of a
 `Force` is `Product Kilograms MetersPerSecondSquared` (mass times acceleration),
@@ -502,6 +530,24 @@ acceleration to determine how much mass could be accelerated at that rate:
 -}
 over_ : Quantity Float units2 -> Quantity Float (Product units1 units2) -> Quantity Float units1
 over_ (Quantity y) (Quantity x) =
+    Quantity (x / y)
+
+
+{-| Similar to [`timesUnitless`](#timesUnitless), `overUnitless` lets you
+divide one quantity by a second [unitless](#Unitless) quantity without affecting
+the units;
+
+    quantity |> Quantity.overUnitless unitlessQuantity
+
+is equivalent to
+
+    quantity
+        |> Quantity.divideBy
+            (Quantity.toFloat unitlessQuantity)
+
+-}
+overUnitless : Quantity Float Unitless -> Quantity Float units -> Quantity Float units
+overUnitless (Quantity y) (Quantity x) =
     Quantity (x / y)
 
 
