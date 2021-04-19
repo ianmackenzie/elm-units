@@ -5,16 +5,16 @@ _Release notes for 2.0 are [here](https://github.com/ianmackenzie/elm-units/rele
 `elm-units` is useful if you want to store, pass around, convert between,
 compare, or do arithmetic on:
 
-  - Durations (seconds, milliseconds, hours...)
-  - Angles (degrees, radians, turns...)
-  - Lengths (meters, feet, inches, miles, light years...)
-  - Temperatures (Celsius, Fahrenheit, kelvins)
-  - Pixels (whole or partial)
-  - Speeds (pixels per second, miles per hour...) or any other rate of change
-  - Any of the other built-in quantity types: areas, accelerations, masses,
-    forces, pressures, currents, voltages...
-  - Or even values in your own custom units, such as 'number of tiles' in a
-    tile-based game
+- Durations (seconds, milliseconds, hours...)
+- Angles (degrees, radians, turns...)
+- Lengths (meters, feet, inches, miles, light years...)
+- Temperatures (Celsius, Fahrenheit, kelvins)
+- Pixels (whole or partial)
+- Speeds (pixels per second, miles per hour...) or any other rate of change
+- Any of the other built-in quantity types: areas, accelerations, masses,
+  forces, pressures, currents, voltages...
+- Or even values in your own custom units, such as 'number of tiles' in a
+  tile-based game
 
 It is aimed especially at engineering/scientific/technical applications but is
 designed to be generic enough to work well for other fields such as games and
@@ -112,12 +112,12 @@ Ultimately, what this does is let you pass around and manipulate `Length`,
 When you initially construct a `Length`, you need to specify what units you're
 using, but once that is done you can:
 
-  - Store the length inside a data structure
-  - Pass it around between different functions
-  - Compare it to other lengths
-  - Add and subtract it to other lengths
-  - Multiply it by another length to get an area, or divide by a duration to
-    get a speed
+- Store the length inside a data structure
+- Pass it around between different functions
+- Compare it to other lengths
+- Add and subtract it to other lengths
+- Multiply it by another length to get an area, or divide by a duration to
+  get a speed
 
 ...and much more, all without having to care about units at all. All
 calculations will be done in an internally consistent way, and when you finally
@@ -126,21 +126,21 @@ the final result in whatever units you want.
 
 ## Table of contents
 
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Fundamentals](#fundamentals)
-    - [The `Quantity` type](#the-quantity-type)
-    - [Basic arithmetic and comparison](#basic-arithmetic-and-comparison)
-    - [Multiplication and division](#multiplication-and-division)
-    - [Argument order](#argument-order)
-    - [Custom functions](#custom-functions)
-    - [Custom units](#custom-units)
-    - [Understanding quantity types](#understanding-quantity-types)
-  - [Getting help](#getting-help)
-  - [API](#api)
-  - [Climate action](#climate-action)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Fundamentals](#fundamentals)
+  - [The `Quantity` type](#the-quantity-type)
+  - [Basic arithmetic and comparison](#basic-arithmetic-and-comparison)
+  - [Multiplication and division](#multiplication-and-division)
+  - [Argument order](#argument-order)
+  - [Custom functions](#custom-functions)
+  - [Custom units](#custom-units)
+  - [Understanding quantity types](#understanding-quantity-types)
+- [Getting help](#getting-help)
+- [API](#api)
+- [Climate action](#climate-action)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
@@ -160,18 +160,18 @@ in a command prompt inside your project directory.
 To take code that currently uses raw `Float` values and convert it to using
 `elm-units` types, there are three basic steps:
 
-  - Wherever you store a `Float`, such as in your model or in a message, switch
-    to storing a `Duration` or `Angle` or `Temperature` etc. value instead.
-  - Whenever you *have* a `Float` (from an external package, JSON decoder etc.),
-    use a function such as `Duration.seconds`, `Angle.degrees` or
-    `Temperature.degreesFahrenheit` to turn it into a type-safe value.
-  - Whenever you *need* a `Float` (to pass to an external package, encode as
-    JSON etc.), use a function such as `Duration.inMillliseconds`,
-    `Angle.inRadians` or `Temperature.inDegreesCelsius` to extract the value in
-    whatever units you want.
-  - Where you do math with `Float` values, switch to using `Quantity` functions
-    like `Quantity.plus` or `Quantity.greaterThan`. If this becomes impractical,
-    there are [other approaches](#custom-functions).
+- Wherever you store a `Float`, such as in your model or in a message, switch
+  to storing a `Duration` or `Angle` or `Temperature` etc. value instead.
+- Whenever you _have_ a `Float` (from an external package, JSON decoder etc.),
+  use a function such as `Duration.seconds`, `Angle.degrees` or
+  `Temperature.degreesFahrenheit` to turn it into a type-safe value.
+- Whenever you _need_ a `Float` (to pass to an external package, encode as
+  JSON etc.), use a function such as `Duration.inMillliseconds`,
+  `Angle.inRadians` or `Temperature.inDegreesCelsius` to extract the value in
+  whatever units you want.
+- Where you do math with `Float` values, switch to using `Quantity` functions
+  like `Quantity.plus` or `Quantity.greaterThan`. If this becomes impractical,
+  there are [other approaches](#custom-functions).
 
 ### The `Quantity` type
 
@@ -243,21 +243,21 @@ Quantity.sort [ Length.meters 1, Length.feet 3 ]
 There are actually three different 'families' of multiplication and division
 functions in the `Quantity` module, used in different contexts:
 
-  - `multiplyBy` and `divideBy` are used to multiply (scale) or divide a
-    `Quantity` by a plain `Int` or `Float`
-  - `times`, `over` and `over_` are used to work with quantities that are
-    products of other quantities:
-    - multiply a `Length` by another `Length` to get an `Area`
-    - multiply an `Area` by a `Length` to get a `Volume`
-    - multiply a `Mass` by an `Acceleration` to get a `Force`
-    - divide a `Volume` by an `Area` to get a `Length`
-    - divide a `Force` by a `Mass` to get an `Acceleration`
-  - `per`, `at`, `at_` and `for` are used to work with rates of change:
-    - divide `Length` by `Duration` to get `Speed`
-    - multiply `Speed` by `Duration` to get `Length`
-    - divide `Length` by `Speed` to get `Duration`
-  - And one bonus fourth function: `ratio`, used to divide two quantities with
-    the same units to get a plain `Float` value
+- `multiplyBy` and `divideBy` are used to multiply (scale) or divide a
+  `Quantity` by a plain `Int` or `Float`
+- `times`, `over` and `over_` are used to work with quantities that are
+  products of other quantities:
+  - multiply a `Length` by another `Length` to get an `Area`
+  - multiply an `Area` by a `Length` to get a `Volume`
+  - multiply a `Mass` by an `Acceleration` to get a `Force`
+  - divide a `Volume` by an `Area` to get a `Length`
+  - divide a `Force` by a `Mass` to get an `Acceleration`
+- `per`, `at`, `at_` and `for` are used to work with rates of change:
+  - divide `Length` by `Duration` to get `Speed`
+  - multiply `Speed` by `Duration` to get `Length`
+  - divide `Length` by `Speed` to get `Duration`
+- And one bonus fourth function: `ratio`, used to divide two quantities with
+  the same units to get a plain `Float` value
 
 For example, to calculate the area of a triangle, we might use `times` to
 multiply together the base and height of the triangle, then use `multiplyBy` to
@@ -343,7 +343,7 @@ Note that functions like `Quantity.minus` and `Quantity.lessThan` (and their
 Quantity.lessThan x y
 ```
 
-means `y < x`, *not* `x < y`. This is done for a couple of reasons. First, so
+means `y < x`, _not_ `x < y`. This is done for a couple of reasons. First, so
 that use with `|>` works naturally; for example,
 
 ```elm
@@ -480,12 +480,12 @@ Yes please! One of the best ways to contribute is to add a module for a new
 quantity type; see [issue #6][7] for details. I'll add a proper CONTRIBUTING.md
 at some point, but some brief guidelines in the meantime:
 
-  - Open a pull request by forking this repository, creating a new branch in
-    your fork, making all changes in that branch, then opening a pull request
-    from that branch.
-  - Format code with [`elm-format`][8] 0.8.1.
-  - Git commit messages should follow [the seven rules of a great Git commit
-    message][9], although I'm not strict about the 50 or 72 character rules.
+- Open a pull request by forking this repository, creating a new branch in
+  your fork, making all changes in that branch, then opening a pull request
+  from that branch.
+- Format code with [`elm-format`][8] 0.8.1.
+- Git commit messages should follow [the seven rules of a great Git commit
+  message][9], although I'm not strict about the 50 or 72 character rules.
 
 ## License
 
