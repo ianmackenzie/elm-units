@@ -2,12 +2,15 @@ module Quantity exposing
     ( Quantity(..)
     , Squared, Cubed, Product, Rate
     , zero, infinity, positiveInfinity, negativeInfinity
-    , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
-    , negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
-    , times, timesUnitless, over, over_, overUnitless
-    , per, at, at_, for, inverse
+    , lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo
+    , lessThanZero, greaterThanZero, lessThanOrEqualToZero, greaterThanOrEqualToZero
+    , compare, equalWithin, max, min, isNaN, isInfinite
+    , negate, abs, plus, difference, minus, multiplyBy, divideBy, twice, half, ratio, squared, sqrt, cubed, cbrt
+    , squaredUnitless, sqrtUnitless, cubedUnitless, cbrtUnitless, reciprocal
+    , product, times, timesUnitless, over, over_, overUnitless
+    , rate, per, at, at_, for, inverse, rateProduct
     , modBy, fractionalModBy, remainderBy, fractionalRemainderBy
-    , ratio, clamp, interpolateFrom, midpoint, range, in_
+    , clamp, interpolateFrom, midpoint, range, in_
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
     , Unitless, int, toInt, float, toFloat
@@ -34,22 +37,35 @@ and work with composite units in a fairly flexible way.
 
 # Comparison
 
-@docs lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo, compare, equalWithin, max, min, isNaN, isInfinite
+@docs lessThan, greaterThan, lessThanOrEqualTo, greaterThanOrEqualTo
+@docs lessThanZero, greaterThanZero, lessThanOrEqualToZero, greaterThanOrEqualToZero
+@docs compare, equalWithin, max, min, isNaN, isInfinite
 
 
 # Arithmetic
 
-@docs negate, abs, plus, minus, multiplyBy, divideBy, twice, half, squared, sqrt, cubed, cbrt
+@docs negate, abs, plus, difference, minus, multiplyBy, divideBy, twice, half, ratio, squared, sqrt, cubed, cbrt
+
+
+## Unitless quantities
+
+Some specialized arithmetic functions for working with [unitless](#Unitless)
+quantities. `squaredUnitless`, `sqrtUnitless`, `cubedUnitless` and
+`cbrtUnitless` all behave just like their non-`Unitless` versions but return a
+`Unitless` result (instead of for example something meaningless like `Squared
+Unitless`).
+
+@docs squaredUnitless, sqrtUnitless, cubedUnitless, cbrtUnitless, reciprocal
 
 
 ## Working with products
 
-@docs times, timesUnitless, over, over_, overUnitless
+@docs product, times, timesUnitless, over, over_, overUnitless
 
 
 ## Working with rates
 
-@docs per, at, at_, for, inverse
+@docs rate, per, at, at_, for, inverse, rateProduct
 
 
 ## Modular arithmetic
@@ -75,7 +91,7 @@ same behaviour but extended to `Float`-valued quantities.
 
 ## Miscellaneous
 
-@docs ratio, clamp, interpolateFrom, midpoint, range, in_
+@docs clamp, interpolateFrom, midpoint, range, in_
 
 
 # `Int`/`Float` conversion
@@ -177,8 +193,8 @@ type alias Cubed units =
 
 
 {-| Represents a units type that is the product of two other units types. This
-is a more general form of `Squared` or `Cubed`. See [`times`](#product),
-[`over`](#over) and [`over_`](#over_) for how it can be used.
+is a more general form of `Squared` or `Cubed`. See [`product`](#product),
+[`times`](#times), [`over`](#over) and [`over_`](#over_) for how it can be used.
 -}
 type Product units1 units2
     = Product units1 units2
@@ -298,14 +314,46 @@ greaterThanOrEqualTo (Quantity y) (Quantity x) =
     x >= y
 
 
+{-| Short form for `Quantity.lessThan Quantity.zero`.
+-}
+lessThanZero : Quantity number units -> Bool
+lessThanZero (Quantity x) =
+    x < 0
+
+
+{-| Short form for `Quantity.greaterThan Quantity.zero`.
+-}
+greaterThanZero : Quantity number units -> Bool
+greaterThanZero (Quantity x) =
+    x > 0
+
+
+{-| Short form for `Quantity.lessThanOrEqualTo Quantity.zero`.
+-}
+lessThanOrEqualToZero : Quantity number units -> Bool
+lessThanOrEqualToZero (Quantity x) =
+    x <= 0
+
+
+{-| Short form for `Quantity.greaterThanOrEqualTo Quantity.zero`.
+-}
+greaterThanOrEqualToZero : Quantity number units -> Bool
+greaterThanOrEqualToZero (Quantity x) =
+    x >= 0
+
+
 {-| Compare two quantities, returning an [`Order`](https://package.elm-lang.org/packages/elm/core/latest/Basics#Order)
 value indicating whether the first is less than, equal to or greater than the
 second.
 
-    Quantity.compare (Duration.minutes 90) (Duration.hours 1)
+    Quantity.compare
+        (Duration.minutes 90)
+        (Duration.hours 1)
     --> GT
 
-    Quantity.compare (Duration.minutes 60) (Duration.hours 1)
+    Quantity.compare
+        (Duration.minutes 60)
+        (Duration.hours 1)
     --> EQ
 
 -}
@@ -415,17 +463,30 @@ plus (Quantity y) (Quantity x) =
     Quantity (x + y)
 
 
-{-| Subtract one quantity from another. Note the [argument order](/#argument-order)!
+{-| Subtract one quantity from another.
 
-    fifteenMinutes =
-        Duration.minutes 15
-
-    Duration.hours 1 |> Quantity.minus fifteenMinutes
+    Quantity.difference
+        (Duration.hours 1)
+        (Duration.minutes 15)
     --> Duration.minutes 45
 
-    -- Same as:
-    Quantity.minus fifteenMinutes (Duration.hours 1)
-    --> Duration.minutes 45
+-}
+difference : Quantity number units -> Quantity number units -> Quantity number units
+difference (Quantity x) (Quantity y) =
+    Quantity (x - y)
+
+
+{-| An 'infix' version of [`difference`](#difference), intended to be used in
+pipeline form;
+
+    Quantity.difference x y
+
+can be written as
+
+    x |> Quantity.minus y
+
+Note that unlike `difference`, this also means that partial application will 'do
+the right thing':
 
     List.map (Quantity.minus fifteenMinutes)
         [ Duration.hours 1
@@ -444,8 +505,7 @@ minus (Quantity y) (Quantity x) =
 
 
 {-| Multiply two quantities with units types `units1` and `units2` together,
-resulting in a quantity with units type `Product units1 units2`. Note the
-[argument order](/#argument-order)!
+resulting in a quantity with units type `Product units1 units2`.
 
 This works for any two units types, but one special case is worth pointing out.
 The units type of an [`Area`](Area) is `SquareMeters`, which is a type alias for
@@ -453,17 +513,32 @@ The units type of an [`Area`](Area) is `SquareMeters`, which is a type alias for
 that the product of two `Length`s does in fact give you an `Area`:
 
     -- This is the definition of an acre, I kid you not 😈
-    Length.feet 66 |> Quantity.times (Length.feet 660)
+    Quantity.product (Length.feet 66) (Length.feet 660)
     --> Area.acres 1
 
 We can also multiply an `Area` by a `Length` to get a `Volume`:
 
-    Area.squareMeters 1
-        |> Quantity.times
-            (Length.centimeters 1)
+    Quantity.product
+        (Area.squareMeters 1)
+        (Length.centimers 1)
     --> Volume.liters 10
 
 Note that there are [other forms of multiplication](/#multiplication-and-division)!
+
+-}
+product : Quantity number units1 -> Quantity number units2 -> Quantity number (Product units1 units2)
+product (Quantity x) (Quantity y) =
+    Quantity (x * y)
+
+
+{-| An 'infix' version of [`product`](#product), intended to be used in pipeline
+form;
+
+    Quantity.product a b
+
+can be written as
+
+    a |> Quantity.times b
 
 -}
 times : Quantity number units2 -> Quantity number units1 -> Quantity number (Product units1 units2)
@@ -471,8 +546,8 @@ times (Quantity y) (Quantity x) =
     Quantity (x * y)
 
 
-{-| If you use [`times`](#times) to multiply one quantity by another [unitless](#Unitless)
-quantity, for example
+{-| If you use [`times`](#times) or [`product`](#product) to multiply one
+quantity by another [unitless](#Unitless) quantity, for example
 
     quantity |> Quantity.times unitlessQuantity
 
@@ -656,9 +731,17 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
     Quantity.squared (Length.meters 5)
     --> Area.squareMeters 25
 
+See also [`squaredUnitless`](#squaredUnitless).
+
 -}
 squared : Quantity number units -> Quantity number (Squared units)
 squared (Quantity value) =
+    Quantity (value * value)
+
+
+{-| -}
+squaredUnitless : Quantity number Unitless -> Quantity number Unitless
+squaredUnitless (Quantity value) =
     Quantity (value * value)
 
 
@@ -690,9 +773,17 @@ This works because:
   - And calling `sqrt` on something in `Squared units` returns a value back in
     `units`
 
+See also [`sqrtUnitless`](#sqrtUnitless).
+
 -}
 sqrt : Quantity Float (Squared units) -> Quantity Float units
 sqrt (Quantity value) =
+    Quantity (Basics.sqrt value)
+
+
+{-| -}
+sqrtUnitless : Quantity Float Unitless -> Quantity Float Unitless
+sqrtUnitless (Quantity value) =
     Quantity (Basics.sqrt value)
 
 
@@ -702,10 +793,27 @@ sqrt (Quantity value) =
     Quantity.cubed (Length.meters 5)
     --> Volume.cubicMeters 125
 
+See also [`cubedUnitless`](#cubedUnitless).
+
 -}
 cubed : Quantity number units -> Quantity number (Cubed units)
 cubed (Quantity value) =
     Quantity (value * value * value)
+
+
+{-| -}
+cubedUnitless : Quantity number Unitless -> Quantity number Unitless
+cubedUnitless (Quantity value) =
+    Quantity (value * value * value)
+
+
+unsafeCbrt : Quantity Float units1 -> Quantity Float units2
+unsafeCbrt (Quantity value) =
+    if value >= 0 then
+        Quantity (value ^ (1 / 3))
+
+    else
+        Quantity -(-value ^ (1 / 3))
 
 
 {-| Take a quantity in `Cubed units` and return the cube root of that
@@ -714,14 +822,29 @@ quantity in plain `units`.
     Quantity.cbrt (Volume.liters 1)
     --> Length.centimeters 10
 
+See also [`cbrtUnitless`](#cbrtUnitless).
+
 -}
 cbrt : Quantity Float (Cubed units) -> Quantity Float units
-cbrt (Quantity value) =
-    if value >= 0 then
-        Quantity (value ^ (1 / 3))
+cbrt quantity =
+    unsafeCbrt quantity
 
-    else
-        Quantity -(-value ^ (1 / 3))
+
+{-| -}
+cbrtUnitless : Quantity Float Unitless -> Quantity Float Unitless
+cbrtUnitless quantity =
+    unsafeCbrt quantity
+
+
+{-| Find the inverse of a unitless value.
+
+    Quantity.reciprocal (Quantity.float 5)
+    --> Quantity.float 0.2
+
+-}
+reciprocal : Quantity Float Unitless -> Quantity Float Unitless
+reciprocal (Quantity value) =
+    Quantity (1 / value)
 
 
 {-| -}
@@ -1217,14 +1340,8 @@ sortBy toQuantity list =
 {-| Construct a rate of change by dividing a dependent quantity (numerator) by
 an independent quantity (denominator):
 
-    distance =
-        Length.miles 1
-
-    time =
-        Duration.minutes 1
-
     speed =
-        distance |> Quantity.per time
+        Quantity.rate (Length.miles 1) Duration.minute
 
     speed |> Speed.inMilesPerHour
     --> 60
@@ -1242,6 +1359,20 @@ example:
   - `Voltage` is `Power` per `Current`
 
 Note that there are [other forms of division](/#multiplication-and-division)!
+
+-}
+rate : Quantity Float dependentUnits -> Quantity Float independentUnits -> Quantity Float (Rate dependentUnits independentUnits)
+rate (Quantity dependentValue) (Quantity independentValue) =
+    Quantity (dependentValue / independentValue)
+
+
+{-| 'Infix' version of [`rate`](#rate), meant to be used in pipeline form;
+
+    Quantity.rate distance time
+
+can be written as
+
+    distance |> Quantity.per time
 
 -}
 per : Quantity Float independentUnits -> Quantity Float dependentUnits -> Quantity Float (Rate dependentUnits independentUnits)
@@ -1282,8 +1413,8 @@ Note that there are [other forms of multiplication](/#multiplication-and-divisio
 
 -}
 at : Quantity number (Rate dependentUnits independentUnits) -> Quantity number independentUnits -> Quantity number dependentUnits
-at (Quantity rate) (Quantity independentValue) =
-    Quantity (rate * independentValue)
+at (Quantity rateOfChange) (Quantity independentValue) =
+    Quantity (rateOfChange * independentValue)
 
 
 {-| Given a rate and a _dependent_ quantity (total value), determine the
@@ -1313,8 +1444,8 @@ Similar to `at`, `at_` can be used to define an _inverse_ conversion function:
 
 -}
 at_ : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float dependentUnits -> Quantity Float independentUnits
-at_ (Quantity rate) (Quantity dependentValue) =
-    Quantity (dependentValue / rate)
+at_ (Quantity rateOfChange) (Quantity dependentValue) =
+    Quantity (dependentValue / rateOfChange)
 
 
 {-| Same as `at` but with the argument order flipped, which may read better
@@ -1327,8 +1458,8 @@ in some cases:
 
 -}
 for : Quantity number independentUnits -> Quantity number (Rate dependentUnits independentUnits) -> Quantity number dependentUnits
-for (Quantity independentValue) (Quantity rate) =
-    Quantity (rate * independentValue)
+for (Quantity independentValue) (Quantity rateOfChange) =
+    Quantity (rateOfChange * independentValue)
 
 
 {-| Find the inverse of a given rate. May be useful if you are using a rate to
@@ -1342,8 +1473,48 @@ is equivalent to
 
 -}
 inverse : Quantity Float (Rate dependentUnits independentUnits) -> Quantity Float (Rate independentUnits dependentUnits)
-inverse (Quantity rate) =
-    Quantity (1 / rate)
+inverse (Quantity rateOfChange) =
+    Quantity (1 / rateOfChange)
+
+
+{-| Multiply two rates of change that 'cancel out' together, resulting in a new
+rate. For example, if you know the real-world speed of an on-screen object and
+the display resolution, then you can get the speed in pixels per second:
+
+    realWorldSpeed =
+        Speed.metersPerSecond 0.1
+
+    resolution =
+        Pixels.float 96 |> Quantity.per Length.inch
+
+    Quantity.rateProduct realWorldSpeed resolution
+    --> Pixels.pixelsPerSecond 377.95
+
+That is, "length per duration" multiplyed by "pixels per length" gives you
+"pixels per duration".
+
+Sometimes you can't directly multiply two rates to get what you want, in which
+case you may need to use [`inverse`](#inverse) in combination with
+`rateProduct`. For example, if you know the on-screen speed of some object and
+the display resolution, then you can use those to get the real-world speed:
+
+    pixelSpeed =
+        Pixels.pixelsPerSecond 500
+
+    resolution =
+        Pixels.float 96 |> Quantity.per Length.inch
+
+    Quantity.rateProduct pixelSpeed
+        (Quantity.inverse resolution)
+    --> Speed.metersPerSecond 0.1323
+
+-}
+rateProduct :
+    Quantity Float (Rate units2 units1)
+    -> Quantity Float (Rate units3 units2)
+    -> Quantity Float (Rate units3 units1)
+rateProduct (Quantity firstRate) (Quantity secondRate) =
+    Quantity (firstRate * secondRate)
 
 
 
