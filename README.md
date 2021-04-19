@@ -246,31 +246,34 @@ There are actually three different 'families' of multiplication and division
 functions in the `Quantity` module, used in different contexts:
 
 - `multiplyBy` and `divideBy` are used to multiply (scale) or divide a
-  `Quantity` by a plain `Int` or `Float`
-- `times`, `over` and `over_` are used to work with quantities that are
-  products of other quantities:
+  `Quantity` by a plain `Int` or `Float`, with `twice` and `half` for the common
+  cases of multiplying or dividing by 2
+- `product`, `times`, `over` and `over_` are used to work with quantities that
+  are products of other quantities:
   - multiply a `Length` by another `Length` to get an `Area`
   - multiply an `Area` by a `Length` to get a `Volume`
   - multiply a `Mass` by an `Acceleration` to get a `Force`
   - divide a `Volume` by an `Area` to get a `Length`
   - divide a `Force` by a `Mass` to get an `Acceleration`
-- `per`, `at`, `at_` and `for` are used to work with rates of change:
+- `rate`, `per`, `at`, `at_` and `for` are used to work with rates of change:
   - divide `Length` by `Duration` to get `Speed`
   - multiply `Speed` by `Duration` to get `Length`
   - divide `Length` by `Speed` to get `Duration`
 - And one bonus fourth function: `ratio`, used to divide two quantities with
   the same units to get a plain `Float` value
 
-For example, to calculate the area of a triangle, we might use `times` to
-multiply together the base and height of the triangle, then use `multiplyBy` to
-scale by 0.5:
+For example, to calculate the area of a triangle:
 
 ```elm
 -- Area of a triangle with base of 2 feet and
 -- height of 8 inches
-Length.feet 2
-    |> Quantity.times (Length.inches 8)
-    |> Quantity.multiplyBy 0.5
+base =
+    Length.feet 2
+
+height =
+    Length.inches 8
+
+Quantity.half (Quantity.product base height)
     |> Area.inSquareInches
 --> 96
 ```
@@ -337,8 +340,8 @@ Length.centimeters 3 -- length
 
 ### Argument order
 
-Note that functions like `Quantity.minus` and `Quantity.lessThan` (and their
-`Temperature` equivalents) that mimic binary operators like `-` and `<` usually
+Note that several functions like `Quantity.minus` and `Quantity.lessThan` (and
+their `Temperature` equivalents) that mimic binary operators like `-` and `<`
 "take the second argument first"; for example,
 
 ```elm
@@ -373,16 +376,18 @@ instead of
 which is what you would get if `Quantity.minus` took arguments in the 'normal'
 order.
 
-One exception to this rule is `Quantity.ratio`, which takes its arguments in
-'normal' order since it is not expected to be used as part of a pipeline or
-otherwise partially applied; it is expected to be used (and reads most
-naturally) as
+There are, however, several functions that take arguments in 'normal' order, for
+example:
 
-```elm
-Quantity.ratio x y
-```
+- `Quantity.difference` (compare to `minus`)
+- `Quantity.product` (compare to `times`)
+- `Quantity.rate` (compare to `per`)
+- `Quantity.ratio`
+- `Quantity.compare`
 
-which _does_ mean `x / y`.
+In general the function names try to match how you would use them in English;
+you would say "the difference of `a` and `b`" (and so `Quantity.difference a b`)
+but "`a` minus `b`" (and so `a |> Quantity.minus b`).
 
 ### Custom Functions
 
