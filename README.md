@@ -18,9 +18,10 @@ compare, or do arithmetic on:
 
 It is aimed especially at engineering/scientific/technical applications but is
 designed to be generic enough to work well for other fields such as games and
-finance. The core of the package consists of types like `Length`, `Duration`,
-`Temperature`, `Speed` and `Pixels`, which you can use to add some nice type
-safety to data types and function signatures:
+finance. The core of the package consists of a generic `Quantity` type and
+many concrete types such as `Length`, `Angle`, `Duration`, `Temperature`, and
+`Speed`, which you can use to add some nice type safety to data types and
+function signatures:
 
 ```elm
 type alias Camera =
