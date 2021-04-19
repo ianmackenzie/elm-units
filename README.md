@@ -78,10 +78,11 @@ Temperature.degreesCelsius 30
 --> 86
 ```
 
-Additionally, types like `Length` are actually of type `Quantity number units`
-(`Length` is `Quantity Float Meters`, for example, meaning that it is internally
-stored as a number of meters), and there are several generic functions which let
-you work directly with any kind of `Quantity` values:
+Additionally, types like `Length` are actually type aliases of the form
+`Quantity number units` (`Length` is `Quantity Float Meters`, for example,
+meaning that it is internally stored as a number of meters), and there are
+many generic functions which let you work directly with any kind of `Quantity`
+values:
 
 ```elm
 Length.feet 3
