@@ -10,7 +10,7 @@ module Quantity exposing
     , product, times, timesUnitless, over, over_, overUnitless
     , rate, per, at, at_, for, inverse, rateProduct
     , modBy, fractionalModBy, remainderBy, fractionalRemainderBy
-    , clamp, interpolateFrom, midpoint, range, in_
+    , clamp, sign, interpolateFrom, midpoint, range, in_
     , round, floor, ceiling, truncate, toFloatQuantity
     , sum, minimum, maximum, minimumBy, maximumBy, sort, sortBy
     , Unitless, int, toInt, float, toFloat
@@ -91,7 +91,7 @@ same behaviour but extended to `Float`-valued quantities.
 
 ## Miscellaneous
 
-@docs clamp, interpolateFrom, midpoint, range, in_
+@docs clamp, sign, interpolateFrom, midpoint, range, in_
 
 
 # `Int`/`Float` conversion
@@ -723,6 +723,40 @@ clamp (Quantity lower) (Quantity upper) (Quantity value) =
 
     else
         Quantity (Basics.clamp upper lower value)
+
+
+{-| Get the sign of a quantity. This will return 1, -1, 0 or NaN if the given
+quantity is positive, negative, zero or NaN respectively.
+
+    Quantity.sign (Length.meters 3)
+    --> 1
+
+    Quantity.sign (Length.meters -3)
+    --> -1
+
+    Quantity.sign (Length.meters 0)
+    --> 0
+
+    Quantity.sign Quantity.positiveInfinity
+    --> 1
+
+    Quantity.sign (Length.meters (0 / 0))
+    --> NaN
+
+-}
+sign : Quantity Float units -> Float
+sign (Quantity value) =
+    if value > 0 then
+        1
+
+    else if value < 0 then
+        -1
+
+    else if Basics.isNaN value then
+        value
+
+    else
+        0
 
 
 {-| Square a quantity with some `units`, resulting in a new quantity in
