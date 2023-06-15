@@ -59,11 +59,11 @@ inNewtonMeters (Quantity numNewtonMeters) =
 -}
 poundFeet : Float -> Torque
 poundFeet numPoundFeet =
-    newtonMeters (Constants.poundForce * Constants.foot * numPoundFeet)
+    newtonMeters (Constants.poundFoot * numPoundFeet)
 
 
 {-| Convert a torque value to a number of pound-feet (sometimes called foot-pounds).
 -}
 inPoundFeet : Torque -> Float
 inPoundFeet torque =
-    inNewtonMeters torque / (Constants.poundForce * Constants.foot)
+    inNewtonMeters torque / Constants.poundFoot
