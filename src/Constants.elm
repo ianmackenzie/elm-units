@@ -394,4 +394,4 @@ newtonMeter =
 
 poundFoot : Float
 poundFoot =
-    poundForce * foot * newtonMeter
+    poundForce * foot
