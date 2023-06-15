@@ -34,6 +34,7 @@
         "Speed",
         "SubstanceAmount",
         "Temperature",
+        "Torque",
         "Voltage",
         "Volume"
     ],
