@@ -28,6 +28,7 @@ module Constants exposing
     , mile
     , mole
     , newton
+    , newtonMeter
     , ounce
     , parsec
     , pascal
@@ -35,6 +36,7 @@ module Constants exposing
     , pica
     , point
     , pound
+    , poundFoot
     , poundForce
     , shortTon
     , squareFoot
@@ -379,3 +381,17 @@ atmosphere =
 pascal : Float
 pascal =
     newton / (meter * meter)
+
+
+
+-------- UNITS OF TORQUE (in newton-meters) ---------
+
+
+newtonMeter : Float
+newtonMeter =
+    newton * meter
+
+
+poundFoot : Float
+poundFoot =
+    poundForce * foot
