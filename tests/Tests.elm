@@ -30,6 +30,7 @@ module Tests exposing
     , times
     , toDmsProducesValidValues
     , toDmsReconstructsAngle
+    , torques
     , volumes
     )
 
@@ -67,6 +68,7 @@ import SubstanceAmount exposing (..)
 import Temperature exposing (Temperature)
 import Test exposing (Test)
 import Time
+import Torque exposing (newtonMeters, poundFeet)
 import Voltage exposing (..)
 import Volume exposing (..)
 
@@ -345,6 +347,13 @@ temperatureDeltas =
           , Temperature.fahrenheitDegrees 23
           )
         ]
+
+
+torques : Test
+torques =
+    equalPairs "Torques"
+        "Nm"
+        [ ( newtonMeters 1, poundFeet 0.7375621492772654 ) ]
 
 
 volumes : Test
