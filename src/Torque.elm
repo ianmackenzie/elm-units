@@ -4,8 +4,9 @@ module Torque exposing
     , poundFeet, inPoundFeet
     )
 
-{-| Torque is the rotational analogue of linear force. It is also referred to as the moment of force (also abbreviated to moment).
-It describes the rate of change of angular momentum that would be imparted to an isolated body.
+{-| Torque is the rotational analogue of linear force. It is also referred to as the moment of force
+(also abbreviated to moment). It describes the rate of change of angular momentum that would be
+imparted to an isolated body.
 
 @docs Torque, NewtonMeters
 
