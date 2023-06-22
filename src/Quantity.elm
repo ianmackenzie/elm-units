@@ -523,7 +523,7 @@ We can also multiply an `Area` by a `Length` to get a `Volume`:
         (Length.centimers 1)
     --> Volume.liters 10
 
-Note that there are [other forms of multiplication](/#multiplication-and-division)!
+Note that there are [other forms of multiplication](../#multiplication-and-division)!
 
 -}
 product : Quantity number units1 -> Quantity number units2 -> Quantity number (Product units1 units2)
@@ -585,7 +585,7 @@ be accelerated by the given force:
             (Mass.kilograms 50)
     --> Acceleration.metersPerSecondSquared 2
 
-Note that there are [other forms of division](/#multiplication-and-division)!
+Note that there are [other forms of division](../#multiplication-and-division)!
 
 -}
 over : Quantity Float units1 -> Quantity Float (Product units1 units2) -> Quantity Float units2
@@ -642,7 +642,7 @@ ratio (Quantity x) (Quantity y) =
     Quantity.multiplyBy 1.5 (Duration.hours 1)
     --> Duration.minutes 90
 
-Note that there are [other forms of multiplication](/#multiplication-and-division)!
+Note that there are [other forms of multiplication](../#multiplication-and-division)!
 
 -}
 multiplyBy : number -> Quantity number units -> Quantity number units
@@ -655,7 +655,7 @@ multiplyBy scale (Quantity value) =
     Quantity.divideBy 2 (Duration.hours 1)
     --> Duration.minutes 30
 
-Note that there are [other forms of division](/#multiplication-and-division)!
+Note that there are [other forms of division](../#multiplication-and-division)!
 
 -}
 divideBy : Float -> Quantity Float units -> Quantity Float units
@@ -1392,7 +1392,7 @@ example:
   - `Resistance` is `Voltage` per `Current`
   - `Voltage` is `Power` per `Current`
 
-Note that there are [other forms of division](/#multiplication-and-division)!
+Note that there are [other forms of division](../#multiplication-and-division)!
 
 -}
 rate : Quantity Float dependentUnits -> Quantity Float independentUnits -> Quantity Float (Rate dependentUnits independentUnits)
@@ -1443,7 +1443,7 @@ simply write
     lengthToPixels =
         Quantity.at pixelDensity
 
-Note that there are [other forms of multiplication](/#multiplication-and-division)!
+Note that there are [other forms of multiplication](../#multiplication-and-division)!
 
 -}
 at : Quantity number (Rate dependentUnits independentUnits) -> Quantity number independentUnits -> Quantity number dependentUnits
