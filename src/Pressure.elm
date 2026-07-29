@@ -2,7 +2,7 @@ module Pressure exposing
     ( Pressure, Pascals
     , pascals, inPascals, kilopascals, inKilopascals, megapascals, inMegapascals
     , poundsPerSquareInch, inPoundsPerSquareInch
-    , atmospheres, inAtmospheres
+    , atmospheres, inAtmospheres, torrs, inTorrs, millimetersOfMercury, inMillimetersOfMercury
     )
 
 {-| A `Pressure` value represents a pressure in kilopascals, pounds per square
@@ -40,7 +40,7 @@ You can also do rate-related calculations with `Pressure` values to compute
 
 ## Atmospheric
 
-@docs atmospheres, inAtmospheres
+@docs atmospheres, inAtmospheres, torrs, inTorrs, millimetersOfMercury, inMillimetersOfMercury
 
 -}
 
@@ -131,3 +131,37 @@ atmospheres numAtmospheres =
 inAtmospheres : Pressure -> Float
 inAtmospheres pressure =
     inPascals pressure / Constants.atmosphere
+
+
+{-| Construct a pressure from a number of [torrs][1].
+
+[1]: https://en.wikipedia.org/wiki/Torr
+
+-}
+torrs : Float -> Pressure
+torrs numTorrs =
+    pascals (Constants.torr * numTorrs)
+
+
+{-| Convert a pressure to a number of torrs.
+-}
+inTorrs : Pressure -> Float
+inTorrs pressure =
+    inPascals pressure / Constants.torr
+
+
+{-| Construct a pressure from a number of [millimeters of mercury (mmHg)][1].
+
+[1]: https://en.wikipedia.org/wiki/Millimetre_of_mercury
+
+-}
+millimetersOfMercury : Float -> Pressure
+millimetersOfMercury numMillimetersOfMercury =
+    pascals (Constants.millimeterOfMercury * numMillimetersOfMercury)
+
+
+{-| Convert a pressure to a number of millimetersOfMercury.
+-}
+inMillimetersOfMercury : Pressure -> Float
+inMillimetersOfMercury pressure =
+    inPascals pressure / Constants.millimeterOfMercury
