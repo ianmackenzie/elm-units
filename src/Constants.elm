@@ -27,6 +27,7 @@ module Constants exposing
     , metricHorsepower
     , mile
     , mole
+    , nauticalMile
     , newton
     , newtonMeter
     , ounce
@@ -103,6 +104,11 @@ yard =
 mile : Float
 mile =
     5280 * foot
+
+
+nauticalMile : Float
+nauticalMile =
+    1852 * meter
 
 
 cssPixel : Float

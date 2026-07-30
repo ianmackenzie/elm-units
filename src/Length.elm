@@ -2,11 +2,11 @@ module Length exposing
     ( Length, Meters
     , meters, inMeters
     , angstroms, inAngstroms, nanometers, inNanometers, microns, inMicrons, millimeters, inMillimeters, centimeters, inCentimeters, kilometers, inKilometers
-    , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
+    , thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles, nauticalMiles, inNauticalMiles
     , cssPixels, inCssPixels, points, inPoints, picas, inPicas
     , astronomicalUnits, inAstronomicalUnits, parsecs, inParsecs, lightYears, inLightYears
     , meter, angstrom, nanometer, micron, millimeter, centimeter, kilometer
-    , inch, foot, yard, mile
+    , inch, foot, yard, mile, nauticalMile
     , astronomicalUnit, parsec, lightYear
     )
 
@@ -24,7 +24,7 @@ is stored as a number of meters.
 
 ## Imperial
 
-@docs thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles
+@docs thou, inThou, inches, inInches, feet, inFeet, yards, inYards, miles, inMiles, nauticalMiles, inNauticalMiles
 
 
 ## CSS and typography
@@ -46,7 +46,7 @@ Note that `thou` is omitted since it doesn't have separate singular and plural
 forms.
 
 @docs meter, angstrom, nanometer, micron, millimeter, centimeter, kilometer
-@docs inch, foot, yard, mile
+@docs inch, foot, yard, mile, nauticalMile
 @docs astronomicalUnit, parsec, lightYear
 
 -}
@@ -274,6 +274,20 @@ inMiles length =
     inMeters length / Constants.mile
 
 
+{-| Construct a length from a number of nautical miles.
+-}
+nauticalMiles : Float -> Length
+nauticalMiles numNauticalMiles =
+    meters (Constants.nauticalMile * numNauticalMiles)
+
+
+{-| Convert a length to a number of nautical miles.
+-}
+inNauticalMiles : Length -> Float
+inNauticalMiles length =
+    inMeters length / Constants.nauticalMile
+
+
 {-| Construct a length from a number of [CSS pixels](https://drafts.csswg.org/css-values-3/#absolute-lengths),
 defined as 1/96 of an inch.
 
@@ -450,6 +464,12 @@ yard =
 mile : Length
 mile =
     miles 1
+
+
+{-| -}
+nauticalMile : Length
+nauticalMile =
+    nauticalMiles 1
 
 
 {-| -}
