@@ -26,6 +26,7 @@ module Constants exposing
     , meter
     , metricHorsepower
     , mile
+    , millimeterOfMercury
     , mole
     , nauticalMile
     , newton
@@ -44,6 +45,7 @@ module Constants exposing
     , squareInch
     , squareMile
     , squareYard
+    , torr
     , usDryGallon
     , usDryPint
     , usDryQuart
@@ -387,6 +389,16 @@ atmosphere =
 pascal : Float
 pascal =
     newton / (meter * meter)
+
+
+torr : Float
+torr =
+    atmosphere / 760
+
+
+millimeterOfMercury : Float
+millimeterOfMercury =
+    133.322387415 * pascal
 
 
 
